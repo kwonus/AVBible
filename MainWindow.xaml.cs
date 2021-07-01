@@ -300,37 +300,75 @@ namespace AVWord.App
 
             id = 0;
         }
+        public static UInt64 sequence = 0;
         public void AddPanel(ChapterChicklet chicklet)
         {
             int bk = chicklet.BookChapter >> 8;
             int ch = chicklet.BookChapter & 0xFF;
-            string header = this.provider.GetBookByNum((byte)bk) + " "
-                          + ch.ToString();
+            string header = this.provider.GetBookByNum((byte)bk) + " " + ch.ToString();
 
-            ViewPanel view = null;
             DragDockPanel panel = null;
             foreach (DragDockPanel existing in this.AVPanel.Items)
             {
-                //panel = ((DragDockPanel)(existing.Content);
-                if (existing.Header.ToString() == header)
+                if (panel == null && existing.Header.ToString() == header)
                 {
                     panel = existing;
-                    break;
+                    panel.PanelLifetime = ++sequence;
+                    panel.PanelReference = chicklet.BookChapter;
                 }
-                //panel = null;
             }
             if (panel == null)
             {
-                // May have to recycle if already max-panels
-                // (TODO)
+                // Recycle the oldest panel
+                //
+                if (this.AVPanel.Items.Count >= 12)
+                {
+                    int position = -1;
+                    int delete = (-1);
+                    UInt16 removal = 0;
+                    UInt64 min = UInt64.MaxValue;
+                    foreach (var item in this.AVPanel.Items)
+                    {
+                        ++position;
+                        var test = (DragDockPanel) item;
+                        if (test.PanelLifetime < min)
+                        {
+                            min = test.PanelLifetime;
+                            removal = test.PanelReference;
+                            delete = position;
+                        }
+                    }
+                    if (delete >= 0)
+                    {
+                        this.AVPanel.Items.RemoveAt(delete);
+                        foreach (var item in this.ChapterSearchStack.Children)
+                        {
+                            var update = (ChapterChicklet)item;
+                            if (update.BookChapter == removal)
+                            {
+                                update.Refresh(false);
+                                break;
+                            }                                
+                        }
+                        foreach (var item in this.ChapterBookStack.Children)
+                        {
+                            var update = (ChapterChicklet)item;
+                            if (update.BookChapter == removal)
+                            {
+                                update.Refresh(false);
+                                break;
+                            }
+                        }
+                    }
+                }
                 var content = this.GetChapter(bk, ch);
                 panel = new DragDockPanel();
                 panel.Content = content;
+                panel.PanelLifetime = ++sequence;
+                panel.PanelReference = chicklet.BookChapter;
                 //view = new ViewPanel(panel, content, 1);
                 panel.Header = header;
                 this.AVPanel.Items.Add(panel);
-
- 
             }
             else
             {
@@ -738,10 +776,6 @@ namespace AVWord.App
         }
         public Boolean ShowAll { get; private set; }
 
-        private bool ShowChapterChicklet(ChapterChicklet chicklet, ChapterSpec spec)
-        {
-            return chicklet.Show(spec.Book, spec.Chapter, spec.Weight, false);
-        }
         private void ResetChapterView(ChapterSpec spec)
         {
             SetSearchView(); // used to be SetChapterViewViaSearch(index, reset)
