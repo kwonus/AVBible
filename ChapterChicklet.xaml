@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="AVWord.Wpf.ChapterChicklet"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d">
+    <Grid x:Name="ButtonObject" Background="Transparent" Width="75" MouseDown="Button_Selected" MouseUp="Button_Click">
+        <Image x:Name="Picture" VerticalAlignment="Center" HorizontalAlignment="Center" Source="./Images/MPanel-4.png" Height="75"/>
+        <Label x:Name="Book" VerticalAlignment="Top" Margin="0,13,0,0" FontFamily="Calibri" FontSize="18" Background="Transparent" Foreground="Cyan" HorizontalAlignment="Center">Gen</Label>
+        <Label x:Name="Chapter" VerticalAlignment="Top" Margin="0,40,0,20" FontFamily="Calibri" FontSize="26" Background="Transparent" Foreground="White" HorizontalAlignment="Center">7</Label>
+    </Grid>
+</UserControl>
