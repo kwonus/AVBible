@@ -99,9 +99,6 @@
     <Compile Include="SectionStack.xaml.cs">
       <DependentUpon>SectionStack.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewPanel.xaml.cs">
-      <DependentUpon>ViewPanel.xaml</DependentUpon>
-    </Compile>
     <Page Include="defunct\BookChicklet.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -154,10 +151,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\ScrollBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ViewPanel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

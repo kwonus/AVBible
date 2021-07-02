@@ -1,0 +1,11 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/obj
+/Release/UIBible
+/x64/Debug
+/bin/x64/Debug
+/bin/Debug
+/defunct
+/.vs/AVBible

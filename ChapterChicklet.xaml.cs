@@ -58,25 +58,27 @@ namespace AVWord.Wpf
         {
             string panel = green ? "GPanel" : "MPanel";
             string src = this.Picture.Source.ToString();
+            int dash = src.LastIndexOf('-');
+            int len = dash - "XPanel".Length;
             Uri uri;
 
             switch (this.Weight)
             {
                 case 0xFF:
-                    uri = new Uri(src.Substring(0, src.Length - 12) + panel + "-N.png");
+                    uri = new Uri(src.Substring(0, len) + panel + "-N.png");
                     break;
                 case 0:
-                    uri = new Uri(src.Substring(0, src.Length - 12) + panel + "-0.png");
+                    uri = new Uri(src.Substring(0, len) + panel + "-00.png");
                     break;
                 case 1:
                 case 2:
                 case 3:
                 case 4:
                 case 5:
-                    uri = new Uri(src.Substring(0, src.Length - 12) + panel + "-" + this.Weight.ToString() + ".png");
+                    uri = new Uri(src.Substring(0, len) + panel + "-" + this.Weight.ToString() + ".png");
                     break;
                 default:
-                    uri = new Uri(src.Substring(0, src.Length - 12) + panel + "-0.png");
+                    uri = new Uri(src.Substring(0, len) + panel + "-N.png");
                     break;
             }
             this.Picture.Source = new BitmapImage(uri);

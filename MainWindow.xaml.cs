@@ -310,11 +310,12 @@ namespace AVWord.App
             DragDockPanel panel = null;
             foreach (DragDockPanel existing in this.AVPanel.Items)
             {
-                if (panel == null && existing.Header.ToString() == header)
+                if (existing.Header.ToString() == header)
                 {
                     panel = existing;
                     panel.PanelLifetime = ++sequence;
                     panel.PanelReference = chicklet.BookChapter;
+                    break;
                 }
             }
             if (panel == null)
@@ -341,7 +342,7 @@ namespace AVWord.App
                     if (delete >= 0)
                     {
                         this.AVPanel.Items.RemoveAt(delete);
-                        foreach (var item in this.ChapterSearchStack.Children)
+                        foreach (var item in this.ChapterStack.Children)
                         {
                             var update = (ChapterChicklet)item;
                             if (update.BookChapter == removal)
@@ -349,15 +350,6 @@ namespace AVWord.App
                                 update.Refresh(false);
                                 break;
                             }                                
-                        }
-                        foreach (var item in this.ChapterBookStack.Children)
-                        {
-                            var update = (ChapterChicklet)item;
-                            if (update.BookChapter == removal)
-                            {
-                                update.Refresh(false);
-                                break;
-                            }
                         }
                     }
                 }
@@ -370,9 +362,11 @@ namespace AVWord.App
                 panel.Header = header;
                 this.AVPanel.Items.Add(panel);
             }
-            else
+            comboBoxDeletePanel.Items.Clear();
+
+            foreach (DragDockPanel existing in this.AVPanel.Items)
             {
-                ;
+                comboBoxDeletePanel.Items.Add(existing.Header.ToString());
             }
         }
 
@@ -813,56 +807,60 @@ namespace AVWord.App
         }
         private void SetEntireView(byte bk)
         {
-            this.ChapterBookView.Visibility = Visibility.Visible;
-            this.ChapterSearchView.Visibility = Visibility.Hidden;
+            this.ChapterView.Visibility = Visibility.Visible;
 
-            ChapterBookStack.Children.Clear();
+            ChapterStack.Children.Clear();
             var cnt = this.provider.GetChapterCount(bk);
             for (byte c = 1; c <= cnt; c++)
-            {
-                var chapter = new ChapterChicklet(bk, c, 0, false);
-                //chapter.Selection = ChapterSelection_Click;
-                ChapterBookStack.Children.Add(chapter);
-                chapter.Visibility = Visibility.Visible;
-            }
-             /*
-            this.AVPanel.Items.Add(new DragDockPanel());
+                AddChapterChicklet(bk, c);
+        }
+        private void AddChapterChicklet(byte b, byte c)
+        {
+            byte matches = 0;
+            bool green = false;
+            UInt16 encoded = (UInt16)((b << 8) + c);
 
-            SetChapterStackParams(this.ChapCnt);
-            */
+            foreach (var item in this.AVPanel.Items)
+            {
+                var test = (DragDockPanel)item;
+                if (test.PanelReference == encoded)
+                {
+                    green = true;
+                    break;
+                }
+            }
+            if (this.found != null && this.found.matches.ContainsKey(b))
+            {
+                var bk = this.found.matches[b];
+                if (bk.ContainsKey(c))
+                {
+                    var ch = bk[c];
+                    var vs = this.provider.ExpandVerseArray(ch);
+                    foreach (byte v in vs)
+                    {
+                        if (++matches > 5)
+                            break;
+                    }
+                }
+            }
+            var chicklet = new ChapterChicklet(b, c, matches, green);
+            this.ChapterStack.Children.Add(chicklet);
         }
         private void SetSearchView(int index = 0, bool reset = true)
         {
-            this.ChapterSearchView.Visibility = Visibility.Visible;
-            this.ChapterBookView.Visibility = Visibility.Hidden;
+            this.ChapterView.Visibility = Visibility.Visible;
 
-            ChapterSearchStack.Children.Clear();
-            for (byte c = 1; c <= 50; c++)
-            {
-                var chapter = new ChapterChicklet(66, c, 0, false);
-                ChapterSearchStack.Children.Add(chapter);
-                chapter.Visibility = Visibility.Visible;
-            }
+            ChapterStack.Children.Clear();
 
             var command = QuelleCommand(this.TextCriteria.Text);
+            
             if (command.success && command.result.count > 0)
             {
-                var list = new List<UInt32>();
-
                 foreach (byte b in command.result.matches.Keys)
                 {
                     var bk = command.result.matches[b];
                     foreach (byte c in bk.Keys)
-                    {
-                        uint matches = 0;
-                        var ch = bk[c];
-                        var vs = this.provider.ExpandVerseArray(ch);
-                        foreach (byte v in vs)
-                        {
-                            matches++;
-                        }
-                        //list.Add(EncodeChapter(b, c, matches));
-                    }
+                        AddChapterChicklet(b, c);
                 }
             }
         }
@@ -1036,12 +1034,10 @@ namespace AVWord.App
             //          BookScope.Visibility = expanded;
 
             if (this.found != null)
-                ChapterSearchView.Visibility = Visibility.Visible;
-            else
-                ChapterBookView.Visibility = Visibility.Visible;
+                ChapterView.Visibility = Visibility.Visible;
 
-            RadioSearch.Visibility = Visibility.Visible;
-            RadioChapters.Visibility = Visibility.Visible;
+            //RadioSearch.Visibility = Visibility.Visible;
+            //RadioChapters.Visibility = Visibility.Visible;
 
             ChapterHelper.Content = "";  // Down
 
@@ -1051,10 +1047,9 @@ namespace AVWord.App
 
         private void CloseChapterHelper_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            ChapterSearchView.Visibility = Visibility.Collapsed;
-            ChapterBookView.Visibility = Visibility.Collapsed;
-            RadioSearch.Visibility = Visibility.Hidden;
-            RadioChapters.Visibility = Visibility.Hidden;
+            ChapterView.Visibility = Visibility.Collapsed;
+            //RadioSearch.Visibility = Visibility.Hidden;
+            //RadioChapters.Visibility = Visibility.Hidden;
 
             ChapterHelper.Content = ""; // Up
 
@@ -1189,6 +1184,58 @@ namespace AVWord.App
         private void BookStack_Loaded(object sender, RoutedEventArgs e)
         {
 
+        }
+        /*
+        private void RadioChapters_Changed(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (this.RadioSearch.IsChecked.HasValue && this.RadioSearch.IsChecked.Value)
+                {
+                    this.ChapterSearchView.Visibility = Visibility.Visible;
+                    this.ChapterBookView.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    this.ChapterBookView.Visibility = Visibility.Visible;
+                    this.ChapterSearchView.Visibility = Visibility.Hidden;
+                }
+            }
+            catch
+            {
+                ;
+            }
+        }
+        */
+        private void comboBoxDeletePanel_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (this.comboBoxDeletePanel.SelectedItem != null)
+            {
+                var selected = this.comboBoxDeletePanel.SelectedItem.ToString();
+                DragDockPanel panel = null;
+                UInt16 encoding = 0;
+                foreach (DragDockPanel existing in this.AVPanel.Items)
+                {
+                    var header = existing.Header.ToString();
+                    if (header == selected)
+                    {
+                        panel = existing;
+                        encoding = panel.PanelReference;
+                        break;
+                    }
+                }
+                if (panel != null)
+                {
+                    this.AVPanel.Items.Remove(panel);
+                    this.comboBoxDeletePanel.Items.Remove(selected);
+                }
+                foreach (var item in this.ChapterStack.Children)
+                {
+                    var chicklet = (ChapterChicklet)item;
+                    if (chicklet.BookChapter == encoding)
+                        chicklet.Refresh(false);
+                }
+            }
         }
     }
 }

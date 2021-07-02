@@ -32,8 +32,8 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <av:SectionStack Grid.Row="0" x:Name="BookStack" Visibility="Visible" VerticalAlignment="Stretch" Background="Black" Foreground="White" Loaded="BookStack_Loaded" />
-            <RadioButton x:Name="RadioSearch" Grid.Row="1" TextBlock.Foreground="White" FontSize="18" VerticalAlignment="Bottom" Margin="30,0,0,0">Show Results</RadioButton>
-            <RadioButton x:Name="RadioChapters" Grid.Row="2" TextBlock.Foreground="White" FontSize="18" VerticalAlignment="Bottom" IsChecked="true" Margin="30,0,0,20">Browse a Book</RadioButton>
+            <!--RadioButton x:Name="RadioSearch" Grid.Row="1" TextBlock.Foreground="White" FontSize="18" VerticalAlignment="Bottom" Checked="RadioChapters_Changed" Unchecked="RadioChapters_Changed" Margin="30,0,0,0">Show Results</RadioButton>
+            <RadioButton x:Name="RadioChapters" Grid.Row="2" TextBlock.Foreground="White" FontSize="18" VerticalAlignment="Bottom" Checked="RadioChapters_Changed" Unchecked="RadioChapters_Changed" IsChecked="true" Margin="30,0,0,20">Browse a Book</RadioButton-->
         </Grid>
         <!--RIGHT PANE-->
 
@@ -65,18 +65,28 @@
             <Label x:Name="LabelMin" Grid.Column="3" Grid.Row="0" FontFamily="WebDings" FontSize="28" Foreground="Silver" MouseUp="Window_Minimize"  MouseLeave="LabelX_MouseLeave" MouseMove="LabelX_MouseMove" Width="34" Height="41" VerticalAlignment="Center" HorizontalAlignment="Left" Content="0" Margin="6,2,0,0" />
             <Label x:Name="LabelUnMax" Grid.Column="4" Grid.Row="0" FontFamily="WebDings" FontSize="28" Foreground="Silver" ManipulationCompleted="Finger_UnMaximize" MouseUp="Window_UnMaximize"  MouseLeave="LabelX_MouseLeave" MouseMove="LabelX_MouseMove" Width="34" Height="41" VerticalAlignment="Center" HorizontalAlignment="Left" Content="2" Margin="6,2,0,0" />
             <Label x:Name="LabelX" Grid.Column="5" Grid.Row="0" FontFamily="WebDings" FontSize="28" Foreground="Silver" MouseUp="LabelX_MouseUp" MouseLeave="LabelX_MouseLeave" MouseMove="LabelX_MouseMove" ManipulationCompleted="LabelX_FingerUp" Width="34" Height="41" VerticalAlignment="Center" HorizontalAlignment="Left" Content="r" Margin="6,2,18,0" />
-            <TextBlock x:Name="TextSummary" Grid.Column="2" Grid.ColumnSpan="3" Margin="0,48,0,0" Text="Type your search in the box above" Foreground="LightCyan" VerticalAlignment="Center" />
+
+            <Grid Grid.Column="2" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Margin="0,48,20,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" x:Name="TextSummary" Text="Type your search in the box above" Foreground="LightCyan" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                <TextBlock Grid.Column ="1" x:Name="DeleteSummary" Text="Delete a panel:  " Foreground="LightCyan" HorizontalAlignment="Stretch" TextAlignment="Right" VerticalAlignment="Center" />
+                <ComboBox Grid.Column="2" x:Name="comboBoxDeletePanel" SelectionChanged="comboBoxDeletePanel_SelectionChanged" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="Black" Background="Gray" Height="9" Width="134"/>
+            </Grid>
             <Image x:Name="SearchImage" Source="./Images/SearchBubble.png" Visibility="Collapsed" ManipulationCompleted="Search_FingerUp" MouseUp="Search_MouseUp" Grid.Column="2" HorizontalAlignment="Right" Height="50" Margin="0,10,10,0" VerticalAlignment="Top" Width="58"/>
         </Grid>
         <Wpf:DragDockPanelHost x:Name="AVPanel" Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="8,8,12,0" />
         <StackPanel Grid.Column="1" Grid.Row="2" Margin="20,0,0,0" Background="#252526" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Label x:Name="ChapterHelper" FontFamily="WebDings" FontSize="24" Background="#252526" Foreground="White" HorizontalAlignment="Left" Content="" MouseUp="ChapterHelper_MouseUp" ManipulationCompleted="ChapterHelper_FingerUp" BorderThickness="1" BorderBrush="#2d2d30" />
         </StackPanel>
-        <ScrollViewer x:Name="ChapterSearchView" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" Height="200"  Visibility="Visible">
-            <WrapPanel Name="ChapterSearchStack" Width="{Binding ElementName=ChapterSearchView, Path=ViewportWidth}" VerticalAlignment="Stretch" HorizontalAlignment="Center" Orientation="Horizontal"/>
-        </ScrollViewer>
-        <ScrollViewer x:Name="ChapterBookView" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" Height="200"  Visibility="Hidden">
-            <WrapPanel Name="ChapterBookStack" Width="{Binding ElementName=ChapterBookView, Path=ViewportWidth}" VerticalAlignment="Stretch" HorizontalAlignment="Center" Orientation="Horizontal"/>
+        <ScrollViewer x:Name="ChapterView" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" Height="200"  Visibility="Visible">
+            <WrapPanel Name="ChapterStack" Width="{Binding ElementName=ChapterView, Path=ViewportWidth}" VerticalAlignment="Stretch" HorizontalAlignment="Center" Orientation="Horizontal"/>
         </ScrollViewer>
     </Grid>
 </Window>
