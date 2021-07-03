@@ -1,18 +1,9 @@
 ﻿using AVWord.App;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AVWord.Wpf
 {
@@ -25,12 +16,6 @@ namespace AVWord.Wpf
         public static MainWindow App { set; private get; }
         public byte Weight { set; private get; }
 
-        public ChapterChicklet()
-        {
-            InitializeComponent();
-            this.Book.Content = "?";
-            this.Chapter.Content = "?";
-        }
         public ChapterChicklet(byte book, byte chapter, byte weight, bool green)
         {
             this.BookChapter = (UInt16) ((book * 0x100) + chapter);
@@ -40,7 +25,7 @@ namespace AVWord.Wpf
 
             this.Show(book, chapter, green);
         }
-        public bool Show(byte bookNum, byte chapterNum, bool green)
+        private bool Show(byte bookNum, byte chapterNum, bool green)
         {
             string book = BookChickletMini.GetBookAbbreviation(bookNum);
             string chapter = chapterNum.ToString();
