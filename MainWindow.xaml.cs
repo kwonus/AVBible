@@ -15,6 +15,9 @@ using AVWord.Wpf;
 using Quelle.DriverDefault;
 using QuelleHMI;
 
+//using AVSDK;
+using AVXCLI;
+
 namespace AVWord.App
 {
     internal class ChapterSpec
@@ -303,7 +306,7 @@ namespace AVWord.App
         {
             int bk = chicklet.BookChapter >> 8;
             int ch = chicklet.BookChapter & 0xFF;
-            string header = this.provider.GetBookByNum((byte)bk) + " " + ch.ToString();
+            string header = AVXCLI.AVLCLR.GetBookByNum((byte)bk) + " " + ch.ToString();
 
             DragDockPanel panel = null;
             foreach (DragDockPanel existing in this.AVPanel.Items)
@@ -553,8 +556,10 @@ namespace AVWord.App
                 phead.FontWeight = FontWeights.Bold;
                 doc.Blocks.Add(phead);
             }
-            var chapter = this.provider.GetChapter((byte)b, (byte)c);
-            bool first = true;
+            AVSDK.Book book = (AVSDK.Book) AVLCLR.GetBookByNum((byte)b);
+            UInt32 first = (UInt32)(book.chapterIdx + c - 1);
+            UInt32 last = (UInt32)(book.chapterIdx + book.chapterCnt - 1);
+
             int v = 0;
 
             var pdoc = new System.Windows.Documents.Paragraph();
@@ -562,13 +567,16 @@ namespace AVWord.App
             bool paren = false;
             bool bov = false;
 
-            foreach (var dx in chapter)
+            AVSDK.Writ176 writ = new AVSDK.Writ176();
+
+            for (UInt32 cursor = first; cursor <= last; cursor++) if (AVXCLI.AVLCLR.XWrit.GetRecord(cursor, ref writ))
             {
+
                 string vstr = "";
                 string prePunc = "";
                 string postPunc = "";
 
-                bov = (dx.transition & 0x20) == 0x20;
+                bov = (writ.trans & 0x20) == 0x20;
 
                 if (bov)
                 {
@@ -579,44 +587,41 @@ namespace AVWord.App
                         pdoc.Inlines.Add(vdoc);
                         vstr = "";
                     }
-                    string padding = first ? "" : "  ";
+                    string padding = (first == cursor) ? "" : "  ";
                     var vlabel = new System.Windows.Documents.Run(padding + v.ToString());
                     vlabel.Foreground = this.panel_verseColor;
                     pdoc.Inlines.Add(vlabel);
                     vstr = " ";
                 }
-                else if (!first)
+                else if (first != cursor)
                 {
                     vstr += " ";
                 }
-                if (first)
-                {
-                    first = false;
-                }
-                bool jesus = (dx.punc & 0x01) != 0;
-                bool italics = ((dx.punc & 0x02) != 0);
+
+                bool jesus = (writ.punc & 0x01) != 0;
+                bool italics = ((writ.punc & 0x02) != 0);
                 bool avx = (this.ButtonAVT.Content.ToString() == "AVX");
                 string lex = "";
-                if (((dx.punc & 0x04) != 0) && !paren)
+                if (((writ.punc & 0x04) != 0) && !paren)
                 {
                     paren = true;
                     prePunc = "(";
                 }
                 byte modern = avx ? (byte)2 : (byte)1;  // modern == 2; kjv == 1;
-                lex += this.provider.GetLexicalEntry(dx.wordKey, modern);
-                if ((dx.punc & 0x10) != 0)
+                lex += AVLCLR.GetLexicalEntry(writ.word, modern);
+                if ((writ.punc & 0x10) != 0)
                 {
                     bool s = (lex[lex.Length - 1] | 0x20) == 's';
                     lex += s ? "'" : "'s";
                 }
-                if ((dx.punc & 0x0C) == 0x0C)
+                if ((writ.punc & 0x0C) == 0x0C)
                 {
                     paren = false;
                     postPunc = ")";
                 }
-                if ((dx.punc & 0xE0) != 0)
+                if ((writ.punc & 0xE0) != 0)
                 {
-                    postPunc += this.PostPunc(dx.punc);
+                    postPunc += this.PostPunc(writ.punc);
                 }
                 if (vstr.Length > 0)
                 {
@@ -808,7 +813,7 @@ namespace AVWord.App
             this.ChapterView.Visibility = Visibility.Visible;
 
             ChapterStack.Children.Clear();
-            var cnt = this.provider.GetChapterCount(bk);
+            var cnt = AVXCLI.AVLCLR.GetChapterCount(bk);
             for (byte c = 1; c <= cnt; c++)
                 AddChapterChicklet(bk, c);
         }
@@ -833,12 +838,14 @@ namespace AVWord.App
                 if (bk.ContainsKey(c))
                 {
                     var ch = bk[c];
+                    // TODO:
+                    /*
                     var vs = this.provider.ExpandVerseArray(ch);
                     foreach (byte v in vs)
                     {
                         if (++matches > 5)
                             break;
-                    }
+                    }*/
                 }
             }
             var chicklet = new ChapterChicklet(b, c, matches, green);
