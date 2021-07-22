@@ -556,9 +556,11 @@ namespace AVWord.App
                 phead.FontWeight = FontWeights.Bold;
                 doc.Blocks.Add(phead);
             }
-            AVSDK.Book book = (AVSDK.Book) AVLCLR.GetBookByNum((byte)b);
-            UInt32 first = (UInt32)(book.chapterIdx + c - 1);
-            UInt32 last = (UInt32)(book.chapterIdx + book.chapterCnt - 1);
+            AVSDK.Book book = (AVSDK.Book) (AVLCLR.GetBookByNum((byte)b));
+            var chapterIdx = book.chapterIdx + c - 1;
+            AVSDK.Chapter chapter = AVLCLR.Chapters[chapterIdx];
+            UInt32 first = chapter.writIdx;
+            UInt32 last = (UInt32)(first + chapter.wordCnt - 1);
 
             int v = 0;
 
@@ -569,14 +571,15 @@ namespace AVWord.App
 
             AVSDK.Writ176 writ = new AVSDK.Writ176();
 
-            for (UInt32 cursor = first; cursor <= last; cursor++) if (AVXCLI.AVLCLR.XWrit.GetRecord(cursor, ref writ))
+            for (UInt32 cursor = first; cursor <= last; cursor++)
+            if (AVXCLI.AVLCLR.XWrit.GetRecord(cursor, ref writ))
             {
 
                 string vstr = "";
                 string prePunc = "";
                 string postPunc = "";
 
-                bov = (writ.trans & 0x20) == 0x20;
+                bov = ((writ.trans & (byte)AVSDK.Transitions.VerseTransition) == (byte)AVSDK.Transitions.BeginingOfVerse);
 
                 if (bov)
                 {
@@ -1033,16 +1036,7 @@ namespace AVWord.App
 
         private void OpenChapterHelper_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            var expanded = (ChapterHelper.Content.ToString() != "");  // Down 
-            var compacted = expanded ? Visibility.Collapsed : Visibility.Visible;
-
-            //          BookScope.Visibility = expanded;
-
-            if (this.found != null)
-                ChapterView.Visibility = Visibility.Visible;
-
-            //RadioSearch.Visibility = Visibility.Visible;
-            //RadioChapters.Visibility = Visibility.Visible;
+            ChapterView.Visibility = Visibility.Visible;
 
             ChapterHelper.Content = "";  // Down
 
@@ -1053,8 +1047,6 @@ namespace AVWord.App
         private void CloseChapterHelper_MouseUp(object sender, MouseButtonEventArgs e)
         {
             ChapterView.Visibility = Visibility.Collapsed;
-            //RadioSearch.Visibility = Visibility.Hidden;
-            //RadioChapters.Visibility = Visibility.Hidden;
 
             ChapterHelper.Content = ""; // Up
 
