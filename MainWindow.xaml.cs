@@ -15,7 +15,7 @@ using AVWord.Wpf;
 using Quelle.DriverDefault;
 using QuelleHMI;
 
-//using AVSDK;
+using AVSDK;
 using AVXCLI;
 
 namespace AVWord.App
@@ -128,17 +128,173 @@ namespace AVWord.App
         internal uint ViewbookStartNum;
         internal uint ChapterChickletIndex = 0;
 
-        private uint ChapCnt
+        private (uint count, bool ok) GetBookHitCount(byte b)
+        {
+            if (this.found != null)
+            {
+                var verses = new HashSet<UInt16>();
+                var writ = new Writ176();
+                var orderedMatches = this.found.segments.OrderBy(elements => elements[1]);
+
+                foreach (var elements in orderedMatches)
+                {
+                    bool skip = true; // skip first element
+                    foreach (var element in elements)
+                    {
+                        if (skip)
+                        {
+                            skip = false;
+                            continue;
+                        }
+                        if (!AVXCLI.AVLCLR.XWrit.GetRecord(element, ref writ))
+                            return (0, false); // something unexpected went wrong
+                        var vidx = writ.verseIdx;
+                        byte bk = AVXCLI.AVLCLR.XVerse.GetBook(vidx);
+                        if (bk == b)
+                        {
+                            if (!verses.Contains(vidx))
+                                verses.Add(vidx);
+                        }
+                        if (bk > b)
+                        {
+                            return ((uint)verses.Count(), true);
+                        }
+                    }
+                }
+                return ((uint)verses.Count(), true);
+            }
+            return (0, false);
+        }
+        private (uint count, bool ok) GetBookChapterHitCount(byte b, byte c)
+        {
+            if (this.found != null)
+            {
+                var verses = new HashSet<UInt16>();
+                 var orderedMatches = this.found.segments.OrderBy(elements => elements[1]);
+
+                var writ = new Writ176();
+                byte bk;
+                byte ch;
+                byte vs;
+                byte ignore;
+
+                foreach (var elements in orderedMatches)
+                {
+                    bool skip = true; // skip first element
+                    foreach (var element in elements)
+                    {
+                        if (skip)
+                        {
+                            skip = false;
+                            continue;
+                        }
+                        if (!AVXCLI.AVLCLR.XWrit.GetRecord(element, ref writ))
+                            return (0, false); // something unexpected went wrong
+                        var vidx = writ.verseIdx;
+                        if (!AVXCLI.AVLCLR.XVerse.GetEntry(vidx, out bk, out ch, out vs, out ignore))
+                            return (0, false); // something unexpected went wrong
+
+                        if (bk == b && ch == c)
+                        {
+                            if (!verses.Contains(vidx))
+                                verses.Add(vidx);
+                        }
+                        if ((bk > b) || ((bk == b) && (ch > c)))
+                        {
+                            return ((uint)verses.Count(), true);
+                        }
+                    }
+                }
+                return ((uint)verses.Count(), true);
+            }
+            return (0, false);
+        }
+        private (uint count, bool ok) GetBookChapterVerseHitCount(byte b, byte c, byte v)
+        {
+            if (this.found != null)
+            {
+                var verses = new HashSet<UInt16>();
+                var orderedMatches = this.found.segments.OrderBy(elements => elements[1]);
+
+                var writ = new Writ176();
+                byte bk;
+                byte ch;
+                byte vs;
+                byte ignore;
+
+                foreach (var elements in orderedMatches)
+                {
+                    bool skip = true; // skip first element
+                    foreach (var element in elements)
+                    {
+                        if (skip)
+                        {
+                            skip = false;
+                            continue;
+                        }
+                        if (!AVXCLI.AVLCLR.XWrit.GetRecord(element, ref writ))
+                            return (0, false); // something unexpected went wrong
+                        var vidx = writ.verseIdx;
+                        if (!AVXCLI.AVLCLR.XVerse.GetEntry(vidx, out bk, out ch, out vs, out ignore))
+                            return (0, false); // something unexpected went wrong
+
+                        if (bk == b && ch == c && vs == v)
+                        {
+                            if (!verses.Contains(vidx))
+                                verses.Add(vidx);
+                        }
+                        if (bk == b)
+                        {
+                            if (ch == c)
+                            {
+                                if (vs > v)
+                                    return ((uint)verses.Count(), true);
+                            }
+                            else if (ch > c)
+                            {
+                                return ((uint)verses.Count(), true);
+                            }
+                        }
+                        else if (bk > b)
+                        {
+                            return ((uint)verses.Count(), true);
+                        }
+                    }
+                }
+                return ((uint)verses.Count(), true);
+            }
+            return (0, false);
+        }
+        private HashSet<UInt16> ChapterHits
         {
             get
             {
-                uint hits = 0;
+                var verses = new HashSet<UInt16>();
+
                 if (this.found != null)
                 {
-                    foreach (var bk in this.found.matches.Values)
-                        hits += (uint) bk.Count;
+                    var writ = new Writ176();
+
+                    foreach (var elements in this.found.segments)
+                    {
+                        bool skip = true; // skip first element
+                        foreach (var element in elements)
+                        {
+                            if (skip)
+                            {
+                                skip = false;
+                                continue;
+                            }
+                            if (!AVXCLI.AVLCLR.XWrit.GetRecord(element, ref writ))
+                                break; // something unexpected went wrong
+                            var vidx = writ.verseIdx;
+
+                            if (!verses.Contains(vidx))
+                                verses.Add(vidx);
+                        }
+                    }
                 }
-                return hits;
+                return verses;
             }
         }
 
@@ -291,11 +447,7 @@ namespace AVWord.App
 
             ViewbookStartNum = 0;
 
-            //ChapterSearchStack.Selection = this.ChapterSelection;
-            //ChapterEntireStack.Selection = this.ChapterSelection;
             BookStack.Selection = this.BookSelection;
-
-            //this.Panel.Height = this.Stack.ActualHeight - Expando.ActualHeight;
 
             FullInit();
 
@@ -569,12 +721,10 @@ namespace AVWord.App
             bool paren = false;
             bool bov = false;
 
-            AVSDK.Writ176 writ = new AVSDK.Writ176();
+            var writ = new Writ176();
 
-            for (UInt32 cursor = first; cursor <= last; cursor++)
-            if (AVXCLI.AVLCLR.XWrit.GetRecord(cursor, ref writ))
+            for (var cursor = first; cursor <= last && AVXCLI.AVLCLR.XWrit.GetRecord(cursor, ref writ); AVXCLI.AVLCLR.XWrit.Next(), cursor = AVXCLI.AVLCLR.XWrit.cursor)
             {
-
                 string vstr = "";
                 string prePunc = "";
                 string postPunc = "";
@@ -822,7 +972,6 @@ namespace AVWord.App
         }
         private void AddChapterChicklet(byte b, byte c)
         {
-            byte matches = 0;
             bool green = false;
             UInt16 encoded = (UInt16)((b << 8) + c);
 
@@ -835,23 +984,9 @@ namespace AVWord.App
                     break;
                 }
             }
-            if (this.found != null && this.found.matches.ContainsKey(b))
-            {
-                var bk = this.found.matches[b];
-                if (bk.ContainsKey(c))
-                {
-                    var ch = bk[c];
-                    // TODO:
-                    /*
-                    var vs = this.provider.ExpandVerseArray(ch);
-                    foreach (byte v in vs)
-                    {
-                        if (++matches > 5)
-                            break;
-                    }*/
-                }
-            }
-            var chicklet = new ChapterChicklet(b, c, matches, green);
+            var matches = this.found != null ? this.GetBookChapterHitCount(b, c).count : 0;
+            var weight = matches <= 6 ? (byte)matches : (byte) 6;
+            var chicklet = new ChapterChicklet(b, c, weight, green);
             this.ChapterStack.Children.Add(chicklet);
         }
         private void SetSearchView(int index = 0, bool reset = true)
@@ -861,15 +996,33 @@ namespace AVWord.App
             ChapterStack.Children.Clear();
 
             var command = QuelleCommand(this.TextCriteria.Text);
-            
+
+            var verses = new HashSet<UInt16>();
             if (command.success && command.result.count > 0)
             {
-                foreach (byte b in command.result.matches.Keys)
+                byte bk;
+                byte ch;
+                byte vs;
+                byte ignore;
+
+                var matches = new Dictionary<byte, List<byte>>();
+
+                foreach (UInt16 vidx in this.ChapterHits)
                 {
-                    var bk = command.result.matches[b];
-                    foreach (byte c in bk.Keys)
-                        AddChapterChicklet(b, c);
+                    if (!AVXCLI.AVLCLR.XVerse.GetEntry(vidx, out bk, out ch, out vs, out ignore))
+                        return; // something unexpected went wrong
+
+                    List<byte> book = null;
+                    if (matches.ContainsKey(bk))
+                        book = matches[bk];
+                    else
+                        book = new List<byte>();
+                    if (!book.Contains(ch))
+                        book.Add(ch);
                 }
+                foreach (byte b in matches.Keys.OrderBy(book => book))
+                    foreach (byte c in matches[b])
+                        AddChapterChicklet(b, c);
             }
         }
         private void TextCriteria_KeyUp(object sender, KeyEventArgs e)
@@ -1072,55 +1225,6 @@ namespace AVWord.App
             //          this.RadioShowAll.IsChecked = true;
             this.ShowAll = true;
             SetEntireView((byte)bookNum);
-        }
-        private void ChapterSelection(Button sender, string book, uint chapter)
-        {
-            uint bookNum = BookChickletMini.GetBookNumber(book);
-            string bookName = BookChicklet.GetBookName(bookNum);
-            var test = bookName + " " + chapter.ToString();
-
-            bool found = false;
-
-            foreach (var item in this.AVPanel.Items)
-            {
-                try
-                {
-                    var panel = (item as DragDockPanel);
-                    var title = panel.Header.ToString();
-                    if (title == test)
-                    {
-                        if (panel.PanelState != PanelState.Maximized)
-                            panel.Maximize();
-                        else
-                            panel.Restore();
-
-                        found = true;
-                        break;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    continue;
-                }
-            }
-            if (!found)
-            {
-                if (sender != null)
-                {
-                    uint reverse;
-
-                    /*if (sender == this.ChapterStack.ViewPort11.ButtonObject)
-                        reverse = (this.ChapterViewCount / 2) - 1;
-                    else
-                        reverse = 0;*/
-
-                    int index = 0; // FindEncodedHit(bookNum, chapter);
-                    if (index < 0)
-                        index = 0;
-
-                    SetSearchView(index, reset: false);
-                }
-            }
         }
 
         private void MainWin_Closing(object sender, System.ComponentModel.CancelEventArgs e)
