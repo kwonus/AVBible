@@ -134,18 +134,15 @@ namespace AVWord.App
             {
                 var verses = new HashSet<UInt16>();
                 var writ = new Writ176();
-                var orderedMatches = this.found.segments.OrderBy(elements => elements[1]);
+                var orderedMatches = this.found.segments.OrderBy(elements => elements & 0xFFFFFFFF);
 
                 foreach (var elements in orderedMatches)
                 {
-                    bool skip = true; // skip first element
-                    foreach (var element in elements)
+                    UInt32 widx = SegmentElement.GetStart(elements);
+                    UInt32 wend = SegmentElement.GetEnd(elements);
+
+                    for (UInt32 element = widx; element <= wend; element ++)
                     {
-                        if (skip)
-                        {
-                            skip = false;
-                            continue;
-                        }
                         if (!AVXCLI.AVLCLR.XWrit.GetRecord(element, ref writ))
                             return (0, false); // something unexpected went wrong
                         var vidx = writ.verseIdx;
@@ -170,9 +167,9 @@ namespace AVWord.App
             if (this.found != null)
             {
                 var verses = new HashSet<UInt16>();
-                 var orderedMatches = this.found.segments.OrderBy(elements => elements[1]);
-
                 var writ = new Writ176();
+                var orderedMatches = this.found.segments.OrderBy(elements => elements & 0xFFFFFFFF);
+
                 byte bk;
                 byte ch;
                 byte vs;
@@ -180,14 +177,11 @@ namespace AVWord.App
 
                 foreach (var elements in orderedMatches)
                 {
-                    bool skip = true; // skip first element
-                    foreach (var element in elements)
+                    UInt32 widx = SegmentElement.GetStart(elements);
+                    UInt32 wend = SegmentElement.GetEnd(elements);
+
+                    for (UInt32 element = widx; element <= wend; element++)
                     {
-                        if (skip)
-                        {
-                            skip = false;
-                            continue;
-                        }
                         if (!AVXCLI.AVLCLR.XWrit.GetRecord(element, ref writ))
                             return (0, false); // something unexpected went wrong
                         var vidx = writ.verseIdx;
@@ -214,9 +208,9 @@ namespace AVWord.App
             if (this.found != null)
             {
                 var verses = new HashSet<UInt16>();
-                var orderedMatches = this.found.segments.OrderBy(elements => elements[1]);
-
                 var writ = new Writ176();
+                var orderedMatches = this.found.segments.OrderBy(elements => elements & 0xFFFFFFFF);
+
                 byte bk;
                 byte ch;
                 byte vs;
@@ -224,14 +218,11 @@ namespace AVWord.App
 
                 foreach (var elements in orderedMatches)
                 {
-                    bool skip = true; // skip first element
-                    foreach (var element in elements)
+                    UInt32 widx = SegmentElement.GetStart(elements);
+                    UInt32 wend = SegmentElement.GetEnd(elements);
+
+                    for (UInt32 element = widx; element <= wend; element++)
                     {
-                        if (skip)
-                        {
-                            skip = false;
-                            continue;
-                        }
                         if (!AVXCLI.AVLCLR.XWrit.GetRecord(element, ref writ))
                             return (0, false); // something unexpected went wrong
                         var vidx = writ.verseIdx;
@@ -275,16 +266,13 @@ namespace AVWord.App
                 {
                     var writ = new Writ176();
 
-                    foreach (var elements in this.found.segments)
+                    foreach (var elements in found.segments)
                     {
-                        bool skip = true; // skip first element
-                        foreach (var element in elements)
+                        UInt32 widx = SegmentElement.GetStart(elements);
+                        UInt32 wend = SegmentElement.GetEnd(elements);
+
+                        for (UInt32 element = widx; element <= wend; element++)
                         {
-                            if (skip)
-                            {
-                                skip = false;
-                                continue;
-                            }
                             if (!AVXCLI.AVLCLR.XWrit.GetRecord(element, ref writ))
                                 break; // something unexpected went wrong
                             var vidx = writ.verseIdx;
