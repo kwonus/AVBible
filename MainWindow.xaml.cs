@@ -986,7 +986,7 @@ namespace AVWord.App
             var command = QuelleCommand(this.TextCriteria.Text);
 
             var verses = new HashSet<UInt16>();
-            if (command.success && command.result.count > 0)
+            if (command.success && command.result != null && command.result.segments != null && command.result.segments.Count > 0)
             {
                 byte bk;
                 byte ch;
@@ -1002,11 +1002,18 @@ namespace AVWord.App
 
                     List<byte> book = null;
                     if (matches.ContainsKey(bk))
+                    {
                         book = matches[bk];
+                    }
                     else
+                    {
                         book = new List<byte>();
+                        matches.Add(bk, book);
+                    }
                     if (!book.Contains(ch))
+                    {
                         book.Add(ch);
+                    }
                 }
                 foreach (byte b in matches.Keys.OrderBy(book => book))
                     foreach (byte c in matches[b])
