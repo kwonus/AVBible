@@ -446,7 +446,8 @@ namespace AVWord.App
         {
             int bk = chicklet.BookChapter >> 8;
             int ch = chicklet.BookChapter & 0xFF;
-            string header = AVXCLI.AVLCLR.GetBookByNum((byte)bk) + " " + ch.ToString();
+            var book = AVXCLI.AVLCLR.GetBookNameByNum((byte)bk);
+            string header = book + " " + ch.ToString();
 
             DragDockPanel panel = null;
             foreach (DragDockPanel existing in this.AVPanel.Items)
