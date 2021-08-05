@@ -16,7 +16,7 @@ using Quelle.DriverDefault;
 using QuelleHMI;
 
 using AVSDK;
-using AVXCLI;
+using AVText;
 
 namespace AVWord.App
 {
@@ -143,10 +143,10 @@ namespace AVWord.App
 
                     for (UInt32 element = widx; element <= wend; element ++)
                     {
-                        if (!AVXCLI.AVLCLR.XWrit.GetRecord(element, ref writ))
+                        if (!AVXAPI.SELF.XWrit.GetRecord(element, ref writ))
                             return (0, false); // something unexpected went wrong
                         var vidx = writ.verseIdx;
-                        byte bk = AVXCLI.AVLCLR.XVerse.GetBook(vidx);
+                        byte bk = AVXAPI.SELF.XVerse.GetBook(vidx);
                         if (bk == b)
                         {
                             if (!verses.Contains(vidx))
@@ -182,10 +182,10 @@ namespace AVWord.App
 
                     for (UInt32 element = widx; element <= wend; element++)
                     {
-                        if (!AVXCLI.AVLCLR.XWrit.GetRecord(element, ref writ))
+                        if (!AVXAPI.SELF.XWrit.GetRecord(element, ref writ))
                             return (0, false); // something unexpected went wrong
                         var vidx = writ.verseIdx;
-                        if (!AVXCLI.AVLCLR.XVerse.GetEntry(vidx, out bk, out ch, out vs, out ignore))
+                        if (!AVXAPI.SELF.XVerse.GetEntry(vidx, out bk, out ch, out vs, out ignore))
                             return (0, false); // something unexpected went wrong
 
                         if (bk == b && ch == c)
@@ -223,10 +223,10 @@ namespace AVWord.App
 
                     for (UInt32 element = widx; element <= wend; element++)
                     {
-                        if (!AVXCLI.AVLCLR.XWrit.GetRecord(element, ref writ))
+                        if (!AVXAPI.SELF.XWrit.GetRecord(element, ref writ))
                             return (0, false); // something unexpected went wrong
                         var vidx = writ.verseIdx;
-                        if (!AVXCLI.AVLCLR.XVerse.GetEntry(vidx, out bk, out ch, out vs, out ignore))
+                        if (!AVXAPI.SELF.XVerse.GetEntry(vidx, out bk, out ch, out vs, out ignore))
                             return (0, false); // something unexpected went wrong
 
                         if (bk == b && ch == c && vs == v)
@@ -273,7 +273,7 @@ namespace AVWord.App
 
                         for (UInt32 element = widx; element <= wend; element++)
                         {
-                            if (!AVXCLI.AVLCLR.XWrit.GetRecord(element, ref writ))
+                            if (!AVXAPI.SELF.XWrit.GetRecord(element, ref writ))
                                 break; // something unexpected went wrong
                             var vidx = writ.verseIdx;
 
@@ -332,14 +332,14 @@ namespace AVWord.App
             }
             return exists;
         }
-        private AVXCLI.AVLCLR provider;
-        private InstantiatedQuelleSearchProvider iprovider;
+        private AVXAPI provider;
+        //private InstantiatedQuelleSearchProvider iprovider;
         private QuelleDriver driver;
         private IQuelleSearchResult found;
         private async Task<Boolean> Initialize()
         {
-            this.provider = new AVXCLI.AVLCLR();
-            this.iprovider = new InstantiatedQuelleSearchProvider(provider);
+            this.provider = new AVXAPI();
+            //this.iprovider = new InstantiatedQuelleSearchProvider(provider);
             this.driver = new QuelleDriver();
             this.found = null;
 
@@ -430,7 +430,7 @@ namespace AVWord.App
             LoadAppState();
 
             this.provider = null;
-            this.iprovider = null;
+            //this.iprovider = null;
             this.driver = null;
 
             ViewbookStartNum = 0;
@@ -446,8 +446,8 @@ namespace AVWord.App
         {
             int bk = chicklet.BookChapter >> 8;
             int ch = chicklet.BookChapter & 0xFF;
-            var book = AVXCLI.AVLCLR.GetBookNameByNum((byte)bk);
-            string header = book + " " + ch.ToString();
+            var book = AVXAPI.SELF.XBook.GetBookByNum((byte)bk).Value;
+            string header = book.name + " " + ch.ToString();
 
             DragDockPanel panel = null;
             foreach (DragDockPanel existing in this.AVPanel.Items)
@@ -697,9 +697,9 @@ namespace AVWord.App
                 phead.FontWeight = FontWeights.Bold;
                 doc.Blocks.Add(phead);
             }
-            AVSDK.Book book = (AVSDK.Book) (AVLCLR.GetBookByNum((byte)b));
+            var book =AVXAPI.SELF.XBook.GetBookByNum((byte)b).Value;
             var chapterIdx = book.chapterIdx + c - 1;
-            AVSDK.Chapter chapter = AVLCLR.Chapters[chapterIdx];
+            AVSDK.Chapter chapter = AVXAPI.SELF.Chapters[chapterIdx];
             UInt32 first = chapter.writIdx;
             UInt32 last = (UInt32)(first + chapter.wordCnt - 1);
 
@@ -712,7 +712,7 @@ namespace AVWord.App
 
             var writ = new Writ176();
 
-            for (var cursor = first; cursor <= last && AVXCLI.AVLCLR.XWrit.GetRecord(cursor, ref writ); AVXCLI.AVLCLR.XWrit.Next(), cursor = AVXCLI.AVLCLR.XWrit.cursor)
+            for (var cursor = first; cursor <= last && AVXAPI.SELF.XWrit.GetRecord(cursor, ref writ); AVXAPI.SELF.XWrit.Next(), cursor = AVXAPI.SELF.XWrit.cursor)
             {
                 string vstr = "";
                 string prePunc = "";
@@ -750,7 +750,8 @@ namespace AVWord.App
                     prePunc = "(";
                 }
                 byte modern = avx ? (byte)2 : (byte)1;  // modern == 2; kjv == 1;
-                lex += AVLCLR.GetLexicalEntry(writ.word, modern);
+
+                lex += avx ? AVLexicon.GetLexModern(writ.word) : AVLexicon.GetLex(writ.word);
                 if ((writ.punc & 0x10) != 0)
                 {
                     bool s = (lex[lex.Length - 1] | 0x20) == 's';
@@ -925,7 +926,7 @@ namespace AVWord.App
 
             if (command.statement != null && command.statement.segmentation != null && command.statement.segmentation.Count >= 1 && command.errors.Count == 0)
             {
-                var result = command.statement.ExecuteEx(iprovider);
+                var result = command.statement.ExecuteEx(this.provider);
 
                 if (result != null)
                 {
@@ -955,7 +956,7 @@ namespace AVWord.App
             this.ChapterView.Visibility = Visibility.Visible;
 
             ChapterStack.Children.Clear();
-            var cnt = AVXCLI.AVLCLR.GetChapterCount(bk);
+            var cnt = (bk >= 1 && bk <= 66) ? AVXAPI.SELF.XBook.GetBookByNum(bk).Value.chapterCnt : (byte)0;
             for (byte c = 1; c <= cnt; c++)
                 AddChapterChicklet(bk, c);
         }
@@ -998,7 +999,7 @@ namespace AVWord.App
 
                 foreach (UInt16 vidx in this.ChapterHits)
                 {
-                    if (!AVXCLI.AVLCLR.XVerse.GetEntry(vidx, out bk, out ch, out vs, out ignore))
+                    if (!AVXAPI.SELF.XVerse.GetEntry(vidx, out bk, out ch, out vs, out ignore))
                         return; // something unexpected went wrong
 
                     List<byte> book = null;

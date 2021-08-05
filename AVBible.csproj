@@ -290,10 +290,6 @@
     <Resource Include="Images\Shadow Bottom 01 - Black.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AVXCLI\AVXCLI.vcxproj">
-      <Project>{ef7d586f-1a4e-4ffd-bf45-db9af2d5b82c}</Project>
-      <Name>AVXCLI</Name>
-    </ProjectReference>
     <ProjectReference Include="..\AVXText\AVXText.csproj">
       <Project>{d415c03f-25f9-41d2-b11b-d91a804cc4ea}</Project>
       <Name>AVXText</Name>
