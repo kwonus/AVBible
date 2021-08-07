@@ -749,8 +749,6 @@ namespace AVWord.App
                     paren = true;
                     prePunc = "(";
                 }
-                byte modern = avx ? (byte)2 : (byte)1;  // modern == 2; kjv == 1;
-
                 lex += avx ? AVLexicon.GetLexModern(writ.word) : AVLexicon.GetLex(writ.word);
                 if ((writ.punc & 0x10) != 0)
                 {
