@@ -429,13 +429,13 @@ namespace AVWord.App
             LoadWindowState();
             LoadAppState();
 
+            SectionStack.SetBookSelector(this.BookSelection);
+
             this.provider = null;
             //this.iprovider = null;
             this.driver = null;
 
             ViewbookStartNum = 0;
-
-            BookStack.Selection = this.BookSelection;
 
             FullInit();
 
@@ -1079,9 +1079,9 @@ namespace AVWord.App
 
         private void Window_UnMaximize(object sender, MouseButtonEventArgs e) // (Char) 0xF036
         {
-            this.ResizeMode = System.Windows.ResizeMode.CanResize;
-            this.WindowStyle = System.Windows.WindowStyle.SingleBorderWindow;
-            this.WindowState = System.Windows.WindowState.Normal;
+            this.ResizeMode = ResizeMode.CanResize;
+            this.WindowStyle = WindowStyle.SingleBorderWindow;
+            this.WindowState = WindowState.Normal;
             LabelUnMax.Visibility = Visibility.Collapsed;
             LabelMin.Visibility = Visibility.Collapsed;
             LabelX.Visibility = Visibility.Collapsed;
@@ -1219,7 +1219,6 @@ namespace AVWord.App
         }
         private void BookSelection(uint bookNum)
         {
-            //          this.RadioShowAll.IsChecked = true;
             this.ShowAll = true;
             SetEntireView((byte)bookNum);
         }

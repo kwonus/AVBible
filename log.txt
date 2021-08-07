@@ -1,0 +1,72 @@
+2021-08-06 22:29:35.066 -04:00 [INF] Loaded 5 extensions
+2021-08-06 22:29:36.375 -04:00 [INF] MSBuild registered from C:\Program Files\dotnet\sdk\5.0.301\
+2021-08-06 22:29:36.887 -04:00 [INF] Found Visual Studio v16.10.31410.357 [C:\Program Files (x86)\Microsoft Visual Studio\2019\Community]
+2021-08-06 22:29:40.067 -04:00 [INF] Recommending Windows TFM net5.0-windows because the project either has Windows-specific dependencies or builds to a WinExe
+2021-08-06 22:29:41.844 -04:00 [INF] Marking assembly reference System.Configuration for removal based on package mapping configuration System.Configuration
+2021-08-06 22:29:41.849 -04:00 [INF] Adding package System.Configuration.ConfigurationManager based on package mapping configuration System.Configuration
+2021-08-06 22:29:42.503 -04:00 [INF] Reference to .NET Upgrade Assistant analyzer package (Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, version 0.2.237901) needs added
+2021-08-06 22:29:42.661 -04:00 [INF] Adding Microsoft.Windows.Compatibility 5.0.2
+2021-08-06 22:29:42.680 -04:00 [INF] Recommending Windows TFM net5.0-windows because the project either has Windows-specific dependencies or builds to a WinExe
+2021-08-06 22:29:43.510 -04:00 [INF] Reference to .NET Upgrade Assistant analyzer package (Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, version 0.2.237901) needs added
+2021-08-06 22:29:43.641 -04:00 [INF] Adding Microsoft.Windows.Compatibility 5.0.2
+2021-08-06 22:29:44.795 -04:00 [INF] Reference to .NET Upgrade Assistant analyzer package (Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, version 0.2.237901) needs added
+2021-08-06 22:29:45.853 -04:00 [INF] Reference to .NET Upgrade Assistant analyzer package (Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, version 0.2.237901) needs added
+2021-08-06 22:48:23.154 -04:00 [INF] Loaded 5 extensions
+2021-08-06 22:48:23.817 -04:00 [INF] MSBuild registered from C:\Program Files\dotnet\sdk\5.0.301\
+2021-08-06 22:48:24.102 -04:00 [INF] Found Visual Studio v16.10.31410.357 [C:\Program Files (x86)\Microsoft Visual Studio\2019\Community]
+2021-08-06 22:48:26.167 -04:00 [INF] Initializing upgrade step Select an entrypoint
+2021-08-06 22:48:26.170 -04:00 [INF] Setting entrypoint to user selected project: C:\Users\kevin\source\repos\AVBible\AVBible.csproj
+2021-08-06 22:48:26.174 -04:00 [INF] Initializing upgrade step Select project to upgrade
+2021-08-06 22:48:26.197 -04:00 [INF] Recommending TFM net5.0 because of dependency on project C:\Users\kevin\source\repos\HMI\HMI.csproj
+2021-08-06 22:48:26.201 -04:00 [INF] Recommending Windows TFM net5.0-windows because the project either has Windows-specific dependencies or builds to a WinExe
+2021-08-06 22:48:26.208 -04:00 [INF] Initializing upgrade step Back up project
+2021-08-06 22:48:38.242 -04:00 [INF] Skipping upgrade step Back up project
+2021-08-06 22:48:38.245 -04:00 [INF] Upgrade step Back up project skipped
+2021-08-06 22:48:50.532 -04:00 [INF] Initializing upgrade step Convert project file to SDK style
+2021-08-06 22:48:57.419 -04:00 [INF] Applying upgrade step Convert project file to SDK style
+2021-08-06 22:48:57.422 -04:00 [INF] Converting project file format with try-convert, version 0.9.232202
+2021-08-06 22:48:57.778 -04:00 [INF] [dotnet] C:\Users\kevin\source\repos\AVBible\AVBible.csproj contains an App.config file. App.config is replaced by appsettings.json in .NET Core. You will need to delete App.config and migrate to appsettings.json if it's applicable to your project.
+2021-08-06 22:48:59.407 -04:00 [INF] [dotnet] Conversion complete!
+2021-08-06 22:49:00.020 -04:00 [INF] Project file converted successfully! The project may require additional changes to build successfully against the new .NET target.
+2021-08-06 22:49:02.161 -04:00 [INF] Upgrade step Convert project file to SDK style applied successfully
+2021-08-06 22:49:04.892 -04:00 [INF] Initializing upgrade step Clean up NuGet package references
+2021-08-06 22:49:06.615 -04:00 [INF] Marking assembly reference System.Configuration for removal based on package mapping configuration System.Configuration
+2021-08-06 22:49:06.620 -04:00 [INF] Adding package System.Configuration.ConfigurationManager based on package mapping configuration System.Configuration
+2021-08-06 22:49:06.858 -04:00 [INF] Reference to .NET Upgrade Assistant analyzer package (Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, version 0.2.237901) needs added
+2021-08-06 22:49:06.865 -04:00 [INF] References to be removed: Operation { Item = System.Configuration, OperationDetails = OperationDetails { Risk = Medium, Details = System.Linq.EmptyPartition`1[System.String] } }
+2021-08-06 22:49:06.867 -04:00 [INF] Packages to be added: Operation { Item = System.Configuration.ConfigurationManager, Version=5.0.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.2.237901, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+2021-08-06 22:49:14.644 -04:00 [INF] Applying upgrade step Clean up NuGet package references
+2021-08-06 22:49:14.649 -04:00 [INF] Removing outdated assembly reference: System.Configuration
+2021-08-06 22:49:14.652 -04:00 [INF] Adding package reference: System.Configuration.ConfigurationManager, Version=5.0.0
+2021-08-06 22:49:14.652 -04:00 [INF] Adding package reference: Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers, Version=0.2.237901
+2021-08-06 22:49:16.761 -04:00 [INF] Upgrade step Clean up NuGet package references applied successfully
+2021-08-06 22:49:22.478 -04:00 [INF] Initializing upgrade step Update TFM
+2021-08-06 22:49:22.527 -04:00 [INF] Recommending TFM net5.0 because of dependency on project C:\Users\kevin\source\repos\AVXText\AVXText.csproj
+2021-08-06 22:49:22.557 -04:00 [INF] Recommending TFM net5.0-windows because of dependency on project C:\Users\kevin\source\repos\Blacklight.Controls.Wpf\Blacklight.Controls.Wpf.csproj
+2021-08-06 22:49:22.559 -04:00 [INF] TFM needs updated to net5.0-windows
+2021-08-06 22:49:26.473 -04:00 [INF] Applying upgrade step Update TFM
+2021-08-06 22:49:26.477 -04:00 [INF] Recommending TFM net5.0 because of dependency on project C:\Users\kevin\source\repos\AVXText\AVXText.csproj
+2021-08-06 22:49:26.478 -04:00 [INF] Recommending TFM net5.0-windows because of dependency on project C:\Users\kevin\source\repos\Blacklight.Controls.Wpf\Blacklight.Controls.Wpf.csproj
+2021-08-06 22:49:28.829 -04:00 [INF] Updated TFM to net5.0-windows
+2021-08-06 22:49:28.831 -04:00 [INF] Upgrade step Update TFM applied successfully
+2021-08-06 22:49:45.138 -04:00 [INF] Initializing upgrade step Update NuGet Packages
+2021-08-06 22:49:46.780 -04:00 [INF] Marking package Microsoft.CSharp for removal because it appears to be a transitive dependency
+2021-08-06 22:49:46.785 -04:00 [INF] Marking package System.Data.DataSetExtensions for removal because it appears to be a transitive dependency
+2021-08-06 22:49:46.787 -04:00 [INF] Marking package System.Configuration.ConfigurationManager for removal because it appears to be a transitive dependency
+2021-08-06 22:49:46.794 -04:00 [INF] Packages to be removed: Operation { Item = Microsoft.CSharp, Version=4.7.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Data.DataSetExtensions, Version=4.5.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+Operation { Item = System.Configuration.ConfigurationManager, Version=5.0.0, OperationDetails = OperationDetails { Risk = None, Details = System.Linq.EmptyPartition`1[System.String] } }
+2021-08-06 22:49:51.625 -04:00 [INF] Applying upgrade step Update NuGet Packages
+2021-08-06 22:49:51.627 -04:00 [INF] Removing outdated package reference: Microsoft.CSharp, Version=4.7.0
+2021-08-06 22:49:51.628 -04:00 [INF] Removing outdated package reference: System.Data.DataSetExtensions, Version=4.5.0
+2021-08-06 22:49:51.628 -04:00 [INF] Removing outdated package reference: System.Configuration.ConfigurationManager, Version=5.0.0
+2021-08-06 22:49:54.040 -04:00 [INF] Upgrade step Update NuGet Packages applied successfully
+2021-08-06 22:50:00.237 -04:00 [INF] Initializing upgrade step Add template files
+2021-08-06 22:50:00.245 -04:00 [INF] 0 expected template items needed
+2021-08-06 22:50:00.247 -04:00 [INF] Initializing upgrade step Upgrade app config files
+2021-08-06 22:50:00.280 -04:00 [INF] Found 0 app settings for upgrade: 
+2021-08-06 22:50:00.284 -04:00 [INF] Found 0 connection strings for upgrade: 
+2021-08-06 22:50:00.301 -04:00 [INF] Initializing upgrade step Update source code
+2021-08-06 22:50:01.997 -04:00 [INF] Initializing upgrade step Move to next project
+2021-08-06 22:50:13.575 -04:00 [INF] Saving upgrade progress file at C:\Users\kevin\source\repos\AVBible\.upgrade-assistant

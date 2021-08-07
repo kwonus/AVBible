@@ -27,12 +27,10 @@ namespace AVWord.Wpf
         }
         private bool Show(byte bookNum, byte chapterNum, bool green)
         {
-            string book = BookChickletMini.GetBookAbbreviation(bookNum);
             string chapter = chapterNum.ToString();
 
             string src = this.Picture.Source.ToString();
             this.Refresh(green);
-            this.Book.Content = book;
             this.Chapter.Content = chapter;
 
             this.Visibility = Visibility.Visible;

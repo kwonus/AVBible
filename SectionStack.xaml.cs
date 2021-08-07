@@ -20,8 +20,6 @@ namespace AVWord.Wpf
     /// </summary>
     public partial class SectionStack : UserControl
     {
-        public BookSelection Selection;
-
         public delegate void BookChooser(uint bookNum);
 
         public Label[] labels;
@@ -30,10 +28,17 @@ namespace AVWord.Wpf
         Dictionary<string, Label> SectionMap;
         Dictionary<string, uint> BookMap;
 
+        private BookChooser Selection;
+        private static SectionStack SELF;
+        public static void SetBookSelector(BookChooser selection)
+        {
+            SectionStack.SELF.Selection = selection;
+        }
         public SectionStack()
         {
             InitializeComponent();
             this.Selection = null;
+            SectionStack.SELF = this;
 
             BookMap = new Dictionary<string, uint>();
             SectionMap = new Dictionary<string, Label>();
@@ -258,11 +263,9 @@ namespace AVWord.Wpf
 
         private void ChooseBook(string book)
         {
+            uint booknum = this.BookMap[book];
             if (this.Selection != null)
-            {
-                uint booknum = this.BookMap[book];
                 this.Selection(booknum);
-            }
         }
 
         private void comboBoxNT_SelectionChanged(object sender, SelectionChangedEventArgs e)
