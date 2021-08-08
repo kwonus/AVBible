@@ -11,7 +11,7 @@
         <StackPanel Name="PanelOT" Visibility="Visible">
             <Grid Margin="0,8,0,4">
                 <Image Name="PictureOT" Margin="16,0,16,0" Source="./Images/blank-190.png" Focusable="False" IsEnabled="False" ></Image>
-                <Label Name="SectionNameOT" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" FontFamily="Calibri" TextBlock.Foreground="Cyan">OldTestament</Label>
+                <Label Name="SectionNameOT" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" FontFamily="Calibri" TextBlock.Foreground="Cyan">Old Testament</Label>
             </Grid>
             <!--av:SectionChicklet x:Name="ChickletOT"></av:SectionChicklet-->
             <ComboBox x:Name="comboBoxOT" SelectionChanged="comboBoxOT_SelectionChanged" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Foreground="Black" Background="Gray" Margin="20,0,20,0" Height="9"/>

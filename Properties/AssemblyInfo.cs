@@ -7,12 +7,12 @@ using System.Windows;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AVWord.Wpf")]
-[assembly: AssemblyDescription("AV Word for Windows")]
+[assembly: AssemblyTitle("AVBible.Wpf")]
+[assembly: AssemblyDescription("AV Bible for Windows")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("AVWord.Wpf")]
-[assembly: AssemblyCopyright("Copyright ©  2020")]
+[assembly: AssemblyProduct("AVBible.Wpf")]
+[assembly: AssemblyCopyright("Copyright © 1996-2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

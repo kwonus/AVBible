@@ -22,6 +22,7 @@ namespace AVWord.Wpf
 
             string label = ChapterChicklet.GetBookAbbreviation(book);
             this.Book.Content = label;
+
             this.BookChapter = (UInt16) ((book * 0x100) + chapter);
             this.Weight = weight;
 

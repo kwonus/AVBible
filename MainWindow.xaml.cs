@@ -448,6 +448,8 @@ namespace AVWord.App
             int ch = chicklet.BookChapter & 0xFF;
             var book = AVXAPI.SELF.XBook.GetBookByNum((byte)bk).Value;
             string header = book.name + " " + ch.ToString();
+            if (this.ButtonAVX.Content.ToString() == "AVX")
+                header += " (AVX)";
 
             DragDockPanel panel = null;
             foreach (DragDockPanel existing in this.AVPanel.Items)
@@ -742,7 +744,7 @@ namespace AVWord.App
 
                 bool jesus = (writ.punc & 0x01) != 0;
                 bool italics = ((writ.punc & 0x02) != 0);
-                bool avx = (this.ButtonAVT.Content.ToString() == "AVX");
+                bool avx = (this.ButtonAVX.Content.ToString() == "AVX");
                 string lex = "";
                 if (((writ.punc & 0x04) != 0) && !paren)
                 {
@@ -1181,36 +1183,78 @@ namespace AVWord.App
         {
             var x = this.ChapterViewMax;   // if window tiles were to change, it would be here
         }
-
-        private void OpenChapterHelper_MouseUp(object sender, MouseButtonEventArgs e)
+        public void LessChapterHelper_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            ChapterView.Visibility = Visibility.Visible;
-
-            ChapterHelper.Content = "";  // Down
-
-            if (e != null)
-                e.Handled = true;
-        }
-
-        private void CloseChapterHelper_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            ChapterView.Visibility = Visibility.Collapsed;
-
-            ChapterHelper.Content = ""; // Up
-
-            if (e != null)
-                e.Handled = true;
-        }
-        private void ChapterHelper_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            if (ChapterHelper.Content.ToString() == "")
-                CloseChapterHelper_MouseUp(sender, e);
+            if (this.ChapterView.Height > 200)
+            {
+                this.ChapterView.Height = 200;
+                this.ChapterHelperUp.Visibility = Visibility.Visible;
+            }
             else
-                OpenChapterHelper_MouseUp(sender, e);
+            {
+                this.ChapterView.Height = 100;
+                this.ChapterHelperDown.Visibility = Visibility.Collapsed;
+                this.ChapterHelperUp.Visibility = Visibility.Visible;
+                this.ChapterHelperMin.Visibility = Visibility.Visible;
+            }
+
+            if (e != null)
+                e.Handled = true;
         }
-        private void ChapterHelper_FingerUp(object sender, ManipulationCompletedEventArgs e)
+        public void LessChapterHelper_FingerUp(object sender, ManipulationCompletedEventArgs e)
         {
-            this.ChapterHelper_MouseUp(sender, null);
+            this.OpenChapterHelper_MouseUp(sender, null);
+
+            if (e != null)
+                e.Handled = true;
+        }
+        public void OpenChapterHelper_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (ChapterView.Visibility == Visibility.Visible)
+            {
+                if (this.ChapterView.Height < 200)
+                {
+                    this.ChapterView.Height = 200;
+                    this.ChapterHelperDown.Visibility = Visibility.Visible;
+                    this.ChapterHelperMin.Visibility = Visibility.Collapsed;
+                }
+                else if (this.ChapterView.Height < 300)
+                {
+                    this.ChapterView.Height = 300;
+                    this.ChapterHelperDown.Visibility = Visibility.Visible;
+                    this.ChapterHelperUp.Visibility = Visibility.Collapsed;
+                    this.ChapterHelperMin.Visibility = Visibility.Collapsed;
+                }
+            }
+            else
+            {
+                this.ChapterView.Visibility = Visibility.Visible;
+                this.ChapterHelperMin.Visibility = Visibility.Visible;
+            }
+            if (e != null)
+                e.Handled = true;
+        }
+        public void OpenChapterHelper_FingerUp(object sender, ManipulationCompletedEventArgs e)
+        {
+            this.OpenChapterHelper_MouseUp(sender, null);
+
+            if (e != null)
+                e.Handled = true;
+        }
+        public void CloseChapterHelper_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            this.ChapterView.Visibility = Visibility.Collapsed;
+            this.ChapterHelperDown.Visibility = Visibility.Collapsed;
+            this.ChapterHelperUp.Visibility = Visibility.Visible;
+            this.ChapterHelperMin.Visibility = Visibility.Collapsed;
+            this.ChapterView.Height = 100;
+
+            if (e != null)
+                e.Handled = true;
+        }
+        public void CloseChapterHelper_FingerUp(object sender, ManipulationCompletedEventArgs e)
+        {
+            this.CloseChapterHelper_MouseUp(sender, null);
 
             if (e != null)
                 e.Handled = true;
@@ -1246,13 +1290,13 @@ namespace AVWord.App
             var conf = ConfigurationManager.AppSettings;
             if (sender != null)
             {
-                if ((string)ButtonAVT.Content == "AV")
+                if ((string)ButtonAVX.Content == "AV")
                 {
-                    ButtonAVT.Content = version = "AVX";
+                    ButtonAVX.Content = version = "AVX";
                 }
                 else
                 {
-                    ButtonAVT.Content = version = "AV";
+                    ButtonAVX.Content = version = "AV";
                 }
                 //				conf.BibleVersion = version;
             }

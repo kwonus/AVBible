@@ -7,7 +7,7 @@
         SizeChanged="MainWin_SizeChanged"
         MinHeight="750"
         MinWidth="1020"
-        Title="AV Word" Height="750" Width="1020" WindowStyle="None" StateChanged="MainWin_StateChanged" Closing="MainWin_Closing">
+        Title="AV Bible" Height="750" Width="1020" WindowStyle="None" StateChanged="MainWin_StateChanged" Closing="MainWin_Closing">
     <Grid Background="#252526">
         <Grid.RowDefinitions>
             <RowDefinition Height="70" />
@@ -52,10 +52,11 @@
             </Grid.ColumnDefinitions>
             <Grid x:Name="ShowFilter" Background="#252526" Margin="0,0,0,0" Grid.Column="0" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Left">
                 <StackPanel x:Name="DisplayVersion" Margin="17,0,10,0" Orientation="Horizontal">
-                    <Button x:Name="ButtonAVT" Margin="15,0,5,5" Grid.Row="3" VerticalAlignment="Center"  Width="78" Height="30" Background="#252526" BorderBrush="#252526" Foreground="White" FontSize="22" Click="ButtonAVT_Click">
+                    <!--Button x:Name="ButtonAVT" Margin="15,0,5,5" Grid.Row="3" VerticalAlignment="Center" Width="78" Height="30" Background="#252526" BorderBrush="#252526" Foreground="White" FontSize="22" Click="ButtonAVT_Click"-->
+                    <Button x:Name="ButtonAVX" Margin="15,0,5,5" Grid.Row="3" VerticalAlignment="Center" Width="150" Height="30" Background="#252526" BorderBrush="#252526" Foreground="White" FontSize="22" Click="ButtonAVT_Click">
                         AV
                     </Button>
-                    <Button x:Name="ButtonConfig" Margin="0,0,30,0" Grid.Row="3" VerticalAlignment="Center"  Width="38" Height="30" Background="#252526" BorderBrush="#252526" Foreground="White" FontSize="16" Click="ButtonConfig_Click" >
+                    <Button x:Name="ButtonConfig" Margin="0,0,30,0" Grid.Row="3" VerticalAlignment="Center"  Width="38" Height="30" Background="#252526" BorderBrush="#252526" Foreground="White" FontSize="16" Click="ButtonConfig_Click" Visibility="Collapsed" >
                         <Image Source="./Images/gear.png" Height="20" />
                     </Button>
                 </StackPanel>
@@ -82,10 +83,12 @@
             <Image x:Name="SearchImage" Source="./Images/SearchBubble.png" Visibility="Collapsed" ManipulationCompleted="Search_FingerUp" MouseUp="Search_MouseUp" Grid.Column="2" HorizontalAlignment="Right" Height="50" Margin="0,10,10,0" VerticalAlignment="Top" Width="58"/>
         </Grid>
         <Wpf:DragDockPanelHost x:Name="AVPanel" Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="8,8,12,0" />
-        <StackPanel Grid.Column="1" Grid.Row="2" Margin="20,0,0,0" Background="#252526" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Label x:Name="ChapterHelper" FontFamily="WebDings" FontSize="24" Background="#252526" Foreground="White" HorizontalAlignment="Left" Content="" MouseUp="ChapterHelper_MouseUp" ManipulationCompleted="ChapterHelper_FingerUp" BorderThickness="1" BorderBrush="#2d2d30" />
+        <StackPanel Grid.Column="1" Grid.Row="2" Margin="20,0,0,0" Background="#252526" Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Label x:Name="ChapterHelperDown" FontFamily="WebDings" FontSize="24" Background="#252526" Foreground="White" HorizontalAlignment="Left" Content="" MouseUp="LessChapterHelper_MouseUp" ManipulationCompleted="LessChapterHelper_FingerUp" BorderThickness="1" BorderBrush="#2d2d30" />
+            <Label x:Name="ChapterHelperMin" Grid.Column="3" Grid.Row="0" FontFamily="WebDings" FontSize="28" Foreground="Silver" MouseUp="CloseChapterHelper_MouseUp" ManipulationCompleted="CloseChapterHelper_FingerUp" Width="34" Height="41" VerticalAlignment="Center" HorizontalAlignment="Left" Content="" Visibility="Collapsed" />
+            <Label x:Name="ChapterHelperUp" FontFamily="WebDings" FontSize="24" Background="#252526" Foreground="White" HorizontalAlignment="Left" Content="" MouseUp="OpenChapterHelper_MouseUp" ManipulationCompleted="OpenChapterHelper_FingerUp" BorderThickness="1" BorderBrush="#2d2d30" />
         </StackPanel>
-        <ScrollViewer x:Name="ChapterView" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" Height="200"  Visibility="Visible">
+        <ScrollViewer x:Name="ChapterView" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" Height="200" Visibility="Visible">
             <WrapPanel Name="ChapterStack" Width="{Binding ElementName=ChapterView, Path=ViewportWidth}" VerticalAlignment="Stretch" HorizontalAlignment="Center" Orientation="Horizontal"/>
         </ScrollViewer>
     </Grid>
