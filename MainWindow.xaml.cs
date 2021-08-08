@@ -707,33 +707,43 @@ namespace AVWord.App
             UInt32 last = (UInt32)(first + chapter.wordCnt - 1);
             var writ = new Writ176();
 
-            var tokens = this.found.tokens != null ? this.found.tokens : new Dictionary<UInt32, UInt64>();
-            var segments =
-                from record in this.found.segments
-                where (UInt32)(record & 0xFFFFFFFF) >= first && (UInt32)(record & 0xFFFFFFFF) <= last
-                select record;
+            Dictionary<UInt32, UInt64> tokens;
             var records = new Dictionary<UInt32, UInt16>(); // <widx, wcnt>
             var verses = new Dictionary<byte, byte>(); // <v, wcnt>
 
-            foreach (var segment in segments)
+            if (this.found != null)
             {
-                (UInt16 index, UInt16 wcnt, UInt32 widx) record = ((UInt16)(segment << 48), (UInt16)(segment & 0x0000FFFF00000000 >> 32), (UInt32)(segment & 0xFFFFFFFF));
-                if (records.ContainsKey(record.widx))
-                {
-                    var cnt = records[record.widx];
-                    if (cnt >= record.wcnt)
-                        continue;
-                    records.Remove(record.widx);
-                }
-                records.Add(record.widx, record.wcnt);
+                tokens = this.found.tokens;
 
-                if (AVXAPI.SELF.XWrit.GetRecord(record.widx, ref writ))
+                var segments =
+                    from record in this.found.segments
+                    where (UInt32)(record & 0xFFFFFFFF) >= first && (UInt32)(record & 0xFFFFFFFF) <= last
+                    select record;
+
+                foreach (var segment in segments)
                 {
-                    var verse = AVXAPI.SELF.XVerse.GetVerse(writ.verseIdx);
-                    var cnt = AVXAPI.SELF.XVerse.GetWordCnt(writ.verseIdx);
-                    if (verse != 0)
-                        verses.Add(verse, cnt);
+                    (UInt16 index, UInt16 wcnt, UInt32 widx) record = ((UInt16)(segment << 48), (UInt16)(segment & 0x0000FFFF00000000 >> 32), (UInt32)(segment & 0xFFFFFFFF));
+                    if (records.ContainsKey(record.widx))
+                    {
+                        var cnt = records[record.widx];
+                        if (cnt >= record.wcnt)
+                            continue;
+                        records.Remove(record.widx);
+                    }
+                    records.Add(record.widx, record.wcnt);
+
+                    if (AVXAPI.SELF.XWrit.GetRecord(record.widx, ref writ))
+                    {
+                        var verse = AVXAPI.SELF.XVerse.GetVerse(writ.verseIdx);
+                        var cnt = AVXAPI.SELF.XVerse.GetWordCnt(writ.verseIdx);
+                        if (verse != 0)
+                            verses.Add(verse, cnt);
+                    }
                 }
+            }
+            else
+            {
+                tokens = new Dictionary<UInt32, UInt64>();
             }
             byte v = 0;
 
