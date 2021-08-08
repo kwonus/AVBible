@@ -699,20 +699,47 @@ namespace AVWord.App
                 phead.FontWeight = FontWeights.Bold;
                 doc.Blocks.Add(phead);
             }
-            var book =AVXAPI.SELF.XBook.GetBookByNum((byte)b).Value;
+            var book = AVXAPI.SELF.XBook.GetBookByNum((byte)b).Value;
             var chapterIdx = book.chapterIdx + c - 1;
             AVSDK.Chapter chapter = AVXAPI.SELF.Chapters[chapterIdx];
             UInt32 first = chapter.writIdx;
             UInt32 last = (UInt32)(first + chapter.wordCnt - 1);
+            var writ = new Writ176();
 
-            int v = 0;
+            var tokens = this.found.tokens;
+            var segments =
+                from record in this.found.segments
+                where (UInt32)(record & 0xFFFFFFFF) >= first && (UInt32)(record & 0xFFFFFFFF) <= last
+                select record;
+            var records = new Dictionary<UInt32, UInt16>(); // <widx, wcnt>
+            var verses = new Dictionary<byte, byte>(); // <v, wcnt>
+
+            foreach (var segment in segments)
+            {
+                (UInt16 index, UInt16 wcnt, UInt32 widx) record = ((UInt16)(segment << 48), (UInt16)(segment & 0x0000FFFF00000000 >> 32), (UInt32)(segment & 0xFFFFFFFF));
+                if (records.ContainsKey(record.widx))
+                {
+                    var cnt = records[record.widx];
+                    if (cnt >= record.wcnt)
+                        continue;
+                    records.Remove(record.widx);
+                }
+                records.Add(record.widx, record.wcnt);
+
+                if (AVXAPI.SELF.XWrit.GetRecord(record.widx, ref writ))
+                {
+                    var verse = AVXAPI.SELF.XVerse.GetVerse(writ.verseIdx);
+                    var cnt = AVXAPI.SELF.XVerse.GetWordCnt(writ.verseIdx);
+                    if (verse != 0)
+                        verses.Add(verse, cnt);
+                }
+            }
+            byte v = 0;
 
             var pdoc = new System.Windows.Documents.Paragraph();
 
             bool paren = false;
             bool bov = false;
-
-            var writ = new Writ176();
 
             for (var cursor = first; cursor <= last && AVXAPI.SELF.XWrit.GetRecord(cursor, ref writ); AVXAPI.SELF.XWrit.Next(), cursor = AVXAPI.SELF.XWrit.cursor)
             {
@@ -732,7 +759,7 @@ namespace AVWord.App
                         vstr = "";
                     }
                     string padding = (first == cursor) ? "" : "  ";
-                    var vlabel = new System.Windows.Documents.Run(padding + v.ToString());
+                    var vlabel = new System.Windows.Documents.Run(padding + ((int)v).ToString());
                     vlabel.Foreground = this.panel_verseColor;
                     pdoc.Inlines.Add(vlabel);
                     vstr = " ";
@@ -769,31 +796,45 @@ namespace AVWord.App
                 if (vstr.Length > 0)
                 {
                     var vdoc = new System.Windows.Documents.Run(vstr);
+                    vdoc.Text.
+                    if (verses.ContainsKey(v))
+                    {
+                        vdoc.Background = Brushes.LightCyan;
+                        vdoc.Foreground = Brushes.Black;
+                    }
                     pdoc.Inlines.Add(vdoc);
                 }
+                lex += postPunc;
+                postPunc = "";
+
+                var phrase = new System.Windows.Documents.Run(lex);
                 if (italics)
                 {
-                    var phrase = new System.Windows.Documents.Run(lex);
                     phrase.FontStyle = FontStyles.Italic;
-                    pdoc.Inlines.Add(phrase);
                 }
-                else if (jesus)
+                if (verses.ContainsKey(v))
                 {
-                    var phrase = new System.Windows.Documents.Run(lex);
+                    phrase.Background = Brushes.LightCyan;
+                    phrase.Foreground = Brushes.Black;
+                }
+                if (tokens.ContainsKey(cursor))
+                {
+                    phrase.FontWeight = FontWeights.Bold;
+                }
+                if (jesus)
+                {
                     phrase.Foreground = panel_redLetter;
-                    pdoc.Inlines.Add(phrase);
                 }
-                else
-                {
-                    lex += postPunc;
-                    postPunc = "";
+                pdoc.Inlines.Add(phrase);
 
-                    var phrase = new System.Windows.Documents.Run(lex);
-                    pdoc.Inlines.Add(phrase);
-                }
                 if (postPunc.Length > 0)
                 {
                     var punc = new System.Windows.Documents.Run(postPunc);
+                    if (verses.ContainsKey(v))
+                    {
+                        punc.Background = Brushes.LightCyan;
+                        punc.Foreground = Brushes.Black;
+                    }
                     pdoc.Inlines.Add(punc);
                 }
             }
