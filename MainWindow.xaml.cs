@@ -17,6 +17,7 @@ using QuelleHMI;
 
 using AVSDK;
 using AVText;
+using System.Windows.Media.TextFormatting;
 
 namespace AVWord.App
 {
@@ -706,7 +707,7 @@ namespace AVWord.App
             UInt32 last = (UInt32)(first + chapter.wordCnt - 1);
             var writ = new Writ176();
 
-            var tokens = this.found.tokens;
+            var tokens = this.found.tokens != null ? this.found.tokens : new Dictionary<UInt32, UInt64>();
             var segments =
                 from record in this.found.segments
                 where (UInt32)(record & 0xFFFFFFFF) >= first && (UInt32)(record & 0xFFFFFFFF) <= last
@@ -796,12 +797,6 @@ namespace AVWord.App
                 if (vstr.Length > 0)
                 {
                     var vdoc = new System.Windows.Documents.Run(vstr);
-                    vdoc.Text.
-                    if (verses.ContainsKey(v))
-                    {
-                        vdoc.Background = Brushes.LightCyan;
-                        vdoc.Foreground = Brushes.Black;
-                    }
                     pdoc.Inlines.Add(vdoc);
                 }
                 lex += postPunc;
@@ -814,12 +809,13 @@ namespace AVWord.App
                 }
                 if (verses.ContainsKey(v))
                 {
-                    phrase.Background = Brushes.LightCyan;
-                    phrase.Foreground = Brushes.Black;
+                    phrase.Foreground = Brushes.Cyan;
+                    phrase.FontWeight = FontWeights.Bold;
                 }
                 if (tokens.ContainsKey(cursor))
                 {
-                    phrase.FontWeight = FontWeights.Bold;
+                    phrase.Background = Brushes.LightCyan;
+                    phrase.Foreground = Brushes.Black;
                 }
                 if (jesus)
                 {
@@ -832,8 +828,8 @@ namespace AVWord.App
                     var punc = new System.Windows.Documents.Run(postPunc);
                     if (verses.ContainsKey(v))
                     {
-                        punc.Background = Brushes.LightCyan;
-                        punc.Foreground = Brushes.Black;
+                        phrase.Foreground = Brushes.Cyan;
+                        punc.FontWeight = FontWeights.Bold;
                     }
                     pdoc.Inlines.Add(punc);
                 }
