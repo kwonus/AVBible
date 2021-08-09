@@ -290,49 +290,6 @@ namespace AVWord.App
         internal uint MaxiBookCnt = 0;
         internal uint MiniBookCnt = 0;
 
-        //internal string SDK = @"S:\src\SDK\2018\Digital-AV";  // AV-Writ.DX8
-        internal string SDK = @"C:\src\Digital-AV\z-series";
-
-        private bool GetFile(string name, string dir, string url = "http://www.avtext.org/SDK", int minKB = 87, int maxKB = 6170, string type = "application/octet-stream")
-        {
-            string file = System.IO.Path.Combine(dir, name);
-            bool exists = System.IO.File.Exists(file);
-
-            if (!exists)
-            {
-                string web = url + "/" + name;
-                var request = (System.Net.HttpWebRequest)System.Net.WebRequest.Create(web);
-                request.Method = "GET";
-                request.ContentType = type;
-                try
-                {
-                    var res = (System.Net.HttpWebResponse)request.GetResponse();
-                    using (var s = res.GetResponseStream())
-                    {
-                        int get = maxKB * 1024;
-                        var content = new byte[get];
-                        int len = 0;
-                        for (int read = s.Read(content, 0, get); read > 0; read = s.Read(content, len, get))
-                        {
-                            get -= read;
-                            len += read;
-                        }
-
-                        if (len >= minKB * 1024)
-                        {
-                            System.IO.File.WriteAllBytes(file, content.Take(len).ToArray());
-                            exists = true;
-                        }
-                    }
-                    res.Close();
-                }
-                catch (Exception ex)
-                {
-                    exists = false;
-                }
-            }
-            return exists;
-        }
         private AVXAPI provider;
         //private InstantiatedQuelleSearchProvider iprovider;
         private QuelleDriver driver;
