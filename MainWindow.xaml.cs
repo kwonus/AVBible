@@ -1189,14 +1189,14 @@ namespace AVWord.App
         }
         public void LessChapterHelper_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (this.ChapterView.Height > 200)
+            if (this.ChapterView.Height > 2*110)
             {
-                this.ChapterView.Height = 200;
+                this.ChapterView.Height = 2*110;
                 this.ChapterHelperUp.Visibility = Visibility.Visible;
             }
             else
             {
-                this.ChapterView.Height = 100;
+                this.ChapterView.Height = 110;
                 this.ChapterHelperDown.Visibility = Visibility.Collapsed;
                 this.ChapterHelperUp.Visibility = Visibility.Visible;
                 this.ChapterHelperMin.Visibility = Visibility.Visible;
@@ -1216,15 +1216,15 @@ namespace AVWord.App
         {
             if (ChapterView.Visibility == Visibility.Visible)
             {
-                if (this.ChapterView.Height < 200)
+                if (this.ChapterView.Height < 2*110)
                 {
-                    this.ChapterView.Height = 200;
+                    this.ChapterView.Height = 2*110;
                     this.ChapterHelperDown.Visibility = Visibility.Visible;
                     this.ChapterHelperMin.Visibility = Visibility.Collapsed;
                 }
-                else if (this.ChapterView.Height < 300)
+                else if (this.ChapterView.Height < 3*110)
                 {
-                    this.ChapterView.Height = 300;
+                    this.ChapterView.Height = 3*119;
                     this.ChapterHelperDown.Visibility = Visibility.Visible;
                     this.ChapterHelperUp.Visibility = Visibility.Collapsed;
                     this.ChapterHelperMin.Visibility = Visibility.Collapsed;
@@ -1251,7 +1251,7 @@ namespace AVWord.App
             this.ChapterHelperDown.Visibility = Visibility.Collapsed;
             this.ChapterHelperUp.Visibility = Visibility.Visible;
             this.ChapterHelperMin.Visibility = Visibility.Collapsed;
-            this.ChapterView.Height = 100;
+            this.ChapterView.Height = 110;
 
             if (e != null)
                 e.Handled = true;

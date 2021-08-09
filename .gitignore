@@ -10,3 +10,5 @@
 /defunct
 /.vs/AVBible
 /packages
+/bin
+/Properties/PublishProfiles
