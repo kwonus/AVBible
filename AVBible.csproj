@@ -6,6 +6,8 @@
     <UseWPF>true</UseWPF>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <StartupObject>AVWord.Wpf.App</StartupObject>
+    <ApplicationIcon>gutenburg-press-256.ico</ApplicationIcon>
+    <Win32Resource />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <OutputPath>bin\x64\Debug\</OutputPath>
@@ -20,6 +22,10 @@
     <OutputPath>bin\x86\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="gutenburg-press-256.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="gutenburg-press-256.ico" />
     <Resource Include="Images\Arrow - Down.png" />
   </ItemGroup>
   <ItemGroup>
