@@ -131,160 +131,56 @@ namespace AVWord.App
 
         private (uint count, bool ok) GetBookHitCount(byte b)
         {
-            if (this.found != null)
+            var book = AVXAPI.SELF.XBook.GetBookByNum(b);
+            if ((this.found != null) && book.HasValue)
             {
-                var verses = new HashSet<UInt16>();
+                UInt16 c1 = book.Value.chapterIdx;
+                UInt16 cn = (UInt16) (c1 + book.Value.chapterCnt - 1);
+                var chapterFirst = AVXAPI.SELF.XChapter.chapters[c1];
+                var chapterLast = AVXAPI.SELF.XChapter.chapters[cn];
+
+                UInt16 verseFirst = chapterFirst.verseIdx;
+                UInt16 verseLast = (UInt16) (chapterLast.verseIdx + AVXAPI.SELF.XChapter.GetVerseCount(cn) - 1);
+
                 var writ = new Writ176();
-                var orderedMatches = this.found.segments.OrderBy(elements => elements & 0xFFFFFFFF);
+                var verses = from v in this.found.verses where v >= verseFirst && v <= verseLast select v;
 
-                foreach (var elements in orderedMatches)
-                {
-                    UInt32 widx = SegmentElement.GetStart(elements);
-                    UInt32 wend = SegmentElement.GetEnd(elements);
-
-                    for (UInt32 element = widx; element <= wend; element ++)
-                    {
-                        if (!AVXAPI.SELF.XWrit.GetRecord(element, ref writ))
-                            return (0, false); // something unexpected went wrong
-                        var vidx = writ.verseIdx;
-                        byte bk = AVXAPI.SELF.XVerse.GetBook(vidx);
-                        if (bk == b)
-                        {
-                            if (!verses.Contains(vidx))
-                                verses.Add(vidx);
-                        }
-                        if (bk > b)
-                        {
-                            return ((uint)verses.Count(), true);
-                        }
-                    }
-                }
-                return ((uint)verses.Count(), true);
+                return ((uint) verses.Count(), true);
             }
             return (0, false);
         }
         private (uint count, bool ok) GetBookChapterHitCount(byte b, byte c)
         {
-            if (this.found != null)
+            var book = AVXAPI.SELF.XBook.GetBookByNum(b);
+            if ((this.found != null) && book.HasValue && c < book.Value.chapterCnt && c >= 1)
             {
-                var verses = new HashSet<UInt16>();
+                UInt16 bc= book.Value.chapterIdx;
+                var chapter = AVXAPI.SELF.XChapter.chapters[bc+c-1];
+
+                UInt16 verseFirst = chapter.verseIdx;
+                UInt16 verseLast = (UInt16)(chapter.verseIdx + AVXAPI.SELF.XChapter.GetVerseCount(bc) - 1);
+
                 var writ = new Writ176();
-                var orderedMatches = this.found.segments.OrderBy(elements => elements & 0xFFFFFFFF);
+                var verses = from v in this.found.verses where v >= verseFirst && v <= verseLast select v;
 
-                byte bk;
-                byte ch;
-                byte vs;
-                byte ignore;
-
-                foreach (var elements in orderedMatches)
-                {
-                    UInt32 widx = SegmentElement.GetStart(elements);
-                    UInt32 wend = SegmentElement.GetEnd(elements);
-
-                    for (UInt32 element = widx; element <= wend; element++)
-                    {
-                        if (!AVXAPI.SELF.XWrit.GetRecord(element, ref writ))
-                            return (0, false); // something unexpected went wrong
-                        var vidx = writ.verseIdx;
-                        if (!AVXAPI.SELF.XVerse.GetEntry(vidx, out bk, out ch, out vs, out ignore))
-                            return (0, false); // something unexpected went wrong
-
-                        if (bk == b && ch == c)
-                        {
-                            if (!verses.Contains(vidx))
-                                verses.Add(vidx);
-                        }
-                        if ((bk > b) || ((bk == b) && (ch > c)))
-                        {
-                            return ((uint)verses.Count(), true);
-                        }
-                    }
-                }
                 return ((uint)verses.Count(), true);
             }
             return (0, false);
         }
         private (uint count, bool ok) GetBookChapterVerseHitCount(byte b, byte c, byte v)
         {
-            if (this.found != null)
+            var book = AVXAPI.SELF.XBook.GetBookByNum(b);
+            if ((this.found != null) && book.HasValue && c < book.Value.chapterCnt && c >= 1 && v >= 1)
             {
-                var verses = new HashSet<UInt16>();
-                var writ = new Writ176();
-                var orderedMatches = this.found.segments.OrderBy(elements => elements & 0xFFFFFFFF);
+                UInt16 bc = book.Value.chapterIdx;
+                var chapter = AVXAPI.SELF.XChapter.chapters[bc + c - 1];
 
-                byte bk;
-                byte ch;
-                byte vs;
-                byte ignore;
+                byte vcnt = AVXAPI.SELF.XChapter.GetVerseCount((UInt16) (bc + c - 1));
 
-                foreach (var elements in orderedMatches)
-                {
-                    UInt32 widx = SegmentElement.GetStart(elements);
-                    UInt32 wend = SegmentElement.GetEnd(elements);
-
-                    for (UInt32 element = widx; element <= wend; element++)
-                    {
-                        if (!AVXAPI.SELF.XWrit.GetRecord(element, ref writ))
-                            return (0, false); // something unexpected went wrong
-                        var vidx = writ.verseIdx;
-                        if (!AVXAPI.SELF.XVerse.GetEntry(vidx, out bk, out ch, out vs, out ignore))
-                            return (0, false); // something unexpected went wrong
-
-                        if (bk == b && ch == c && vs == v)
-                        {
-                            if (!verses.Contains(vidx))
-                                verses.Add(vidx);
-                        }
-                        if (bk == b)
-                        {
-                            if (ch == c)
-                            {
-                                if (vs > v)
-                                    return ((uint)verses.Count(), true);
-                            }
-                            else if (ch > c)
-                            {
-                                return ((uint)verses.Count(), true);
-                            }
-                        }
-                        else if (bk > b)
-                        {
-                            return ((uint)verses.Count(), true);
-                        }
-                    }
-                }
-                return ((uint)verses.Count(), true);
+                if (v <= vcnt && this.found.verses.Contains((UInt16)(chapter.verseIdx + v - 1)))
+                    return (1, true);
             }
             return (0, false);
-        }
-        private HashSet<UInt16> ChapterHits
-        {
-            get
-            {
-                var verses = new HashSet<UInt16>();
-
-                if (this.found != null)
-                {
-                    var writ = new Writ176();
-
-                    foreach (var elements in found.segments)
-                    {
-                        UInt32 widx = SegmentElement.GetStart(elements);
-                        UInt32 wend = SegmentElement.GetEnd(elements);
-
-                        for (UInt32 element = widx; element <= wend; element++)
-                        {
-                            if (!AVXAPI.SELF.XWrit.GetRecord(element, ref writ))
-                                break; // something unexpected went wrong
-                            var vidx = writ.verseIdx;
-
-                            if (!verses.Contains(vidx))
-                                verses.Add(vidx);
-                        }
-                    }
-                }
-                return verses;
-            }
         }
 
         internal uint MaxiBookCnt = 0;
@@ -662,16 +558,19 @@ namespace AVWord.App
             AVSDK.Chapter chapter = AVXAPI.SELF.Chapters[chapterIdx];
             UInt32 first = chapter.writIdx;
             UInt32 last = (UInt32)(first + chapter.wordCnt - 1);
-            var writ = new Writ176();
 
-            Dictionary<UInt32, UInt64> tokens;
+
+            HashSet<UInt16> verses;
+            HashSet<UInt32> tokens;
             var records = new Dictionary<UInt32, UInt16>(); // <widx, wcnt>
-            var verses = new Dictionary<byte, byte>(); // <v, wcnt>
 
+            var writ = new Writ176();
             if (this.found != null)
             {
                 tokens = this.found.tokens;
+                verses = this.found.verses;
 
+                /*
                 var segments =
                     from record in this.found.segments
                     where (UInt32)(record & 0xFFFFFFFF) >= first && (UInt32)(record & 0xFFFFFFFF) <= last
@@ -697,10 +596,12 @@ namespace AVWord.App
                             verses.Add(verse, cnt);
                     }
                 }
+                */
             }
             else
             {
-                tokens = new Dictionary<UInt32, UInt64>();
+                tokens = new HashSet<UInt32>();
+                verses = new HashSet<UInt16>();
             }
             byte v = 0;
 
@@ -774,12 +675,12 @@ namespace AVWord.App
                 {
                     phrase.FontStyle = FontStyles.Italic;
                 }
-                if (verses.ContainsKey(v))
+                if (verses.Contains(writ.verseIdx))
                 {
                     phrase.Foreground = Brushes.Cyan;
                     phrase.FontWeight = FontWeights.Bold;
                 }
-                if (tokens.ContainsKey(cursor))
+                if (tokens.Contains(cursor))
                 {
                     phrase.Background = Brushes.LightCyan;
                     phrase.Foreground = Brushes.Black;
@@ -793,7 +694,7 @@ namespace AVWord.App
                 if (postPunc.Length > 0)
                 {
                     var punc = new System.Windows.Documents.Run(postPunc);
-                    if (verses.ContainsKey(v))
+                    if (verses.Contains(writ.verseIdx))
                     {
                         phrase.Foreground = Brushes.Cyan;
                         punc.FontWeight = FontWeights.Bold;
@@ -992,38 +893,29 @@ namespace AVWord.App
             var command = QuelleCommand(this.TextCriteria.Text);
 
             var verses = new HashSet<UInt16>();
-            if (command.success && command.result != null && command.result.segments != null && command.result.segments.Count > 0)
+            if (command.success && command.result != null && command.result.verses != null && command.result.verses.Count > 0)
             {
+                byte bkLast = 0;
+                byte chLast = 0;
+
                 byte bk;
                 byte ch;
                 byte vs;
                 byte ignore;
 
-                var matches = new Dictionary<byte, List<byte>>();
-
-                foreach (UInt16 vidx in this.ChapterHits)
+                foreach (UInt16 vidx in from verse in command.result.verses orderby verse select verse)
                 {
                     if (!AVXAPI.SELF.XVerse.GetEntry(vidx, out bk, out ch, out vs, out ignore))
                         return; // something unexpected went wrong
 
-                    List<byte> book = null;
-                    if (matches.ContainsKey(bk))
-                    {
-                        book = matches[bk];
-                    }
-                    else
-                    {
-                        book = new List<byte>();
-                        matches.Add(bk, book);
-                    }
-                    if (!book.Contains(ch))
-                    {
-                        book.Add(ch);
-                    }
+                    if (bk == bkLast && ch == chLast)
+                        continue;
+
+                    bkLast = bk;
+                    chLast = ch;
+
+                    AddChapterChicklet(bk, ch);
                 }
-                foreach (byte b in matches.Keys.OrderBy(book => book))
-                    foreach (byte c in matches[b])
-                        AddChapterChicklet(b, c);
             }
         }
         private void TextCriteria_KeyUp(object sender, KeyEventArgs e)
