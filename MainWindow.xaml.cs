@@ -518,9 +518,6 @@ namespace AVWord.App
         }
 
         private FontFamily panel_fontFamily = new FontFamily("calibri");
-        private SolidColorBrush panel_fontColor = new SolidColorBrush(Colors.White);
-        private SolidColorBrush panel_verseColor = new SolidColorBrush(Colors.Cyan);
-        private SolidColorBrush panel_redLetter = new SolidColorBrush(Colors.LightCyan);
         private int panel_fontSize = 16;
         private int panel_fontHead = 20;
 
@@ -569,34 +566,6 @@ namespace AVWord.App
             {
                 tokens = this.found.tokens;
                 verses = this.found.verses;
-
-                /*
-                var segments =
-                    from record in this.found.segments
-                    where (UInt32)(record & 0xFFFFFFFF) >= first && (UInt32)(record & 0xFFFFFFFF) <= last
-                    select record;
-
-                foreach (var segment in segments)
-                {
-                    (UInt16 index, UInt16 wcnt, UInt32 widx) record = ((UInt16)(segment << 48), (UInt16)(segment & 0x0000FFFF00000000 >> 32), (UInt32)(segment & 0xFFFFFFFF));
-                    if (records.ContainsKey(record.widx))
-                    {
-                        var cnt = records[record.widx];
-                        if (cnt >= record.wcnt)
-                            continue;
-                        records.Remove(record.widx);
-                    }
-                    records.Add(record.widx, record.wcnt);
-
-                    if (AVXAPI.SELF.XWrit.GetRecord(record.widx, ref writ))
-                    {
-                        var verse = AVXAPI.SELF.XVerse.GetVerse(writ.verseIdx);
-                        var cnt = AVXAPI.SELF.XVerse.GetWordCnt(writ.verseIdx);
-                        if (verse != 0)
-                            verses.Add(verse, cnt);
-                    }
-                }
-                */
             }
             else
             {
@@ -613,7 +582,6 @@ namespace AVWord.App
             for (var cursor = first; cursor <= last && AVXAPI.SELF.XWrit.GetRecord(cursor, ref writ); AVXAPI.SELF.XWrit.Next(), cursor = AVXAPI.SELF.XWrit.cursor)
             {
                 string vstr = "";
-                string prePunc = "";
                 string postPunc = "";
 
                 bov = ((writ.trans & (byte)AVSDK.Transitions.VerseTransition) == (byte)AVSDK.Transitions.BeginingOfVerse);
@@ -625,11 +593,10 @@ namespace AVWord.App
                     {
                         var vdoc = new System.Windows.Documents.Run(vstr);
                         pdoc.Inlines.Add(vdoc);
-                        vstr = "";
                     }
                     string padding = (first == cursor) ? "" : "  ";
                     var vlabel = new System.Windows.Documents.Run(padding + ((int)v).ToString());
-                    vlabel.Foreground = this.panel_verseColor;
+                    vlabel.Foreground = Brushes.Cyan;
                     pdoc.Inlines.Add(vlabel);
                     vstr = " ";
                 }
@@ -645,7 +612,7 @@ namespace AVWord.App
                 if (((writ.punc & 0x04) != 0) && !paren)
                 {
                     paren = true;
-                    prePunc = "(";
+                    pdoc.Inlines.Add("(");
                 }
                 lex += avx ? AVLexicon.GetLexModern(writ.word) : AVLexicon.GetLex(writ.word);
                 if ((writ.punc & 0x10) != 0)
@@ -677,18 +644,29 @@ namespace AVWord.App
                 }
                 if (verses.Contains(writ.verseIdx))
                 {
-                    phrase.Foreground = Brushes.Cyan;
-                    phrase.FontWeight = FontWeights.Bold;
+                     phrase.FontWeight = FontWeights.Bold;
+
+                    if (tokens.Contains(cursor))
+                    {
+                        phrase.Background = Brushes.LightCyan;
+                        phrase.Foreground = Brushes.Black;
+                    }
+                    else
+                    {
+                        phrase.Foreground = Brushes.Cyan;
+                    }
                 }
-                if (tokens.Contains(cursor))
+                else
                 {
-                    phrase.Background = Brushes.LightCyan;
-                    phrase.Foreground = Brushes.Black;
+                    phrase.Foreground = Brushes.White;
+                    phrase.FontWeight = FontWeights.Normal;
                 }
+                /*
                 if (jesus)
                 {
-                    phrase.Foreground = panel_redLetter;
+                    phrase.Foreground = Brushes.Maroon;
                 }
+                */
                 pdoc.Inlines.Add(phrase);
 
                 if (postPunc.Length > 0)
@@ -707,97 +685,6 @@ namespace AVWord.App
             var scrolling = new FlowDocumentScrollViewer();
             scrolling.Document = doc;
             return scrolling;
-        }
-        string GetChapterPassage(string bookName, int b, int c, string prefix, string suffix, bool header)
-        {
-            return "GetChapterPassage();";
-            /*
-            string passage = (prefix != null) ? prefix : string.Empty;
-
-            if (header)
-            {
-                passage += "<b>";
-                passage += bookName; // "<html>"
-                passage += " ";
-                passage += c.ToString();
-                passage += "</b><br>\n";
-            }
-            var bible = this.cmd.Bible;
-            var book = bible.ixbook.books[b - 1];
-            var chapter = bible.ixchapter.chapters[book.chapterIdx];
-            bool first = true;
-            int v = 0;
-            uint end = chapter.writIndex + chapter.wordCount - 1;
-            WritDX4 dx = new WritDX4();
-
-            if (this.avmap == null)
-            {
-                this.cmd.InitializeMap();
-
-                if (this.cmd.Map != null && this.cmd.Map.GetType() == typeof(MMWritDx4))
-                    this.avmap = (MMWritDx4)this.cmd.Map;
-                else
-                    this.avmap = new MMWritDx4(this.cmd.sdk);
-            }
-            bool eoc = false;
-            for (var ok = this.avmap.GetRecord(AVMemMap.FIRST, ref dx); ok && !eoc; ok = this.avmap.GetRecord(AVMemMap.NEXT, ref dx))
-            {
-                bool vt = (((uint)Transitions.VerseTransition) & dx.trans) != (uint)0;
-                bool eb = (((uint)Transitions.EndBit) & dx.trans) != (uint)0;
-                eoc = eb && ((((uint)Transitions.ChapterTransition) & dx.trans) != (uint)0);
-                bool bov = false;
-                bool eov = false;
-                if (vt)
-                {
-                    eov = eb;
-                    bov = !eb;
-                }
-
-                if (eov)
-                {
-                    passage += "</a>";
-                }
-                if (first)
-                {
-                    first = false;
-                }
-                else
-                {
-                    passage += "  ";
-                }
-                if (bov)
-                {
-                    var vstr = (++v).ToString();
-
-                    passage += "<a name='v";
-                    passage += vstr;
-                    passage += "'><sup><font color='maroon'>";
-                    passage += vstr;
-                    passage += "</sup></font>";
-                }
-                else
-                {
-                    passage += " ";
-                }
-                //              if (dx.stat != 0x0000)
-                //                  passage += "<b>";
-                bool italics = ((dx.punc & (uint)Punctuation.MODEitalics) != 0);
-                if (italics)
-                    passage += "<em>";
-
-                passage += this.cmd.Lexicon.GetLex(dx.word, capitolize: true, modernize: true);
-
-                if (italics)
-                    passage += "</em>";
-                //              if (writ.stat != 0x0000)
-                //                  passage += "</b>";
-            }
-            passage += "</a>";
-            if (suffix != null)
-                passage += suffix;
-
-            return passage;
-            */
         }
 
         private static bool RezeroImage(Image image, string zero)
