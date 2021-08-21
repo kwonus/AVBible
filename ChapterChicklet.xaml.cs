@@ -1,4 +1,4 @@
-﻿using AVWord.App;
+﻿using DigitalAV.AVBible;
 using System;
 using System.Windows;
 using System.Windows.Controls;

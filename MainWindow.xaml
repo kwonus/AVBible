@@ -1,7 +1,7 @@
 ﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:Wpf="clr-namespace:Blacklight.Controls.Wpf;assembly=Blacklight.Controls.Wpf" x:Name="MainWin" x:Class="AVWord.App.MainWindow"
+        xmlns:Wpf="clr-namespace:Blacklight.Controls.Wpf;assembly=Blacklight.Controls.Wpf" x:Name="MainWin" x:Class="DigitalAV.AVBible.MainWindow"
         xmlns:av="clr-namespace:AVWord.Wpf"
         Background="Black"
         SizeChanged="MainWin_SizeChanged"

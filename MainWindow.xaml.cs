@@ -19,7 +19,7 @@ using AVSDK;
 using AVText;
 using System.Windows.Media.TextFormatting;
 
-namespace AVWord.App
+namespace DigitalAV.AVBible
 {
     internal class ChapterSpec
     {
