@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 
 using Blacklight.Controls.Wpf;
 
-using AVWord.Wpf;
+using AVBible;
 using Quelle.DriverDefault;
 using QuelleHMI;
 
@@ -19,7 +19,7 @@ using AVSDK;
 using AVText;
 using System.Windows.Media.TextFormatting;
 
-namespace DigitalAV.AVBible
+namespace AVBible
 {
     internal class ChapterSpec
     {

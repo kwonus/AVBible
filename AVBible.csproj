@@ -5,9 +5,10 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWPF>true</UseWPF>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
-    <StartupObject>AVWord.Wpf.App</StartupObject>
+    <StartupObject></StartupObject>
     <ApplicationIcon>gutenburg-press-256.ico</ApplicationIcon>
     <Win32Resource />
+    <PackageProjectUrl>http://Digital-AV.org</PackageProjectUrl>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <OutputPath>bin\x64\Debug\</OutputPath>
@@ -148,5 +149,18 @@
   <ItemGroup>
     <Page Remove="packages\Microsoft.ProjectReunion.WinUI.0.8.0\lib\net5.0-windows10.0.18362.0\Microsoft.WinUI\Themes\generic.xaml" />
     <Page Remove="packages\Microsoft.ProjectReunion.WinUI.0.8.0\lib\uap10.0\Microsoft.UI\Themes\generic.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 </Project>

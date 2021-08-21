@@ -1,11 +1,10 @@
-﻿using DigitalAV.AVBible;
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace AVWord.Wpf
+namespace AVBible
 {
     /// <summary>
     /// Interaction logic for ChapterChicklet.xaml
