@@ -86,11 +86,3 @@ If you are unsure which words might separate a phrase, you could issue this stat
 With this ellipsis in the find statement, it would match this string of text:
 
 in the beginning, God created heaven and earth
-
-If you are unsure about word order within a phrase, square brackets can be used:
-
-find "in the beginning … [earth heaven]"
-
-With this ellipsis and the final two bracketed terms, it would also match this string of text:
-
-in a beginning, God created heaven and earth
