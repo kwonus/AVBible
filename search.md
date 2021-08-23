@@ -79,10 +79,6 @@ in the beginning
 
 in that beginning
 
-or more generally where /det/ marks any word that is marked as a determiner (Not all Quelle drivers handle part-of-speech marking in this manner; and current part-of-speech searches are being validated in AV-Bible):
-
-"in /det/ beginning"
-
 If you are unsure which words might separate a phrase, you could issue this statement:
 
 "in ... beginning … heaven and earth"
