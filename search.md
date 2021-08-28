@@ -7,7 +7,7 @@ https://github.com/kwonus/Quelle/blob/master/Quelle.md
 
 However, AV-Bible implements only a subset of Quelle syntax as described in the following section of this document.
 
-### II. Quick Primer on Quelle SEARCH syntax
+### II. Quick Primer on AV-Bible SEARCH syntax
 
 Here is an example search using Quelle syntax:
 
