@@ -5,7 +5,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWPF>true</UseWPF>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
-    <StartupObject></StartupObject>
+    <StartupObject>AVBible.App</StartupObject>
     <ApplicationIcon>gutenburg-press-256.ico</ApplicationIcon>
     <Win32Resource />
     <PackageProjectUrl>http://Digital-AV.org</PackageProjectUrl>
