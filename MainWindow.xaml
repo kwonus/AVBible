@@ -74,11 +74,19 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" x:Name="TextSummary" Text="Type your search in the box above" Foreground="LightCyan" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                <TextBlock Grid.Column ="1" x:Name="DeleteSummary" Text="Delete a panel:  " Foreground="LightCyan" HorizontalAlignment="Stretch" TextAlignment="Right" VerticalAlignment="Center" />
-                <ComboBox Grid.Column="2" x:Name="comboBoxDeletePanel" SelectionChanged="comboBoxDeletePanel_SelectionChanged" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="Black" Background="Gray" Height="9" Width="134"/>
+                <TextBlock Grid.Column ="1" x:Name="HelpPrompt" Text="  Help:  " Foreground="LightCyan" HorizontalAlignment="Stretch" TextAlignment="Right" VerticalAlignment="Center" />
+                <ComboBox Grid.Column="2" x:Name="comboBoxHelpPanel" SelectionChanged="comboBoxHelpPanel_SelectionChanged" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="Black" Background="Gray" Height="9" Width="134">
+                    <ComboBoxItem Name="instructions">User Instructions</ComboBoxItem>
+                    <ComboBoxItem Name="searching">Help Searching</ComboBoxItem>
+                    <ComboBoxItem Name="readme">About AV-Bible</ComboBoxItem>
+                </ComboBox>
+                <TextBlock Grid.Column ="3" x:Name="DeleteSummary" Text="     Delete a panel:  " Foreground="LightCyan" HorizontalAlignment="Stretch" TextAlignment="Right" VerticalAlignment="Center" />
+                <ComboBox Grid.Column="4" x:Name="comboBoxDeletePanel" SelectionChanged="comboBoxDeletePanel_SelectionChanged" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="Black" Background="Gray" Height="9" Width="134"/>
             </Grid>
             <Image x:Name="SearchImage" Source="./Images/SearchBubble.png" Visibility="Collapsed" ManipulationCompleted="Search_FingerUp" MouseUp="Search_MouseUp" Grid.Column="2" HorizontalAlignment="Right" Height="50" Margin="0,10,10,0" VerticalAlignment="Top" Width="58"/>
         </Grid>

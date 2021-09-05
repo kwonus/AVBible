@@ -18,6 +18,7 @@ using QuelleHMI;
 using AVSDK;
 using AVText;
 using System.Windows.Media.TextFormatting;
+using System.IO;
 
 namespace AVBible
 {
@@ -201,13 +202,35 @@ namespace AVBible
 
             return true;
         }
-
+        public static string HelpFolder { get; private set; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DigitalAV", "AV-Bible", "Help");
+        public static string About { get; private set; } = "README";
+        public static string Search { get; private set; } = "searching";
+        public static string Instructions { get; private set; } = "instructions";
+        public static Dictionary<string, string> Help { get; private set; } = new Dictionary<string, string>();
+        public static Dictionary<string, string> HelpTitle { get; private set; } = new Dictionary<string, string>();
         private bool FullInit()
         {
             try
             {
                 var AVInit = Initialize();
                 var waiter = AVInit.GetAwaiter();
+
+                try
+                {
+                    System.IO.Directory.CreateDirectory(HelpFolder);
+                    Help[About] = AVMemMap.Fetch(About + ".md", HelpFolder);
+                    Help[Search] = AVMemMap.Fetch(Search + ".md", HelpFolder);
+                    Help[Instructions] = AVMemMap.Fetch(Instructions + ".md", HelpFolder);
+
+                    HelpTitle[About] = "HELP - About AV Bible";
+                    HelpTitle[Search] = "HELP - Searching";
+                    HelpTitle[Instructions] = "HELP - User Instructions";
+                }
+                catch
+                {
+                    ;
+                }
+
                 if (waiter.GetResult())
                 {
                     this.BookSelection(1);
@@ -296,6 +319,73 @@ namespace AVBible
             id = 0;
         }
         public static UInt64 sequence = 0;
+        public void AddHelpPanel(string topic)
+        {
+            string header = HelpTitle.ContainsKey(Instructions) ? HelpTitle[Instructions] : "HELP";
+            string help = Help.ContainsKey(Instructions) ? Help[Instructions] : null;
+            
+            if (Help.ContainsKey(topic) && HelpTitle.ContainsKey(topic))
+            {
+                header = HelpTitle[topic];
+                help = Help[topic];
+            }
+            DragDockPanel panel = null;
+            foreach (DragDockPanel existing in this.AVPanel.Items)
+            {
+                if (existing.Header.ToString() == header)
+                {
+                    panel = existing;
+                    panel.PanelLifetime = ++sequence;
+                    panel.PanelReference = 0;
+                    break;
+                }
+            }
+            if (panel == null)
+            {
+                // Recycle the oldest panel
+                //
+                if (this.AVPanel.Items.Count >= 12)
+                {
+                    int position = -1;
+                    int delete = (-1);
+                    UInt16 removal = 0;
+                    UInt64 min = UInt64.MaxValue;
+                    foreach (var item in this.AVPanel.Items)
+                    {
+                        ++position;
+                        var test = (DragDockPanel)item;
+                        if (test.PanelLifetime < min)
+                        {
+                            min = test.PanelLifetime;
+                            removal = test.PanelReference;
+                            delete = position;
+                        }
+                    }
+                    if (delete >= 0)
+                    {
+                        this.AVPanel.Items.RemoveAt(delete);
+                        foreach (var item in this.ChapterStack.Children)
+                        {
+                            var update = (ChapterChicklet)item;
+                            if (update.BookChapter == removal)
+                            {
+                                update.Refresh(false);
+                                break;
+                            }
+                        }
+                    }
+                }
+                var content = this.GetHelp(help);
+                panel = new DragDockPanel();
+                panel.Content = content;
+                panel.PanelLifetime = ++sequence;
+                panel.PanelReference = 0;
+                panel.Header = header;
+                this.AVPanel.Items.Add(panel);
+
+                ResetComboDeleteItems();
+            }
+        }
         public void AddPanel(ChapterChicklet chicklet)
         {
             int bk = chicklet.BookChapter >> 8;
@@ -360,6 +450,11 @@ namespace AVBible
                 panel.Header = header;
                 this.AVPanel.Items.Add(panel);
             }
+            ResetComboDeleteItems();
+        }
+
+        private void ResetComboDeleteItems()
+        {
             comboBoxDeletePanel.Items.Clear();
 
             foreach (DragDockPanel existing in this.AVPanel.Items)
@@ -682,6 +777,72 @@ namespace AVBible
             }
             doc.Blocks.Add(pdoc);
 
+            var scrolling = new FlowDocumentScrollViewer();
+            scrolling.Document = doc;
+            return scrolling;
+        }
+        FlowDocumentScrollViewer GetHelp(string md)   // MarkDown file
+        {
+            var doc = new System.Windows.Documents.FlowDocument();
+
+            var style = new Style(typeof(System.Windows.Documents.Paragraph));
+            style.Setters.Add(new Setter(System.Windows.Documents.Block.MarginProperty, new Thickness(0)));
+            doc.Resources.Add(typeof(System.Windows.Documents.Paragraph), style);
+
+            doc.FontSize = this.panel_fontSize;
+            doc.FontFamily = this.panel_fontFamily;
+            doc.Foreground = new SolidColorBrush(Colors.White);
+
+            if (md != null && File.Exists(md))
+            {
+                var input = new FileStream(md, FileMode.Open, FileAccess.Read);
+                var reader = new StreamReader(input);
+
+                for (var line = reader.ReadLine(); line != null; line = reader.ReadLine())
+                {
+                    // Eventually, we might differentiate between different header levels
+                    if (line.StartsWith("###"))
+                    {
+                        var index = line.LastIndexOf('#');
+                        var rhead = new System.Windows.Documents.Run(line.Substring(index+1).Trim());
+                        var phead = new System.Windows.Documents.Paragraph(rhead);
+                        phead.Foreground = Brushes.Green;
+                        phead.FontSize = this.panel_fontHead;
+                        phead.FontWeight = FontWeights.Bold;
+                        doc.Blocks.Add(phead);
+                    }
+                    else if (line.StartsWith("##"))
+                    {
+                        var rhead = new System.Windows.Documents.Run(line.Substring(2).Trim());
+                        var phead = new System.Windows.Documents.Paragraph(rhead);
+                        phead.FontSize = this.panel_fontHead;
+                        phead.FontWeight = FontWeights.Bold;
+                        doc.Blocks.Add(phead);
+                    }
+                    else if (line.StartsWith("#"))
+                    {
+                        var rhead = new System.Windows.Documents.Run(line.Substring(1).Trim());
+                        var phead = new System.Windows.Documents.Paragraph(rhead);
+                        phead.FontSize = this.panel_fontHead;
+                        phead.FontWeight = FontWeights.Bold;
+                        doc.Blocks.Add(phead);
+                    }
+                    else
+                    {
+                        var breaks = line.Split("<br/>", StringSplitOptions.None);
+                        foreach (string paragraph in breaks)
+                        {
+                            var stripped = paragraph.Replace("*", "");
+                            var pdoc = new System.Windows.Documents.Paragraph();
+                            var vdoc = new System.Windows.Documents.Run(stripped);
+                            pdoc.Inlines.Add(vdoc);
+                            doc.Blocks.Add(pdoc);
+                        }
+                    }
+                }
+                reader.Close();
+                input.Close();
+            }
             var scrolling = new FlowDocumentScrollViewer();
             scrolling.Document = doc;
             return scrolling;
@@ -1129,6 +1290,20 @@ namespace AVBible
             }
         }
         */
+        private void comboBoxHelpPanel_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (comboBoxHelpPanel.SelectedItem != null)
+            {
+                var help = (ComboBoxItem) (comboBoxHelpPanel.SelectedItem);
+
+                foreach (var topic in Help.Keys)
+                    if (help.Name.Equals(topic, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        this.AddHelpPanel(topic);
+                        break;
+                    }
+            }
+        }
         private void comboBoxDeletePanel_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (this.comboBoxDeletePanel.SelectedItem != null)
