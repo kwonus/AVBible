@@ -218,9 +218,9 @@ namespace AVBible
                 try
                 {
                     System.IO.Directory.CreateDirectory(HelpFolder);
-                    Help[About] = AVMemMap.Fetch(About + ".md", HelpFolder);
-                    Help[Search] = AVMemMap.Fetch(Search + ".md", HelpFolder);
-                    Help[Instructions] = AVMemMap.Fetch(Instructions + ".md", HelpFolder);
+                    Help[About] = AVMemMap.Fetch(About + ".md", HelpFolder, help:true);
+                    Help[Search] = AVMemMap.Fetch(Search + ".md", HelpFolder, help: true);
+                    Help[Instructions] = AVMemMap.Fetch(Instructions + ".md", HelpFolder, help: true);
 
                     HelpTitle[About] = "HELP - About AV Bible";
                     HelpTitle[Search] = "HELP - Searching";
