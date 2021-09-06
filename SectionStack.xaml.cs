@@ -250,14 +250,16 @@ namespace AVBible
 
         private void Other_MouseMove(object sender, MouseEventArgs e)
         {
-
+            ;
         }
 
+        public byte lastChosenBook { get; private set; } = 0;       
         private void ChooseBook(string book)
         {
             uint booknum = this.BookMap[book];
             if (this.Selection != null)
                 this.Selection(booknum);
+            lastChosenBook = (byte)booknum;
         }
 
         private void comboBoxNT_SelectionChanged(object sender, SelectionChangedEventArgs e)

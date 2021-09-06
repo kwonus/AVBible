@@ -32,8 +32,6 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <av:SectionStack Grid.Row="0" x:Name="BookStack" Visibility="Visible" VerticalAlignment="Stretch" Background="Black" Foreground="White" Loaded="BookStack_Loaded" />
-            <!--RadioButton x:Name="RadioSearch" Grid.Row="1" TextBlock.Foreground="White" FontSize="18" VerticalAlignment="Bottom" Checked="RadioChapters_Changed" Unchecked="RadioChapters_Changed" Margin="30,0,0,0">Show Results</RadioButton>
-            <RadioButton x:Name="RadioChapters" Grid.Row="2" TextBlock.Foreground="White" FontSize="18" VerticalAlignment="Bottom" Checked="RadioChapters_Changed" Unchecked="RadioChapters_Changed" IsChecked="true" Margin="30,0,0,20">Browse a Book</RadioButton-->
         </Grid>
         <!--RIGHT PANE-->
 
@@ -52,7 +50,6 @@
             </Grid.ColumnDefinitions>
             <Grid x:Name="ShowFilter" Background="#252526" Margin="0,0,0,0" Grid.Column="0" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Left">
                 <StackPanel x:Name="DisplayVersion" Margin="17,0,10,0" Orientation="Horizontal">
-                    <!--Button x:Name="ButtonAVT" Margin="15,0,5,5" Grid.Row="3" VerticalAlignment="Center" Width="78" Height="30" Background="#252526" BorderBrush="#252526" Foreground="White" FontSize="22" Click="ButtonAVT_Click"-->
                     <Button x:Name="ButtonAVX" Margin="15,0,5,5" Grid.Row="3" VerticalAlignment="Center" Width="150" Height="30" Background="#252526" BorderBrush="#252526" Foreground="White" FontSize="22" Click="ButtonAVT_Click">
                         AV
                     </Button>

@@ -957,6 +957,10 @@ namespace AVBible
                     AddChapterChicklet(bk, ch);
                 }
             }
+            if (this.found == null)
+            {
+                this.BookSelection(0);
+            }
         }
         private void TextCriteria_KeyUp(object sender, KeyEventArgs e)
         {
@@ -1194,7 +1198,41 @@ namespace AVBible
         }
         private void BookSelection(uint bookNum)
         {
-            SetEntireView((byte)bookNum);
+            if (bookNum >= 1 && bookNum <= 66)
+            {
+                SetEntireView((byte)bookNum);
+            }
+            else
+            {
+                DragDockPanel panel = null;
+                foreach (DragDockPanel candidate in this.AVPanel.Items)
+                {
+                    if (panel.PanelReference == 0)  // hekp panel
+                        continue;
+
+                    if (panel == null)
+                    {
+                        panel = candidate;
+                    }
+                    else if (panel.PanelLifetime < candidate.PanelLifetime)
+                    {
+                        panel = candidate;
+                    }
+                }
+                if (panel != null)
+                {
+                    uint lastSelected = (uint)(panel.PanelReference / 0x100);
+                    SetEntireView((byte)lastSelected);
+                }
+                else if (this.BookStack.lastChosenBook >= 1 && this.BookStack.lastChosenBook <= 66)
+                {
+                    SetEntireView(this.BookStack.lastChosenBook);
+                }
+                else
+                {
+                    SetEntireView(1);
+                }
+            }
         }
 
         private void MainWin_Closing(object sender, System.ComponentModel.CancelEventArgs e)
