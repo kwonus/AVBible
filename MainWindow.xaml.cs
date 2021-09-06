@@ -441,15 +441,15 @@ namespace AVBible
                         }
                     }
                 }
-                var content = this.GetChapter(bk, ch);
                 panel = new DragDockPanel();
-                panel.Content = content;
-                panel.PanelLifetime = ++sequence;
                 panel.PanelReference = chicklet.BookChapter;
-                //view = new ViewPanel(panel, content, 1);
                 panel.Header = header;
                 this.AVPanel.Items.Add(panel);
             }
+            var content = this.GetChapter(bk, ch);
+            panel.Content = content;
+            panel.PanelLifetime = ++sequence;
+
             ResetComboDeleteItems();
         }
 
@@ -475,12 +475,6 @@ namespace AVBible
                     else
                         width = this.MinWidth;
                 }
-                /*
-                if (this..BookStack.Visibility == Visibility.Visible)
-                    width -= this.BookStack.Picture1.Width;
-                else if (this.MiniBookStack.Visibility == Visibility.Visible)
-                    width -= this.MiniBookStack.Picture1.ActualWidth;
-                */
                 uint panelCnt;
                 for (panelCnt = 5; panelCnt > 1; --panelCnt)
                 {
@@ -867,8 +861,6 @@ namespace AVBible
             }
             return false;
         }
-        public Boolean ShowAll { get; private set; }
-
         private void ResetChapterView(ChapterSpec spec)
         {
             SetSearchView(); // used to be SetChapterViewViaSearch(index, reset)
@@ -970,8 +962,7 @@ namespace AVBible
         {
             if (e.Key == Key.Return)
             {
-                //              RadioShowSearch.IsChecked = true;
-                ShowAll = false;
+                this.found = null;
                 SetSearchView();
                 e.Handled = true;
             }
@@ -995,8 +986,6 @@ namespace AVBible
             if (e != null)
                 e.Handled = true;
 
-            //          RadioShowSearch.IsChecked = true;
-            this.ShowAll = false;
             SetSearchView(0, true);
         }
         private void Search_FingerUp(object sender, ManipulationCompletedEventArgs e)
@@ -1205,7 +1194,6 @@ namespace AVBible
         }
         private void BookSelection(uint bookNum)
         {
-            this.ShowAll = true;
             SetEntireView((byte)bookNum);
         }
 
@@ -1248,10 +1236,6 @@ namespace AVBible
             {
                 ////			version = conf.BibleVersion;
             }
-            ////			ButtonAVT.Content = version;
-            //	TO DO:
-            //
-            //	set appropriate version here.
         }
 
         private void ButtonConfig_Click(object sender, RoutedEventArgs e)
@@ -1268,28 +1252,6 @@ namespace AVBible
         {
 
         }
-        /*
-        private void RadioChapters_Changed(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                if (this.RadioSearch.IsChecked.HasValue && this.RadioSearch.IsChecked.Value)
-                {
-                    this.ChapterSearchView.Visibility = Visibility.Visible;
-                    this.ChapterBookView.Visibility = Visibility.Hidden;
-                }
-                else
-                {
-                    this.ChapterBookView.Visibility = Visibility.Visible;
-                    this.ChapterSearchView.Visibility = Visibility.Hidden;
-                }
-            }
-            catch
-            {
-                ;
-            }
-        }
-        */
         private void comboBoxHelpPanel_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (comboBoxHelpPanel.SelectedItem != null)
