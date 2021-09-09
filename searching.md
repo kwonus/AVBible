@@ -21,15 +21,15 @@ The order in which the search terms are provided is insignificant. Additionally,
 
 Of course, there are times when word order is significant. Accordingly, searching for explicit strings can be accomplished using double-quotes as follows:
 
-“God created ... Earth”
+"God created ... Earth"
 
 These constructs can even be combined. For example:
 
-”God created ... Heaven|Earth”
+"God created ... Heaven|Earth"
 
 The search criteria above is equivalent to this search:
 
-“God created ... Heaven” + “God created ... Earth”
+"God created ... Heaven” + “God created ... Earth"
 
 In all cases, “...” means “followed by”, but the ellipsis allows other words to appear between created and heaven. Likewise, it allows words to appear between created and Earth.
 

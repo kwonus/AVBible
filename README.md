@@ -1,4 +1,6 @@
-# AVBible
-Reimagine how fluid the study of scripture can be ...<br/><br/>
-AV-Bible is built on the latest .Net Framework for Windows Desktop.<br/>
-Unsigned installer for binaries available at http://digital-av.org/installer/ ... available soon for download from the Windows Store.
+### AVBible
+Reimagine how fluid the study of scripture can be ...
+
+AV-Bible is built on the latest .Net Framework for Windows Desktop.
+
+The AV-Bible plugin for Microsoft Word, is available as a separate install at: http://digital-av.org/installer/

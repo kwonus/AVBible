@@ -1302,6 +1302,8 @@ namespace AVBible
                         this.AddHelpPanel(topic);
                         break;
                     }
+
+                comboBoxHelpPanel.SelectedItem = null;  // this will allow panel to be reopenned if it is closed (we always want to generate a changed event.
             }
         }
         private void comboBoxDeletePanel_SelectionChanged(object sender, SelectionChangedEventArgs e)
