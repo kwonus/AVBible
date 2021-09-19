@@ -1,4 +1,4 @@
-﻿### AV-Bible - Basic Instructions
+### AV-Bible - Basic Instructions
 AV Bible provides user controls on the top and and left for searching and browsing the bible text.  In both cases, chapter references appear on the bottom as chicklets (e.g. Genesis Chapter One or "Gen 1").  Clicking on a chicklet opens that chapter on a panel in the middle of the app.  Alternatively, user HELP panels can also be opened.
 
 Expand & Collapse controls (▲▼ and⯇ ⯈) allow the user to manage panel proportions within the application.
@@ -11,7 +11,7 @@ AV-Bible is implemented using a RAM-based data-model representation of the KJV b
 
 Searching and browsing do not automatically render bible text into panels, they merely provide chicklet references on the bottom panel.  Clicking on any of these chicklets renders the text into a new panel.  Once a chicklet reference is rendered into a panel, the chicklet will become highlighted with a green outline.
 
-Searching also decorates the chicklets: chicklets with matching verses are are shown with one to five dots, indicating the number of matching verses corresponding to each chapter.  Any chapter that contains more than five matching verses is marked with a horizontal line (meaning six or more verses matched the search condition).
+Searching also decorates the chicklets: chicklets with matching verses are shown with one to five dots, indicating the number of matching verses corresponding to each chapter.  Any chapter that contains more than five matching verses is marked with a horizontal line (meaning six or more verses matched the search condition).
 
 ### Panel Manipulation
 
