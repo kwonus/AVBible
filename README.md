@@ -1,7 +1,7 @@
 ### AVBible
 Reimagine how fluid the study of scripture can be ...
 
-AV-Bible is built on the latest .Net Framework for Windows Desktop.
+AV-Bible is built on the latest .Net Framework for Windows Desktop.<br/>
 It is available at the Microsoft Store at:
 https://www.microsoft.com/en-us/p/avbible/9nn9x59qtz3j
 
