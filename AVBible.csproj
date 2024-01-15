@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0-windows7.0</TargetFramework>
+    <TargetFramework>net8.0-windows10.0.17763.0</TargetFramework>
     <OutputType>WinExe</OutputType>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWPF>true</UseWPF>
@@ -10,7 +10,7 @@
     <Win32Resource />
     <PackageProjectUrl>http://Digital-AV.org</PackageProjectUrl>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <OutputPath>bin\x64\Debug\</OutputPath>
@@ -137,7 +137,8 @@
     <Resource Include="Images\Shadow Bottom 01 - Black.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AVXText\AVXText.csproj" />
+    <ProjectReference Include="..\AV-Engine\AV-Engine.csproj" />
+    <ProjectReference Include="..\AV-Search\AV-Search.csproj" />
     <ProjectReference Include="..\BlackLightFork\Blacklight.Controls.Wpf.csproj" />
   </ItemGroup>
   <ItemGroup>

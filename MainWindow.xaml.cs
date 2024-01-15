@@ -1,27 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Configuration;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-
-using Blacklight.Controls.Wpf;
-
-using AVBible;
-using Quelle.DriverDefault;
-using QuelleHMI;
-
-using AVSDK;
-using AVText;
-using System.Windows.Media.TextFormatting;
-using System.IO;
-
-namespace AVBible
+﻿namespace AVBible
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Configuration;
+    using System.Threading.Tasks;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
+    using System.Windows.Media;
+    using System.Windows.Media.Imaging;
+
+    using Blacklight.Controls.Wpf;
+
+    using System.IO;
+    using Blueprint.Blue;
+    using AVSearch.Model.Results;
+
     internal class ChapterSpec
     {
         public byte Book { get; private set; }
@@ -132,6 +127,7 @@ namespace AVBible
 
         private (uint count, bool ok) GetBookHitCount(byte b)
         {
+            /* TO DO: 2024/Q1
             var book = AVXAPI.SELF.XBook.GetBookByNum(b);
             if ((this.found != null) && book.HasValue)
             {
@@ -148,10 +144,12 @@ namespace AVBible
 
                 return ((uint) verses.Count(), true);
             }
+            */
             return (0, false);
         }
         private (uint count, bool ok) GetBookChapterHitCount(byte b, byte c)
         {
+            /* TO DO: 2024/Q1
             var book = AVXAPI.SELF.XBook.GetBookByNum(b);
             if ((this.found != null) && book.HasValue && c < book.Value.chapterCnt && c >= 1)
             {
@@ -165,11 +163,12 @@ namespace AVBible
                 var verses = from v in this.found.verses where v >= verseFirst && v <= verseLast select v;
 
                 return ((uint)verses.Count(), true);
-            }
+            }*/
             return (0, false);
         }
         private (uint count, bool ok) GetBookChapterVerseHitCount(byte b, byte c, byte v)
         {
+            /* TO DO: 2024/Q1
             var book = AVXAPI.SELF.XBook.GetBookByNum(b);
             if ((this.found != null) && book.HasValue && c < book.Value.chapterCnt && c >= 1 && v >= 1)
             {
@@ -180,23 +179,21 @@ namespace AVBible
 
                 if (v <= vcnt && this.found.verses.Contains((UInt16)(chapter.verseIdx + v - 1)))
                     return (1, true);
-            }
+            }*/
             return (0, false);
         }
 
         internal uint MaxiBookCnt = 0;
         internal uint MiniBookCnt = 0;
 
-        private AVXAPI provider;
-        //private InstantiatedQuelleSearchProvider iprovider;
-        private QuelleDriver driver;
-        private IQuelleSearchResult found;
         private async Task<Boolean> Initialize()
         {
+            /* TO DO: 2024/Q1
             this.provider = new AVXAPI();
             //this.iprovider = new InstantiatedQuelleSearchProvider(provider);
             this.driver = new QuelleDriver();
             this.found = null;
+            */
 
             ChapterChicklet.App = this;
 
@@ -218,9 +215,11 @@ namespace AVBible
                 try
                 {
                     System.IO.Directory.CreateDirectory(HelpFolder);
+                    /* TO DO: 2024/Q1
                     Help[About] = AVMemMap.Fetch(About + ".md", HelpFolder, help:true);
                     Help[Search] = AVMemMap.Fetch(Search + ".md", HelpFolder, help: true);
                     Help[Instructions] = AVMemMap.Fetch(Instructions + ".md", HelpFolder, help: true);
+                    */
 
                     HelpTitle[About] = "HELP - About AV Bible";
                     HelpTitle[Search] = "HELP - Searching";
@@ -308,10 +307,6 @@ namespace AVBible
 
             SectionStack.SetBookSelector(this.BookSelection);
 
-            this.provider = null;
-            //this.iprovider = null;
-            this.driver = null;
-
             ViewbookStartNum = 0;
 
             FullInit();
@@ -390,6 +385,7 @@ namespace AVBible
         {
             int bk = chicklet.BookChapter >> 8;
             int ch = chicklet.BookChapter & 0xFF;
+            /* TO DO: 2024/Q1
             var book = AVXAPI.SELF.XBook.GetBookByNum((byte)bk).Value;
             string header = book.name + " " + ch.ToString();
             if (this.ButtonAVX.Content.ToString() == "AVX")
@@ -449,7 +445,7 @@ namespace AVBible
             var content = this.GetChapter(bk, ch);
             panel.Content = content;
             panel.PanelLifetime = ++sequence;
-
+            */
             ResetComboDeleteItems();
         }
 
@@ -639,6 +635,7 @@ namespace AVBible
                 phead.FontWeight = FontWeights.Bold;
                 doc.Blocks.Add(phead);
             }
+            /* TO DO: 2024/Q1
             var book = AVXAPI.SELF.XBook.GetBookByNum((byte)b).Value;
             var chapterIdx = book.chapterIdx + c - 1;
             AVSDK.Chapter chapter = AVXAPI.SELF.Chapters[chapterIdx];
@@ -750,13 +747,13 @@ namespace AVBible
                     phrase.Foreground = Brushes.White;
                     phrase.FontWeight = FontWeights.Normal;
                 }
-                /*
+                //*
                 if (jesus)
                 {
                     phrase.Foreground = Brushes.Maroon;
                 }
-                */
-                pdoc.Inlines.Add(phrase);
+                ///
+            pdoc.Inlines.Add(phrase);
 
                 if (postPunc.Length > 0)
                 {
@@ -770,6 +767,7 @@ namespace AVBible
                 }
             }
             doc.Blocks.Add(pdoc);
+            */
 
             var scrolling = new FlowDocumentScrollViewer();
             scrolling.Document = doc;
@@ -865,8 +863,10 @@ namespace AVBible
         {
             SetSearchView(); // used to be SetChapterViewViaSearch(index, reset)
         }
-        (bool success, HMICommand hmi, IQuelleSearchResult result) QuelleCommand(string text)
+        //(bool success, HMICommand hmi, IQuelleSearchResult result) QuelleCommand(string text)
+        (bool success, QStatement blueprint, QueryResult results) QuelleCommand(string text)
         {
+            /* TO DO: 2024/Q1
             HMICommand command = new HMICommand(text.Replace('+', ';')); // allow plus to be used to delimit search segments
 
             if (command.statement != null && command.statement.segmentation != null && command.statement.segmentation.Count >= 1 && command.errors.Count == 0)
@@ -895,15 +895,19 @@ namespace AVBible
                 Console.WriteLine("error: " + "Statement is not expected to be null; Quelle driver implementation error");
             }
             return (false, command, null);
+            */
+            return (false, null, null);
         }
         private void SetEntireView(byte bk)
         {
             this.ChapterView.Visibility = Visibility.Visible;
 
             ChapterStack.Children.Clear();
+            /* TO DO: 2024/Q1
             var cnt = (bk >= 1 && bk <= 66) ? AVXAPI.SELF.XBook.GetBookByNum(bk).Value.chapterCnt : (byte)0;
             for (byte c = 1; c <= cnt; c++)
                 AddChapterChicklet(bk, c);
+            */
         }
         private void AddChapterChicklet(byte b, byte c)
         {
@@ -919,10 +923,13 @@ namespace AVBible
                     break;
                 }
             }
+            /* TO DO: 2024/Q1
+
             var matches = this.found != null ? this.GetBookChapterHitCount(b, c).count : 0;
             var weight = matches <= 6 ? (byte)matches : (byte) 6;
             var chicklet = new ChapterChicklet(b, c, weight, green);
             this.ChapterStack.Children.Add(chicklet);
+            */
         }
         private void SetSearchView(int index = 0, bool reset = true)
         {
@@ -933,7 +940,7 @@ namespace AVBible
             var command = QuelleCommand(this.TextCriteria.Text);
 
             var verses = new HashSet<UInt16>();
-            if (command.success && command.result != null && command.result.verses != null && command.result.verses.Count > 0)
+            if (command.success && command.results != null && command.results.TotalHits > 0)
             {
                 byte bkLast = 0;
                 byte chLast = 0;
@@ -943,6 +950,7 @@ namespace AVBible
                 byte vs;
                 byte ignore;
 
+                /* TO DO: 2024/Q1
                 foreach (UInt16 vidx in from verse in command.result.verses orderby verse select verse)
                 {
                     if (!AVXAPI.SELF.XVerse.GetEntry(vidx, out bk, out ch, out vs, out ignore))
@@ -956,17 +964,17 @@ namespace AVBible
 
                     AddChapterChicklet(bk, ch);
                 }
-            }
-            if (this.found == null)
-            {
                 this.BookSelection(0);
+                */
             }
         }
         private void TextCriteria_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Return)
             {
+                /* TO DO: 2024/Q1
                 this.found = null;
+                */
                 SetSearchView();
                 e.Handled = true;
             }
