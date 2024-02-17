@@ -23,6 +23,10 @@
     using YamlDotNet.Core;
     using System.Linq;
     using AVXLib.Memory;
+    using System.Threading;
+    using System.Data.Common;
+    using System.Windows.Documents;
+    using static AVXLib.Framework.Numerics;
 
     internal class ChapterSpec
     {
@@ -224,7 +228,7 @@
 
             return true;
         }
-        public static string HelpFolder { get; private set; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DigitalAV", "AV-Bible", "Help");
+        public static string HelpFolder { get; private set; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "AV-Bible", "Help");
         public static string About { get; private set; } = "README";
         public static string Search { get; private set; } = "searching";
         public static string Instructions { get; private set; } = "instructions";
@@ -240,11 +244,14 @@
                 try
                 {
                     System.IO.Directory.CreateDirectory(HelpFolder);
-                    /* TO DO: 2024/Q1
+                    /* TO DO: 2024/Q1 (Currently, these help files are never updated after installation)
                     Help[About] = AVMemMap.Fetch(About + ".md", HelpFolder, help:true);
                     Help[Search] = AVMemMap.Fetch(Search + ".md", HelpFolder, help: true);
                     Help[Instructions] = AVMemMap.Fetch(Instructions + ".md", HelpFolder, help: true);
                     */
+                    Help[About] = Path.Combine(HelpFolder, About + ".md");
+                    Help[Search] = Path.Combine(HelpFolder, Search + ".md");
+                    Help[Instructions] = Path.Combine(HelpFolder, Instructions + ".md");
 
                     HelpTitle[About] = "HELP - About AV Bible";
                     HelpTitle[Search] = "HELP - Searching";
@@ -883,13 +890,124 @@
             scrolling.Document = doc;
             return scrolling;
         }
+        private System.Windows.Documents.Paragraph GetCellSegment(StringBuilder segment, int stars)
+        {
+            System.Windows.Documents.Run run = new(segment.ToString());
+            System.Windows.Documents.Paragraph para = new(run);
+
+            switch (stars)
+            {
+                case 3:
+                    para.FontWeight = FontWeights.Bold;
+                    para.FontStyle = FontStyles.Italic;
+                    break;
+                case 2:
+                    para.FontWeight = FontWeights.Bold;
+                    break;
+                case 1:
+                    para.FontStyle = FontStyles.Italic;
+                    break;
+            }
+            return para;
+        }
+        private System.Windows.Documents.TableCell GetCellContent(string md)
+        {
+            int stars = 0;
+            bool emphasis = false;
+            char prev = '\0';
+            System.Windows.Documents.Section span = new();
+            StringBuilder segment = new(25);
+            for (int i = 0; i < md.Length; i++)
+            {
+                char c = md[i];
+
+                string context = c.ToString();
+
+                if (c == '\\')
+                {
+                    if (prev == '\\')
+                    {
+                        context = "\\";
+                    }
+                    else
+                    {
+                        prev = c;
+                        continue;
+                    }
+                }
+                else if (prev == '\\')
+                {
+                    context = "\\" + c;
+                }
+
+                if (c == '<')
+                    c = '<';
+
+                if (emphasis == false && context == "*")
+                {
+                    if (segment.Length > 0)
+                    {
+                        var part = GetCellSegment(segment, stars);
+                        span.Blocks.Add(part);
+                        segment.Clear();
+                    }
+                    stars++;
+                    continue;
+                }
+
+                emphasis = (stars > 0);
+
+                if (emphasis == true && context == "*")
+                {
+                    int agreement = stars;
+                    for (i++; i < md.Length; i++)
+                    {
+                        c = md[i];
+                        if (c == '*')
+                        {
+                            if (--agreement == 0)
+                                break;
+                        }
+                        else
+                        {
+                            i--;
+                            break;
+                        }
+                    }
+                    if (agreement == 0)
+                    {
+                        var part = GetCellSegment(segment, stars);
+                        span.Blocks.Add(part);
+                        segment.Clear();
+                    }
+                    stars = 0;
+                }
+                else
+                {
+                    segment.Append(c);
+                }
+                prev = c;
+            }
+            if (segment.Length > 0)
+            {
+                var part = GetCellSegment(segment, stars);
+                span.Blocks.Add(part);
+                segment.Clear();
+            }
+            System.Windows.Documents.TableCell cell = new(span);
+            return cell;
+        }
         FlowDocumentScrollViewer GetHelp(string md)   // MarkDown file
         {
             var doc = new System.Windows.Documents.FlowDocument();
 
-            var style = new Style(typeof(System.Windows.Documents.Paragraph));
-            style.Setters.Add(new Setter(System.Windows.Documents.Block.MarginProperty, new Thickness(0)));
-            doc.Resources.Add(typeof(System.Windows.Documents.Paragraph), style);
+            var styleParagraph = new Style(typeof(System.Windows.Documents.Paragraph));
+            styleParagraph.Setters.Add(new Setter(System.Windows.Documents.Block.MarginProperty, new Thickness(0)));
+            doc.Resources.Add(typeof(System.Windows.Documents.Paragraph), styleParagraph);
+
+            var styleTable = new Style(typeof(System.Windows.Documents.Table));
+            styleTable.Setters.Add(new Setter(System.Windows.Documents.Table.BorderThicknessProperty, new Thickness(10.0)));
+            doc.Resources.Add(typeof(System.Windows.Documents.Table), styleTable);
 
             doc.FontSize = this.panel_fontSize;
             doc.FontFamily = this.panel_fontFamily;
@@ -897,13 +1015,49 @@
 
             if (md != null && File.Exists(md))
             {
+                System.Windows.Documents.Table table = null;
+
                 var input = new FileStream(md, FileMode.Open, FileAccess.Read);
                 var reader = new StreamReader(input);
 
                 for (var line = reader.ReadLine(); line != null; line = reader.ReadLine())
                 {
+                    string trimmed = line.Trim();
+                    if (trimmed.StartsWith("|") && trimmed.EndsWith("|") && trimmed.Length >= 3)
+                    {
+                        bool header = (table == null);
+                        if (header)
+                            table = new();
+
+                        string[] columns = trimmed.Substring(1, trimmed.Length - 2).Split('|', StringSplitOptions.None);
+
+                        if (columns.Length == 0 || columns[0].Contains("---"))  // empty rows and header markers are ignored
+                            continue;
+
+                        System.Windows.Documents.TableRow row = new();
+                        foreach (var column in columns)
+                        {
+                            System.Windows.Documents.TableCell cell = GetCellContent(column.Trim());
+
+                            if (header)
+                                cell.FontWeight = FontWeights.Bold;
+                            row.Cells.Add(cell);
+                        }
+                        System.Windows.Documents.TableRowGroup group = new();
+                        group.Rows.Add(row);
+                        table.RowGroups.Add(group);
+                        continue;
+                    }
+                    else if (table != null)
+                    {
+                        table.Background = Brushes.DarkGray;
+                        table.Foreground = Brushes.Black;
+                        table.BorderThickness = new Thickness(2.0);
+                        doc.Blocks.Add(table);
+                        table = null;
+                    }
                     // Eventually, we might differentiate between different header levels
-                    if (line.StartsWith("###"))
+                    if (trimmed.StartsWith("###"))
                     {
                         var index = line.LastIndexOf('#');
                         var rhead = new System.Windows.Documents.Run(line.Substring(index+1).Trim());
@@ -913,7 +1067,7 @@
                         phead.FontWeight = FontWeights.Bold;
                         doc.Blocks.Add(phead);
                     }
-                    else if (line.StartsWith("##"))
+                    else if (trimmed.StartsWith("##"))
                     {
                         var rhead = new System.Windows.Documents.Run(line.Substring(2).Trim());
                         var phead = new System.Windows.Documents.Paragraph(rhead);
@@ -921,7 +1075,7 @@
                         phead.FontWeight = FontWeights.Bold;
                         doc.Blocks.Add(phead);
                     }
-                    else if (line.StartsWith("#"))
+                    else if (trimmed.StartsWith("#"))
                     {
                         var rhead = new System.Windows.Documents.Run(line.Substring(1).Trim());
                         var phead = new System.Windows.Documents.Paragraph(rhead);
