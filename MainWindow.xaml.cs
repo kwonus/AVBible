@@ -27,6 +27,7 @@
     using System.Data.Common;
     using System.Windows.Documents;
     using static AVXLib.Framework.Numerics;
+    using System.Windows.Shapes;
 
     internal class ChapterSpec
     {
@@ -890,111 +891,123 @@
             scrolling.Document = doc;
             return scrolling;
         }
-        private System.Windows.Documents.Paragraph GetCellSegment(StringBuilder segment, int stars)
+        private System.Windows.Documents.Run GetCellSegment(StringBuilder segment, int stars)
         {
             System.Windows.Documents.Run run = new(segment.ToString());
-            System.Windows.Documents.Paragraph para = new(run);
 
             switch (stars)
             {
                 case 3:
-                    para.FontWeight = FontWeights.Bold;
-                    para.FontStyle = FontStyles.Italic;
+                    run.FontWeight = FontWeights.Bold;
+                    run.FontStyle = FontStyles.Italic;
                     break;
                 case 2:
-                    para.FontWeight = FontWeights.Bold;
+                    run.FontWeight = FontWeights.Bold;
                     break;
                 case 1:
-                    para.FontStyle = FontStyles.Italic;
+                    run.FontStyle = FontStyles.Italic;
                     break;
             }
-            return para;
+            return run;
         }
         private System.Windows.Documents.TableCell GetCellContent(string md)
         {
-            int stars = 0;
-            bool emphasis = false;
-            char prev = '\0';
-            System.Windows.Documents.Section span = new();
-            StringBuilder segment = new(25);
-            for (int i = 0; i < md.Length; i++)
+            System.Windows.Documents.Paragraph span = new();
+
+            var breaks = md.Split("<br/>", StringSplitOptions.None);
+            foreach (string paragraph in breaks)
             {
-                char c = md[i];
+                var stripped = paragraph.Replace("*", "");
 
-                string context = c.ToString();
-
-                if (c == '\\')
+                int stars = 0;
+                bool emphasis = false;
+                char prev = '\0';
+                StringBuilder segment = new(25);
+                for (int i = 0; i < md.Length; i++)
                 {
-                    if (prev == '\\')
-                    {
-                        context = "\\";
-                    }
-                    else
-                    {
-                        prev = c;
-                        continue;
-                    }
-                }
-                else if (prev == '\\')
-                {
-                    context = "\\" + c;
-                }
+                    char c = md[i];
 
-                if (c == '<')
-                    c = '<';
+                    string context = c.ToString();
 
-                if (emphasis == false && context == "*")
-                {
-                    if (segment.Length > 0)
+                    if (c == '\\')
                     {
-                        var part = GetCellSegment(segment, stars);
-                        span.Blocks.Add(part);
-                        segment.Clear();
-                    }
-                    stars++;
-                    continue;
-                }
-
-                emphasis = (stars > 0);
-
-                if (emphasis == true && context == "*")
-                {
-                    int agreement = stars;
-                    for (i++; i < md.Length; i++)
-                    {
-                        c = md[i];
-                        if (c == '*')
+                        if (prev == '\\')
                         {
-                            if (--agreement == 0)
-                                break;
+                            context = "\\";
                         }
                         else
                         {
-                            i--;
-                            break;
+                            prev = c;
+                            continue;
                         }
                     }
-                    if (agreement == 0)
+                    else if (prev == '\\')
                     {
-                        var part = GetCellSegment(segment, stars);
-                        span.Blocks.Add(part);
-                        segment.Clear();
+                        context = "\\" + c;
                     }
-                    stars = 0;
+
+                    if (c == '$')
+                        c = '$';
+
+                    if (emphasis == false && context == "*")
+                    {
+                        if (segment.Length > 0)
+                        {
+                            var part = GetCellSegment(segment, stars);
+                            span.Inlines.Add(part);
+                            segment.Clear();
+                        }
+                        stars++;
+                        continue;
+                    }
+
+                    emphasis = (stars > 0);
+
+                    if (emphasis == true && context == "*")
+                    {
+                        int agreement = stars;
+                        for (i++; i < md.Length; i++)
+                        {
+                            c = md[i];
+                            if (c == '*')
+                            {
+                                if (--agreement == 0)
+                                    break;
+                            }
+                            else
+                            {
+                                i--;
+                                break;
+                            }
+                        }
+                        if (agreement == 0)
+                        {
+                            var part = GetCellSegment(segment, stars);
+                            span.Inlines.Add(part);
+                            segment.Clear();
+                        }
+                        stars = 0;
+                    }
+                    else
+                    {
+                        segment.Append(c);
+                    }
+                    prev = c;
                 }
-                else
+                if (segment.Length > 0)
                 {
-                    segment.Append(c);
+                    var part = GetCellSegment(segment, stars);
+                    span.Inlines.Add(part);
+                    segment.Clear();
                 }
-                prev = c;
             }
-            if (segment.Length > 0)
-            {
-                var part = GetCellSegment(segment, stars);
-                span.Blocks.Add(part);
-                segment.Clear();
-            }
-            System.Windows.Documents.TableCell cell = new(span);
+            
+            var pdoc = new System.Windows.Documents.Paragraph();
+            var vdoc = new System.Windows.Documents.Run(stripped);
+            pdoc.Inlines.Add(vdoc);
+            doc.Blocks.Add(pdoc);
+        }
+        System.Windows.Documents.TableCell cell = new(span);
             return cell;
         }
         FlowDocumentScrollViewer GetHelp(string md)   // MarkDown file
