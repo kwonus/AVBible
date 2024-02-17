@@ -343,7 +343,7 @@
         {
             string header = HelpTitle.ContainsKey(Instructions) ? HelpTitle[Instructions] : "HELP";
             string help = Help.ContainsKey(Instructions) ? Help[Instructions] : null;
-            
+
             if (Help.ContainsKey(topic) && HelpTitle.ContainsKey(topic))
             {
                 header = HelpTitle[topic];
@@ -408,8 +408,8 @@
         }
         public void AddPanel(ChapterChicklet chicklet)
         {
-            byte b = (byte) (chicklet.BookChapter >> 8);
-            byte c = (byte) (chicklet.BookChapter & 0xFF);
+            byte b = (byte)(chicklet.BookChapter >> 8);
+            byte c = (byte)(chicklet.BookChapter & 0xFF);
 
             if (b >= 1 && b <= 66)
             {
@@ -443,7 +443,7 @@
                         foreach (var item in this.AVPanel.Items)
                         {
                             ++position;
-                            var test = (DragDockPanel) item;
+                            var test = (DragDockPanel)item;
                             if (test.PanelLifetime < min)
                             {
                                 min = test.PanelLifetime;
@@ -461,7 +461,7 @@
                                 {
                                     update.Refresh(false);
                                     break;
-                                }                                
+                                }
                             }
                         }
                     }
@@ -652,11 +652,26 @@
                 case 0x20: return ";";
                 case 0x40: return ",";
                 case 0x60: return ":";
-                default:   return "";
+                default: return "";
             }
         }
+        private System.Windows.Documents.Run GetVerseLabel(byte num, bool BoC, bool backlight)
+        {
+            string padding = BoC ? "" : "  ";
+            System.Windows.Documents.Run vlabel = new System.Windows.Documents.Run(padding + num.ToString() + " ");
+            vlabel.Foreground = Brushes.Cyan;
+            if (backlight)
+            {
+                vlabel.Background = Brushes.LightCyan;
+            }
+            else
+            {
+                vlabel.Background = Brushes.Black;
+            }
+            return vlabel;
+        }
 
-        FlowDocumentScrollViewer GetChapter(byte b, byte c, bool header = false, string bookName = null)
+        private FlowDocumentScrollViewer GetChapter(byte b, byte c, bool header = false, string bookName = null)
         {
             var doc = new System.Windows.Documents.FlowDocument();
             doc.FontSize = this.panel_fontSize;
@@ -706,18 +721,12 @@
 
                     bool paren = false;
                     bool BoC = true;
-                    bool BoV = true;
-                    bool spaceAfterBacklight = false;
+                    bool alreadyAddedSpaceAfter = false;
  
                     foreach (VerseRendering verse in chapter.Verses.Values)
                     {
+                        bool BoV = true;
                         ++v;
-
-                        string padding = BoC ? "" : "  ";
-                        BoC = false;
-                        var vlabel = new System.Windows.Documents.Run(padding + ((int)v).ToString());
-                        vlabel.Foreground = Brushes.Cyan;
-                        pdoc.Inlines.Add(vlabel);
 
                         bool backlightRun = false;
                         foreach (WordRendering word in verse.Words)
@@ -728,7 +737,16 @@
                             {
                                 backlight = true;
                             }
-                            if (BoV || !spaceAfterBacklight)
+                            if (BoV)
+                            {
+                                var vlabel = GetVerseLabel(v, BoC, backlightRun || backlight);
+                                pdoc.Inlines.Add(vlabel);
+                                alreadyAddedSpaceAfter = true;
+                                BoC = false;
+                                BoV = false;
+                            }
+
+                            if (!alreadyAddedSpaceAfter)
                             {
                                 if (backlight)  // for better visuals, highlight space after all backlights
                                 {
@@ -752,8 +770,7 @@
                             }
                             else
                             {
-                                BoV = false;
-                                spaceAfterBacklight = false;
+                                alreadyAddedSpaceAfter = false;
                             }
                             string postPunc = "";
                             bool jesus = (word.Punctuation & 0x01) != 0;
@@ -843,7 +860,7 @@
                             }
                             if (backlight)  // for better visuals, highlight space after all backlights
                             {
-                                spaceAfterBacklight = true;
+                                alreadyAddedSpaceAfter = true;
                                 var space = new System.Windows.Documents.Run(" ");
                                 if (backlightRun || backlight)
                                 {
