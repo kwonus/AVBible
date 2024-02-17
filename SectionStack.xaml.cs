@@ -12,13 +12,13 @@ namespace AVBible
     /// </summary>
     public partial class SectionStack : UserControl
     {
-        public delegate void BookChooser(uint bookNum);
+        public delegate void BookChooser(byte bookNum);
 
         public Label[] labels;
 
         Dictionary<string, Grid> ClickManager;
         Dictionary<string, Label> SectionMap;
-        Dictionary<string, uint> BookMap;
+        Dictionary<string, byte> BookMap;
 
         private BookChooser Selection;
         private static SectionStack SELF;
@@ -32,8 +32,8 @@ namespace AVBible
             this.Selection = null;
             SectionStack.SELF = this;
 
-            BookMap = new Dictionary<string, uint>();
-            SectionMap = new Dictionary<string, Label>();
+            BookMap = new();
+            SectionMap = new();
             SectionMap.Add(this.OTlaw.Name, this.OTlaw);
             SectionMap.Add(this.OThistory.Name, this.OThistory);
             SectionMap.Add(this.OTpoetry.Name, this.OTpoetry);
@@ -57,72 +57,72 @@ namespace AVBible
 
             this.labels = new Label[66];
 
-            this.labels[0] = this.B01;
-            this.labels[1] = this.B02;
-            this.labels[2] = this.B03;
-            this.labels[3] = this.B04;
-            this.labels[4] = this.B05;
-            this.labels[5] = this.B06;
-            this.labels[6] = this.B07;
-            this.labels[7] = this.B08;
-            this.labels[8] = this.B09;
-            this.labels[9] = this.B10;
-            this.labels[10] = this.B11;
-            this.labels[11] = this.B12;
-            this.labels[12] = this.B13;
-            this.labels[13] = this.B14;
-            this.labels[14] = this.B15;
-            this.labels[15] = this.B16;
-            this.labels[16] = this.B17;
-            this.labels[17] = this.B18;
-            this.labels[18] = this.B19;
-            this.labels[19] = this.B20;
-            this.labels[20] = this.B21;
-            this.labels[21] = this.B22;
-            this.labels[22] = this.B23;
-            this.labels[23] = this.B24;
-            this.labels[24] = this.B25;
-            this.labels[25] = this.B26;
-            this.labels[26] = this.B27;
-            this.labels[27] = this.B28;
-            this.labels[28] = this.B29;
-            this.labels[29] = this.B30;
-            this.labels[30] = this.B31;
-            this.labels[31] = this.B32;
-            this.labels[32] = this.B33;
-            this.labels[33] = this.B34;
-            this.labels[34] = this.B35;
-            this.labels[35] = this.B36;
-            this.labels[36] = this.B37;
-            this.labels[37] = this.B38;
-            this.labels[38] = this.B39;
-            this.labels[39] = this.B40;
-            this.labels[40] = this.B41;
-            this.labels[41] = this.B42;
-            this.labels[42] = this.B43;
-            this.labels[43] = this.B44;
-            this.labels[44] = this.B45;
-            this.labels[45] = this.B46;
-            this.labels[46] = this.B47;
-            this.labels[47] = this.B48;
-            this.labels[48] = this.B49;
-            this.labels[49] = this.B50;
-            this.labels[50] = this.B51;
-            this.labels[51] = this.B52;
-            this.labels[52] = this.B53;
-            this.labels[53] = this.B54;
-            this.labels[54] = this.B55;
-            this.labels[55] = this.B56;
-            this.labels[56] = this.B57;
-            this.labels[57] = this.B58;
-            this.labels[58] = this.B59;
-            this.labels[59] = this.B60;
-            this.labels[60] = this.B61;
-            this.labels[61] = this.B62;
-            this.labels[62] = this.B63;
-            this.labels[63] = this.B64;
-            this.labels[64] = this.B65;
-            this.labels[65] = this.B66;
+            this.labels[(byte)0] = this.B01;
+            this.labels[(byte)1] = this.B02;
+            this.labels[(byte)2] = this.B03;
+            this.labels[(byte)3] = this.B04;
+            this.labels[(byte)4] = this.B05;
+            this.labels[(byte)5] = this.B06;
+            this.labels[(byte)6] = this.B07;
+            this.labels[(byte)7] = this.B08;
+            this.labels[(byte)8] = this.B09;
+            this.labels[(byte)9] = this.B10;
+            this.labels[(byte)10] = this.B11;
+            this.labels[(byte)11] = this.B12;
+            this.labels[(byte)12] = this.B13;
+            this.labels[(byte)13] = this.B14;
+            this.labels[(byte)14] = this.B15;
+            this.labels[(byte)15] = this.B16;
+            this.labels[(byte)16] = this.B17;
+            this.labels[(byte)17] = this.B18;
+            this.labels[(byte)18] = this.B19;
+            this.labels[(byte)19] = this.B20;
+            this.labels[(byte)20] = this.B21;
+            this.labels[(byte)21] = this.B22;
+            this.labels[(byte)22] = this.B23;
+            this.labels[(byte)23] = this.B24;
+            this.labels[(byte)24] = this.B25;
+            this.labels[(byte)25] = this.B26;
+            this.labels[(byte)26] = this.B27;
+            this.labels[(byte)27] = this.B28;
+            this.labels[(byte)28] = this.B29;
+            this.labels[(byte)29] = this.B30;
+            this.labels[(byte)30] = this.B31;
+            this.labels[(byte)31] = this.B32;
+            this.labels[(byte)32] = this.B33;
+            this.labels[(byte)33] = this.B34;
+            this.labels[(byte)34] = this.B35;
+            this.labels[(byte)35] = this.B36;
+            this.labels[(byte)36] = this.B37;
+            this.labels[(byte)37] = this.B38;
+            this.labels[(byte)38] = this.B39;
+            this.labels[(byte)39] = this.B40;
+            this.labels[(byte)40] = this.B41;
+            this.labels[(byte)41] = this.B42;
+            this.labels[(byte)42] = this.B43;
+            this.labels[(byte)43] = this.B44;
+            this.labels[(byte)44] = this.B45;
+            this.labels[(byte)45] = this.B46;
+            this.labels[(byte)46] = this.B47;
+            this.labels[(byte)47] = this.B48;
+            this.labels[(byte)48] = this.B49;
+            this.labels[(byte)49] = this.B50;
+            this.labels[(byte)50] = this.B51;
+            this.labels[(byte)51] = this.B52;
+            this.labels[(byte)52] = this.B53;
+            this.labels[(byte)53] = this.B54;
+            this.labels[(byte)54] = this.B55;
+            this.labels[(byte)55] = this.B56;
+            this.labels[(byte)56] = this.B57;
+            this.labels[(byte)57] = this.B58;
+            this.labels[(byte)58] = this.B59;
+            this.labels[(byte)59] = this.B60;
+            this.labels[(byte)60] = this.B61;
+            this.labels[(byte)61] = this.B62;
+            this.labels[(byte)62] = this.B63;
+            this.labels[(byte)63] = this.B64;
+            this.labels[(byte)64] = this.B65;
+            this.labels[(byte)65] = this.B66;
 
             var books = new List<ComboBoxItem>();
             for (byte b = 0; b < 39; b++)
@@ -256,7 +256,7 @@ namespace AVBible
         public byte lastChosenBook { get; private set; } = 0;       
         private void ChooseBook(string book)
         {
-            uint booknum = this.BookMap[book];
+            byte booknum = this.BookMap[book];
             if (this.Selection != null)
                 this.Selection(booknum);
             lastChosenBook = (byte)booknum;

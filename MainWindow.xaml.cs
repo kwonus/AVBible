@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Configuration;
     using System.Threading.Tasks;
     using System.Windows;
@@ -14,8 +13,16 @@
     using Blacklight.Controls.Wpf;
 
     using System.IO;
-    using Blueprint.Blue;
     using AVSearch.Model.Results;
+    using AVSearch.Model.Expressions;
+    using AVXFramework;
+    using AVXLib;
+    using System.Text;
+    using AVSearch.Interfaces;
+    using Blueprint.Blue;
+    using YamlDotNet.Core;
+    using System.Linq;
+    using AVXLib.Memory;
 
     internal class ChapterSpec
     {
@@ -124,63 +131,88 @@
 
         internal uint ViewbookStartNum;
         internal uint ChapterChickletIndex = 0;
+        internal AVEngine Engine = new(@"C:\Users\Me\AVX\Quelle\", @"C:\src\AVX\omega\AVX-Omega-3911.data");
+        internal QueryResult? Results = null;
 
         private (uint count, bool ok) GetBookHitCount(byte b)
         {
-            /* TO DO: 2024/Q1
-            var book = AVXAPI.SELF.XBook.GetBookByNum(b);
-            if ((this.found != null) && book.HasValue)
+            uint count = 0;
+            bool ok = false;
+            byte v = 0;
+            byte c = 0;
+
+            if (b >= 1 && b <= 66)
             {
-                UInt16 c1 = book.Value.chapterIdx;
-                UInt16 cn = (UInt16) (c1 + book.Value.chapterCnt - 1);
-                var chapterFirst = AVXAPI.SELF.XChapter.chapters[c1];
-                var chapterLast = AVXAPI.SELF.XChapter.chapters[cn];
+                foreach (SearchExpression exp in this.Results.Expressions)
+                {
+                    ok = true;
 
-                UInt16 verseFirst = chapterFirst.verseIdx;
-                UInt16 verseLast = (UInt16) (chapterLast.verseIdx + AVXAPI.SELF.XChapter.GetVerseCount(cn) - 1);
-
-                var writ = new Writ176();
-                var verses = from v in this.found.verses where v >= verseFirst && v <= verseLast select v;
-
-                return ((uint) verses.Count(), true);
+                    if ((exp.Hits > 0) && exp.Books.ContainsKey(b))
+                    {
+                        QueryBook book = exp.Books[b];
+                        foreach (var match in book.Matches.Values)
+                        {
+                            if (match.Start.InRange(b, c, v))
+                                continue; // skip (duplicate)
+                            c = match.Start.C;
+                            v = match.Start.V;
+                            count++;
+                        }
+                    }
+                }
             }
-            */
-            return (0, false);
+            return (count, ok);
         }
         private (uint count, bool ok) GetBookChapterHitCount(byte b, byte c)
         {
-            /* TO DO: 2024/Q1
-            var book = AVXAPI.SELF.XBook.GetBookByNum(b);
-            if ((this.found != null) && book.HasValue && c < book.Value.chapterCnt && c >= 1)
+            uint count = 0;
+            bool ok = false;
+            byte v = 0;
+
+            if (b >= 1 && b <= 66)
             {
-                UInt16 bc= book.Value.chapterIdx;
-                var chapter = AVXAPI.SELF.XChapter.chapters[bc+c-1];
+                foreach (SearchExpression exp in this.Results.Expressions)
+                {
+                    ok = true;
 
-                UInt16 verseFirst = chapter.verseIdx;
-                UInt16 verseLast = (UInt16)(chapter.verseIdx + AVXAPI.SELF.XChapter.GetVerseCount(bc) - 1);
-
-                var writ = new Writ176();
-                var verses = from v in this.found.verses where v >= verseFirst && v <= verseLast select v;
-
-                return ((uint)verses.Count(), true);
-            }*/
-            return (0, false);
+                    if ((exp.Hits > 0) && exp.Books.ContainsKey(b))
+                    {
+                        QueryBook book = exp.Books[b];
+                        foreach (var match in book.Matches.Values)
+                        {
+                            if (match.Start.InRange(b, c, v))
+                                continue; // skip (duplicate)
+                            v = match.Start.V;
+                            count++;
+                        }
+                    }
+                }
+            }
+            return (count, ok);
         }
         private (uint count, bool ok) GetBookChapterVerseHitCount(byte b, byte c, byte v)
         {
-            /* TO DO: 2024/Q1
-            var book = AVXAPI.SELF.XBook.GetBookByNum(b);
-            if ((this.found != null) && book.HasValue && c < book.Value.chapterCnt && c >= 1 && v >= 1)
+            uint count = 0;
+            bool ok = false;
+
+            if (b >= 1 && b <= 66)
             {
-                UInt16 bc = book.Value.chapterIdx;
-                var chapter = AVXAPI.SELF.XChapter.chapters[bc + c - 1];
+                foreach (SearchExpression exp in this.Results.Expressions)
+                {
+                    ok = true;
 
-                byte vcnt = AVXAPI.SELF.XChapter.GetVerseCount((UInt16) (bc + c - 1));
-
-                if (v <= vcnt && this.found.verses.Contains((UInt16)(chapter.verseIdx + v - 1)))
-                    return (1, true);
-            }*/
-            return (0, false);
+                    if ((exp.Hits > 0) && exp.Books.ContainsKey(b))
+                    {
+                        QueryBook book = exp.Books[b];
+                        foreach (var match in book.Matches.Values)
+                        {
+                            if (match.Start.InRange(b, c, v))
+                                count++;
+                        }
+                    }
+                }
+            }
+            return (count, ok);
         }
 
         internal uint MaxiBookCnt = 0;
@@ -188,13 +220,6 @@
 
         private async Task<Boolean> Initialize()
         {
-            /* TO DO: 2024/Q1
-            this.provider = new AVXAPI();
-            //this.iprovider = new InstantiatedQuelleSearchProvider(provider);
-            this.driver = new QuelleDriver();
-            this.found = null;
-            */
-
             ChapterChicklet.App = this;
 
             return true;
@@ -383,70 +408,74 @@
         }
         public void AddPanel(ChapterChicklet chicklet)
         {
-            int bk = chicklet.BookChapter >> 8;
-            int ch = chicklet.BookChapter & 0xFF;
-            /* TO DO: 2024/Q1
-            var book = AVXAPI.SELF.XBook.GetBookByNum((byte)bk).Value;
-            string header = book.name + " " + ch.ToString();
-            if (this.ButtonAVX.Content.ToString() == "AVX")
-                header += " (AVX)";
+            byte b = (byte) (chicklet.BookChapter >> 8);
+            byte c = (byte) (chicklet.BookChapter & 0xFF);
 
-            DragDockPanel panel = null;
-            foreach (DragDockPanel existing in this.AVPanel.Items)
+            if (b >= 1 && b <= 66)
             {
-                if (existing.Header.ToString() == header)
+                AVXLib.Memory.Book book = ObjectTable.AVXObjects.Mem.Book.Slice(b, 1).Span[0];
+
+                string header = book.name + " " + c.ToString();
+                if (this.ButtonAVX.Content.ToString() == "AVX")
+                    header += " (AVX)";
+
+                DragDockPanel panel = null;
+                foreach (DragDockPanel existing in this.AVPanel.Items)
                 {
-                    panel = existing;
-                    panel.PanelLifetime = ++sequence;
-                    panel.PanelReference = chicklet.BookChapter;
-                    break;
-                }
-            }
-            if (panel == null)
-            {
-                // Recycle the oldest panel
-                //
-                if (this.AVPanel.Items.Count >= 12)
-                {
-                    int position = -1;
-                    int delete = (-1);
-                    UInt16 removal = 0;
-                    UInt64 min = UInt64.MaxValue;
-                    foreach (var item in this.AVPanel.Items)
+                    if (existing.Header.ToString() == header)
                     {
-                        ++position;
-                        var test = (DragDockPanel) item;
-                        if (test.PanelLifetime < min)
-                        {
-                            min = test.PanelLifetime;
-                            removal = test.PanelReference;
-                            delete = position;
-                        }
+                        panel = existing;
+                        panel.PanelLifetime = ++sequence;
+                        panel.PanelReference = chicklet.BookChapter;
+                        break;
                     }
-                    if (delete >= 0)
+                }
+                if (panel == null)
+                {
+                    // Recycle the oldest panel
+                    //
+                    if (this.AVPanel.Items.Count >= 12)
                     {
-                        this.AVPanel.Items.RemoveAt(delete);
-                        foreach (var item in this.ChapterStack.Children)
+                        int position = -1;
+                        int delete = (-1);
+                        UInt16 removal = 0;
+                        UInt64 min = UInt64.MaxValue;
+                        foreach (var item in this.AVPanel.Items)
                         {
-                            var update = (ChapterChicklet)item;
-                            if (update.BookChapter == removal)
+                            ++position;
+                            var test = (DragDockPanel) item;
+                            if (test.PanelLifetime < min)
                             {
-                                update.Refresh(false);
-                                break;
-                            }                                
+                                min = test.PanelLifetime;
+                                removal = test.PanelReference;
+                                delete = position;
+                            }
+                        }
+                        if (delete >= 0)
+                        {
+                            this.AVPanel.Items.RemoveAt(delete);
+                            foreach (var item in this.ChapterStack.Children)
+                            {
+                                var update = (ChapterChicklet)item;
+                                if (update.BookChapter == removal)
+                                {
+                                    update.Refresh(false);
+                                    break;
+                                }                                
+                            }
                         }
                     }
+                    panel = new DragDockPanel();
+                    panel.PanelReference = chicklet.BookChapter;
+                    panel.Header = header;
+                    this.AVPanel.Items.Add(panel);
                 }
-                panel = new DragDockPanel();
-                panel.PanelReference = chicklet.BookChapter;
-                panel.Header = header;
-                this.AVPanel.Items.Add(panel);
+                var content = this.GetChapter(b, c);
+                panel.Content = content;
+                panel.PanelLifetime = ++sequence;
+
+                ResetComboDeleteItems();
             }
-            var content = this.GetChapter(bk, ch);
-            panel.Content = content;
-            panel.PanelLifetime = ++sequence;
-            */
-            ResetComboDeleteItems();
         }
 
         private void ResetComboDeleteItems()
@@ -549,7 +578,7 @@
             suffix = "</font>";
         }
 
-        private bool GetPageHtml(out string prefix, out string suffix, string bookName, int b, int c, int v)
+        private bool GetPageHtml(string bookName, byte b, byte c, byte v)
         {
             bool header = (b >= 1) && (b <= 66);
             bool script = header && (v >= 1);
@@ -558,46 +587,52 @@
             string fontSuffix;
             GetFontStrings(out font, out fontSuffix);
 
+            QueryBook? book = null;
+            ISettings? settings = null;
+
+            if (this.Results != null && this.Results.Expressions.Count > 0)
+            {
+                foreach (var exp in this.Results.Expressions)
+                {
+                    if (exp.Books.ContainsKey(b))
+                    {
+                        settings = exp.Settings;
+                        book = exp.Books[b];
+                        break;                  // we over-simplify here for now, as we only get results for the first found book of the earliest such expression
+                    }
+                }
+            }
+            if (settings == null)
+            {
+                settings = new QSettings();
+            }
+
             if (header || script)
             {
-                prefix = "<html>";
-                suffix = fontSuffix;
+                StringBuilder builder = new(1024);
+
+                builder.Append("<html>");
 
                 if (header)
                 {
-                    prefix += "<head><title>";
-                    prefix += bookName;
+                    builder.Append("<head><title>");
+                    builder.Append(bookName);
+                    builder.Append(" ");
+                    builder.Append(c.ToString());
                     if (v != 0)
-                        prefix += c.ToString() + ":" + v.ToString();
-                    else
-                        prefix += c.ToString();
+                    {
+                        builder.Append(":");
+                        builder.Append(v.ToString());
+                    }
 
-                    prefix += "</title></head>";
+                    builder.Append("</title></head>");
                 }
-                prefix += "<body>";
-                if (script)
-                {
-                    string anchor = "v" + v.ToString();
+                builder.Append("<body>");
+                ChapterRendering rendering = Engine.GetChapter(b, c, book != null ? book.Matches : new());
+                Engine.RenderChapterAsHtml(builder, rendering, settings);
 
-                    prefix += "<script language=\"javascript\">";
-
-                    prefix += "window.onload=function()";
-                    prefix += "{";
-                    prefix += "document.getElementsByName('";
-                    prefix += anchor;
-                    prefix += "')[0].focus();";
-                    prefix += "}";
-
-                    prefix += "</script>";
-                }
-                prefix += font;
-                suffix += "</body>";
-                suffix += "</html>";
-            }
-            else
-            {
-                prefix = font;
-                suffix = fontSuffix;
+                builder.Append("</body>");
+                builder.Append("</html>");
             }
             return true;
         }
@@ -617,10 +652,11 @@
                 case 0x20: return ";";
                 case 0x40: return ",";
                 case 0x60: return ":";
-                default:   return  "";
+                default:   return "";
             }
         }
-        FlowDocumentScrollViewer GetChapter(int b, int c, bool header = false, string bookName = null)
+
+        FlowDocumentScrollViewer GetChapter(byte b, byte c, bool header = false, string bookName = null)
         {
             var doc = new System.Windows.Documents.FlowDocument();
             doc.FontSize = this.panel_fontSize;
@@ -635,140 +671,139 @@
                 phead.FontWeight = FontWeights.Bold;
                 doc.Blocks.Add(phead);
             }
-            /* TO DO: 2024/Q1
-            var book = AVXAPI.SELF.XBook.GetBookByNum((byte)b).Value;
-            var chapterIdx = book.chapterIdx + c - 1;
-            AVSDK.Chapter chapter = AVXAPI.SELF.Chapters[chapterIdx];
-            UInt32 first = chapter.writIdx;
-            UInt32 last = (UInt32)(first + chapter.wordCnt - 1);
-
-
-            HashSet<UInt16> verses;
-            HashSet<UInt32> tokens;
-            var records = new Dictionary<UInt32, UInt16>(); // <widx, wcnt>
-
-            var writ = new Writ176();
-            if (this.found != null)
+            if (b >= 1 && b <= 66 && c >= 1)
             {
-                tokens = this.found.tokens;
-                verses = this.found.verses;
+                AVXLib.Memory.Book bk = ObjectTable.AVXObjects.Mem.Book.Slice(b, 1).Span[0];
+
+                if (c <= bk.chapterCnt)
+                {
+                    var pdoc = new System.Windows.Documents.Paragraph();
+                    pdoc.TextAlignment = TextAlignment.Justify;
+
+                    QueryBook? book = null;
+                    ISettings? settings = null;
+
+                    if (this.Results != null && this.Results.Expressions.Count > 0)
+                    {
+                        foreach (var exp in this.Results.Expressions)
+                        {
+                            if (exp.Books.ContainsKey(b))
+                            {
+                                settings = exp.Settings;
+                                book = exp.Books[b];
+                                break;                  // we over-simplify here for now, as we only get results for the first found book of the earliest such expression
+                            }
+                        }
+                    }
+                    if (settings == null)
+                    {
+                        settings = new QSettings();
+                    }
+                    Dictionary<uint, QueryMatch> matches = book != null ? book.Matches : new();
+                    ChapterRendering chapter = Engine.GetChapter(b, c, matches);
+
+                    byte v = 0;
+
+                    bool paren = false;
+                    bool first = true;
+ 
+                    foreach (VerseRendering verse in chapter.Verses.Values)
+                    {
+                        ++v;
+
+                        string padding = first ? "" : "  ";
+                        first = false;
+                        var vlabel = new System.Windows.Documents.Run(padding + ((int)v).ToString());
+                        vlabel.Foreground = Brushes.Cyan;
+                        pdoc.Inlines.Add(vlabel);
+
+                        foreach (WordRendering word in verse.Words)
+                        {
+                            string postPunc = "";
+                            bool jesus = (word.Punctuation & 0x01) != 0;
+                            bool italics = ((word.Punctuation & 0x02) != 0);
+                            bool avx = (this.ButtonAVX.Content.ToString() == "AVX");
+                            string lex = "";
+                            if (((word.Punctuation & 0x04) != 0) && !paren)
+                            {
+                                paren = true;
+                                pdoc.Inlines.Add("(");
+                            }
+                            lex += avx ? word.Modern : word.Text;
+                            if ((word.Punctuation & 0x10) != 0)
+                            {
+                                bool s = (lex[lex.Length - 1] | 0x20) == 's';
+                                lex += s ? "'" : "'s";
+                            }
+                            if ((word.Punctuation & 0x0C) == 0x0C)
+                            {
+                                paren = false;
+                                postPunc = ")";
+                            }
+                            if ((word.Punctuation & 0xE0) != 0)
+                            {
+                                postPunc += this.PostPunc(word.Punctuation);
+                            }
+                            var space = new System.Windows.Documents.Run(" ");
+                            pdoc.Inlines.Add(space);
+
+                            var phrase = new System.Windows.Documents.Run(lex);
+                            if (italics)
+                            {
+                                phrase.FontStyle = FontStyles.Italic;
+                            }
+                            bool backlight = false;
+                            var highlights = from highlight in matches.Values where word.Coordinates >= highlight.Start && word.Coordinates <= highlight.Until select highlight;
+                            foreach (var item in highlights.Take(1))
+                            {
+                                backlight = true;
+                            }
+                            if (word.Triggers.Count > 0)
+                            {
+                                phrase.FontWeight = FontWeights.Bold;
+
+                                if (backlight)
+                                {
+                                    phrase.Background = Brushes.LightCyan;
+                                    phrase.Foreground = Brushes.Black;
+                                }
+                                else
+                                {
+                                    phrase.Foreground = Brushes.Cyan;
+                                }
+                            }
+                            else
+                            {
+                                phrase.Foreground = Brushes.White;
+                                phrase.FontWeight = FontWeights.Normal;
+                            }
+                            if (jesus)
+                            {
+                                phrase.Foreground = Brushes.Maroon;
+                            }
+                            pdoc.Inlines.Add(phrase);
+
+                            if (italics)
+                            {
+                                phrase.FontStyle = FontStyles.Normal;
+                            }
+
+                            if (postPunc.Length > 0)
+                            {
+                                var punc = new System.Windows.Documents.Run(postPunc);
+
+                                if (word.Triggers.Count == 0)
+                                {
+                                    punc.Foreground = Brushes.White;
+                                    punc.FontWeight = FontWeights.Normal;
+                                }
+                                pdoc.Inlines.Add(punc);
+                            }
+                        }
+                    }
+                    doc.Blocks.Add(pdoc);
+                }
             }
-            else
-            {
-                tokens = new HashSet<UInt32>();
-                verses = new HashSet<UInt16>();
-            }
-            byte v = 0;
-
-            var pdoc = new System.Windows.Documents.Paragraph();
-
-            bool paren = false;
-            bool bov = false;
-
-            for (var cursor = first; cursor <= last && AVXAPI.SELF.XWrit.GetRecord(cursor, ref writ); AVXAPI.SELF.XWrit.Next(), cursor = AVXAPI.SELF.XWrit.cursor)
-            {
-                string vstr = "";
-                string postPunc = "";
-
-                bov = ((writ.trans & (byte)AVSDK.Transitions.VerseTransition) == (byte)AVSDK.Transitions.BeginingOfVerse);
-
-                if (bov)
-                {
-                    ++v;
-                    if (vstr.Length > 0)
-                    {
-                        var vdoc = new System.Windows.Documents.Run(vstr);
-                        pdoc.Inlines.Add(vdoc);
-                    }
-                    string padding = (first == cursor) ? "" : "  ";
-                    var vlabel = new System.Windows.Documents.Run(padding + ((int)v).ToString());
-                    vlabel.Foreground = Brushes.Cyan;
-                    pdoc.Inlines.Add(vlabel);
-                    vstr = " ";
-                }
-                else if (first != cursor)
-                {
-                    vstr += " ";
-                }
-
-                bool jesus = (writ.punc & 0x01) != 0;
-                bool italics = ((writ.punc & 0x02) != 0);
-                bool avx = (this.ButtonAVX.Content.ToString() == "AVX");
-                string lex = "";
-                if (((writ.punc & 0x04) != 0) && !paren)
-                {
-                    paren = true;
-                    pdoc.Inlines.Add("(");
-                }
-                lex += avx ? AVLexicon.GetLexModern(writ.word) : AVLexicon.GetLex(writ.word);
-                if ((writ.punc & 0x10) != 0)
-                {
-                    bool s = (lex[lex.Length - 1] | 0x20) == 's';
-                    lex += s ? "'" : "'s";
-                }
-                if ((writ.punc & 0x0C) == 0x0C)
-                {
-                    paren = false;
-                    postPunc = ")";
-                }
-                if ((writ.punc & 0xE0) != 0)
-                {
-                    postPunc += this.PostPunc(writ.punc);
-                }
-                if (vstr.Length > 0)
-                {
-                    var vdoc = new System.Windows.Documents.Run(vstr);
-                    pdoc.Inlines.Add(vdoc);
-                }
-                lex += postPunc;
-                postPunc = "";
-
-                var phrase = new System.Windows.Documents.Run(lex);
-                if (italics)
-                {
-                    phrase.FontStyle = FontStyles.Italic;
-                }
-                if (verses.Contains(writ.verseIdx))
-                {
-                     phrase.FontWeight = FontWeights.Bold;
-
-                    if (tokens.Contains(cursor))
-                    {
-                        phrase.Background = Brushes.LightCyan;
-                        phrase.Foreground = Brushes.Black;
-                    }
-                    else
-                    {
-                        phrase.Foreground = Brushes.Cyan;
-                    }
-                }
-                else
-                {
-                    phrase.Foreground = Brushes.White;
-                    phrase.FontWeight = FontWeights.Normal;
-                }
-                //*
-                if (jesus)
-                {
-                    phrase.Foreground = Brushes.Maroon;
-                }
-                ///
-            pdoc.Inlines.Add(phrase);
-
-                if (postPunc.Length > 0)
-                {
-                    var punc = new System.Windows.Documents.Run(postPunc);
-                    if (verses.Contains(writ.verseIdx))
-                    {
-                        phrase.Foreground = Brushes.Cyan;
-                        punc.FontWeight = FontWeights.Bold;
-                    }
-                    pdoc.Inlines.Add(punc);
-                }
-            }
-            doc.Blocks.Add(pdoc);
-            */
-
             var scrolling = new FlowDocumentScrollViewer();
             scrolling.Document = doc;
             return scrolling;
@@ -863,51 +898,35 @@
         {
             SetSearchView(); // used to be SetChapterViewViaSearch(index, reset)
         }
-        //(bool success, HMICommand hmi, IQuelleSearchResult result) QuelleCommand(string text)
-        (bool success, QStatement blueprint, QueryResult results) QuelleCommand(string text)
+
+        (bool success, QueryResult results) QuelleCommand(string text)
         {
-            /* TO DO: 2024/Q1
-            HMICommand command = new HMICommand(text.Replace('+', ';')); // allow plus to be used to delimit search segments
+            bool success = false;
+            var tuple = Engine.Execute(text);
 
-            if (command.statement != null && command.statement.segmentation != null && command.statement.segmentation.Count >= 1 && command.errors.Count == 0)
+            var message = !string.IsNullOrWhiteSpace(tuple.message);
+            if (message)
             {
-                var result = command.statement.ExecuteEx(this.provider);
-
-                if (result != null)
-                {
-                    foreach (var message in command.warnings)
-                    {
-                        Console.WriteLine("WARNING: " + message);
-                    }
-                    this.found = result;
-                    return (true, command, result);
-                }
-                else
-                {
-                    foreach (var message in command.errors)
-                    {
-                        Console.WriteLine("ERROR: " + message);
-                    }
-                }
+                success = tuple.message.Equals("ok", StringComparison.InvariantCultureIgnoreCase);
+                if (!success)
+                    Console.Error.WriteLine(tuple.message);
             }
-            else
+            if (success && (tuple.find != null && tuple.find.Expressions != null))
             {
-                Console.WriteLine("error: " + "Statement is not expected to be null; Quelle driver implementation error");
+                this.Results = tuple.find;
+                return (true, tuple.find);
             }
-            return (false, command, null);
-            */
-            return (false, null, null);
+            this.Results = null;
+            return (false, tuple.find);
         }
         private void SetEntireView(byte bk)
         {
             this.ChapterView.Visibility = Visibility.Visible;
-
             ChapterStack.Children.Clear();
-            /* TO DO: 2024/Q1
-            var cnt = (bk >= 1 && bk <= 66) ? AVXAPI.SELF.XBook.GetBookByNum(bk).Value.chapterCnt : (byte)0;
+
+            byte cnt = (bk >= 1 && bk <= 66) ? ObjectTable.AVXObjects.Mem.Book.Slice(bk, 1).Span[0].chapterCnt : (byte)0;
             for (byte c = 1; c <= cnt; c++)
                 AddChapterChicklet(bk, c);
-            */
         }
         private void AddChapterChicklet(byte b, byte c)
         {
@@ -923,13 +942,30 @@
                     break;
                 }
             }
-            /* TO DO: 2024/Q1
+            byte weight = 0;
+            if (this.Results != null)
+            {
+                foreach (SearchExpression exp in this.Results.Expressions)
+                {
+                    if (exp.Books.ContainsKey(b))
+                    {
+                        QueryBook bk = exp.Books[b];
+                        if (bk.Chapters.ContainsKey(c))
+                        {
+                            QueryChapter ch = bk.Chapters[c];
 
-            var matches = this.found != null ? this.GetBookChapterHitCount(b, c).count : 0;
-            var weight = matches <= 6 ? (byte)matches : (byte) 6;
+                            weight += ch.VerseHits <= 10 ? (byte)ch.VerseHits : (byte)6;
+                        }
+                    }
+                    if (weight >= 6)
+                        break;
+                }
+            }
+            if (weight > 6)
+                weight = 6;
+
             var chicklet = new ChapterChicklet(b, c, weight, green);
             this.ChapterStack.Children.Add(chicklet);
-            */
         }
         private void SetSearchView(int index = 0, bool reset = true)
         {
@@ -938,36 +974,51 @@
             ChapterStack.Children.Clear();
 
             var command = QuelleCommand(this.TextCriteria.Text);
+            this.ChapterStack.Children.Clear();
 
             var verses = new HashSet<UInt16>();
-            if (command.success && command.results != null && command.results.TotalHits > 0)
+            if (this.Results != null && command.success && command.results != null && command.results.TotalHits > 0)
             {
                 byte bkLast = 0;
                 byte chLast = 0;
+                bool hasChicklet = false;
 
-                byte bk;
-                byte ch;
-                byte vs;
-                byte ignore;
-
-                /* TO DO: 2024/Q1
-                foreach (UInt16 vidx in from verse in command.result.verses orderby verse select verse)
+                foreach (SearchExpression exp in this.Results.Expressions)
                 {
-                    if (!AVXAPI.SELF.XVerse.GetEntry(vidx, out bk, out ch, out vs, out ignore))
-                        return; // something unexpected went wrong
+                    if (exp.Hits > 0)
+                    {
+                        foreach (QueryBook book in exp.Books.Values)
+                        {
+                            foreach (var match in book.Matches.Values)
+                            {
+                                byte c = match.Start.C;
+                                if (c != chLast && book.BookNum != bkLast)
+                                {
+                                    AddChapterChicklet(book.BookNum, c);
+                                    chLast = c;
+                                    bkLast = book.BookNum;
+                                    hasChicklet = true;
+                                }
 
-                    if (bk == bkLast && ch == chLast)
-                        continue;
-
-                    bkLast = bk;
-                    chLast = ch;
-
-                    AddChapterChicklet(bk, ch);
+                                c = match.Until.C;
+                                if (c != chLast && book.BookNum != bkLast)
+                                {
+                                    AddChapterChicklet(book.BookNum, c);
+                                    chLast = c;
+                                    bkLast = book.BookNum;
+                                    hasChicklet = true;
+                                }
+                            }
+                        }
+                    }
                 }
-                this.BookSelection(0);
-                */
+                if (hasChicklet)
+                {
+                    ;// this.BookSelection((byte)0);
+                }
             }
         }
+
         private void TextCriteria_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Return)
@@ -1204,7 +1255,7 @@
             if (e != null)
                 e.Handled = true;
         }
-        private void BookSelection(uint bookNum)
+        private void BookSelection(byte bookNum)
         {
             if (bookNum >= 1 && bookNum <= 66)
             {
@@ -1215,7 +1266,7 @@
                 DragDockPanel panel = null;
                 foreach (DragDockPanel candidate in this.AVPanel.Items)
                 {
-                    if (panel.PanelReference == 0)  // hekp panel
+                    if (panel != null && panel.PanelReference == 0)  // hekp panel
                         continue;
 
                     if (panel == null)
