@@ -705,20 +705,56 @@
                     byte v = 0;
 
                     bool paren = false;
-                    bool first = true;
+                    bool BoC = true;
+                    bool BoV = true;
+                    bool spaceAfterBacklight = false;
  
                     foreach (VerseRendering verse in chapter.Verses.Values)
                     {
                         ++v;
 
-                        string padding = first ? "" : "  ";
-                        first = false;
+                        string padding = BoC ? "" : "  ";
+                        BoC = false;
                         var vlabel = new System.Windows.Documents.Run(padding + ((int)v).ToString());
                         vlabel.Foreground = Brushes.Cyan;
                         pdoc.Inlines.Add(vlabel);
 
+                        bool backlightRun = false;
                         foreach (WordRendering word in verse.Words)
                         {
+                            bool backlight = false;
+                            var highlights = from highlight in matches.Values where word.Coordinates >= highlight.Start && word.Coordinates <= highlight.Until select highlight;
+                            foreach (var item in highlights.Take(1))
+                            {
+                                backlight = true;
+                            }
+                            if (BoV || !spaceAfterBacklight)
+                            {
+                                if (backlight)  // for better visuals, highlight space after all backlights
+                                {
+                                    var space = new System.Windows.Documents.Run(" ");
+                                    if (backlightRun || backlight)
+                                    {
+                                        space.Background = Brushes.LightCyan;
+                                        space.Foreground = Brushes.Black;
+                                    }
+                                    else
+                                    {
+                                        space.Background = Brushes.Black;
+                                        space.Foreground = Brushes.White;
+                                    }
+                                    pdoc.Inlines.Add(space);
+                                }
+                                else
+                                {
+                                    pdoc.Inlines.Add(" ");
+                                }
+                            }
+                            else
+                            {
+                                BoV = false;
+                                spaceAfterBacklight = false;
+                            }
                             string postPunc = "";
                             bool jesus = (word.Punctuation & 0x01) != 0;
                             bool italics = ((word.Punctuation & 0x02) != 0);
@@ -727,7 +763,19 @@
                             if (((word.Punctuation & 0x04) != 0) && !paren)
                             {
                                 paren = true;
-                                pdoc.Inlines.Add("(");
+
+                                var open = new System.Windows.Documents.Run("(");
+                                if (backlightRun)
+                                {
+                                    open.Background = Brushes.LightCyan;
+                                    open.Foreground = Brushes.Black;
+                                }
+                                else
+                                {
+                                    open.Background = Brushes.Black;
+                                    open.Foreground = Brushes.White;
+                                }
+                                pdoc.Inlines.Add(open);
                             }
                             lex += avx ? word.Modern : word.Text;
                             if ((word.Punctuation & 0x10) != 0)
@@ -740,64 +788,74 @@
                                 paren = false;
                                 postPunc = ")";
                             }
+                            backlightRun = backlight;
+
                             if ((word.Punctuation & 0xE0) != 0)
                             {
                                 postPunc += this.PostPunc(word.Punctuation);
                             }
-                            var space = new System.Windows.Documents.Run(" ");
-                            pdoc.Inlines.Add(space);
-
-                            var phrase = new System.Windows.Documents.Run(lex);
-                            if (italics)
-                            {
-                                phrase.FontStyle = FontStyles.Italic;
-                            }
-                            bool backlight = false;
-                            var highlights = from highlight in matches.Values where word.Coordinates >= highlight.Start && word.Coordinates <= highlight.Until select highlight;
-                            foreach (var item in highlights.Take(1))
-                            {
-                                backlight = true;
-                            }
-                            if (word.Triggers.Count > 0)
-                            {
-                                phrase.FontWeight = FontWeights.Bold;
-
-                                if (backlight)
+                            {// Wall off the phrase variable so that it is NOT inadvertently referenced outside of this scope
+                                var phrase = new System.Windows.Documents.Run(lex);
+                                if (italics)
+                                {
+                                    phrase.FontStyle = FontStyles.Italic;
+                                }
+                                if (backlightRun)
                                 {
                                     phrase.Background = Brushes.LightCyan;
                                     phrase.Foreground = Brushes.Black;
                                 }
                                 else
                                 {
-                                    phrase.Foreground = Brushes.Cyan;
+                                    phrase.Background = Brushes.Black;
+                                    phrase.Foreground = Brushes.White;
                                 }
-                            }
-                            else
-                            {
-                                phrase.Foreground = Brushes.White;
-                                phrase.FontWeight = FontWeights.Normal;
-                            }
-                            if (jesus)
-                            {
-                                phrase.Foreground = Brushes.Maroon;
-                            }
-                            pdoc.Inlines.Add(phrase);
-
-                            if (italics)
-                            {
-                                phrase.FontStyle = FontStyles.Normal;
+                                if (word.Triggers.Count > 0)
+                                {
+                                    phrase.FontWeight = FontWeights.Bold;
+                                }
+                                else
+                                {
+                                    phrase.FontWeight = FontWeights.Normal;
+                                }
+                                if (jesus)
+                                {
+                                    phrase.Foreground = Brushes.Maroon;
+                                }
+                                pdoc.Inlines.Add(phrase);
                             }
 
                             if (postPunc.Length > 0)
                             {
                                 var punc = new System.Windows.Documents.Run(postPunc);
 
-                                if (word.Triggers.Count == 0)
+                                if (backlightRun)
                                 {
+                                    punc.Background = Brushes.LightCyan;
+                                    punc.Foreground = Brushes.Black;
+                                }
+                                else
+                                {
+                                    punc.Background = Brushes.Black;
                                     punc.Foreground = Brushes.White;
-                                    punc.FontWeight = FontWeights.Normal;
                                 }
                                 pdoc.Inlines.Add(punc);
+                            }
+                            if (backlight)  // for better visuals, highlight space after all backlights
+                            {
+                                spaceAfterBacklight = true;
+                                var space = new System.Windows.Documents.Run(" ");
+                                if (backlightRun || backlight)
+                                {
+                                    space.Background = Brushes.LightCyan;
+                                    space.Foreground = Brushes.Black;
+                                }
+                                else
+                                {
+                                    space.Background = Brushes.Black;
+                                    space.Foreground = Brushes.White;
+                                }
+                                pdoc.Inlines.Add(space);
                             }
                         }
                     }
@@ -954,7 +1012,11 @@
                         {
                             QueryChapter ch = bk.Chapters[c];
 
-                            weight += ch.VerseHits <= 10 ? (byte)ch.VerseHits : (byte)6;
+                            foreach (QueryMatch match in bk.Matches.Values)
+                            {
+                                if (match.Start.InRange(b, c) || match.Until.InRange(b, c))
+                                    weight++;
+                            }
                         }
                     }
                     if (weight >= 6)
