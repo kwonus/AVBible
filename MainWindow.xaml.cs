@@ -740,11 +740,16 @@
                             }
                             if (BoV)
                             {
-                                var vlabel = GetVerseLabel(v, BoC, backlightRun || backlight);
+                                var vlabel = GetVerseLabel(v, BoC, backlightRun && backlight);
                                 pdoc.Inlines.Add(vlabel);
                                 alreadyAddedSpaceAfter = true;
                                 BoC = false;
                                 BoV = false;
+                            }
+                            if (!backlightRun)
+                            {
+                                pdoc.Inlines.Add(" ");
+                                alreadyAddedSpaceAfter = !backlight;
                             }
 
                             if ((!alreadyAddedSpaceAfter) || (!backlightRun))
@@ -772,6 +777,10 @@
                             else
                             {
                                 alreadyAddedSpaceAfter = false;
+                            }
+                            if (backlightRun && !backlight)
+                            {
+                                pdoc.Inlines.Add(" ");
                             }
                             string postPunc = "";
                             bool jesus = (word.Punctuation & 0x01) != 0;
@@ -821,24 +830,26 @@
                                 if (backlightRun)
                                 {
                                     phrase.Background = Brushes.LightCyan;
-                                    phrase.Foreground = Brushes.Black;
+                                    if (jesus)
+                                        phrase.Foreground = Brushes.MediumVioletRed;
+                                    else
+                                        phrase.Foreground = Brushes.Black;
                                 }
                                 else
                                 {
                                     phrase.Background = Brushes.Black;
-                                    phrase.Foreground = Brushes.White;
+                                    if (jesus)
+                                        phrase.Foreground = Brushes.LightPink;
+                                    else
+                                        phrase.Foreground = Brushes.White;
                                 }
                                 if (word.Triggers.Count > 0)
                                 {
                                     phrase.FontWeight = FontWeights.Bold;
-                                    if (jesus)
-                                        phrase.Foreground = Brushes.MediumVioletRed;
                                 }
                                 else
                                 {
                                     phrase.FontWeight = FontWeights.Normal;
-                                    if (jesus)
-                                        phrase.Foreground = Brushes.LightPink;
                                 }
                                 pdoc.Inlines.Add(phrase);
                             }
