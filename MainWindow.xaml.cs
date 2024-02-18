@@ -747,7 +747,7 @@
                                 BoV = false;
                             }
 
-                            if (!alreadyAddedSpaceAfter)
+                            if ((!alreadyAddedSpaceAfter) || (!backlightRun))
                             {
                                 if (backlight)  // for better visuals, highlight space after all backlights
                                 {
