@@ -21,6 +21,8 @@
     using AVSearch.Interfaces;
     using Blueprint.Blue;
     using System.Linq;
+    using Blueprint.Model.Implicit;
+    using System.Windows.Controls.Primitives;
 
     internal class ChapterSpec
     {
@@ -131,6 +133,7 @@
         internal uint ChapterChickletIndex = 0;
         internal AVEngine Engine = new(@"C:\src\Digital-AV\omega\AVX-Omega.data");
         internal QueryResult? Results = null;
+        internal QSettings Settings;
 
         private (uint count, bool ok) GetBookHitCount(byte b)
         {
@@ -322,6 +325,7 @@
         }
         protected virtual void LoadAppState()
         {
+            this.Settings = new QSettings();
             this.ButtonAVT_Click(null, null);
         }
 
@@ -407,74 +411,144 @@
                 ResetComboDeleteItems();
             }
         }
+        public bool DeletePanel(ChapterChicklet chicklet)
+        {
+            bool deleted = false;
+
+            byte b = (byte)(chicklet.BookChapter >> 8);
+            byte c = (byte)(chicklet.BookChapter & 0xFF);
+
+            const int AV = 0;
+            const int AVX = 1;
+            bool[] both = new bool[] { false, false };
+
+            switch (this.ButtonAVX.Content.ToString().ToUpper())
+            {
+                case "AV":   both[AV] = true; break;
+                case "AVX":  both[AVX] = true; break;
+                case "BOTH": both[AV] = true;
+                             both[AVX] = true; break;
+                default:     both[AV] = true; break;
+            }
+            for (int v = AV; v <= AVX; v++)
+            {
+                if (!both[v])
+                    continue;
+                if (b >= 1 && b <= 66)
+                {
+                    AVXLib.Memory.Book book = ObjectTable.AVXObjects.Mem.Book.Slice(b, 1).Span[0];
+
+                    string header = book.name + " " + c.ToString();
+                    if (v == AVX)
+                        header += " (AVX)";
+
+                    DragDockPanel panel = null;
+                    UInt16 encoding = 0;
+                    foreach (DragDockPanel existing in this.AVPanel.Items)
+                    {
+                        var candidate = existing.Header.ToString();
+                        if (candidate == header)
+                        {
+                            panel = existing;
+                            encoding = panel.PanelReference;
+                            break;
+                        }
+                    }
+                    if (panel != null)
+                    {
+                        this.AVPanel.Items.Remove(panel);
+                        deleted = true;
+                    }
+                }
+            }
+            if (deleted)
+                ClearHighlightsForPanelsNotFound();
+            return deleted;
+        }
         public void AddPanel(ChapterChicklet chicklet)
         {
             byte b = (byte)(chicklet.BookChapter >> 8);
             byte c = (byte)(chicklet.BookChapter & 0xFF);
 
-            if (b >= 1 && b <= 66)
+            const int AV = 0;
+            const int AVX = 1;
+            bool[] both = new bool[] { false, false };
+
+            switch (this.ButtonAVX.Content.ToString().ToUpper())
             {
-                AVXLib.Memory.Book book = ObjectTable.AVXObjects.Mem.Book.Slice(b, 1).Span[0];
-
-                string header = book.name + " " + c.ToString();
-                if (this.ButtonAVX.Content.ToString() == "AVX")
-                    header += " (AVX)";
-
-                DragDockPanel panel = null;
-                foreach (DragDockPanel existing in this.AVPanel.Items)
+                case "AV":   both[AV]  = true; break;
+                case "AVX":  both[AVX] = true; break;
+                case "BOTH": both[AV]  = true;
+                             both[AVX] = true; break;
+                default:     both[AV]  = true; break;
+            }
+            for (int v = AV; v <= AVX; v++)
+            {
+                if (!both[v])
+                    continue;
+                if (b >= 1 && b <= 66)
                 {
-                    if (existing.Header.ToString() == header)
+                    AVXLib.Memory.Book book = ObjectTable.AVXObjects.Mem.Book.Slice(b, 1).Span[0];
+
+                    string header = book.name + " " + c.ToString();
+                    if (v == AVX)
+                        header += " (AVX)";
+
+                    DragDockPanel panel = null;
+                    foreach (DragDockPanel existing in this.AVPanel.Items)
                     {
-                        panel = existing;
-                        panel.PanelLifetime = ++sequence;
-                        panel.PanelReference = chicklet.BookChapter;
-                        break;
-                    }
-                }
-                if (panel == null)
-                {
-                    // Recycle the oldest panel
-                    //
-                    if (this.AVPanel.Items.Count >= 12)
-                    {
-                        int position = -1;
-                        int delete = (-1);
-                        UInt16 removal = 0;
-                        UInt64 min = UInt64.MaxValue;
-                        foreach (var item in this.AVPanel.Items)
+                        if (existing.Header.ToString() == header)
                         {
-                            ++position;
-                            var test = (DragDockPanel)item;
-                            if (test.PanelLifetime < min)
-                            {
-                                min = test.PanelLifetime;
-                                removal = test.PanelReference;
-                                delete = position;
-                            }
+                            panel = existing;
+                            panel.PanelLifetime = ++sequence;
+                            panel.PanelReference = chicklet.BookChapter;
+                            break;
                         }
-                        if (delete >= 0)
+                    }
+                    if (panel == null)
+                    {
+                        // Recycle the oldest panel
+                        //
+                        if (this.AVPanel.Items.Count >= 12)
                         {
-                            this.AVPanel.Items.RemoveAt(delete);
-                            foreach (var item in this.ChapterStack.Children)
+                            int position = -1;
+                            int delete = (-1);
+                            UInt16 removal = 0;
+                            UInt64 min = UInt64.MaxValue;
+                            foreach (var item in this.AVPanel.Items)
                             {
-                                var update = (ChapterChicklet)item;
-                                if (update.BookChapter == removal)
+                                ++position;
+                                var test = (DragDockPanel)item;
+                                if (test.PanelLifetime < min)
                                 {
-                                    update.Refresh(false);
-                                    break;
+                                    min = test.PanelLifetime;
+                                    removal = test.PanelReference;
+                                    delete = position;
+                                }
+                            }
+                            if (delete >= 0)
+                            {
+                                this.AVPanel.Items.RemoveAt(delete);
+                                foreach (var item in this.ChapterStack.Children)
+                                {
+                                    var update = (ChapterChicklet)item;
+                                    if (update.BookChapter == removal)
+                                    {
+                                        update.Refresh(false);
+                                        break;
+                                    }
                                 }
                             }
                         }
+                        panel = new DragDockPanel();
+                        panel.PanelReference = chicklet.BookChapter;
+                        panel.Header = header;
+                        this.AVPanel.Items.Add(panel);
                     }
-                    panel = new DragDockPanel();
-                    panel.PanelReference = chicklet.BookChapter;
-                    panel.Header = header;
-                    this.AVPanel.Items.Add(panel);
+                    var content = this.GetChapter(b, c, (v == AVX));
+                    panel.Content = content;
+                    panel.PanelLifetime = ++sequence;
                 }
-                var content = this.GetChapter(b, c);
-                panel.Content = content;
-                panel.PanelLifetime = ++sequence;
-
                 ResetComboDeleteItems();
             }
         }
@@ -672,8 +746,9 @@
             return vlabel;
         }
 
-        private FlowDocumentScrollViewer GetChapter(byte b, byte c, bool header = false, string bookName = null)
+        private FlowDocumentScrollViewer GetChapter(byte b, byte c, bool modernize, bool header = false, string bookName = null)
         {
+            bool diffs = ButtonAVX.Content.ToString().ToUpper() == "BOTH";
             var doc = new System.Windows.Documents.FlowDocument();
             doc.FontSize = this.panel_fontSize;
             doc.FontFamily = this.panel_fontFamily;
@@ -785,7 +860,6 @@
                             string postPunc = "";
                             bool jesus = (word.Punctuation & 0x01) != 0;
                             bool italics = ((word.Punctuation & 0x02) != 0);
-                            bool avx = (this.ButtonAVX.Content.ToString() == "AVX");
                             string lex = "";
                             if (((word.Punctuation & 0x04) != 0) && !paren)
                             {
@@ -804,7 +878,7 @@
                                 }
                                 pdoc.Inlines.Add(open);
                             }
-                            lex += avx ? word.Modern : word.Text;
+                            lex += modernize ? word.Modern : word.Text;
                             if ((word.Punctuation & 0x10) != 0)
                             {
                                 bool s = (lex[lex.Length - 1] | 0x20) == 's';
@@ -822,6 +896,8 @@
                                 postPunc += this.PostPunc(word.Punctuation);
                             }
                             {// Wall off the phrase variable so that it is NOT inadvertently referenced outside of this scope
+                                bool diff = diffs && word.Modernized;
+
                                 var phrase = new System.Windows.Documents.Run(lex);
                                 if (italics)
                                 {
@@ -829,7 +905,11 @@
                                 }
                                 if (backlightRun)
                                 {
-                                    phrase.Background = Brushes.LightCyan;
+                                    if (diff)
+                                        phrase.Background = Brushes.PaleGreen;
+                                    else
+                                        phrase.Background = Brushes.LightCyan;
+
                                     if (jesus)
                                         phrase.Foreground = Brushes.MediumVioletRed;
                                     else
@@ -837,11 +917,22 @@
                                 }
                                 else
                                 {
-                                    phrase.Background = Brushes.Black;
-                                    if (jesus)
-                                        phrase.Foreground = Brushes.LightPink;
+                                    if (diff)
+                                    {
+                                        phrase.Background = Brushes.PaleGreen;
+                                        if (jesus)
+                                            phrase.Foreground = Brushes.MediumVioletRed;
+                                        else
+                                            phrase.Foreground = Brushes.Black;
+                                    }
                                     else
-                                        phrase.Foreground = Brushes.White;
+                                    {
+                                        phrase.Background = Brushes.Black;
+                                        if (jesus)
+                                            phrase.Foreground = Brushes.LightPink;
+                                        else
+                                            phrase.Foreground = Brushes.White;
+                                    }
                                 }
                                 if (word.Triggers.Count > 0)
                                 {
@@ -1595,16 +1686,44 @@
                 if ((string)ButtonAVX.Content == "AV")
                 {
                     ButtonAVX.Content = version = "AVX";
+                    this.Settings.Display.Value = QLexicalDisplay.QDisplayVal.AVX;
+                    if (!this.Settings.SearchAsAVX)
+                        this.Settings.Lexicon.Value = QLexicalDomain.QLexiconVal.BOTH;
+                    this.Settings.Update();
                 }
-                else
+                else if ((string)ButtonAVX.Content == "AVX")
+                {
+                    ButtonAVX.Content = version = "BOTH";
+                    this.Settings.Display.Value = QLexicalDisplay.QDisplayVal.AVX;
+                    if (!(this.Settings.SearchAsAVX && this.Settings.SearchAsAV))
+                        this.Settings.Lexicon.Value = QLexicalDomain.QLexiconVal.BOTH;
+                    this.Settings.Update();
+                }
+                else // BOTH
                 {
                     ButtonAVX.Content = version = "AV";
+                    this.Settings.Display.Value = QLexicalDisplay.QDisplayVal.AV;
+                    if (!this.Settings.SearchAsAV)
+                        this.Settings.Lexicon.Value = QLexicalDomain.QLexiconVal.AV;    // this is good for purists
+                    this.Settings.Update();
                 }
-                //				conf.BibleVersion = version;
             }
             else
             {
-                ////			version = conf.BibleVersion;
+                if (this.Settings.Display.Value == QLexicalDisplay.QDisplayVal.AVX)
+                {
+                    if ((string)ButtonAVX.Content == "AV")
+                    {
+                        ButtonAVX.Content = version = "AVX";
+                    }
+                }
+                else
+                {
+                    if ((string)ButtonAVX.Content == "AVX")
+                    {
+                        ButtonAVX.Content = version = "AV";
+                    }
+                }
             }
         }
 
@@ -1660,12 +1779,25 @@
                     this.AVPanel.Items.Remove(panel);
                     this.comboBoxDeletePanel.Items.Remove(selected);
                 }
-                foreach (var item in this.ChapterStack.Children)
-                {
-                    var chicklet = (ChapterChicklet)item;
-                    if (chicklet.BookChapter == encoding)
-                        chicklet.Refresh(false);
-                }
+                ClearHighlightsForPanelsNotFound();
+            }
+        }
+        private void ClearHighlightsForPanelsNotFound()
+        {
+            HashSet<UInt16> encodings = new();
+
+            foreach (DragDockPanel panel in this.AVPanel.Items)
+            {
+                UInt16 encoding = panel.PanelReference;
+
+                if (!encodings.Contains(encoding))
+                    encodings.Add(encoding);
+            }
+            foreach (var item in this.ChapterStack.Children)
+            {
+                var chicklet = (ChapterChicklet)item;
+                if (!encodings.Contains(chicklet.BookChapter))
+                    chicklet.Refresh(false);
             }
         }
     }
