@@ -462,7 +462,10 @@
                 }
             }
             if (deleted)
+            {
+                ResetComboDeleteItems();
                 ClearHighlightsForPanelsNotFound();
+            }
             return deleted;
         }
         public void AddPanel(ChapterChicklet chicklet)

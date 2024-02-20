@@ -79,7 +79,8 @@ namespace AVBible
         {
             this.Book.Foreground = new SolidColorBrush(Colors.Cyan);
             this.Refresh(true);
-            ChapterChicklet.App.AddPanel(this);
+            if (!ChapterChicklet.App.DeletePanel(this))
+                ChapterChicklet.App.AddPanel(this);
         }
         static public string GetBookAbbreviation(uint num)
         {
