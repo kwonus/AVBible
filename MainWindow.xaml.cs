@@ -23,6 +23,8 @@
     using System.Linq;
     using Blueprint.Model.Implicit;
     using System.Windows.Controls.Primitives;
+    using System.Windows.Documents;
+    using AVXLib.Framework;
 
     internal class ChapterSpec
     {
@@ -225,39 +227,56 @@
 
             return true;
         }
+        public static string GetHelpFile(string request)
+        {
+            string topic = request.Trim().ToLower();
+            string filename = topic + ".md";
+
+            string path = Path.Combine(HelpFolder, topic + ".md");
+
+            if (File.Exists(path))
+                return path;
+
+            if (topic.StartsWith('@'))
+                topic = topic.Substring(1).TrimStart();
+
+            switch(topic) 
+            {
+                case "find":
+                case "filter": return Path.Combine(HelpFolder, "search.md");
+
+                case "settings":
+                case "assign":
+                case "set":
+                case "clear":
+                case "get":
+                case "absorb": return Path.Combine(HelpFolder, "control.md");
+
+                case "export":
+                case "print":  return Path.Combine(HelpFolder, "output.md");
+
+                case "history_labels":
+                case "history&labels":
+                case "history_macros":
+                case "history&macros":
+                case "history":
+                case "macros":
+                case "labels":
+                case "invoke":
+                case "apply":
+                case "delete":
+                case "review": return Path.Combine(HelpFolder, "history+labels.md");
+            }
+            return Path.Combine(HelpFolder, "system.md");
+        }
         public static string HelpFolder { get; private set; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "AV-Bible", "Help");
-        public static string About { get; private set; } = "README";
-        public static string Search { get; private set; } = "searching";
-        public static string Instructions { get; private set; } = "instructions";
-        public static Dictionary<string, string> Help { get; private set; } = new Dictionary<string, string>();
-        public static Dictionary<string, string> HelpTitle { get; private set; } = new Dictionary<string, string>();
+
         private bool FullInit()
         {
             try
             {
                 var AVInit = Initialize();
                 var waiter = AVInit.GetAwaiter();
-
-                try
-                {
-                    System.IO.Directory.CreateDirectory(HelpFolder);
-                    /* TO DO: 2024/Q1 (Currently, these help files are never updated after installation)
-                    Help[About] = AVMemMap.Fetch(About + ".md", HelpFolder, help:true);
-                    Help[Search] = AVMemMap.Fetch(Search + ".md", HelpFolder, help: true);
-                    Help[Instructions] = AVMemMap.Fetch(Instructions + ".md", HelpFolder, help: true);
-                    */
-                    Help[About] = Path.Combine(HelpFolder, About + ".md");
-                    Help[Search] = Path.Combine(HelpFolder, Search + ".md");
-                    Help[Instructions] = Path.Combine(HelpFolder, Instructions + ".md");
-
-                    HelpTitle[About] = "HELP - About AV Bible";
-                    HelpTitle[Search] = "HELP - Searching";
-                    HelpTitle[Instructions] = "HELP - User Instructions";
-                }
-                catch
-                {
-                    ;
-                }
 
                 if (waiter.GetResult())
                 {
@@ -323,9 +342,10 @@
                 Window_UnMaximize(null, null);
             }
         }
+        private string temp_settings_file = @"C:\Users\Me\AppData\Roaming\AV-Bible\settings.yaml";
         protected virtual void LoadAppState()
         {
-            this.Settings = new QSettings();
+            this.Settings = new QSettings(temp_settings_file);
             this.ButtonAVT_Click(null, null);
         }
 
@@ -344,16 +364,13 @@
             id = 0;
         }
         public static UInt64 sequence = 0;
-        public void AddHelpPanel(string topic)
+        public void AddHelpPanel(string request)
         {
-            string header = HelpTitle.ContainsKey(Instructions) ? HelpTitle[Instructions] : "HELP";
-            string help = Help.ContainsKey(Instructions) ? Help[Instructions] : null;
+            string path = GetHelpFile(request);
+            string topic = Path.GetFileNameWithoutExtension(path);
 
-            if (Help.ContainsKey(topic) && HelpTitle.ContainsKey(topic))
-            {
-                header = HelpTitle[topic];
-                help = Help[topic];
-            }
+            string header = "HELP (" + topic + ")";
+
             DragDockPanel panel = null;
             foreach (DragDockPanel existing in this.AVPanel.Items)
             {
@@ -400,7 +417,7 @@
                         }
                     }
                 }
-                var content = this.GetHelp(help);
+                var content = this.GetHelp(path);
                 panel = new DragDockPanel();
                 panel.Content = content;
                 panel.PanelLifetime = ++sequence;
@@ -424,11 +441,10 @@
 
             switch (this.ButtonAVX.Content.ToString().ToUpper())
             {
-                case "AV":   both[AV] = true; break;
+                case "AV":   both[AV]  = true; break;
                 case "AVX":  both[AVX] = true; break;
-                case "BOTH": both[AV] = true;
+                default:     both[AV]  = true;
                              both[AVX] = true; break;
-                default:     both[AV] = true; break;
             }
             for (int v = AV; v <= AVX; v++)
             {
@@ -481,9 +497,8 @@
             {
                 case "AV":   both[AV]  = true; break;
                 case "AVX":  both[AVX] = true; break;
-                case "BOTH": both[AV]  = true;
+                default:     both[AV]  = true;
                              both[AVX] = true; break;
-                default:     both[AV]  = true; break;
             }
             for (int v = AV; v <= AVX; v++)
             {
@@ -682,7 +697,7 @@
             }
             if (settings == null)
             {
-                settings = new QSettings();
+                settings = new QSettings(this.temp_settings_file);
             }
 
             if (header || script)
@@ -751,7 +766,7 @@
 
         private FlowDocumentScrollViewer GetChapter(byte b, byte c, bool modernize, bool header = false, string bookName = null)
         {
-            bool diffs = ButtonAVX.Content.ToString().ToUpper() == "BOTH";
+            bool diffs = !ButtonAVX.Content.ToString().StartsWith("AV", StringComparison.OrdinalIgnoreCase);
             var doc = new System.Windows.Documents.FlowDocument();
             doc.FontSize = this.panel_fontSize;
             doc.FontFamily = this.panel_fontFamily;
@@ -791,7 +806,7 @@
                     }
                     if (settings == null)
                     {
-                        settings = new QSettings();
+                        settings = new QSettings(this.temp_settings_file);
                     }
                     Dictionary<uint, QueryMatch> matches = book != null ? book.Matches : new();
                     ChapterRendering chapter = Engine.GetChapter(b, c, matches);
@@ -946,6 +961,56 @@
                                     phrase.FontWeight = FontWeights.Normal;
                                 }
                                 pdoc.Inlines.Add(phrase);
+                            }
+                            if (modernize && word.Modernized)
+                            {
+                                char n = '0';
+
+                                if (word.PnPos.number == NUMBER.Singular)
+                                    n = '1';
+                                else if (word.PnPos.number == NUMBER.Plural)
+                                    n = 'n';
+
+                                if (word.NuPos == "vbd2s")
+                                    n = '1'; // this masks a bug in pnpos bits for wast
+
+                                if (n == '0')
+                                {
+                                    // Pronoun bits are mostly well-behaved, but this code closes some gaps
+                                    //
+                                    if (word.Modern.StartsWith("you", StringComparison.InvariantCultureIgnoreCase))
+                                    {
+                                        if (word.Text.StartsWith("th", StringComparison.InvariantCultureIgnoreCase))
+                                            n = '1';
+                                        else if (word.Text.StartsWith("y", StringComparison.InvariantCultureIgnoreCase))
+                                            n = 'n';
+                                    }
+                                    else if (word.Text.EndsWith("st", StringComparison.InvariantCultureIgnoreCase) && !word.Modern.EndsWith("st", StringComparison.InvariantCultureIgnoreCase))
+                                    {
+                                        n = '1';
+                                    }
+                                    else if (word.Text.Equals("art", StringComparison.InvariantCultureIgnoreCase) || word.Text.Equals("dost", StringComparison.InvariantCultureIgnoreCase))
+                                    {
+                                        n = '1';
+                                    }
+                                }
+
+                                if (n != '0')
+                                {
+                                    var superscript = new System.Windows.Documents.Run(n.ToString());
+                                    superscript.Typography.Variants = FontVariants.Superscript;
+                                    if (backlightRun)
+                                    {
+                                        superscript.Background = Brushes.LightCyan;
+                                        superscript.Foreground = Brushes.Black;
+                                    }
+                                    else
+                                    {
+                                        superscript.Background = Brushes.Black;
+                                        superscript.Foreground = Brushes.White;
+                                    }
+                                    pdoc.Inlines.Add(superscript);
+                                }
                             }
 
                             if (postPunc.Length > 0)
@@ -1696,8 +1761,8 @@
                 }
                 else if ((string)ButtonAVX.Content == "AVX")
                 {
-                    ButtonAVX.Content = version = "BOTH";
-                    this.Settings.Display.Value = QLexicalDisplay.QDisplayVal.AVX;
+                    ButtonAVX.Content = version = "Side-by-Side";
+                    this.Settings.Display.Value = QLexicalDisplay.QDisplayVal.BOTH;
                     if (!(this.Settings.SearchAsAVX && this.Settings.SearchAsAV))
                         this.Settings.Lexicon.Value = QLexicalDomain.QLexiconVal.BOTH;
                     this.Settings.Update();
@@ -1707,24 +1772,31 @@
                     ButtonAVX.Content = version = "AV";
                     this.Settings.Display.Value = QLexicalDisplay.QDisplayVal.AV;
                     if (!this.Settings.SearchAsAV)
-                        this.Settings.Lexicon.Value = QLexicalDomain.QLexiconVal.AV;    // this is good for purists
+                        this.Settings.Lexicon.Value = QLexicalDomain.QLexiconVal.BOTH;
                     this.Settings.Update();
                 }
             }
             else
             {
-                if (this.Settings.Display.Value == QLexicalDisplay.QDisplayVal.AVX)
+                if (this.Settings.Display.Value == QLexicalDisplay.QDisplayVal.AV)
                 {
-                    if ((string)ButtonAVX.Content == "AV")
+                    if ((string)ButtonAVX.Content != "AV")
+                    {
+                        ButtonAVX.Content = version = "AV";
+                    }
+                }
+                else if (this.Settings.Display.Value == QLexicalDisplay.QDisplayVal.AVX)
+                {
+                    if ((string)ButtonAVX.Content != "AVX")
                     {
                         ButtonAVX.Content = version = "AVX";
                     }
                 }
-                else
+                else // BOTH
                 {
-                    if ((string)ButtonAVX.Content == "AVX")
+                    if ((string)ButtonAVX.Content != "Side-by-Side")
                     {
-                        ButtonAVX.Content = version = "AV";
+                        ButtonAVX.Content = version = "Side-by-Side";
                     }
                 }
             }
@@ -1750,12 +1822,7 @@
             {
                 var help = (ComboBoxItem) (comboBoxHelpPanel.SelectedItem);
 
-                foreach (var topic in Help.Keys)
-                    if (help.Name.Equals(topic, StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        this.AddHelpPanel(topic);
-                        break;
-                    }
+                this.AddHelpPanel(help.Name);
 
                 comboBoxHelpPanel.SelectedItem = null;  // this will allow panel to be reopenned if it is closed (we always want to generate a changed event.
             }
