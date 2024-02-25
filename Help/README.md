@@ -1,4 +1,4 @@
-### AV-Bible 2024 (version 2.4.217)
+### AV-Bible 2024
 
 Most modern search engines, provide a mechanism for searching via a text input box, where the user is expected to type search terms. While this interface is primitive from a UI perspective, it facilitates rich augmentation via search-specific semantics. Google pioneered the modern search interface by employing an elegantly simple "search box". This was an evolution away from the complex interfaces that preceded it. However, when a user searches for multiple terms, it becomes confusing how to obtain any results except "match every term".
 
@@ -6,7 +6,7 @@ The vast world of search is rife for a standardized search-syntax that moves us 
 
 Quelle, IPA: [kɛl], in French means "What? or Which?". As Quelle HMI is designed to obtain search-results from search-engines, this interrogative nature befits its name. An earlier interpreter, Clarity, served as inspiration for defining Quelle.  You could think of the Quelle HMI as the next generation of Clarity HMI.  Yet, in order to produce linguistic consistency, Quelle syntax varied dramatically from the Clarity spec. Therefore, a new name was the best way forward.  Truly, Quelle HMI incorporates lessons learned after creating, implementing, and revising Clarity HMI for over a decade.
 
-In 2023, Quelle 2.0 was released. This new release is not a radical divergence from version 1. Most of the updates to the specification are related to macros, control variables, filters, and export directives. Search syntax has remained largely unchanged. We discovered some ambiguity in the PEG grammar that implements the Quelle parser. Certain implicit actions could not be defined deterministically. To resolve those ambiguities, Quelle syntax was refined and updated. Consequently, new operators were introduced  [We added # $ % and || to name a few] . These new operators eliminate the need for clause delimiters, in most circumstances. As a result, the version 2 syntax is more streamlined and more intuitive. It comes with a reference implementation in Rust and a fully specified PEG grammar.  Implicit actions for Macros are now referred to as *apply* and *invoke* [those verbs replace *save* and *execute* respectively].
+In 2023, Quelle 2.0 was released. This new release is not a radical divergence from version 1. Most of the updates to the specification are related to macros, control variables, filters, and export directives. Search syntax has remained largely unchanged. We discovered some ambiguity in the PEG grammar that implements the Quelle parser. Certain implicit actions could not be defined deterministically. To resolve those ambiguities, Quelle syntax was refined and updated. Consequently, new operators were introduced  [We added # $ % and || to name a few] . These new operators eliminate the need for clause delimiters, in most circumstances. As a result, the version 2 syntax is more streamlined and more intuitive. It comes with a reference implementation in Rust and a fully specified PEG grammar.  Implicit actions for Macros are now referred to as *apply* and *use* [those verbs replace *save* and *execute* respectively].
 
 Quelle is consistent with itself, to make it feel intuitive. Some constructs make parsing unambiguous; other constructs increase ease of typing (Specifically, we attempt to minimize the need to press the shift-key). Naturally, existing scripting languages also influence our syntax. Quelle represents an easy to type and easy to learn HMI.  Moreover, simple search statements look no different than they might appear today in a Google or Bing search box. Still, let's not get ahead of ourselves or even hint about where our simple specification might take us ;-)
 
@@ -38,7 +38,7 @@ These releases were found at the [older/legacy] avbible.net website. Initially [
 
 Quelle defines a declarative syntax for specifying search criteria using the *find* verb. Quelle also defines additional verbs to round out its syntax as a simple straightforward means to interact with custom applications where searching text is the fundamental problem at hand. The Quelle library and specification are maintained by the same author as AV-Bible.
 
-Quelle Syntax comprises fifteen (15) verbs. Each verb corresponds to a basic action:
+Quelle Syntax, for AV-Bible comprises fifteen (15) verbs. Each verb corresponds to a basic action:
 
 - find
 - filter
@@ -46,55 +46,43 @@ Quelle Syntax comprises fifteen (15) verbs. Each verb corresponds to a basic act
 - set
 - get
 - clear
-- history
 - print
 - apply
 - delete
 - absorb
 - help
 - review
+- use
 - invoke
 - exit
 
-In Quelle terminology, a statement is made up of one or more clauses. Each clause represents an action. While there are fifteen action-verbs, there are only five syntax categories:
+In Quelle terminology, a statement is made up of one or more clauses. Each clause represents an action. While there are fourteen action-verbs, there are only six syntax categories:
 
-####1 SEARCH
-   -- *find*
-   -- *filter*
-####2 CONTROL
-   -- *assign*
-   -- @set
-   -- @clear
-   -- @get
-   -- @absorb
-####3 OUTPUT
-   -- @print
-####4 SYSTEM
-   -- @help
-   -- @exit
-####5 HISTORY & MACROS
-   -- *invoke*
-   -- *apply*
-   -- @delete
-   -- @review
-   -- @history
+| Syntax Category | Implicit Commands *(search compatible)* | Explicit Commands              |
+| --------------- | --------------------------------------- | ------------------------------ |
+| **SEARCH**      | *find*,  *filter*                       | -                              |
+| **CONTROL**     | *assign*                                | @set   @clear   @get   @absorb |
+| **OUTPUT**      | -                                       | @print                         |
+| **SYSTEM**      | -                                       | @help   @exit                  |
+| **LABELING**    | *use*, *apply*                          | @delete   @review              |
+| **HISTORY**     | *use*                                   | @delete   @review   @invoke    |
+
+**TABLE 1** -- **Commands and Syntax Catagories**
 
 Each clause has either a single explicit action or any number of implicit actions.  Explicit actions begin with the @ symbol, immediately followed by the explicit verb.  Implicit actions are inferred by the syntax of the command.
 
-### Fundamental Quelle Commands
+### Fundamental Commands
 
-Learning just six verbs is all that is necessary to effectively use Quelle. In the table below, each verb is identified with required and optional parameters/operators.
+Learning just four verbs is all that is necessary to effectively use the Quelle-Command facilities of AV-Bible. In the table below, each verb is identified with required and optional parameters/operators.
 
-| Verb       | Action Type | Syntax Category | Required Parameters     |              Optional Parameters               |
-| ---------- | :---------: | :-------------- | ----------------------- | :--------------------------------------------: |
-| *find*     |  implicit   | SEARCH          | *search spec*           |                                                |
-| *filter*   |  implicit   | SEARCH          | **<** *domain*          |                                                |
-| *assign*   |  implicit   | CONTROL         | **%name** **=** *value* |                                                |
-| **@print** |  explicit   | OUTPUT          | $\* or other $label     | *book, chapter, verse and/or export directive* |
-| **@help**  |  explicit   | SYSTEM          |                         |                    *topic*                     |
-| **@exit**  |  explicit   | SYSTEM          |                         |                                                |
+| Verb      | Action Type | Syntax Category | Required Parameters     | Optional Parameters |
+| --------- | :---------: | :-------------- | ----------------------- | :-----------------: |
+| *find*    |  implicit   | SEARCH          | *search spec*           |                     |
+| *filter*  |  implicit   | SEARCH          | **<** *domain*          |                     |
+| *assign*  |  implicit   | CONTROL         | **%name** **=** *value* |                     |
+| **@help** |  explicit   | SYSTEM          |                         |       *topic*       |
 
-**TABLE 4-1** -- **Fundamental Quelle commands with corresponding syntax summaries**
+**TABLE 2 -- **Fundamental Quelle commands with corresponding syntax summaries**
 
 From a linguistic standpoint, all Quelle commands are issued in the imperative. The subject of the verb is always "you understood". As the user, you are commanding Quelle what to do. Some verbs have direct objects [aka required parameters]. These parameters instruct Quelle <u>what</u> to act upon. The verb dictates the required parameters: in linguistic terms, this is referred to as the valence of the verb.
 
@@ -116,7 +104,7 @@ As search is a fundamental concern of Quelle, it is optimized to make compound i
 | Compound statement: two CONTROL assignments | %span = 7 %similarity = 85               |
 | Compound statement: CONTROL & SEARCH        | %span = 7 Moses said                     |
 
-**TABLE 4-2** -- **Examples of Quelle statement types**
+**TABLE 3** -- **Examples of Quelle statement types**
 
 Consider these two examples of Quelle statements (first CONTROL; then SEARCH):
 
@@ -192,44 +180,29 @@ this|that
 
 /noun/ | /verb/
 
-### Printing Results
+### Explicit print/export directive
 
-Consider that there are two fundamental types of searches:
+| Verb   | Action Type | Syntax Category | 1st Parameter                   | 2nd Parameter    | Alternate<br/>*(overwrite)* | Alternate<br/>*(append)* |
+| ------ | :---------: | --------------- | ------------------------------- | ---------------- | :-------------------------- | :----------------------- |
+| @print |  explicit   | OUTPUT          | book:chapter<br/>example: gen:1 | **>** *filename* | **=>** *filename*           | **>>** *filename*        |
 
-- Searches that return a limited set of results
-- Searches that either return loads of results; or searches where the result count is unknown (and potentially very large)
-
-Due to the latter condition above, SEARCH summarizes results (it does NOT automatically display every result found). However, when more than a summary is needed, the explicit @print command controls verse rendering. printing results can be directly to the console window or further controlled with the export directive.
-
-### The Export directive
-
-This would export all found verses in Genesis from the most previous search as html
+These commands would print all verses in Genesis:1 to a file named gen-1.html in my Documents folder, with the export format set to HTML.
 
 @set %format=html
 
-@print $\* Genesis  > my-search-genesis.output.html
+@print Genesis:1  > "C:\users\myusername\Documents\gen-1.html"
 
-This would export all verses in Genesis, independent of any search criteria) as markdown
+The > operator expects the file to not already exist. If it already exists, there are two options:
 
-@set %format=md
+=> [overwrite the file]
 
-@print Genesis:1  > gen.md
+\>\> [append to an existing file]
 
-To append Genesis chapter two to the previous chapter one output, use >>
+**Export Format Settings:**
 
-@print Genesis:2  >> gen.md
-
-To overwrite the previous file to only contain chapter 50 use =>
-
-@print Genesis:50  => gen.md
-
-
-
-| Directive | Action Type | Syntax Category | Parameters       | Alternate #1      | Alternate #2      |
-| --------- | :---------: | --------------- | ---------------- | :---------------- | :---------------- |
-| *export*  |    print    | OUTPUT          | **>** *filename* | **=>** *filename* | **>>** *filename* |
-
-**TABLE 7-1** -- **The export directive**
+| **Markdown**                             | **Text** (UTF8)                       | HTML             | JSON             | YAML           |
+| ---------------------------------------- | ------------------------------------- | ---------------- | ---------------- | -------------- |
+| *%format = md* <br/>*%format = markdown* | *%format = text*<br/>*%format = utf8* | *%format = html* | *%format = json* | %formal = yaml |
 
 ### Filtering Results
 
@@ -253,21 +226,19 @@ Abbreviations are also supported:
 
 vanity < sos < 1co
 
-### Labeling & Reviewing Statements for subsequent invocation
+### IX. Labeling & Reviewing Statements for subsequent utilization
 
-| Verb         | Action Type | Syntax Category           | Parameters                                                   |
-| ------------ | ----------- | ------------------------- | ------------------------------------------------------------ |
-| *invoke*     | implicit    | <u>HISTORY</u> & LABELING | ***$**id* or ***#**id*                                       |
-| *invoke*     | implicit    | HISTORY & <u>LABELING</u> | ***$**label* or ***#**label*                                 |
-| *apply*      | implicit    | HISTORY & <u>LABELING</u> | **\|\|** ***$**label*<br/>\<or\><br/> **\|\|** ****#**label** |
-| **@delete**  | explicit    | HISTORY & <u>LABELING</u> | ***$**label* or ***#**label*                                 |
-| **@review**  | explicit    | HISTORY & <u>LABELING</u> | **optional:** ***$**label* or ***#**label* or wildcard<br/>**optional:** < yyyy/mm/dd<br/>**optional:** > yyyy/mm/dd |
-| **@absorb**  | explicit    | CONTROL                   | **permitted:** ***$**label* or ***#**label* or  ***$**id* or  ***#**id* |
-| **@history** | explicit    | <u>HISTORY</u> & LABELING | **optional:** ***$**id* or ***$**id*<br/>**optional:** < yyyy/mm/dd<br/>**optional:** > yyyy/mm/dd<br/>**optional:** < id<br/>**optional:** > id<br/>**optional:** -reset<br>**optional:** -reset \< *id*<br/>**optional:** -reset \> *id*<br/>**optional:** -reset < yyyy/mm/dd<br/>**optional:** -reset > yyyy/mm/dd |
+| Verb        | Action Type | Syntax Category | Parameters                                                   |
+| ----------- | ----------- | --------------- | ------------------------------------------------------------ |
+| *use*       | implicit    | LABELING        | ***$label*** <u>or</u> ***#label***                          |
+| *apply*     | implicit    | LABELING        | **\|\|** ***$label***<br/><u>or</u><br/>**\|\|** ***#label*** |
+| **@delete** | explicit    | LABELING        | *label*                                                      |
+| **@review** | explicit    | LABELING        | **optional:** *label* <u>or</u> wildcard <u>or</u> -labels   |
+| **@absorb** | explicit    | CONTROL         | **permitted:** *label*                                       |
 
-**TABLE 9-1** -- **Labeling statements and reviewing statement history**
+**TABLE 4** -- **Labeling and reviewing labeled statements**
 
-There are two types of macros:
+Labeled statements are also called macros. There are two types of macros:
 
 - **FULL** macros that save the search expression and the settings & filters
 - **PARTIAL** macros that save only settings & filters
@@ -287,7 +258,7 @@ Let’s say we want to name the search example from the previous section; We’l
 
 %span=7 %similarity=85 eternal power < Romans || $eternal-power-romans
 
-It’s that simple, now instead of typing the entire statement, we can utilize the macro by referencing our previously applied label. Here is how the macro can be invoked:
+It’s that simple, now instead of typing the entire statement, we can utilize the macro by referencing our previously applied label. Here is how the macro can be utilized:
 
 $eternal-power-romans
 
@@ -297,17 +268,17 @@ $eternal-power godhead
 
 However, the control variables and filters that were in the macro can still be leveraged by demoting the label to a partial macro. We can execute this to accomplish the search that was disallowed above:
 
-\#eternal-power-romans eternal power godhead
+#eternal-power-romans eternal power godhead
 
 Alternatively, the macro can be redefined (his example also release the syntax for promoting a partial macro to a full macro:
 
-\#eternal-power-romans eternal power godhead || $godhead-romans
+#eternal-power-romans eternal power godhead || $godhead-romans
 
 There are a few restrictions on macro definitions:
 
 1. The statement cannot represent an explicit action:
    - Only implicit actions are permitted in a labeled statement.
-2.  definition must represent a valid Quelle statement:
+2. definition must represent a valid Quelle statement:
    - The syntax is verified prior to applying the statement label.
 3. Macro definitions apply per segment
    - when + is used to concatenate searches, the macro applies only to the single expression immediately to its left
@@ -336,11 +307,11 @@ Similarly, another specialized invocation ( $0 ) represents default values for a
 
 Two additional explicit commands exist whereby a macro can be manipulated. We saw above how they can be defined and referenced. There are two additional ways commands that operate on macros: expansion and deletion.  In the last macro definition above where we created  $another-macro, the user could review an expansion by issuing this command:
 
-@review $another-macro
+@review another-macro
 
 If the user wanted to remove this definition, the @delete action is used.  Here is an example:
 
-@delete $another-macro
+@delete another-macro
 
 If you want the same settings to be persisted to your current session that were in place during macro definition, the @absorb command will persist all settings for the macro into your current session
 
@@ -351,35 +322,47 @@ If you want the same settings to be persisted to your current session that were 
 - @absorb also works with command history.
 - The two built-in specialized macro invocations ( $\* and $0 ) cannot be deleted or overwritten.
 
+### X. Reviewing History for subsequent utilization
+
+| Verb        | Action Type | Syntax Category | Parameters                                                   |
+| ----------- | ----------- | --------------- | ------------------------------------------------------------ |
+| *use*       | implicit    | HISTORY         | ***$id*** or ***#id***                                       |
+| **@invoke** | explicit    | HISTORY         | ***@id***                                                    |
+| **@delete** | explicit    | HISTORY         | **required:** -history <u>or</u> FROM <u>and/or</u> until UNTIL<br/>**optional FROM parameter :** *from* *id* <u>or</u> *from* yyyy/mm/dd<br/>**optional UNTIL parameter :** *until* *id* <u>or</u> *until* yyyy/mm/dd |
+| **@review** | explicit    | HISTORY         | **required:** *id* <u>or</u> -history <u>or</u> FROM <u>and/or</u> until UNTIL<br/>**optional FROM parameter :** *from* *id* <u>or</u> *from* yyyy/mm/dd<br/>**optional UNTIL parameter :** *until* *id* <u>or</u> *until* yyyy/mm/dd |
+| **@absorb** | explicit    | CONTROL         | **permitted:** *id*                                          |
+
+**TABLE 5** -- **Reviewing statement history**
+
 **COMMAND HISTORY** 
 
-*@history* reveals your previous activity.  To show the last ten searches, type:
+*@review* allows you to see your previous activity.  To show the last ten searches, type:
 
-*@history*
+*@review* -history
 
-To reveal the last three searches, type:
+To reveal all history up until now, type:
 
-*@history* 3
+@review until now
 
-To reveal the last twenty searches, type:
+To reveal all searches since January 1, 2024, type:
 
-*@history* 20 
+*@review* from 2024/1/1
 
-To reveal activity using date ranges, type any of:
+To reveal for the single month of January 2024:
 
-*@history* > 2023/07/04
+*@review* from 2024/1/1 until 2024/1/31
 
-*@history* < 2023/07/04
+To reveal all history since id:5 [inclusive]:
 
-*@history* > 2023/07/04 < 2024/07/04 
+*@review* from 5
 
-All ranges are <u>not</u> inclusive. Therefore, commands on July 4th would never be included in the results above. Incidentally, date ranges also work on the @review command.
+All ranges are inclusive. 
 
-**INVOKE**
+**Invocation & Utilization**
 
-The *invoke* command works for command-history works exactly the same way as it does for macros.  After issuing a *@history* command, the user might receive a response as follows.
+The *use* command works for command-history works exactly the same way as it does for macros.  After issuing a *@history* command, the user might receive a response as follows.
 
-*@history*
+*@review*
 
 1>  @set %span = 7
 
@@ -387,15 +370,15 @@ The *invoke* command works for command-history works exactly the same way as it 
 
 3> eternal power
 
-And the invoke command can re-invoke any command listed.
+And the use command can utilize any command listed.
 
 $3
 
-would be shorthand to re-invoke the search specified as:
+would be shorthand to for the search specified as:
 
 eternal power
 
-Again, *invoking* command from your command history is *invoked* just like a macro. Moreover, as with macros, control settings are persisted within your command history to provide invocation determinism. That means that control settings that were in place during the original command are utilized for the invocation.
+Again, *utilizing* a command from your command history is *used* just like a macro. Moreover, as with macros, control settings are persisted within your command history to provide invocation determinism. That means that control settings that were in place during the original command are utilized for the invocation.
 
 ##### Invoking a command remembers all settings, except when multiple macros are compounded:
 
@@ -403,13 +386,13 @@ Command history captures all settings. We have already discussed macro-determini
 
 **RESETTING COMMAND HISTORY**
 
-The @history command can be used to delete <u>all</u> command history.
+The @delete command can be used to remove <u>all</u> command history.
 
-To clear all command history:
+To remove all command history:
 
-@history -reset
+@delete -history -all
 
-Date [less-than / greater-than] parameters can limit the reset command. Alternatively, Id [less-than / greater-than] parameters can limit the reset command.
+FROM / UNTIL parameters can limit the scope of the @delete command.
 
 ### Control Settings & additional related commands
 
@@ -418,7 +401,7 @@ Date [less-than / greater-than] parameters can limit the reset command. Alternat
 | **@clear** |  explicit   | CONTROL         | *setting* or ALL                   |
 | **@get**   |  explicit   | CONTROL         | **optional:** *setting* or VERSION |
 
-**TABLE 12-1** -- **Listing of additional CONTROL actions**
+**TABLE 6** -- **Listing of additional CONTROL actions**
 
 
 
@@ -428,7 +411,7 @@ Date [less-than / greater-than] parameters can limit the reset command. Alternat
 | ---------------------------------------- | ------------------------------------- | ---------------- | ---------------- | -------------- |
 | *%format = md* <br/>*%format = markdown* | *%format = text*<br/>*%format = utf8* | *%format = html* | *%format = json* | %formal = yaml |
 
-**TABLE 12-2** -- **set** format command can be used to set the default content-formatting for for use with the export verb
+**TABLE 7** -- **set** format command can be used to set the default content-formatting for for use with the export verb
 
 
 
@@ -438,7 +421,7 @@ Date [less-than / greater-than] parameters can limit the reset command. Alternat
 | **@get** %span     | get a control setting                                        |                      |
 | **@clear** %span   | Clear: restore setting to the default; for span, this is *verse* |                      |
 
-**TABLE 12-3** -- **set/clear/get** action operate on configuration settings
+**TABLE 8** -- **set/clear/get** action operate on configuration settings
 
 
 
@@ -470,19 +453,19 @@ That is to say, similarity is operative for the lexical word and also the lemma 
 
 @similarity = lemma:none
 
-In all, AVX-Quelle manifests five control names. Each allows all three actions: ***set***, ***clear***, and ***@get*** verbs. Table 12-4 lists all settings available in AVX-Quelle. AVX-Quelle can support two distinct orthographies [i.e. Contemporary Modern English (avx/modern), and/or Early Modern English (avx/kjv).
+In all, AVX-Quelle manifests five control names. Each allows all three actions: ***set***, ***clear***, and ***@get*** verbs. Table 9 lists all settings available in AVX-Quelle. AVX-Quelle can support two distinct orthographies [i.e. Contemporary Modern English (avx/modern), and/or Early Modern English (avx/kjv).
 
 | Setting    | Meaning                                                      | Values                                                       | Default Value |
 | ---------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------- |
 | span       | proximity distance limit                                     | 0 to 999 or verse                                            | 0 [verse]     |
 | lexicon    | the lexicon to be used for the searching                     | av/avx/dual (kjv/modern/both)                                | dual (both)   |
 | display    | the lexicon to be used for display/rendering                 | av/avx (kjv/modern)                                          | av (kjv)      |
-| format     | format of results on output                                  | see Table 12-2                                               | json          |
+| format     | format of results on output                                  | see Table 7                                                  | json          |
 | similarity | fuzzy phonetics matching threshold is between 1 and 99<br/>0 or *none* means: do not match on phonetics (use text only)<br/>100 or *exact* means that an *exact* phonetics match is expected | 33 to 99 [fuzzy] **or** ...<br>0 **or** *none*<br>100 **or** *exact* | 0 (none)      |
 | VERSION    | Not really a true setting: it works with the @get command to retrieve the revision number of the Quelle grammar supported by AV-Engine. This value is read-only. | 2.w.xyz                                                      | n/a           |
 | ALL        | Not really a true setting: it works with the @clear command to reset all variables above to their default values. It is only a valid option for the @clear command. | n/a                                                          | n/a           |
 
-**TABLE 12-4** -- **Summary of AVX-Quelle Control Names**
+**TABLE 9** -- **Summary of AVX-Quelle Control Names**
 
 The *@get* command fetches these values. The *@get* command requires a single argument. Examples are below:
 
@@ -490,7 +473,7 @@ The *@get* command fetches these values. The *@get* command requires a single ar
 
 @get %format
 
-**TABLE 12-5** -- **Collective CONTROL operations**
+
 
 All settings can be cleared using an explicit command:
 

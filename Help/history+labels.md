@@ -1,18 +1,18 @@
 ## HISTORY & LABELING - AV-Bible Help
 
-### Reviewing Statements & Defining macros with labels
+### Labeling & Reviewing Statements for subsequent utilization
 
-| Verb         | Action Type | Syntax Category           | Parameters                                                   |
-| ------------ | ----------- | ------------------------- | ------------------------------------------------------------ |
-| *invoke*     | implicit    | <u>HISTORY</u> & LABELING | ***$**id* or ***#**id*                                       |
-| *invoke*     | implicit    | HISTORY & <u>LABELING</u> | ***$**label* or ***#**label*                                 |
-| *apply*      | implicit    | HISTORY & <u>LABELING</u> | **\|\|** ***$**label*<br/>\<or\><br/> **\|\|** ****#**label** |
-| **@delete**  | explicit    | HISTORY & <u>LABELING</u> | ***$**label* or ***#**label*                                 |
-| **@review**  | explicit    | HISTORY & <u>LABELING</u> | **optional:** ***$**label* or ***#**label* or wildcard<br/>**optional:** < yyyy/mm/dd<br/>**optional:** > yyyy/mm/dd |
-| **@absorb**  | explicit    | CONTROL                   | **permitted:** ***$**label* or ***#**label* or  ***$**id* or  ***#**id* |
-| **@history** | explicit    | <u>HISTORY</u> & LABELING | **optional:** ***$**id* or ***$**id*<br/>**optional:** < yyyy/mm/dd<br/>**optional:** > yyyy/mm/dd<br/>**optional:** < id<br/>**optional:** > id<br/>**optional:** -reset<br>**optional:** -reset \< *id*<br/>**optional:** -reset \> *id*<br/>**optional:** -reset < yyyy/mm/dd<br/>**optional:** -reset > yyyy/mm/dd |
+| Verb        | Action Type | Syntax Category | Parameters                                                   |
+| ----------- | ----------- | --------------- | ------------------------------------------------------------ |
+| *use*       | implicit    | LABELING        | ***$label*** <u>or</u> ***#label***                          |
+| *apply*     | implicit    | LABELING        | **\|\|** ***$label***<br/><u>or</u><br/>**\|\|** ***#label*** |
+| **@delete** | explicit    | LABELING        | *label*                                                      |
+| **@review** | explicit    | LABELING        | **optional:** *label* <u>or</u> wildcard <u>or</u> -labels   |
+| **@absorb** | explicit    | CONTROL         | **permitted:** *label*                                       |
 
-There are two types of macros:
+**TABLE 4** -- **Labeling and reviewing labeled statements**
+
+Labeled statements are also called macros. There are two types of macros:
 
 - **FULL** macros that save the search expression and the settings & filters
 - **PARTIAL** macros that save only settings & filters
@@ -32,7 +32,7 @@ Let’s say we want to name the search example from the previous section; We’l
 
 %span=7 %similarity=85 eternal power < Romans || $eternal-power-romans
 
-It’s that simple, now instead of typing the entire statement, we can utilize the macro by referencing our previously applied label. Here is how the macro can be invoked:
+It’s that simple, now instead of typing the entire statement, we can utilize the macro by referencing our previously applied label. Here is how the macro can be utilized:
 
 $eternal-power-romans
 
@@ -42,17 +42,17 @@ $eternal-power godhead
 
 However, the control variables and filters that were in the macro can still be leveraged by demoting the label to a partial macro. We can execute this to accomplish the search that was disallowed above:
 
-\#eternal-power-romans eternal power godhead
+#eternal-power-romans eternal power godhead
 
 Alternatively, the macro can be redefined (his example also release the syntax for promoting a partial macro to a full macro:
 
-\#eternal-power-romans eternal power godhead || $godhead-romans
+#eternal-power-romans eternal power godhead || $godhead-romans
 
 There are a few restrictions on macro definitions:
 
 1. The statement cannot represent an explicit action:
    - Only implicit actions are permitted in a labeled statement.
-2.  definition must represent a valid Quelle statement:
+2. definition must represent a valid Quelle statement:
    - The syntax is verified prior to applying the statement label.
 3. Macro definitions apply per segment
    - when + is used to concatenate searches, the macro applies only to the single expression immediately to its left
@@ -81,50 +81,62 @@ Similarly, another specialized invocation ( $0 ) represents default values for a
 
 Two additional explicit commands exist whereby a macro can be manipulated. We saw above how they can be defined and referenced. There are two additional ways commands that operate on macros: expansion and deletion.  In the last macro definition above where we created  $another-macro, the user could review an expansion by issuing this command:
 
-@review $another-macro
+@review another-macro
 
 If the user wanted to remove this definition, the @delete action is used.  Here is an example:
 
-@delete $another-macro
+@delete another-macro
 
 If you want the same settings to be persisted to your current session that were in place during macro definition, the @absorb command will persist all settings for the macro into your current session
 
-@absorb $my-favorite-settings-macro 
+@absorb my-favorite-settings-macro 
 
 **NOTES:**
 
 - @absorb also works with command history.
 - The two built-in specialized macro invocations ( $\* and $0 ) cannot be deleted or overwritten.
 
+### Reviewing History for subsequent utilization
+
+| Verb        | Action Type | Syntax Category | Parameters                                                   |
+| ----------- | ----------- | --------------- | ------------------------------------------------------------ |
+| *use*       | implicit    | HISTORY         | ***$id*** or ***#id***                                       |
+| **@invoke** | explicit    | HISTORY         | ***@id***                                                    |
+| **@delete** | explicit    | HISTORY         | **required:** -history <u>or</u> FROM <u>and/or</u> until UNTIL<br/>**optional FROM parameter :** *from* *id* <u>or</u> *from* yyyy/mm/dd<br/>**optional UNTIL parameter :** *until* *id* <u>or</u> *until* yyyy/mm/dd |
+| **@review** | explicit    | HISTORY         | **required:** *id* <u>or</u> -history <u>or</u> FROM <u>and/or</u> until UNTIL<br/>**optional FROM parameter :** *from* *id* <u>or</u> *from* yyyy/mm/dd<br/>**optional UNTIL parameter :** *until* *id* <u>or</u> *until* yyyy/mm/dd |
+| **@absorb** | explicit    | CONTROL         | **permitted:** *id*                                          |
+
+**TABLE 5** -- **Reviewing statement history**
+
 **COMMAND HISTORY** 
 
-*@history* reveals your previous activity.  To show the last ten searches, type:
+*@review* allows you to see your previous activity.  To show the last ten searches, type:
 
-*@history*
+*@review* -history
 
-To reveal the last three searches, type:
+To reveal all history up until now, type:
 
-*@history* 3
+@review until now
 
-To reveal the last twenty searches, type:
+To reveal all searches since January 1, 2024, type:
 
-*@history* 20 
+*@review* from 2024/1/1
 
-To reveal activity using date ranges, type any of:
+To reveal for the single month of January 2024:
 
-*@history* > 2023/07/04
+*@review* from 2024/1/1 until 2024/1/31
 
-*@history* < 2023/07/04
+To reveal all history since id:5 [inclusive]:
 
-*@history* > 2023/07/04 < 2024/07/04 
+*@review* from 5
 
-All ranges are <u>not</u> inclusive. Therefore, commands on July 4th would never be included in the results above. Incidentally, date ranges also work on the @review command.
+All ranges are inclusive. 
 
-**INVOKE**
+**Invocation & Utilization**
 
-The *invoke* command works for command-history works exactly the same way as it does for macros.  After issuing a *@history* command, the user might receive a response as follows.
+The *use* command works for command-history works exactly the same way as it does for macros.  After issuing a *@history* command, the user might receive a response as follows.
 
-*@history*
+*@review*
 
 1>  @set %span = 7
 
@@ -132,15 +144,15 @@ The *invoke* command works for command-history works exactly the same way as it 
 
 3> eternal power
 
-And the invoke command can re-invoke any command listed.
+And the use command can utilize any command listed.
 
 $3
 
-would be shorthand to re-invoke the search specified as:
+would be shorthand to for the search specified as:
 
 eternal power
 
-Again, *invoking* command from your command history is *invoked* just like a macro. Moreover, as with macros, control settings are persisted within your command history to provide invocation determinism. That means that control settings that were in place during the original command are utilized for the invocation.
+Again, *utilizing* a command from your command history is *used* just like a macro. Moreover, as with macros, control settings are persisted within your command history to provide invocation determinism. That means that control settings that were in place during the original command are utilized for the invocation.
 
 ##### Invoking a command remembers all settings, except when multiple macros are compounded:
 
@@ -148,11 +160,11 @@ Command history captures all settings. We have already discussed macro-determini
 
 **RESETTING COMMAND HISTORY**
 
-The @history command can be used to delete <u>all</u> command history.
+The @delete command can be used to remove <u>all</u> command history.
 
-To clear all command history:
+To remove all command history:
 
-@history -reset
+@delete -history -all
 
-Date [less-than / greater-than] parameters can limit the reset command. Alternatively, Id [less-than / greater-than] parameters can limit the reset command.
+FROM / UNTIL parameters can limit the scope of the @delete command.
 

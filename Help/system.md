@@ -2,36 +2,18 @@
 
 AV-Bible exposes a declarative syntax for specifying search criteria. Beyond search, additional verbs provide a straightforward means to interact the search engine, by allowing you to save applicable settings. AV-Bible utilizes a variant of the Quelle command language. The Quelle specification is maintained by the same author as AV-Bible.
 
-There are fourteen command-action verbs. These fourteen commands are organized into six syntax categories:
+There are fourteen commands. These are organized into six syntax categories:
 
-####1 SEARCH
-   -- *find*
-   -- *filter*
+| Syntax Category | Implicit Commands *(search compatible)* | Explicit Commands              |
+| --------------- | --------------------------------------- | ------------------------------ |
+| **SEARCH**      | *find*,  *filter*                       | -                              |
+| **CONTROL**     | *assign*                                | @set   @clear   @get   @absorb |
+| **OUTPUT**      | -                                       | @print                         |
+| **SYSTEM**      | -                                       | @help   @exit                  |
+| **LABELING**    | *use*, *apply*                          | @delete   @review              |
+| **HISTORY**     | *use*                                   | @delete   @review   @invoke    |
 
-####2 CONTROL
-   -- *assign*
-   -- @set
-   -- @clear
-   -- @get
-   -- @absorb
-
-####3 OUTPUT
-   -- @print
-
-####4 SYSTEM
-   -- @help
-
-####5 LABELS
-   -- *invoke*
-   -- *apply*
-   -- @delete
-   -- @review
-
-####6 HISTORY
-   -- *invoke*
-   -- @history
-
-All search-related commands are implicit. Non-search-related commands are explicit. Explicit actions begin with the @ symbol, immediately followed by the explicit verb.  Implicit actions are inferred by the syntax of the command and are directly related to searching the bible with specific search criteria.
+All search-compatible commands are implicit. All other commands are explicit. Explicit actions begin with the @ symbol, immediately followed by the explicit verb.  Implicit actions are inferred by the syntax of the command and are directly related to searching the bible with specific search criteria.
 
 Help can be called up in the application using the help pull-down menu. Alternatively, help on any category can be invoked by requesting a help-topic by name in the command window of AV-Bible. The topic is the verb or the category for the command. All of these commands [examples] are valid requests:
 
