@@ -6,8 +6,8 @@
 | ----------- | ----------- | --------------- | ------------------------------------------------------------ |
 | *use*       | implicit    | LABELING        | ***$label*** <u>or</u> ***#label***                          |
 | *apply*     | implicit    | LABELING        | **\|\|** ***$label***<br/><u>or</u><br/>**\|\|** ***#label*** |
-| **@delete** | explicit    | LABELING        | *label*                                                      |
-| **@review** | explicit    | LABELING        | **optional:** *label* <u>or</u> wildcard <u>or</u> -labels   |
+| **@delete** | explicit    | LABELING        | *label* <u>or</u> *wildcard* <u>or</u> -labels FROM <u>and/or</u> UNTIL<br/>**FROM parameter :** *from* yyyy/mm/dd<br/>**UNTIL parameter :** *until* yyyy/mm/dd |
+| **@review** | explicit    | LABELING        | *label* <u>or</u> *wildcard* <u>or</u> -labels <u>optional</u> FROM <u>and/or</u> UNTIL<br/>**FROM parameter :** *from* yyyy/mm/dd<br/>**UNTIL parameter :** *until* yyyy/mm/dd |
 | **@absorb** | explicit    | CONTROL         | **permitted:** *label*                                       |
 
 **TABLE 4** -- **Labeling and reviewing labeled statements**
@@ -102,8 +102,8 @@ If you want the same settings to be persisted to your current session that were 
 | ----------- | ----------- | --------------- | ------------------------------------------------------------ |
 | *use*       | implicit    | HISTORY         | ***$id*** or ***#id***                                       |
 | **@invoke** | explicit    | HISTORY         | ***@id***                                                    |
-| **@delete** | explicit    | HISTORY         | **required:** -history <u>or</u> FROM <u>and/or</u> until UNTIL<br/>**optional FROM parameter :** *from* *id* <u>or</u> *from* yyyy/mm/dd<br/>**optional UNTIL parameter :** *until* *id* <u>or</u> *until* yyyy/mm/dd |
-| **@review** | explicit    | HISTORY         | **required:** *id* <u>or</u> -history <u>or</u> FROM <u>and/or</u> until UNTIL<br/>**optional FROM parameter :** *from* *id* <u>or</u> *from* yyyy/mm/dd<br/>**optional UNTIL parameter :** *until* *id* <u>or</u> *until* yyyy/mm/dd |
+| **@delete** | explicit    | HISTORY         | -history FROM <u>and/or</u> UNTIL<br/>**FROM parameter :** *from* *id* <u>or</u> *from* yyyy/mm/dd<br/>**UNTIL parameter :** *until* *id* <u>or</u> *until* yyyy/mm/dd |
+| **@review** | explicit    | HISTORY         | *id* <u>or</u> -history <u>optional</u> FROM <u>and/or</u> UNTIL<br/>**FROM parameter :** *from* *id* <u>or</u> *from* yyyy/mm/dd<br/>**UNTIL parameter :** *until* *id* <u>or</u> *until* yyyy/mm/dd |
 | **@absorb** | explicit    | CONTROL         | **permitted:** *id*                                          |
 
 **TABLE 5** -- **Reviewing statement history**

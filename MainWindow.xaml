@@ -82,7 +82,8 @@
                     <ComboBoxItem Name="system">General Command-Syntax Overview</ComboBoxItem>
                     <ComboBoxItem Name="search">Help with Search Syntax</ComboBoxItem>
                     <ComboBoxItem Name="control">Help with Control Settings</ComboBoxItem>
-                    <ComboBoxItem Name="history_labels">Help with Search History</ComboBoxItem>
+                    <ComboBoxItem Name="history">Help with Search History</ComboBoxItem>
+                    <ComboBoxItem Name="labeling">Help with Staement Labelling</ComboBoxItem>
                     <ComboBoxItem Name="output">Help with Exporting Results</ComboBoxItem>
                 </ComboBox>
             </Grid>

@@ -232,8 +232,8 @@ vanity < sos < 1co
 | ----------- | ----------- | --------------- | ------------------------------------------------------------ |
 | *use*       | implicit    | LABELING        | ***$label*** <u>or</u> ***#label***                          |
 | *apply*     | implicit    | LABELING        | **\|\|** ***$label***<br/><u>or</u><br/>**\|\|** ***#label*** |
-| **@delete** | explicit    | LABELING        | *label*                                                      |
-| **@review** | explicit    | LABELING        | **optional:** *label* <u>or</u> wildcard <u>or</u> -labels   |
+| **@delete** | explicit    | LABELING        | *label* <u>or</u> *wildcard* <u>or</u> -labels FROM <u>and/or</u> UNTIL<br/>**FROM parameter :** *from* yyyy/mm/dd<br/>**UNTIL parameter :** *until* yyyy/mm/dd |
+| **@review** | explicit    | LABELING        | *label* <u>or</u> *wildcard* <u>or</u> -labels <u>optional</u> FROM <u>and/or</u> UNTIL<br/>**FROM parameter :** *from* yyyy/mm/dd<br/>**UNTIL parameter :** *until* yyyy/mm/dd |
 | **@absorb** | explicit    | CONTROL         | **permitted:** *label*                                       |
 
 **TABLE 4** -- **Labeling and reviewing labeled statements**
@@ -328,8 +328,8 @@ If you want the same settings to be persisted to your current session that were 
 | ----------- | ----------- | --------------- | ------------------------------------------------------------ |
 | *use*       | implicit    | HISTORY         | ***$id*** or ***#id***                                       |
 | **@invoke** | explicit    | HISTORY         | ***@id***                                                    |
-| **@delete** | explicit    | HISTORY         | **required:** -history <u>or</u> FROM <u>and/or</u> until UNTIL<br/>**optional FROM parameter :** *from* *id* <u>or</u> *from* yyyy/mm/dd<br/>**optional UNTIL parameter :** *until* *id* <u>or</u> *until* yyyy/mm/dd |
-| **@review** | explicit    | HISTORY         | **required:** *id* <u>or</u> -history <u>or</u> FROM <u>and/or</u> until UNTIL<br/>**optional FROM parameter :** *from* *id* <u>or</u> *from* yyyy/mm/dd<br/>**optional UNTIL parameter :** *until* *id* <u>or</u> *until* yyyy/mm/dd |
+| **@delete** | explicit    | HISTORY         | -history FROM <u>and/or</u> UNTIL<br/>**FROM parameter :** *from* *id* <u>or</u> *from* yyyy/mm/dd<br/>**UNTIL parameter :** *until* *id* <u>or</u> *until* yyyy/mm/dd |
+| **@review** | explicit    | HISTORY         | *id* <u>or</u> -history <u>optional</u> FROM <u>and/or</u> UNTIL<br/>**FROM parameter :** *from* *id* <u>or</u> *from* yyyy/mm/dd<br/>**UNTIL parameter :** *until* *id* <u>or</u> *until* yyyy/mm/dd |
 | **@absorb** | explicit    | CONTROL         | **permitted:** *id*                                          |
 
 **TABLE 5** -- **Reviewing statement history**
@@ -460,7 +460,7 @@ In all, AVX-Quelle manifests five control names. Each allows all three actions: 
 | span       | proximity distance limit                                     | 0 to 999 or verse                                            | 0 [verse]     |
 | lexicon    | the lexicon to be used for the searching                     | av/avx/dual (kjv/modern/both)                                | dual (both)   |
 | display    | the lexicon to be used for display/rendering                 | av/avx (kjv/modern)                                          | av (kjv)      |
-| format     | format of results on output                                  | see Table 7                                                  | json          |
+| format     | format of results on output                                  | see Table 7                                                  | text          |
 | similarity | fuzzy phonetics matching threshold is between 1 and 99<br/>0 or *none* means: do not match on phonetics (use text only)<br/>100 or *exact* means that an *exact* phonetics match is expected | 33 to 99 [fuzzy] **or** ...<br>0 **or** *none*<br>100 **or** *exact* | 0 (none)      |
 | VERSION    | Not really a true setting: it works with the @get command to retrieve the revision number of the Quelle grammar supported by AV-Engine. This value is read-only. | 2.w.xyz                                                      | n/a           |
 | ALL        | Not really a true setting: it works with the @clear command to reset all variables above to their default values. It is only a valid option for the @clear command. | n/a                                                          | n/a           |

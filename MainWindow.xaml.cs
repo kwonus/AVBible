@@ -227,9 +227,11 @@
 
             return true;
         }
+        private static char[] splitters = ['_', '&', '+', ' '];
         public static string GetHelpFile(string request)
         {
-            string topic = request.Trim().ToLower();
+            string topics = request.Trim().ToLower();
+            string topic = topics;
             string filename = topic + ".md";
 
             string path = Path.Combine(HelpFolder, topic + ".md");
@@ -237,35 +239,42 @@
             if (File.Exists(path))
                 return path;
 
-            if (topic.StartsWith('@'))
-                topic = topic.Substring(1).TrimStart();
-
-            switch(topic) 
+            int len = 1;
+            for (int i = 0; i < len; i++)
             {
-                case "find":
-                case "filter": return Path.Combine(HelpFolder, "search.md");
+                if (topic.StartsWith('@'))
+                    topic = topic.Substring(1).TrimStart();
 
-                case "settings":
-                case "assign":
-                case "set":
-                case "clear":
-                case "get":
-                case "absorb": return Path.Combine(HelpFolder, "control.md");
+                switch (topic)
+                {
+                    case "find":
+                    case "filter": return Path.Combine(HelpFolder, "search.md");
 
-                case "export":
-                case "print":  return Path.Combine(HelpFolder, "output.md");
+                    case "settings":
+                    case "assign":
+                    case "set":
+                    case "clear":
+                    case "get":
+                    case "absorb": return Path.Combine(HelpFolder, "control.md");
 
-                case "history_labels":
-                case "history&labels":
-                case "history_macros":
-                case "history&macros":
-                case "history":
-                case "macros":
-                case "labels":
-                case "invoke":
-                case "apply":
-                case "delete":
-                case "review": return Path.Combine(HelpFolder, "history+labels.md");
+                    case "export":
+                    case "print": return Path.Combine(HelpFolder, "output.md");
+
+                    case "history":
+                    case "macros":
+                    case "labels":
+                    case "labeling":
+                    case "invoke":
+                    case "apply":
+                    case "delete":
+                    case "review": return Path.Combine(HelpFolder, "history+labeling.md");
+                }
+                // Fail-Safety if user asks for History+labeling or Labeling & History
+                string[] parts = topics.Split(splitters, StringSplitOptions.RemoveEmptyEntries);
+                if (len+1 > parts.Length)
+                    break;
+                len = parts.Length;
+                topic = parts[i];
             }
             return Path.Combine(HelpFolder, "system.md");
         }
@@ -1339,13 +1348,13 @@
                 if (!success)
                     Console.Error.WriteLine(tuple.message);
             }
-            if (success && (tuple.find != null && tuple.find.Expressions != null))
+            if (success && (tuple.search != null && tuple.search.Expressions != null))
             {
-                this.Results = tuple.find;
-                return (true, tuple.find);
+                this.Results = tuple.search;
+                return (true, tuple.search);
             }
             this.Results = null;
-            return (false, tuple.find);
+            return (false, tuple.search);
         }
         private void SetEntireView(byte bk)
         {
