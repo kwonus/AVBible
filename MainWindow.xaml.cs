@@ -22,9 +22,6 @@
     using Blueprint.Blue;
     using System.Linq;
     using Blueprint.Model.Implicit;
-    using System.Windows.Controls.Primitives;
-    using System.Windows.Documents;
-    using AVXLib.Framework;
 
     internal class ChapterSpec
     {
@@ -133,7 +130,7 @@
 
         internal uint ViewbookStartNum;
         internal uint ChapterChickletIndex = 0;
-        internal AVEngine Engine = new(@"C:\src\Digital-AV\omega\AVX-Omega.data");
+        internal AVEngine Engine = new();
         internal QueryResult? Results = null;
         internal QSettings Settings;
 
