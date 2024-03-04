@@ -2,25 +2,25 @@
 
 ### Commands that control persistent Settings
 
-| Verb       | Action Type | Syntax Category | Usage                   | Shorthand & alternate usages   |
-| ---------- | :---------: | --------------- | ----------------------- | ------------------------------ |
-| **@set**   |  explicit   | CONTROL         | @set %*setting* = value | @*setting* = value             |
-| **@clear** |  explicit   | CONTROL         | @clear %*setting*       | @clear ALL                     |
-| **@get**   |  explicit   | CONTROL         | @get %*setting*         | @get VERSION / @get ALL / @get |
+| Verb       | Action Type | Syntax Category | Usage                  | Shorthand & alternate usages |
+| ---------- | :---------: | --------------- | ---------------------- | ---------------------------- |
+| **@set**   |  explicit   | CONTROL         | @set *setting* = value | @*setting* = value           |
+| **@clear** |  explicit   | CONTROL         | @clear *setting*       | @clear ALL                   |
+| **@get**   |  explicit   | CONTROL         | @get *setting*         | @*setting* @VERSION / @ALL   |
 
 #### Examples
 
-| command            | **explanation**                                              | shorthand equivalent |
-| ------------------ | ------------------------------------------------------------ | -------------------- |
-| **@set** %span = 8 | Assign a control setting                                     | @span = 8            |
-| **@get** %span     | get a control setting                                        |                      |
-| **@clear** %span   | Clear: restore setting to the default; for span, this is *verse* |                      |
+| command           | **explanation**                                              | shorthand equivalent |
+| ----------------- | ------------------------------------------------------------ | -------------------- |
+| **@set** span = 8 | Assign a control setting                                     | @span = 8            |
+| **@get** span     | get a control setting                                        | @span                |
+| **@clear** span   | Clear: restore setting to the default; for span, this is *verse* |                      |
 
 Otherwise, when multiple clauses contain the same setting, only the last setting in the list is preserved.  Example:
 
 %format=md %format=default %format=text
 
-@get %format
+@get format
 
 The @get format command would return text.  We call this: "last assignment wins". However, there is one caveat to this precedence order: regardless of where in the statement a macro or history invocation is provided within a statement, it never has precedence over a setting that is actually visible within the statement.
 
@@ -56,9 +56,9 @@ In all, AVX-Quelle manifests five control names. Each allows all three actions: 
 
 The *@get* command fetches these values. The *@get* command requires a single argument. Examples are below:
 
-*@get* %span
+*@get* span
 
-@get %format
+@get format
 
 All settings can be cleared using an explicit command:
 

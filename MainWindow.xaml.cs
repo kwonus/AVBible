@@ -1760,38 +1760,38 @@
                 if ((string)ButtonAVX.Content == "AV")
                 {
                     ButtonAVX.Content = version = "AVX";
-                    this.Settings.Display.Value = QLexicalDisplay.QDisplayVal.AVX;
+                    this.Settings.Display.Value = QLexicon.QLexiconVal.AVX;
                     if (!this.Settings.SearchAsAVX)
-                        this.Settings.Lexicon.Value = QLexicalDomain.QLexiconVal.BOTH;
+                        this.Settings.Lexicon.Value = QLexicon.QLexiconVal.BOTH;
                     this.Settings.Update();
                 }
                 else if ((string)ButtonAVX.Content == "AVX")
                 {
                     ButtonAVX.Content = version = "Side-by-Side";
-                    this.Settings.Display.Value = QLexicalDisplay.QDisplayVal.BOTH;
+                    this.Settings.Display.Value = QLexicon.QLexiconVal.BOTH;
                     if (!(this.Settings.SearchAsAVX && this.Settings.SearchAsAV))
-                        this.Settings.Lexicon.Value = QLexicalDomain.QLexiconVal.BOTH;
+                        this.Settings.Lexicon.Value = QLexicon.QLexiconVal.BOTH;
                     this.Settings.Update();
                 }
                 else // BOTH
                 {
                     ButtonAVX.Content = version = "AV";
-                    this.Settings.Display.Value = QLexicalDisplay.QDisplayVal.AV;
+                    this.Settings.Display.Value = QLexicon.QLexiconVal.AV;
                     if (!this.Settings.SearchAsAV)
-                        this.Settings.Lexicon.Value = QLexicalDomain.QLexiconVal.BOTH;
+                        this.Settings.Lexicon.Value = QLexicon.QLexiconVal.BOTH;
                     this.Settings.Update();
                 }
             }
             else
             {
-                if (this.Settings.Display.Value == QLexicalDisplay.QDisplayVal.AV)
+                if (this.Settings.Display.Value == QLexicon.QLexiconVal.AV)
                 {
                     if ((string)ButtonAVX.Content != "AV")
                     {
                         ButtonAVX.Content = version = "AV";
                     }
                 }
-                else if (this.Settings.Display.Value == QLexicalDisplay.QDisplayVal.AVX)
+                else if (this.Settings.Display.Value == QLexicon.QLexiconVal.AVX)
                 {
                     if ((string)ButtonAVX.Content != "AVX")
                     {

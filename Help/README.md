@@ -108,7 +108,7 @@ As search is a fundamental concern of Quelle, it is optimized to make compound i
 
 Consider these two examples of Quelle statements (first CONTROL; then SEARCH):
 
-@set %lexicon = KJV
+@set lexicon = KJV
 
 "Moses"
 
@@ -188,7 +188,7 @@ this|that
 
 These commands would print all verses in Genesis:1 to a file named gen-1.html in my Documents folder, with the export format set to HTML.
 
-@set %format=html
+@set format=html
 
 @print Genesis:1  > "C:\users\myusername\Documents\gen-1.html"
 
@@ -285,11 +285,11 @@ There are a few restrictions on macro definitions:
 
 Finally, any macros referenced within a macro definition are expanded prior to applying the new label. Therefore, subsequent redefinition of a previously referenced macro invocation has no effect upon the initial macro reference. We call this macro-determinism.  Quelle determinism assures that all control settings are captured at the time that the label is applied to the macro. This further assures that the same search results are returned each time the macro is referenced. Here is an example.
 
-@set %span = 2
+@set span = 2
 
 in beginning || in_beginning
 
-@set %span = 3
+@set span = 3
 
 $in_beginning [1] < genesis:1:1
 
@@ -364,9 +364,9 @@ The *use* command works for command-history works exactly the same way as it doe
 
 *@review*
 
-1>  @set %span = 7
+1>  @set span = 7
 
-2>  @set %similarity=85
+2>  @set similarity=85
 
 3> eternal power
 
@@ -415,11 +415,11 @@ FROM / UNTIL parameters can limit the scope of the @delete command.
 
 
 
-| **example**        | **explanation**                                              | shorthand equivalent |
-| ------------------ | ------------------------------------------------------------ | -------------------- |
-| **@set** %span = 8 | Assign a control setting                                     | @span = 8            |
-| **@get** %span     | get a control setting                                        |                      |
-| **@clear** %span   | Clear: restore setting to the default; for span, this is *verse* |                      |
+| **example**       | **explanation**                                              | shorthand equivalent |
+| ----------------- | ------------------------------------------------------------ | -------------------- |
+| **@set** span = 8 | Assign a control setting                                     | @span = 8            |
+| **@get** span     | get a control setting                                        | @span                |
+| **@clear** span   | Clear: restore setting to the default; for span, this is *verse* |                      |
 
 **TABLE 8** -- **set/clear/get** action operate on configuration settings
 
@@ -431,7 +431,7 @@ Otherwise, when multiple clauses contain the same setting, only the last setting
 
 %format=md %format=default %format=text
 
-@get %format
+@get format
 
 The @get format command would return text.  We call this: "last assignment wins". However, there is one caveat to this precedence order: regardless of where in the statement a macro or history invocation is provided within a statement, it never has precedence over a setting that is actually visible within the statement.
 
@@ -469,9 +469,9 @@ In all, AVX-Quelle manifests five control names. Each allows all three actions: 
 
 The *@get* command fetches these values. The *@get* command requires a single argument. Examples are below:
 
-*@get* %span
+*@get* span
 
-@get %format
+@get format
 
 
 
