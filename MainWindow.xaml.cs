@@ -143,21 +143,19 @@
 
             if (b >= 1 && b <= 66)
             {
-                foreach (SearchExpression exp in this.Results.Expressions)
-                {
-                    ok = true;
+                SearchExpression exp = this.Results.Expression;
+                ok = true;
 
-                    if ((exp.Hits > 0) && exp.Books.ContainsKey(b))
+                if ((exp.Hits > 0) && exp.Books.ContainsKey(b))
+                {
+                    QueryBook book = exp.Books[b];
+                    foreach (var match in book.Matches.Values)
                     {
-                        QueryBook book = exp.Books[b];
-                        foreach (var match in book.Matches.Values)
-                        {
-                            if (match.Start.InRange(b, c, v))
-                                continue; // skip (duplicate)
-                            c = match.Start.C;
-                            v = match.Start.V;
-                            count++;
-                        }
+                        if (match.Start.InRange(b, c, v))
+                            continue; // skip (duplicate)
+                        c = match.Start.C;
+                        v = match.Start.V;
+                        count++;
                     }
                 }
             }
@@ -171,20 +169,18 @@
 
             if (b >= 1 && b <= 66)
             {
-                foreach (SearchExpression exp in this.Results.Expressions)
-                {
-                    ok = true;
+                SearchExpression exp = this.Results.Expression;
+                ok = true;
 
-                    if ((exp.Hits > 0) && exp.Books.ContainsKey(b))
+                if ((exp.Hits > 0) && exp.Books.ContainsKey(b))
+                {
+                    QueryBook book = exp.Books[b];
+                    foreach (var match in book.Matches.Values)
                     {
-                        QueryBook book = exp.Books[b];
-                        foreach (var match in book.Matches.Values)
-                        {
-                            if (match.Start.InRange(b, c, v))
-                                continue; // skip (duplicate)
-                            v = match.Start.V;
-                            count++;
-                        }
+                        if (match.Start.InRange(b, c, v))
+                            continue; // skip (duplicate)
+                        v = match.Start.V;
+                        count++;
                     }
                 }
             }
@@ -197,18 +193,16 @@
 
             if (b >= 1 && b <= 66)
             {
-                foreach (SearchExpression exp in this.Results.Expressions)
-                {
-                    ok = true;
+                SearchExpression exp = this.Results.Expression;
+                ok = true;
 
-                    if ((exp.Hits > 0) && exp.Books.ContainsKey(b))
+                if ((exp.Hits > 0) && exp.Books.ContainsKey(b))
+                {
+                    QueryBook book = exp.Books[b];
+                    foreach (var match in book.Matches.Values)
                     {
-                        QueryBook book = exp.Books[b];
-                        foreach (var match in book.Matches.Values)
-                        {
-                            if (match.Start.InRange(b, c, v))
-                                count++;
-                        }
+                        if (match.Start.InRange(b, c, v))
+                            count++;
                     }
                 }
             }
@@ -689,16 +683,13 @@
             QueryBook? book = null;
             ISettings? settings = null;
 
-            if (this.Results != null && this.Results.Expressions.Count > 0)
+            if (this.Results != null && this.Results.Expression != null)
             {
-                foreach (var exp in this.Results.Expressions)
+                var exp = this.Results.Expression;
+                if (exp.Books.ContainsKey(b))
                 {
-                    if (exp.Books.ContainsKey(b))
-                    {
-                        settings = exp.Settings;
-                        book = exp.Books[b];
-                        break;                  // we over-simplify here for now, as we only get results for the first found book of the earliest such expression
-                    }
+                    settings = exp.Settings;
+                    book = exp.Books[b];
                 }
             }
             if (settings == null)
@@ -798,16 +789,13 @@
                     QueryBook? book = null;
                     ISettings? settings = null;
 
-                    if (this.Results != null && this.Results.Expressions.Count > 0)
+                    if (this.Results != null && this.Results.Expression != null)
                     {
-                        foreach (var exp in this.Results.Expressions)
+                        var exp = this.Results.Expression;
+                        if (exp.Books.ContainsKey(b))
                         {
-                            if (exp.Books.ContainsKey(b))
-                            {
-                                settings = exp.Settings;
-                                book = exp.Books[b];
-                                break;                  // we over-simplify here for now, as we only get results for the first found book of the earliest such expression
-                            }
+                            settings = exp.Settings;
+                            book = exp.Books[b];
                         }
                     }
                     if (settings == null)
@@ -1345,7 +1333,7 @@
                 if (!success)
                     Console.Error.WriteLine(tuple.message);
             }
-            if (success && (tuple.search != null && tuple.search.Expressions != null))
+            if (success && (tuple.search != null && tuple.search.Expression != null))
             {
                 this.Results = tuple.search;
                 return (true, tuple.search);
@@ -1379,7 +1367,9 @@
             byte weight = 0;
             if (this.Results != null)
             {
-                foreach (SearchExpression exp in this.Results.Expressions)
+                SearchExpression exp = this.Results.Expression;
+
+                if (exp != null)
                 {
                     if (exp.Books.ContainsKey(b))
                     {
@@ -1395,8 +1385,6 @@
                             }
                         }
                     }
-                    if (weight >= 6)
-                        break;
                 }
             }
             if (weight > 6)
@@ -1421,7 +1409,8 @@
                 byte chLast = 0;
                 bool hasChicklet = false;
 
-                foreach (SearchExpression exp in this.Results.Expressions)
+                SearchExpression exp = this.Results.Expression;
+                if (exp != null)
                 {
                     if (exp.Hits > 0)
                     {
