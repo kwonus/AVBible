@@ -1,0 +1,53 @@
+/* Reset default margin and padding */
+body, p {
+	margin: 0;
+	padding: 0;
+	overflow-y: hidden;
+	overflow-x: hidden;
+}
+/* Header styles */
+.banner {
+	margin: 0;
+	background-color: #333;
+	color: #fff;
+	text-align: left;
+	padding: 20px;
+	position: relative; /* Required for absolute positioning */
+}
+.help-topic {
+	margin: 100px; /* Remove default margin */
+	text-align: center;
+	padding: 300px; /* Remove default padding */
+	position: relative;
+	left: 400px
+	top: 0
+}
+.spacer {
+	padding: 40px;
+}
+
+/* Left sidebar styles */
+.left-sidebar {
+	width: 310px;
+	background-color: #f0f0f0;
+	float: left;
+	min-height: 100vh; /* Dynamic height */
+	max-height: 100vh; /* Set maximum height to viewport height */
+}
+
+/* Main content styles */
+.main-content {
+	border: 0;
+	margin-left: 220px; /* Adjust based on sidebar width */
+	min-height: 100vh; /* Dynamic height */
+	max-height: 100vh; /* Set maximum height to viewport height */
+	overflow-y: none;
+	overflow-x: hidden;
+}
+.actual-content {
+	border: 0;
+	min-height: 93vh; /* Dynamic height */
+	max-height: 93vh; /* Set maximum height to viewport height */
+	overflow-y: auto; /* Add a scrollbar if content overflows */
+	overflow-x: hidden;
+}

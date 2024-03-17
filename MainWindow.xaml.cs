@@ -127,6 +127,7 @@
         //DragDockPanel.CollapseOnMinize = true;
         private int id;
         private const double narrow = 70.0;
+        private HelpWindow Help;
 
         internal uint ViewbookStartNum;
         internal uint ChapterChickletIndex = 0;
@@ -223,12 +224,6 @@
         {
             string topics = request.Trim().ToLower();
             string topic = topics;
-            string filename = topic + ".md";
-
-            string path = Path.Combine(HelpFolder, topic + ".md");
-
-            if (File.Exists(path))
-                return path;
 
             int len = 1;
             for (int i = 0; i < len; i++)
@@ -238,27 +233,39 @@
 
                 switch (topic)
                 {
+                    case "selection":
+                    case "criteria":
+                    case "search":
+                    case "expression":
                     case "find":
-                    case "filter": return Path.Combine(HelpFolder, "search.md");
+                    case "scope":
+                    case "scoping":
+                    case "filter": return Path.Combine(HelpFolder, "index-selection.html");
 
                     case "settings":
                     case "assign":
                     case "set":
                     case "clear":
                     case "get":
-                    case "absorb": return Path.Combine(HelpFolder, "control.md");
+                    case "absorb": return Path.Combine(HelpFolder, "index-settings.html");
 
-                    case "export":
-                    case "print": return Path.Combine(HelpFolder, "output.md");
-
+                    case "macro":
                     case "history":
                     case "macros":
-                    case "labels":
-                    case "labeling":
+                    case "tags":
+                    case "tagging":
                     case "invoke":
                     case "apply":
                     case "delete":
-                    case "review": return Path.Combine(HelpFolder, "history+labeling.md");
+                    case "review": return Path.Combine(HelpFolder, "index-hashtags.html");
+
+                    case "application": return Path.Combine(HelpFolder, "index-application.html");
+
+                    case "output":
+                    case "print":
+                    case "export": return Path.Combine(HelpFolder, "index-export.html");
+
+                    case "system": return Path.Combine(HelpFolder, "index-system.html");
                 }
                 // Fail-Safety if user asks for History+labeling or Labeling & History
                 string[] parts = topics.Split(splitters, StringSplitOptions.RemoveEmptyEntries);
@@ -267,7 +274,7 @@
                 len = parts.Length;
                 topic = parts[i];
             }
-            return Path.Combine(HelpFolder, "system.md");
+            return Path.Combine(HelpFolder, "index.html");
         }
         public static string HelpFolder { get; private set; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "AV-Bible", "Help");
 
@@ -355,6 +362,8 @@
             LoadWindowState();
             LoadAppState();
 
+            this.Help = new HelpWindow();
+
             SectionStack.SetBookSelector(this.BookSelection);
 
             ViewbookStartNum = 0;
@@ -367,6 +376,14 @@
         public void AddHelpPanel(string request)
         {
             string path = GetHelpFile(request);
+            this.Help.HtmlControl.Source = new Uri(path);
+            this.Help.Show();
+            this.Help.Activate();
+            this.Help.Topmost = true;
+            this.Help.Topmost = false;
+            this.Help.Focus();
+#if !PANEL_BASED_HELP
+#else
             string topic = Path.GetFileNameWithoutExtension(path);
 
             string header = "HELP (" + topic + ")";
@@ -427,6 +444,7 @@
 
                 ResetComboDeleteItems();
             }
+#endif
         }
         public bool DeletePanel(ChapterChicklet chicklet)
         {
@@ -1723,6 +1741,7 @@
 
         private void MainWin_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            this.Help.CloseHelpWindow();
             SaveWindowState();
         }
 

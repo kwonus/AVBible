@@ -1,10 +1,5 @@
 <script src="./html-generator/md-page.js"></script><noscript>
-
-# Imperative Control Language (ICL) for AV-Bible
-
-##### version 4.3.9
-
-### Background
+## Background
 
 Near the end of the last century, Google pioneered the modern search interface by employing an elegantly simple "search box". This was an evolution away from the complex interfaces that preceded it. Still, it becomes problematic when we want to search for multiple terms, unless we expect to merely "match every term".
 
@@ -31,10 +26,11 @@ The selection criteria controls how verses are selected. It is made up of one to
 - Settings Block
 - Scoping Block
 
-|                         | Search Expression Block | Settings Block | Scoping Block |
-| ----------------------- | ----------------------- | -------------- | ------------- |
-| Block Position          | 0 or 1                  | 0 or 1         | final         |
-| Macro utilization level | full                    | partial        | partial       |
+| Block Position | Block Type                  | Hashtag UtilizationLevel |
+| -------------- | --------------------------- | ------------------------ |
+| **0** or **1** | **Search Expression Block** | full utilization         |
+| **0** or **1** | **Settings Block**          | partial utilization      |
+| ***final***    | **Scoping Block**           | partial utilization      |
 
 An optional directive can be issued following the selection criteria.  Only zero or one directives can be issued within a  statement:  
 
@@ -82,16 +78,16 @@ Consider these two examples of ICL statements (first Configuration, followed by 
 
 "Moses"
 
-Notice that both statements above are single actions.  We should have a way to express both of these in a single command. And this is the rationale behind statements blocks and directives. Only search syntax supports combining various actions into a single statement. The previous two actions into a single compound statement, issue this command:
+Notice that both statements above are single actions.  We should have a way to express both of these in a single command. And this is why selection criteria contains multiple blocks.  The previous two actions into a single compound statement, issue this command:
 
 "Moses" [ search.lexicon:KJV ]
 
-It should be noted that these two statements, while similar, do not have identical effects:
+It should be noted that these two imperatives, while similar, do not have identical effects:
 
 - \@search.lexicon = KJV
 - [ search.lexicon:KJV ]
 
-The former, which is a configuration imperative, changes the lexicon setting for all future searches. Whereas, the latter, merely a Settings-Block assigment, affects only the currently executing Selection/Search imperative. Subsequent searches are unaffected by settings-block assignments. There are times when a user will want a setting to persist, and other times when the user wants the setting changed only temporarily. ICL permits the user to choose.
+The former is a configuration imperative: it changes the lexicon setting for all future searches. Whereas, the latter is merely a temporary block assigment: it only affects Selection Statement of which it is a part. Subsequent searches are unaffected by block assignments (they are always temprorary). There are times when a user will want a setting to persist, and other times when she does not. ICL permits the user to choose.
 
 #### QuickStart
 
@@ -103,13 +99,13 @@ ICL syntax can specify the lexicon to search, by also supplying temporary settin
 
 *[ span:7 search.lexicon:KJV ]  Moses Aaron*
 
-The statement above has two CONTROL actions and one SEARCH action
+The statement above has assigns two settings in the context of search. The search criteria, with the settings means that both Aaron and Moses are required to appear within 7 words of each other, but both names must be present to constitute a match.
 
-Next, consider a search to find Moses or Aaron:
+Next, consider a search to find Moses <u>or</u> Aaron:
 
 *Moses|Aaron*
 
-The order in which the search terms are provided is insignificant. Additionally, the type-case is insignificant. 
+The order in which the search terms are provided is insignificant. Additionally, the type-case is insignificant. And either name found would constitute a match.
 
 Of course, there are times when word order is significant. Accordingly, searching for explicit strings can be accomplished using double-quotes as follows:
 
@@ -118,10 +114,6 @@ Of course, there are times when word order is significant. Accordingly, searchin
 These constructs can even be combined. For example:
 
 *"Moses said ... Aaron|Miriam"*
-
-The search criteria above is equivalent to this search:
-
-*"Moses said ... Aaron" + "Moses said ... Miriam"*
 
 In all cases, “...” means “followed by”, but the ellipsis allows other words to appear between "said" and "Aaron". Likewise, it allows words to appear between "said" and "Miriam". 
 
@@ -529,9 +521,13 @@ FROM / UNTIL parameters can limit the scope of the \@delete command.
 
 **Export Format Options:**
 
-| **Markdown**                              | **Text** (UTF8)                         | HTML              | JSON              | YAML              |
-| ----------------------------------------- | --------------------------------------- | ----------------- | ----------------- | ----------------- |
-| \@*format = md*<br/>\@*format = markdown* | \@*format = text*<br/>\@*format = utf8* | \@*format = html* | \@*format = json* | \@*format = yaml* |
+| Export Content Type | Command              | Synonym          |
+| ------------------- | -------------------- | ---------------- |
+| **Markdown**        | *@format = markdown* | *@format = md*   |
+| **Text** (UTF8)     | *@format = text*     | *@format = utf8* |
+| **HTML**            | *@format = html*     |                  |
+| **JSON**            | *@format = json*     |                  |
+| **YAML**            | *@format = yaml*     |                  |
 
 **TABLE 2-3.b** - **@set** format command can be used to set the default content-formatting for for use with the export verb
 
@@ -545,7 +541,7 @@ FROM / UNTIL parameters can limit the scope of the \@delete command.
 
 **TABLE 2-3.c** - **set/clear/get** action operate on configuration settings
 
-In all, ICL manifests five control names. Each allows all three actions: ***set***, ***clear***, and ***@get*** verbs. Table 9 lists all settings available in AV-Bible. AV-Bible supports two distinct orthographies [i.e. Contemporary Modern English (avx/modern), and/or Early Modern English (avx/kjv). These are selectable via ICL.
+In all, ICL manifests five control names. Each allows all three actions: ***set***, ***clear***, and ***@get*** verbs. 2.3.d lists all settings available in AV-Bible. AV-Bible supports two distinct orthographies [i.e. Contemporary Modern English (avx/modern), and/or Early Modern English (avx/kjv). These are selectable via ICL.
 
 | Setting Name | Functional.Name  | Meaning                                                      | Values                                                       | Default Value |
 | ------------ | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------- |
@@ -627,8 +623,6 @@ An object model to manifest the ICL grammar is depicted below:
 ![QCommand](./diagrams/QCommand.png)
 
 ### 4.1 - Glossary of ICL Terminology
-
-**Syntax Categories:** Each syntax category defines rules by which verbs can be expressed in the statement. 
 
 **Actions:** Actions are complete verb-clauses issued in the imperative [you-understood].  Many actions have one or more parameters.  But just like English, a verb phrase can be a single word with no explicit subject and no explicit object.  Consider this English sentence:
 

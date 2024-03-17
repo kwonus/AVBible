@@ -1,12 +1,12 @@
-### CONTROL - AV-Bible Help
+<script src="./html-generator/md-page.js"></script><noscript>
 
 ### Commands that control persistent Settings
 
-| Verb       | Action Type | Syntax Category | Usage                  | Shorthand & alternate usages |
-| ---------- | :---------: | --------------- | ---------------------- | ---------------------------- |
-| **@set**   |  explicit   | CONTROL         | @set *setting* = value | @*setting* = value           |
-| **@clear** |  explicit   | CONTROL         | @clear *setting*       | @clear ALL                   |
-| **@get**   |  explicit   | CONTROL         | @get *setting*         | @*setting* @VERSION / @ALL   |
+| Verb       | Usage                  | Shorthand & alternate usages |
+| ---------- | ---------------------- | ---------------------------- |
+| **@set**   | @set *setting* = value | @*setting* = value           |
+| **@clear** | @clear *setting*       | @clear ALL                   |
+| **@get**   | @get *setting*         | @*setting* @VERSION / @ALL   |
 
 #### Examples
 
@@ -14,7 +14,7 @@
 | ----------------- | ------------------------------------------------------------ | -------------------- |
 | **@set** span = 8 | Assign a control setting                                     | @span = 8            |
 | **@get** span     | get a control setting                                        | @span                |
-| **@clear** span   | Clear: restore setting to the default; for span, this is *verse* |                      |
+| **@clear** span   | restore setting to its default value;<br/>for span, this is *verse* | n/a                  |
 
 Otherwise, when multiple clauses contain the same setting, only the last setting in the list is preserved.  Example:
 
