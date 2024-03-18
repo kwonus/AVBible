@@ -8,6 +8,6 @@
         mc:Ignorable="d"
         Title="Help - AV-Bible" Height="768" Width="1024" Closing="Window_Closing">
     <DockPanel>
-        <wv2:WebView2 Name="HtmlControl" Source="file:///C:/src/AVBible/Help/Index.html"/>
+        <wv2:WebView2 Name="HtmlControl" Source="about:blank"/>
     </DockPanel>
 </Window>

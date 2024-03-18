@@ -276,8 +276,30 @@
             }
             return Path.Combine(HelpFolder, "index.html");
         }
-        public static string HelpFolder { get; private set; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "AV-Bible", "Help");
+        private static string? _HelpFolder = null;
+        public static string HelpFolder
+        {
+            get
+            {
+                if (_HelpFolder != null)
+                    return _HelpFolder;
 
+                string cwd = System.AppDomain.CurrentDomain.BaseDirectory;
+                for (string help = Path.Combine(cwd, "Help"); help.Length > @"X:\Help".Length; help = Path.Combine(cwd, "Help"))
+                {
+                    if (Directory.Exists(help))
+                    {
+                        _HelpFolder = help;
+                        return help;
+                    }
+                    var parent = Directory.GetParent(cwd);
+                    if (parent == null)
+                        break;
+                    cwd = parent.FullName;
+                }
+                return (@"C:\Program Files\AV-Bible\Help");
+            }
+        }
         private bool FullInit()
         {
             try
