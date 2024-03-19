@@ -58,7 +58,7 @@ Let's examine morphology by example:
 
 | Person / Number         | Usages with Copula      | Modern Equivalent       | Elizabethan Conjugation of regular verbs | Modern Conjugation              |
 | ----------------------- | ----------------------- | ----------------------- | ---------------------------------------- | ------------------------------- |
-| **1st-Person / Plural** | we are                  | we are                  | I prepare                                | I prepare                       |
+| **1st-Person / Plural** | we are                  | we are                  | we prepare                               | we prepare                      |
 | **2nd-Person / Plural** | *ye* are                | you are                 | *ye* prepare                             | you prepare                     |
 | **3rd-Person / Plural** | they are<br/>people are | they are<br/>people are | they prepare<br/>people prepare          | they prepare<br/>people prepare |
 
