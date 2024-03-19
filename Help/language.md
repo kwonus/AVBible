@@ -2,7 +2,7 @@
 
 Early-Modern-English, the language spoken at the time of Shakespeare, is known to be more morphologically rich than contemporary Modern-English. There are also some words that are seldomly used today. We'll discuss a few of those, too. For brevity's sake, we will refer to a word in the Early-Modern-English vocabulary as an "Elizabethan Word". Likewise, we will refer to a word in the contemporary Modern-English vocabulary as a "modern Word".
 
-First, let's take a look at second-person pronouns and their precise meanings. It also offers shows how this outdated morphology aligns with today's first-person usage:
+First, let's take a look at second-person pronouns and their precise meanings. Afterwards, we'll see how these outdated pronouns align with today's first-person pronouns:
 
 #### Second-Person pronouns
 
@@ -50,7 +50,7 @@ In general:
 
 - verb conjugations with 1st-person singular are the same as modern English
 - verb conjugations with 2nd-person singular, end in ***st*** or ***est***
-- verb conjugations with 2nd-person singular, end in ***th*** or ***eth*** (the modern singular verb equivalents end in ***s*** or ***es***)
+- verb conjugations with 3rd-person singular, end in ***th*** or ***eth*** (the modern singular verb equivalents end in ***s*** or ***es***)
 
 Let's examine morphology by example:
 
