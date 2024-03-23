@@ -219,19 +219,14 @@
 
             return true;
         }
-        private static char[] splitters = ['_', '&', '+', ' '];
+        private static char[] splitters = ['_', '&', '+', ' ', '@'];
         public static string GetHelpFile(string request)
         {
-            string topics = request.Trim().ToLower();
-            string topic = topics;
+            string[] topics = request.Split(splitters, StringSplitOptions.RemoveEmptyEntries);
 
-            int len = 1;
-            for (int i = 0; i < len; i++)
+            foreach (string topic in topics)
             {
-                if (topic.StartsWith('@'))
-                    topic = topic.Substring(1).TrimStart();
-
-                switch (topic)
+                switch (topic.ToLower())
                 {
                     case "selection":
                     case "criteria":
@@ -241,6 +236,14 @@
                     case "scope":
                     case "scoping":
                     case "filter": return Path.Combine(HelpFolder, "index-selection.html");
+
+                    case "ye":
+                    case "thee":
+                    case "thou":
+                    case "thy":
+                    case "early":
+                    case "kjv":
+                    case "english": return Path.Combine(HelpFolder, "index-language.html");
 
                     case "settings":
                     case "assign":
@@ -267,12 +270,6 @@
 
                     case "system": return Path.Combine(HelpFolder, "index-system.html");
                 }
-                // Fail-Safety if user asks for History+labeling or Labeling & History
-                string[] parts = topics.Split(splitters, StringSplitOptions.RemoveEmptyEntries);
-                if (len+1 > parts.Length)
-                    break;
-                len = parts.Length;
-                topic = parts[i];
             }
             return Path.Combine(HelpFolder, "index.html");
         }
@@ -395,7 +392,7 @@
             id = 0;
         }
         public static UInt64 sequence = 0;
-        public void AddHelpPanel(string request)
+        public void ShowHelpPanel(string request)
         {
             string path = GetHelpFile(request);
             this.Help.HtmlControl.Source = new Uri(path);
@@ -1373,9 +1370,26 @@
                 if (!success)
                     Console.Error.WriteLine(tuple.message);
             }
-            if (success && (tuple.search != null && tuple.search.Expression != null))
+            if (success)
             {
-                this.Results = tuple.search;
+                if (tuple.stmt.Singleton != null)
+                {
+                    var type = tuple.stmt.Singleton.GetType();
+
+                    if (type == typeof(QExit))
+                    {
+                        this.Close();
+                    }
+                    if (type == typeof(QHelp))
+                    {
+                        ShowHelpPanel(text);
+                        this.Results = null;
+                    }
+                }
+                else if (tuple.search != null && tuple.search.Expression != null)
+                {
+                    this.Results = tuple.search;
+                }
                 return (true, tuple.search);
             }
             this.Results = null;
@@ -1858,7 +1872,7 @@
             {
                 var help = (ComboBoxItem) (comboBoxHelpPanel.SelectedItem);
 
-                this.AddHelpPanel(help.Name);
+                this.ShowHelpPanel(help.Name);
 
                 comboBoxHelpPanel.SelectedItem = null;  // this will allow panel to be reopenned if it is closed (we always want to generate a changed event.
             }

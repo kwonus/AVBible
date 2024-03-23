@@ -2,8 +2,8 @@
 body, p {
 	margin: 0;
 	padding: 0;
-	overflow-y: hidden;
-	overflow-x: hidden;
+	overflow: hidden;
+	background: light-gray;
 }
 /* Header styles */
 .banner {
@@ -19,8 +19,8 @@ body, p {
 	text-align: center;
 	padding: 300px; /* Remove default padding */
 	position: relative;
-	left: 400px
-	top: 0
+	left: 400px;
+	top: 0;
 }
 .spacer {
 	padding: 40px;
@@ -31,23 +31,49 @@ body, p {
 	width: 310px;
 	background-color: #f0f0f0;
 	float: left;
+	font-family: Arial;
+}
+.sidebar-content {
+	border: 0;
 	min-height: 100vh; /* Dynamic height */
 	max-height: 100vh; /* Set maximum height to viewport height */
+	overflow: hidden;
 }
 
 /* Main content styles */
 .main-content {
 	border: 0;
 	margin-left: 220px; /* Adjust based on sidebar width */
-	min-height: 100vh; /* Dynamic height */
-	max-height: 100vh; /* Set maximum height to viewport height */
-	overflow-y: none;
-	overflow-x: hidden;
+	overflow-y: hidden;
+	overflow-x: none;
+	background: white;
 }
 .actual-content {
 	border: 0;
-	min-height: 93vh; /* Dynamic height */
-	max-height: 93vh; /* Set maximum height to viewport height */
-	overflow-y: auto; /* Add a scrollbar if content overflows */
-	overflow-x: hidden;
+	min-height: 89vh; /* Dynamic height */
+	max-height: 89vh; /* Dynamic height */
+	overflow-y: hidden;
+	overflow-x: none;
+	width: 100%;
 }
+
+/* unvisited link */
+a:link {
+	color: black;
+	font-weight: normal;
+	text-decoration: none;
+  }
+  
+  /* visited link */
+  a:visited {
+	color: black;
+	font-weight: normal;
+	text-decoration: none;
+  }
+  
+  /* mouse over link */
+  a:hover {
+	color: black;
+	font-weight: bold;
+	text-decoration: none;
+  }

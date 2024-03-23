@@ -478,9 +478,9 @@ The *use* command works for command-history works exactly the same way as it doe
 
 *@view*
 
-1>  \@set span = 7
+1>  *@set* span = 7
 
-2>  \@set similarity=85
+2>  *@set* similarity=85
 
 3> eternal power
 
@@ -498,11 +498,11 @@ Command history captures all settings. We have already discussed macro-determini
 
 **RESETTING COMMAND HISTORY**
 
-The \@delete command can be used to remove <u>all</u> command history.
+The *@delete* command can be used to remove <u>all</u> command history.
 
 To remove all command history:
 
-\@delete -history -all
+*@delete* -history -all
 
 FROM / UNTIL parameters can limit the scope of the \@delete command.
 
@@ -541,7 +541,7 @@ FROM / UNTIL parameters can limit the scope of the \@delete command.
 
 **TABLE 2-3.c** - **set/clear/get** action operate on configuration settings
 
-In all, ICL manifests five control names. Each allows all three actions: ***set***, ***clear***, and ***@get*** verbs. 2.3.d lists all settings available in AV-Bible. AV-Bible supports two distinct orthographies [i.e. Contemporary Modern English (avx/modern), and/or Early Modern English (avx/kjv). These are selectable via ICL.
+In all, AVX-Quelle manifests six user-controlled settings. Each allows all three actions: ***set***, ***@clear***, and ***@get*** verbs. There are two additional settings that are effectively read-only, albeit, ALL does work with *@clear* Table 2.3.d lists all settings .
 
 | Setting Name | Functional.Name  | Meaning                                                      | Values                                                       | Default Value |
 | ------------ | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------- |
@@ -553,8 +553,8 @@ In all, ICL manifests five control names. Each allows all three actions: ***set*
 | similarity   |                  | Streamlined syntax for setting word & lemma to an identical value<br/>fuzzy phonetics matching threshold is between 1 and 99<br/>0 or *none* means: do not match on phonetics (use text only)<br/>100 or *exact* means that an *exact* phonetics match is expected | 33% to 99% [fuzzy] **or** ...<br>0 **or** *none*<br>100 **or** *exact* | 0 / none      |
 | word         | similarity.word  | fuzzy phonetics matching as described above, but this prefix only affects similarity matching on the word. | 33% to 99% [fuzzy] **or** ...<br>0 **or** *none*<br>100 **or** *exact* | 0 / none      |
 | lemma        | similarity.lemma | fuzzy phonetics matching as described above, but this prefix only affects similarity matching on the lemma. | 33% to 99% [fuzzy] **or** ...<br>0 **or** *none*<br>100 **or** *exact* | 0 / none      |
-| revision     | grammar.revision | Not really a true setting: it works with the \@get command to retrieve the revision number of the ICL grammar supported by AV-Engine. This value is read-only. | 4.x.yz                                                       | n/a           |
-| ALL          |                  | ALL is an aggregate setting: it works with the \@clear command to reset all variables above to their default values. It is used with \@get to fetch all settings. It can also be used in the settings block of a statement to override values to default or the currently saved values for situations where a macro is utilized. | current<br/>**or**<br/>defaults                              | current       |
+| revision     | grammar.revision | Not really a true setting: it works with the *@get* command to retrieve the revision number of the ICL grammar supported by AV-Engine. This value is read-only. | 4.x.yz                                                       | n/a           |
+| ALL          |                  | ALL is an aggregate setting: it works with the *@clear* command to reset all variables above to their default values. It is used with \@get to fetch all settings. It can also be used in the settings block of a statement to override values to default or the currently saved values for situations where a macro is utilized. | n/a                                                          | n/a           |
 
 **TABLE 2-3.d** - Summary of AV-Bible Settings
 
@@ -562,11 +562,11 @@ The *@get* command fetches these values. The *@get* command requires a single ar
 
 *@get* span
 
-\@get format
+*@get* format
 
 All settings can be cleared using an explicit command:
 
-\@clear ALL
+*@clear* ALL
 
 **Persistence of Settings**
 
@@ -606,7 +606,7 @@ Or for specific topics:
 
 *@help* set
 
-\@help export
+*@help* export
 
 etc ...
 

@@ -2,68 +2,75 @@
 
 ### Commands that control persistent Settings
 
-| Verb       | Usage                  | Shorthand & alternate usages |
-| ---------- | ---------------------- | ---------------------------- |
-| **@set**   | @set *setting* = value | @*setting* = value           |
-| **@clear** | @clear *setting*       | @clear ALL                   |
-| **@get**   | @get *setting*         | @*setting* @VERSION / @ALL   |
+| Action      | Parameters                                | shorthand invocation |
+| ----------- | ----------------------------------------- | -------------------- |
+| **@clear**  | *setting* or ALL                          | n/a                  |
+| **@get**    | **optional:** *setting* or ALL or VERSION | *@setting*           |
+| **@set**    | *setting* **=** *value*                   | *@setting* = value   |
+| **@absorb** | ***id*** or ***tag***                     | n/a                  |
 
 #### Examples
 
 | command           | **explanation**                                              | shorthand equivalent |
 | ----------------- | ------------------------------------------------------------ | -------------------- |
-| **@set** span = 8 | Assign a control setting                                     | @span = 8            |
-| **@get** span     | get a control setting                                        | @span                |
+| **@set** span = 8 | Assign a control setting                                     | *@span* = 8          |
+| **@get** span     | get a control setting                                        | *@span*              |
 | **@clear** span   | restore setting to its default value;<br/>for span, this is *verse* | n/a                  |
 
-Otherwise, when multiple clauses contain the same setting, only the last setting in the list is preserved.  Example:
+**@get** format
 
-%format=md %format=default %format=text
+The *@get* format command would return text.  We call this: "last assignment wins". However, there is one caveat to this precedence order: regardless of where in the statement a macro or history invocation is provided within a statement, it never has precedence over a setting that is actually visible within the statement.
 
-@get format
+Finally, there is a bit more to say about the similarity setting, because it actually has two components. If we issue this command, it affects similarity in two distinct ways:
 
-The @get format command would return text.  We call this: "last assignment wins". However, there is one caveat to this precedence order: regardless of where in the statement a macro or history invocation is provided within a statement, it never has precedence over a setting that is actually visible within the statement.
+**@similarity** = 85% 
 
-Finally, there is a bit more to say about the %similarity setting, because it actually has three components. If we issue this command, it affects similarity in two distinct ways:
+That command is a concise way of setting two values. It is equivalent to these two commands
 
-@similarity=85 
+**@similarity.word** = 85%
 
-That command is a concise way of setting two values. It is equivalent to this command
+**@similarity.lemma** = 85%
 
-@similarity=word:85 lemma:85
+That is to say, similarity is operative for the lexical word and also the lemma of the word. These two similarities thresholds need not be identical. These commands are also valid:
 
-That is to say, similarity is operative for the lexical word and also the lemma of the word. While not discussed previously, these two similarities thresholds need not be identical. These commands are also valid:
+**@similarity.word** = exact
 
-@similarity = word: 85 lemma: 95
+**@similarity.word** = none
 
-@similarity = word : 85
+**@similarity.lemma** = exact
 
-@similarity = word: none lemma: exact
+**@similarity.lemma** = none
 
-@similarity = lemma:none
+**@similarity** = exact
 
-In all, AVX-Quelle manifests five control names. Each allows all three actions: ***set***, ***clear***, and ***@get*** verbs. Table 12-4 lists all settings available in AVX-Quelle. AVX-Quelle can support two distinct orthographies [i.e. Contemporary Modern English (avx/modern), and/or Early Modern English (avx/kjv).
+**@similarity** = none
 
-| Setting    | Meaning                                                      | Values                                                       | Default Value |
-| ---------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------- |
-| span       | proximity distance limit                                     | 0 to 999 or verse                                            | 0 [verse]     |
-| lexicon    | the lexicon to be used for the searching                     | av/avx/dual (kjv/modern/both)                                | dual (both)   |
-| display    | the lexicon to be used for display/rendering                 | av/avx/dual (kjv/modern/both)                                | dual (both)   |
-| format     | format of results on export                                  | text, markdown, html, json, yaml                             | text          |
-| similarity | fuzzy phonetics matching threshold is between 1 and 99<br/>0 or *none* means: do not match on phonetics (use text only)<br/>100 or *exact* means that an *exact* phonetics match is expected | 33 to 99 [fuzzy] **or** ...<br>0 **or** *none*<br>100 **or** *exact* | 0 (none)      |
-| VERSION    | Not really a true setting: it works with the @get command to retrieve the revision number of the Quelle grammar supported by AV-Engine. This value is read-only. | 2.w.xyz                                                      | n/a           |
-| ALL        | Not really a true setting: it works with the @clear command to reset all variables above to their default values. It is only a valid option for the @clear command. | n/a                                                          | n/a           |
+In all, AVX-Quelle manifests six user-controlled settings. Each allows all three actions: ***set***, ***@clear***, and ***@get*** verbs. There are two additional settings that are effectively read-only, albeit, ALL does work with *@clear* Table 2.3.d lists all settings .
+
+| Setting Name | Functional.Name  | Meaning                                                      | Values                                                       | Default Value |
+| ------------ | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------- |
+| span         | search.span      | proximity distance limit                                     | 0 to 999 or verse                                            | 0 / verse     |
+| lexicon      | -                | Streamlined syntax for setting search.lexicon and search. render to the same value | av or avx or dual<br/>(kjv or modern or both)                | n/a           |
+| search       | search.lexicon   | the lexicon to be used for searching                         | av or avx or dual<br/>(kjv or modern or both)                | dual / both   |
+| render       | render.lexicon   | the lexicon to be used for display/rendering                 | av/avx (kjv/modern)                                          | av / kjv      |
+| format       | render.format    | format of results on output                                  | see Table 7                                                  | text / utf8   |
+| similarity   |                  | Streamlined syntax for setting word & lemma to an identical value<br/>fuzzy phonetics matching threshold is between 1 and 99<br/>0 or *none* means: do not match on phonetics (use text only)<br/>100 or *exact* means that an *exact* phonetics match is expected | 33% to 99% [fuzzy] **or** ...<br>0 **or** *none*<br>100 **or** *exact* | 0 / none      |
+| word         | similarity.word  | fuzzy phonetics matching as described above, but this prefix only affects similarity matching on the word. | 33% to 99% [fuzzy] **or** ...<br>0 **or** *none*<br>100 **or** *exact* | 0 / none      |
+| lemma        | similarity.lemma | fuzzy phonetics matching as described above, but this prefix only affects similarity matching on the lemma. | 33% to 99% [fuzzy] **or** ...<br>0 **or** *none*<br>100 **or** *exact* | 0 / none      |
+| revision     | grammar.revision | Not really a true setting: it works with the *@get* command to retrieve the revision number of the ICL grammar supported by AV-Engine. This value is read-only. | 4.x.yz                                                       | n/a           |
+| ALL          |                  | ALL is an aggregate setting: it works with the *@clear* command to reset all variables above to their default values. It is used with \@get to fetch all settings. It can also be used in the settings block of a statement to override values to default or the currently saved values for situations where a macro is utilized. | n/a                                                          | n/a           |
 
 The *@get* command fetches these values. The *@get* command requires a single argument. Examples are below:
 
 *@get* span
 
-@get format
+*@get* format
 
 All settings can be cleared using an explicit command:
 
-@clear ALL
+*@clear* ALL
 
-**Scope of Settings**
+**Persistence of Settings**
 
-It should be noted that there is a distinction between **@set** and and implicit **assign** syntax. The first form is and explicit command and is persistent (it affects all subsequent statements). Contrariwise, an implicit **assign** affects only the single statement wherewith it is executed. We refer to this as persistence vs assignment.
+It should be noted that there is a distinction between **@set** and and ***assign*** actions. The first action is an application configuration-imperative, and it is persistent (it affects all subsequent statements). Contrariwise, the ***assign*** action affects only the single statement wherein it is executed. We refer to this distinction as *persistence* vs *assignment*.
+

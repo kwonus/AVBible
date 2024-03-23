@@ -79,7 +79,8 @@
                 <TextBlock Grid.Column ="1" x:Name="HelpPrompt" Text="  Help:  " Foreground="LightCyan" HorizontalAlignment="Stretch" TextAlignment="Right" VerticalAlignment="Center" />
                 <ComboBox Grid.Column="2" x:Name="comboBoxHelpPanel" SelectionChanged="comboBoxHelpPanel_SelectionChanged" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="Black" Background="Gray" Height="9" Width="134">
                     <ComboBoxItem Name="application">General Application Help</ComboBoxItem>
-                    <ComboBoxItem Name="system">General Command-Syntax Overview</ComboBoxItem>
+                    <ComboBoxItem Name="kjv">Help with the Language of the KJV</ComboBoxItem>
+                    <ComboBoxItem Name="icl">Help with ICL Syntax</ComboBoxItem>
                     <ComboBoxItem Name="search">Help with Search Syntax</ComboBoxItem>
                     <ComboBoxItem Name="control">Help with Control Settings</ComboBoxItem>
                     <ComboBoxItem Name="history">Help with Search History</ComboBoxItem>
