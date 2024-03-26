@@ -22,6 +22,7 @@
     using Blueprint.Blue;
     using System.Linq;
     using Blueprint.Model.Implicit;
+    using AVXLib.Memory;
 
     internal class ChapterSpec
     {
@@ -1358,10 +1359,18 @@
             SetSearchView(); // used to be SetChapterViewViaSearch(index, reset)
         }
 
-        (bool success, QueryResult results) QuelleCommand(string text)
+        (bool success, SelectionResultType status, QueryResult results, SearchScope scope) QuelleCommand(string text)
         {
             bool success = false;
             var tuple = Engine.Execute(text);
+            SelectionResultType status = SelectionResultType.InvalidStatement;
+            if (tuple.ok)
+            {
+                if (tuple.stmt.Commands != null)
+                    status = tuple.stmt.Commands.Status;
+                else if (tuple.stmt.Singleton != null)
+                    status = SelectionResultType.SingletonSuccess;
+            }
 
             var message = !string.IsNullOrWhiteSpace(tuple.message);
             if (message)
@@ -1390,10 +1399,10 @@
                 {
                     this.Results = tuple.search;
                 }
-                return (true, tuple.search);
+                return (true, status, tuple.search, tuple.search.Expression.Scope);
             }
             this.Results = null;
-            return (false, tuple.search);
+            return (false, status, tuple.search, tuple.search.Expression.Scope);
         }
         private void SetEntireView(byte bk)
         {
@@ -1457,45 +1466,57 @@
             this.ChapterStack.Children.Clear();
 
             var verses = new HashSet<UInt16>();
-            if (this.Results != null && command.success && command.results != null && command.results.TotalHits > 0)
+            if (this.Results != null && command.success && command.results != null && (command.results.TotalHits > 0 || command.status == SelectionResultType.ScopeOnlyResults))
             {
                 byte bkLast = 0;
                 byte chLast = 0;
-                bool hasChicklet = false;
 
-                SearchExpression exp = this.Results.Expression;
-                if (exp != null)
+                if (command.status == SelectionResultType.SearchResults)
                 {
-                    if (exp.Hits > 0)
+                    SearchExpression exp = this.Results.Expression;
+                    if (exp != null)
                     {
-                        foreach (QueryBook book in exp.Books.Values)
+                        if (exp.Hits > 0)
                         {
-                            foreach (var match in book.Matches.Values)
+                            foreach (QueryBook book in exp.Books.Values)
                             {
-                                byte c = match.Start.C;
-                                if (c != chLast && book.BookNum != bkLast)
+                                foreach (var match in book.Matches.Values)
                                 {
-                                    AddChapterChicklet(book.BookNum, c);
-                                    chLast = c;
-                                    bkLast = book.BookNum;
-                                    hasChicklet = true;
-                                }
+                                    byte c = match.Start.C;
+                                    if (c != chLast && book.BookNum != bkLast)
+                                    {
+                                        AddChapterChicklet(book.BookNum, c);
+                                        chLast = c;
+                                        bkLast = book.BookNum;
+                                    }
 
-                                c = match.Until.C;
-                                if (c != chLast && book.BookNum != bkLast)
-                                {
-                                    AddChapterChicklet(book.BookNum, c);
-                                    chLast = c;
-                                    bkLast = book.BookNum;
-                                    hasChicklet = true;
+                                    c = match.Until.C;
+                                    if (c != chLast && book.BookNum != bkLast)
+                                    {
+                                        AddChapterChicklet(book.BookNum, c);
+                                        chLast = c;
+                                        bkLast = book.BookNum;
+                                    }
                                 }
                             }
                         }
                     }
                 }
-                if (hasChicklet)
+                else if (command.status == SelectionResultType.ScopeOnlyResults)
                 {
-                    ;// this.BookSelection((byte)0);
+                    if (command.scope.Count > 0)
+                    {
+                        for (byte b = 1; b <= 66; b++)
+                        {
+                            if (command.scope.ContainsKey(b))
+                            {
+                                foreach (byte c in command.scope[b].Chapters)
+                                {
+                                    AddChapterChicklet(b, c);
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
