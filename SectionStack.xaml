@@ -208,5 +208,43 @@
                 <Label Name="B66" Grid.Row="4" Grid.Column="1" Foreground="White" MouseMove="Book_MouseMove" MouseUp="Book_OnMouseUp" TouchUp="Book_OnTouchUp">Revelation</Label>
             </Grid>
         </StackPanel>
+        <StackPanel Name="PanelConfig" Visibility="Visible">
+            <Grid Margin="0,8,0,8">
+                <Image Name="PictureConfig" Margin="16,0,16,0" Source="./Images/blank-190.png" Focusable="False" IsEnabled="False" ></Image>
+                <Label Name="SectionNameConfig" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" FontFamily="Calibri" TextBlock.Foreground="LightGray">Configuration</Label>
+            </Grid>
+            <Label Name="ConfigLexicons" Background="DarkGray" MouseMove="Section_MouseMove" MouseUp="Section_OnMouseUp" TouchUp="Section_OnTouchUp" Margin="20,0,20,0">Lexicons</Label>
+            <Grid Visibility="Collapsed" Name="PanelConfigLexicons" Margin="16,4,20,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" TextBlock.FontFamily="calibri" TextBlock.FontSize="14">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="38" />
+                    <ColumnDefinition Width="48" />
+                </Grid.ColumnDefinitions>
+                <Label Name="LexSearch" Grid.Row="0" Grid.Column="0" Foreground="White">Search Lexicon:</Label>
+                <CheckBox Name="LexSearchAV" Grid.Row="0" Grid.Column="1" Foreground="White" Margin="0,6,0,0" Checked="Lexicon_Changed" Unchecked="Lexicon_Changed">AV</CheckBox>
+                <CheckBox Name="LexSearchAVX" Grid.Row="0" Grid.Column="2" Foreground="White" Margin="0,6,0,0" Checked="Lexicon_Changed" Unchecked="Lexicon_Changed">AVX</CheckBox>
+                <Label Name="LexRender" Grid.Row="1" Grid.Column="0" Foreground="White">Render Lexicon:</Label>
+                <CheckBox Name="LexRenderAV" Grid.Row="1" Grid.Column="1" Foreground="White" Margin="0,6,0,0" Checked="Lexicon_Changed" Unchecked="Lexicon_Changed">AV</CheckBox>
+                <CheckBox Name="LexRenderAVX" Grid.Row="1" Grid.Column="2" Foreground="White" Margin="0,6,0,0" Checked="Lexicon_Changed" Unchecked="Lexicon_Changed">AVX</CheckBox>
+            </Grid>
+            <Label Name="ConfigHighlights" Background="DarkGray" MouseMove="Section_MouseMove" MouseUp="Section_OnMouseUp" TouchUp="Section_OnTouchUp" Margin="20,8,20,0">AVX / AV  Differences</Label>
+            <Grid Visibility="Collapsed" Name="PanelConfigHighlights" Margin="20,10,20,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" TextBlock.FontFamily="calibri" TextBlock.FontSize="14">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="20" />                
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <RadioButton Name="HighlightAlways" Grid.Row="0" Grid.Column="0" Foreground="White" Checked="Highlighting_Changed" Unchecked="Highlighting_Changed">Highlight Always</RadioButton>
+                <RadioButton Name="HighlightSideBySide" Grid.Row="1" Grid.Column="0" Foreground="White" IsChecked="true" Checked="Highlighting_Changed" Unchecked="Highlighting_Changed">Highlight Side-by-Side</RadioButton>
+                <RadioButton Name="HighlightNever" Grid.Row="2" Grid.Column="0" Foreground="White" Checked="Highlighting_Changed" Unchecked="Highlighting_Changed">Highlight Never</RadioButton>
+            </Grid>
+        </StackPanel>
     </StackPanel>
 </UserControl>

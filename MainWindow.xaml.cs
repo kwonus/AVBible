@@ -23,6 +23,7 @@
     using System.Linq;
     using Blueprint.Model.Implicit;
     using AVXLib.Memory;
+    using BlueprintBlue.Model.Results;
 
     internal class ChapterSpec
     {
@@ -384,7 +385,7 @@
 
             this.Help = new HelpWindow();
 
-            SectionStack.SetBookSelector(this.BookSelection);
+            SectionStack.SetBookSelector(this.BookSelection, this);
 
             ViewbookStartNum = 0;
 
@@ -681,14 +682,6 @@
             control.Document.Blocks.Add(p);
         }
 
-        private void ClearChapterChicklets()
-        {
-            ChapterChickletIndex = 0;
-
-            this.AVPanel.Items.Clear();
-            this.AVPanel.MaxRows = 4;
-            this.AVPanel.MaxColumns = 3;
-        }
         private ChapterChicklet InitNextChapterChicklet()
         {
             ChapterChicklet chicklet = null;
@@ -1359,7 +1352,7 @@
             SetSearchView(); // used to be SetChapterViewViaSearch(index, reset)
         }
 
-        (bool success, SelectionResultType status, QueryResult results, SearchScope scope) QuelleCommand(string text)
+        (bool success, SelectionResultType status, QueryResult? results, QExplicitResult? singleton, SearchScope? scope) QuelleCommand(string text)
         {
             bool success = false;
             var tuple = Engine.Execute(text);
@@ -1394,15 +1387,16 @@
                         ShowHelpPanel(text);
                         this.Results = null;
                     }
+                    return (success, status, null, tuple.singleton, null);
                 }
                 else if (tuple.search != null && tuple.search.Expression != null)
                 {
                     this.Results = tuple.search;
                 }
-                return (true, status, tuple.search, tuple.search.Expression.Scope);
+                return (success, status, tuple.search, null, tuple.search.Expression.Scope);
             }
             this.Results = null;
-            return (false, status, tuple.search, tuple.search.Expression.Scope);
+            return (false, status, tuple.search, tuple.singleton, tuple.search != null ? tuple.search.Expression.Scope : null);
         }
         private void SetEntireView(byte bk)
         {
@@ -1483,7 +1477,7 @@
                                 foreach (var match in book.Matches.Values)
                                 {
                                     byte c = match.Start.C;
-                                    if (c != chLast && book.BookNum != bkLast)
+                                    if (c != chLast || book.BookNum != bkLast)
                                     {
                                         AddChapterChicklet(book.BookNum, c);
                                         chLast = c;
@@ -1491,7 +1485,7 @@
                                     }
 
                                     c = match.Until.C;
-                                    if (c != chLast && book.BookNum != bkLast)
+                                    if (c != chLast || book.BookNum != bkLast)
                                     {
                                         AddChapterChicklet(book.BookNum, c);
                                         chLast = c;
@@ -1510,7 +1504,7 @@
                         {
                             if (command.scope.ContainsKey(b))
                             {
-                                foreach (byte c in command.scope[b].Chapters)
+                                foreach (byte c in command.scope[b].GetOrderedChapters())
                                 {
                                     AddChapterChicklet(b, c);
                                 }
@@ -1815,37 +1809,82 @@
                 e.Handled = true;
         }
 
-        private void ButtonAVT_Click(object sender, RoutedEventArgs e)
+        internal void ButtonAVT_Click(object sender, RoutedEventArgs e)
         {
-            string version;
+            BookStack.reentrant = true;
 
             var conf = ConfigurationManager.AppSettings;
             if (sender != null)
             {
-                if ((string)ButtonAVX.Content == "AV")
+                bool forceSideBySide = false;
+                bool forceAV = false;
+                bool forceAVX = false;
+
+                bool renderAVX = this.Settings.Lexicon.Domain.Value == QLexicon.QLexiconVal.AVX || this.Settings.Lexicon.Domain.Value == QLexicon.QLexiconVal.BOTH;
+                bool renderAV  = this.Settings.Lexicon.Domain.Value == QLexicon.QLexiconVal.AV  || this.Settings.Lexicon.Domain.Value == QLexicon.QLexiconVal.BOTH;
+
+                bool searchAV  = BookStack.LexSearchAV .IsChecked.HasValue && BookStack.LexSearchAV .IsChecked.Value;
+                bool searchAVX = BookStack.LexSearchAVX.IsChecked.HasValue && BookStack.LexSearchAVX.IsChecked.Value;
+                bool forceUpdate  = (!searchAV) && (!searchAVX);
+
+                if (sender.GetType() == typeof(CheckBox))
                 {
-                    ButtonAVX.Content = version = "AVX";
-                    this.Settings.Lexicon.Render.Value = QLexicon.QLexiconVal.AVX;
-                    if (!this.Settings.SearchAsAVX)
-                        this.Settings.Lexicon.Domain.Value = QLexicon.QLexiconVal.BOTH;
-                    this.Settings.Update();
+                    renderAVX = BookStack.LexRenderAVX.IsChecked.HasValue && BookStack.LexRenderAVX.IsChecked.Value;
+                    renderAV  = BookStack.LexRenderAV .IsChecked.HasValue && BookStack.LexRenderAV .IsChecked.Value;
+                    if (renderAVX && renderAV)
+                        forceSideBySide = true;
+                    else if (renderAVX)
+                        forceAVX = true;
+                    else if (renderAV)
+                        forceAV = true;
+                    else
+                    {
+                        forceAV = true;
+                        forceUpdate = true;
+                        BookStack.LexRenderAV.IsChecked = true;
+                        renderAV  = true;
+                        renderAVX = false;
+                    }
                 }
-                else if ((string)ButtonAVX.Content == "AVX")
+                if (forceAVX == true || (string)ButtonAVX.Content == "AV")
                 {
-                    ButtonAVX.Content = version = "Side-by-Side";
-                    this.Settings.Lexicon.Render.Value = QLexicon.QLexiconVal.BOTH;
-                    if (!(this.Settings.SearchAsAVX && this.Settings.SearchAsAV))
+                    ButtonAVX.Content = "AVX";
+                    this.Settings.Lexicon.Render.Value = QLexicon.QLexiconVal.AVX;
+                    if ((!this.Settings.SearchAsAVX) && !forceAVX) // don't change value if this was made explicitly by checkbox
                         this.Settings.Lexicon.Domain.Value = QLexicon.QLexiconVal.BOTH;
-                    this.Settings.Update();
+
+                    if (!forceAVX)
+                        this.Settings.Update();
+                    renderAV  = false;
+                    renderAVX = true;
+                }
+                else if (forceSideBySide == true || (string)ButtonAVX.Content == "AVX")
+                {
+                    ButtonAVX.Content = "Side-by-Side";
+                    this.Settings.Lexicon.Render.Value = QLexicon.QLexiconVal.BOTH;
+                    if ((!(this.Settings.SearchAsAVX && this.Settings.SearchAsAV)) && !forceSideBySide) // don't change value if this was made explicitly by checkbox
+                        this.Settings.Lexicon.Domain.Value = QLexicon.QLexiconVal.BOTH;
+
+                    if (!forceSideBySide)
+                        this.Settings.Update();
+                    renderAV  = true;
+                    renderAVX = true;
                 }
                 else // BOTH
                 {
-                    ButtonAVX.Content = version = "AV";
+                    ButtonAVX.Content = "AV";
                     this.Settings.Lexicon.Render.Value = QLexicon.QLexiconVal.AV;
-                    if (!this.Settings.SearchAsAV)
+                    if ((!this.Settings.SearchAsAV) && (forceUpdate || !forceAV))
                         this.Settings.Lexicon.Domain.Value = QLexicon.QLexiconVal.BOTH;
-                    this.Settings.Update();
+
+                    if (forceUpdate || !forceAV)
+                        this.Settings.Update();
+
+                    renderAV  = true;
+                    renderAVX = false;
                 }
+                BookStack.LexRenderAV .IsChecked = renderAV;
+                BookStack.LexRenderAVX.IsChecked = renderAVX;
             }
             else
             {
@@ -1853,24 +1892,25 @@
                 {
                     if ((string)ButtonAVX.Content != "AV")
                     {
-                        ButtonAVX.Content = version = "AV";
+                        ButtonAVX.Content = "AV";
                     }
                 }
                 else if (this.Settings.Lexicon.Render.Value == QLexicon.QLexiconVal.AVX)
                 {
                     if ((string)ButtonAVX.Content != "AVX")
                     {
-                        ButtonAVX.Content = version = "AVX";
+                        ButtonAVX.Content = "AVX";
                     }
                 }
                 else // BOTH
                 {
                     if ((string)ButtonAVX.Content != "Side-by-Side")
                     {
-                        ButtonAVX.Content = version = "Side-by-Side";
+                        ButtonAVX.Content = "Side-by-Side";
                     }
                 }
             }
+            BookStack.reentrant = false;
         }
 
         private void ButtonConfig_Click(object sender, RoutedEventArgs e)

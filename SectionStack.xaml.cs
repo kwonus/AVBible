@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Blueprint.Model.Implicit;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -22,38 +24,45 @@ namespace AVBible
 
         private BookChooser Selection;
         private static SectionStack SELF;
-        public static void SetBookSelector(BookChooser selection)
+        private static MainWindow MAIN; 
+        public static void SetBookSelector(BookChooser selection, MainWindow main)
         {
             SectionStack.SELF.Selection = selection;
+            SectionStack.MAIN = main;
+            SELF.Lexicon_Init();
         }
         public SectionStack()
         {
             InitializeComponent();
             this.Selection = null;
             SectionStack.SELF = this;
-
+ 
             BookMap = new();
             SectionMap = new();
-            SectionMap.Add(this.OTlaw.Name, this.OTlaw);
-            SectionMap.Add(this.OThistory.Name, this.OThistory);
-            SectionMap.Add(this.OTpoetry.Name, this.OTpoetry);
-            SectionMap.Add(this.OTmajorprophets.Name, this.OTmajorprophets);
-            SectionMap.Add(this.OTminorprophets.Name, this.OTminorprophets);
-            SectionMap.Add(this.NTgospelsANDacts.Name, this.NTgospelsANDacts);
-            SectionMap.Add(this.NTChurch.Name, this.NTChurch);
-            SectionMap.Add(this.NTPastoral.Name, this.NTPastoral);
-            SectionMap.Add(this.NTOtherEpistles.Name, this.NTOtherEpistles);
+            SectionMap[this.OTlaw.Name]              = this.OTlaw;
+            SectionMap[this.OThistory.Name]          = this.OThistory;
+            SectionMap[this.OTpoetry.Name]           = this.OTpoetry;
+            SectionMap[this.OTmajorprophets.Name]    = this.OTmajorprophets;
+            SectionMap[this.OTminorprophets.Name]    = this.OTminorprophets;
+            SectionMap[this.NTgospelsANDacts.Name]   = this.NTgospelsANDacts;
+            SectionMap[this.NTChurch.Name]           = this.NTChurch;
+            SectionMap[this.NTPastoral.Name]         = this.NTPastoral;
+            SectionMap[this.NTOtherEpistles.Name]    = this.NTOtherEpistles;
+            SectionMap[this.ConfigLexicons.Name]     = this.ConfigLexicons;
+            SectionMap[this.ConfigHighlights.Name]   = this.ConfigHighlights;
 
             ClickManager = new Dictionary<string, Grid>();
-            ClickManager.Add(this.OTlaw.Name, this.PanelLaw);
-            ClickManager.Add(this.OThistory.Name, this.PanelHistory);
-            ClickManager.Add(this.OTpoetry.Name, this.PanelPoetry);
-            ClickManager.Add(this.OTmajorprophets.Name, this.PanelMajorProphets);
-            ClickManager.Add(this.OTminorprophets.Name, this.PanelMinorProphets);
-            ClickManager.Add(this.NTgospelsANDacts.Name, this.PanelGospelsAndActs);
-            ClickManager.Add(this.NTChurch.Name, this.PanelChurchEpistles);
-            ClickManager.Add(this.NTPastoral.Name, this.PanelPastoralEpistles);
-            ClickManager.Add(this.NTOtherEpistles.Name, this.PanelOtherEpistles);
+            ClickManager[this.OTlaw.Name]            = this.PanelLaw;
+            ClickManager[this.OThistory.Name]        = this.PanelHistory;
+            ClickManager[this.OTpoetry.Name]         = this.PanelPoetry;
+            ClickManager[this.OTmajorprophets.Name]  = this.PanelMajorProphets;
+            ClickManager[this.OTminorprophets.Name]  = this.PanelMinorProphets;
+            ClickManager[this.NTgospelsANDacts.Name] = this.PanelGospelsAndActs;
+            ClickManager[this.NTChurch.Name]         = this.PanelChurchEpistles;
+            ClickManager[this.NTPastoral.Name]       = this.PanelPastoralEpistles;
+            ClickManager[this.NTOtherEpistles.Name]  = this.PanelOtherEpistles;
+            ClickManager[this.ConfigLexicons.Name]   = this.PanelConfigLexicons;
+            ClickManager[this.ConfigHighlights.Name] = this.PanelConfigHighlights;
 
             this.labels = new Label[66];
 
@@ -292,6 +301,133 @@ namespace AVBible
             Book_MouseMove(null, null);
             Section_MouseMove(null, null);
             e.Handled = true;
+        }
+
+        private void comboBoxConfig_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ;
+        }
+
+        private void Highlighting_Changed(object sender, RoutedEventArgs e)
+        {
+            ; // nothing to do
+        }
+
+        public bool reentrant = false;
+        private void Lexicon_Init()
+        {
+            reentrant = true;
+
+            if (MAIN.Settings.Lexicon.Domain.Value == QLexicon.QLexiconVal.BOTH)
+            {
+                this.LexSearchAV.IsChecked = true;
+                this.LexSearchAVX.IsChecked = true;
+            }
+            else if (MAIN.Settings.Lexicon.Domain.Value == QLexicon.QLexiconVal.AVX)
+            {
+                this.LexSearchAV.IsChecked = false;
+                this.LexSearchAVX.IsChecked = true;
+            }
+            else if (MAIN.Settings.Lexicon.Domain.Value == QLexicon.QLexiconVal.AV)
+            {
+                this.LexSearchAV.IsChecked = true;
+                this.LexSearchAVX.IsChecked = false;
+            }
+
+            if (MAIN.Settings.Lexicon.Render.Value == QLexicon.QLexiconVal.BOTH)
+            {
+                this.LexRenderAV.IsChecked = true;
+                this.LexRenderAVX.IsChecked = true;
+            }
+            else if (MAIN.Settings.Lexicon.Render.Value == QLexicon.QLexiconVal.AVX)
+            {
+                this.LexRenderAV.IsChecked = false;
+                this.LexRenderAVX.IsChecked = true;
+            }
+            else if (MAIN.Settings.Lexicon.Render.Value == QLexicon.QLexiconVal.AV)
+            {
+                this.LexRenderAV.IsChecked = true;
+                this.LexRenderAVX.IsChecked = false;
+            }
+
+            reentrant = false;
+        }
+
+        private void Lexicon_Changed(object sender, RoutedEventArgs e)
+        {
+            if (reentrant)
+            {
+                e.Handled = true;
+                return;
+            }
+            reentrant = true;
+            bool searchAV  = this.LexSearchAV .IsChecked.HasValue && this.LexSearchAV .IsChecked.Value;
+            bool searchAVX = this.LexSearchAVX.IsChecked.HasValue && this.LexSearchAVX.IsChecked.Value;
+
+            bool renderAV  = this.LexRenderAV .IsChecked.HasValue && this.LexRenderAV .IsChecked.Value;
+            bool renderAVX = this.LexRenderAVX.IsChecked.HasValue && this.LexRenderAVX.IsChecked.Value;
+
+            bool forceSearchUpdate = !(searchAV || searchAVX);
+            bool forceRenderUpdate = !(renderAV || renderAVX);
+
+            if (forceSearchUpdate && forceRenderUpdate)
+            {
+                MAIN.Settings.Lexicon.Domain.Value = QLexicon.QLexiconVal.AV;
+                MAIN.Settings.Lexicon.Render.Value = QLexicon.QLexiconVal.AV;
+
+                searchAV  = true;
+                searchAVX = true;
+
+                MAIN.Settings.Update();
+            }
+            else if (forceSearchUpdate)
+            {
+                MAIN.Settings.Lexicon.Domain.Value = MAIN.Settings.Lexicon.Render.Value;
+                searchAV  = renderAV;
+                searchAVX = renderAVX;
+
+                MAIN.Settings.Update();
+            }
+            else if (forceRenderUpdate)
+            {
+                MAIN.Settings.Lexicon.Render.Value = MAIN.Settings.Lexicon.Domain.Value;
+                renderAV  = searchAV;
+                renderAVX = searchAVX;
+
+                MAIN.Settings.Update();
+            }
+            else
+            {
+                if (searchAV && searchAVX)
+                    MAIN.Settings.Lexicon.Domain.Value = QLexicon.QLexiconVal.BOTH;
+                else if (searchAV)
+                    MAIN.Settings.Lexicon.Domain.Value = QLexicon.QLexiconVal.AV;
+                else if (searchAVX)
+                    MAIN.Settings.Lexicon.Domain.Value = QLexicon.QLexiconVal.AVX;
+
+                if (renderAV && renderAVX)
+                    MAIN.Settings.Lexicon.Render.Value = QLexicon.QLexiconVal.BOTH;
+                else if (renderAV)
+                    MAIN.Settings.Lexicon.Render.Value = QLexicon.QLexiconVal.AV;
+                else if (renderAVX)
+                    MAIN.Settings.Lexicon.Render.Value = QLexicon.QLexiconVal.AVX;
+
+                MAIN.Settings.Update();
+            }
+            if (forceSearchUpdate || forceRenderUpdate)
+            {
+                if (searchAV)
+                    this.LexSearchAV.IsChecked = true;
+                if (searchAVX)
+                    this.LexSearchAV.IsChecked = true;
+
+                if (renderAV)
+                    this.LexRenderAV.IsChecked = true;
+                if (renderAVX)
+                    this.LexRenderAV.IsChecked = true;
+            }
+            MAIN.ButtonAVT_Click(sender, e);
+            reentrant = false;
         }
     }
 }
