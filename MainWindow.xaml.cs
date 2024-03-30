@@ -794,7 +794,9 @@
 
         private FlowDocumentScrollViewer GetChapter(byte b, byte c, bool modernize, bool header = false, string bookName = null)
         {
-            bool diffs = !ButtonAVX.Content.ToString().StartsWith("AV", StringComparison.OrdinalIgnoreCase);
+            bool side_by_side = !ButtonAVX.Content.ToString().StartsWith("AV", StringComparison.OrdinalIgnoreCase);
+            bool diffs = (this.BookStack.HighlightAlways.IsChecked.HasValue && this.BookStack.HighlightAlways.IsChecked.Value)
+                      || (this.BookStack.HighlightSideBySide.IsChecked.HasValue && this.BookStack.HighlightSideBySide.IsChecked.Value && side_by_side);
             var doc = new System.Windows.Documents.FlowDocument();
             doc.FontSize = this.panel_fontSize;
             doc.FontFamily = this.panel_fontFamily;
