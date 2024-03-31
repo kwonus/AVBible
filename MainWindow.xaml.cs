@@ -1398,7 +1398,7 @@
                 return (success, status, tuple.search, null, tuple.search.Expression.Scope);
             }
             this.Results = null;
-            return (false, status, tuple.search, tuple.singleton, tuple.search != null ? tuple.search.Expression.Scope : null);
+            return (false, status, tuple.search, tuple.singleton, null);
         }
         private void SetEntireView(byte bk)
         {
