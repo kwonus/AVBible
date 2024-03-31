@@ -2,17 +2,17 @@
 
 ## Selection Criteria
 
-The selection criteria controls how verses are selected. It is made up of one to three blocks. The ordering of blocks is partly prescribed. The scoping block must be in the final position. The search-expression-block and settings-block can be in either order (so long as they are listed before the scoping block when present). 
+The selection criteria controls how verses are selected. It is made up of one to three blocks. The ordering of blocks is partly prescribed. When present, the expression block must be in the initial position. The scoping block and the settings-block must follow the expression when provided. The scoping block and settings-block can be in either order (so long as they are listed before the scoping block when present). 
 
 - Search Expression Block
 - Settings Block
 - Scoping Block
 
-| Block Position | Block Type                  | Hashtag Utilization Level |
-| -------------- | --------------------------- | ------------------------- |
-| **0** or **1** | **Search Expression Block** | full utilization          |
-| **0** or **1** | **Settings Block**          | partial utilization       |
-| ***final***    | **Scoping Block**           | partial utilization       |
+| Block Position                         | Block Type                  | Hashtag Utilization Level |
+| -------------------------------------- | --------------------------- | ------------------------- |
+| ***initial***                          | **Search Expression Block** | full utilization          |
+| *after expression block when provided* | **Settings Block**          | partial utilization       |
+| *after expression block when provided* | **Scoping Block**           | partial utilization       |
 
 ### Search Expression Block
 
@@ -88,27 +88,27 @@ Any setting is permitted in the search block.
 
 The following settings affect how search expressions behave:
 
-| Setting | Long Name        | Meaning                                                      | Values                                                       |
-| ------- | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| span    | search.span      | proximity distance limit                                     | 0 to 999 or verse                                            |
-| search  | search.lexicon   | the lexicon to be used for searching                         | av or avx or dual<br/>(kjv or modern or both)                |
-| word    | similarity.word  | fuzzy phonetics matching as described above, but this prefix only affects similarity matching on the word. | 33% to 99% [fuzzy] **or** ...<br>0 **or** *none*<br>100 **or** *exact* |
-| lemma   | similarity.lemma | fuzzy phonetics matching as described above, but this prefix only affects similarity matching on the lemma. | 33% to 99% [fuzzy] **or** ...<br>0 **or** *none*<br>100 **or** *exact* |
+| Setting          | Shorthand | Meaning                                                      | Values                                                       |
+| ---------------- | --------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| span             | -         | proximity distance limit                                     | 0 to 999 or verse                                            |
+| lexicon.search   | search    | the lexicon to be used for searching                         | av or avx or dual<br/>(kjv or modern or both)                |
+| similarity.word  | word      | fuzzy phonetics matching as described above, but this prefix only affects similarity matching on the word. | 33% to 99% [fuzzy] **or** ...<br>0 **or** *none*<br>100 **or** *exact* |
+| similarity.lemma | lemma     | fuzzy phonetics matching as described above, but this prefix only affects similarity matching on the lemma. | 33% to 99% [fuzzy] **or** ...<br>0 **or** *none*<br>100 **or** *exact* |
 
 The following settings affect how selected verses [i.e. search results] are rendered:
 
-| Setting | Long Name      | Meaning                                      | Values              |
-| ------- | -------------- | -------------------------------------------- | ------------------- |
-| render  | render.lexicon | the lexicon to be used for display/rendering | av/avx (kjv/modern) |
-| format  | render.format  | format of results on output                  | see Table 7         |
+| Setting | Meaning                                      | Values              |
+| ------- | -------------------------------------------- | ------------------- |
+| render  | the lexicon to be used for display/rendering | av/avx (kjv/modern) |
+| format  | format of results on output                  | see Table 7         |
 
 ##### Example settings that affect search behavior:
 
-[ search.lexicon: kjv  search.span: 7  similarity.word: 85% ]  sayest you art&/verb/
+sayest you art&/verb/   :lexicon.search=kjv  :span=7  :similarity.word=85%
 
 The settings block is between the square braces. It is exactly equivalent to this statement:
 
-sayest you art&/verb/ [ search:kjv  word:85%  span:7 ] 
+sayest you art&/verb/ :search=kjv  :span=7  :word=85%
 
 search:kjv -- use the kjv lexicon for searching [not the modern lexicon (art&/verb/ would never be found in the modern lexicon)]
 
@@ -118,11 +118,11 @@ span:7 -- three search terms are expressed in the search. All three must be with
 
 ##### Example settings that affect rendering behavior:
 
-[ render.lexicon: modern  render.format: html ]  < Genesis 3 > C:\users\my-username\Documents\Genesis-3.html
+< Genesis 3  :render=modern  format=html   > C:\users\my-username\Documents\Genesis-3.html
 
 The above statement includes an optional export directive [creating a file]. The following statement does exactly the same thing
 
-[lexicon:avx  format:html]  < Gen3 > C:\users\my-username\Documents\Genesis-3.html
+:render=avx  :format=html  < Gen3  >  C:\users\my-username\Documents\Genesis-3.html
 
 For more details on what each setting means, perform this command:
 @help settings
@@ -237,7 +237,7 @@ ICL is a Level 2 Quelle implementation with augmented search capabilities. ICL e
 
    - Dual/Both *(use both lexicons)*
 
-   The Dual/Both setting for [search:] indicates that searching should consider both lexicons. The The Dual/Both setting for [render:] indicates that results should be displayed for both renderings [whether this is side-by-side or in-parallel depends on the format and the application where the display-rendering occurs]. Left unspecified, the lexicon setting applies to[search:] and [render:] components.
+   The Dual/Both setting for lexicon.search indicates that searching should consider both lexicons. The The Dual/Both setting for lexicon.render indicates that results should be displayed for both renderings [whether this is side-by-side or in-parallel depends on the format and the application where the display-rendering occurs]. Left unspecified, the lexicon setting applies to lexicon.search and lexicon.render components.
 
 2. ICL provides support for fuzzy-match-logic. The similarity setting can be specified by the user to control the similarity threshold for approximate matching. An exact lexical match is expected when similarity is set to *exact* or 0.  Zero is not really a similarity threshold, but rather 0 is a synonym for *exact*.
 

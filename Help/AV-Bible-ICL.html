@@ -395,7 +395,7 @@ Specifically, the following statements / clauses are not supported by ICL:
 
 **NOT SUPPORTED:**  #5 without excuse  
 
-**NOT SUPPORTED:**  [ #5 span:7 ]
+**NOT SUPPORTED:**  : #5 : span = 7
 
 **NOT SUPPORTED:**  < #5 < Acts
 
@@ -742,7 +742,7 @@ ICL is a Level 2 Quelle implementation with augmented search capabilities. ICL e
 
    - Dual/Both *(use both lexicons)*
 
-   The Dual/Both setting for [search:] indicates that searching should consider both lexicons. The The Dual/Both setting for [render:] indicates that results should be displayed for both renderings [whether this is side-by-side or in-parallel depends on the format and the application where the display-rendering occurs]. Left unspecified, the lexicon setting applies to[search:] and [render:] components.
+   The Dual/Both setting for lexicon.search indicates that searching should consider both lexicons. The The Dual/Both setting for lexicon.render indicates that results should be displayed for both renderings [whether this is side-by-side or in-parallel depends on the format and the application where the display-rendering occurs]. Left unspecified, the lexicon setting applies to lexicon.search and lexicon.render components.
 
 2. ICL provides support for fuzzy-match-logic. The similarity setting can be specified by the user to control the similarity threshold for approximate matching. An exact lexical match is expected when similarity is set to *exact* or 0.  Zero is not really a similarity threshold, but rather 0 is a synonym for *exact*.
 
