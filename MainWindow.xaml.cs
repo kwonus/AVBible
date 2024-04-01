@@ -22,7 +22,6 @@
     using Blueprint.Blue;
     using System.Linq;
     using Blueprint.Model.Implicit;
-    using AVXLib.Memory;
     using BlueprintBlue.Model.Results;
 
     internal class ChapterSpec
@@ -130,6 +129,7 @@
         private int id;
         private const double narrow = 70.0;
         private HelpWindow Help;
+        private ResultsWindow ResultsICL;
 
         internal uint ViewbookStartNum;
         internal uint ChapterChickletIndex = 0;
@@ -221,84 +221,6 @@
 
             return true;
         }
-        private static char[] splitters = ['_', '&', '+', ' ', '@'];
-        public static string GetHelpFile(string request)
-        {
-            string[] topics = request.Split(splitters, StringSplitOptions.RemoveEmptyEntries);
-
-            foreach (string topic in topics)
-            {
-                switch (topic.ToLower())
-                {
-                    case "selection":
-                    case "criteria":
-                    case "search":
-                    case "expression":
-                    case "find":
-                    case "scope":
-                    case "scoping":
-                    case "filter": return Path.Combine(HelpFolder, "index-selection.html");
-
-                    case "ye":
-                    case "thee":
-                    case "thou":
-                    case "thy":
-                    case "early":
-                    case "kjv":
-                    case "english": return Path.Combine(HelpFolder, "index-language.html");
-
-                    case "settings":
-                    case "assign":
-                    case "set":
-                    case "clear":
-                    case "get":
-                    case "absorb": return Path.Combine(HelpFolder, "index-settings.html");
-
-                    case "macro":
-                    case "history":
-                    case "macros":
-                    case "tags":
-                    case "tagging":
-                    case "invoke":
-                    case "apply":
-                    case "delete":
-                    case "review": return Path.Combine(HelpFolder, "index-hashtags.html");
-
-                    case "application": return Path.Combine(HelpFolder, "index-application.html");
-
-                    case "output":
-                    case "print":
-                    case "export": return Path.Combine(HelpFolder, "index-export.html");
-
-                    case "system": return Path.Combine(HelpFolder, "index-system.html");
-                }
-            }
-            return Path.Combine(HelpFolder, "index.html");
-        }
-        private static string? _HelpFolder = null;
-        public static string HelpFolder
-        {
-            get
-            {
-                if (_HelpFolder != null)
-                    return _HelpFolder;
-
-                string cwd = System.AppDomain.CurrentDomain.BaseDirectory;
-                for (string help = Path.Combine(cwd, "Help"); help.Length > @"X:\Help".Length; help = Path.Combine(cwd, "Help"))
-                {
-                    if (Directory.Exists(help))
-                    {
-                        _HelpFolder = help;
-                        return help;
-                    }
-                    var parent = Directory.GetParent(cwd);
-                    if (parent == null)
-                        break;
-                    cwd = parent.FullName;
-                }
-                return (@"C:\Program Files\AV-Bible\Help");
-            }
-        }
         private bool FullInit()
         {
             try
@@ -383,7 +305,8 @@
             LoadWindowState();
             LoadAppState();
 
-            this.Help = new HelpWindow();
+            this.Help = new();
+            this.ResultsICL = new();
 
             SectionStack.SetBookSelector(this.BookSelection, this);
 
@@ -393,18 +316,14 @@
 
             id = 0;
         }
+
         public static UInt64 sequence = 0;
-        public void ShowHelpPanel(string request)
-        {
-            string path = GetHelpFile(request);
-            this.Help.HtmlControl.Source = new Uri(path);
-            this.Help.Show();
-            this.Help.Activate();
-            this.Help.Topmost = true;
-            this.Help.Topmost = false;
-            this.Help.Focus();
+
+
 #if !PANEL_BASED_HELP
 #else
+        public void ShowHelpPanel(string request)
+        {
             string topic = Path.GetFileNameWithoutExtension(path);
 
             string header = "HELP (" + topic + ")";
@@ -465,9 +384,9 @@
 
                 ResetComboDeleteItems();
             }
-#endif
         }
-        public bool DeletePanel(ChapterChicklet chicklet)
+#endif
+    public bool DeletePanel(ChapterChicklet chicklet)
         {
             bool deleted = false;
 
@@ -1368,7 +1287,11 @@
             }
 
             var message = !string.IsNullOrWhiteSpace(tuple.message);
-            if (message)
+            if (status == SelectionResultType.SingletonSuccess)
+            {
+                success = true;
+            }
+            else if (message)
             {
                 success = tuple.message.Equals("ok", StringComparison.InvariantCultureIgnoreCase);
                 if (!success)
@@ -1384,10 +1307,14 @@
                     {
                         this.Close();
                     }
-                    if (type == typeof(QHelp))
+                    else if (type == typeof(QHelp))
                     {
-                        ShowHelpPanel(text);
+                        this.Help.ShowHelpPanel(text);
                         this.Results = null;
+                    }
+                    else
+                    {
+                        this.ResultsICL.ShowResultsPanel(tuple.message);
                     }
                     return (success, status, null, tuple.singleton, null);
                 }
@@ -1795,6 +1722,7 @@
         private void MainWin_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             this.Help.CloseHelpWindow();
+            this.ResultsICL.CloseResultsWindow();
             SaveWindowState();
         }
 
@@ -1935,7 +1863,7 @@
             {
                 var help = (ComboBoxItem) (comboBoxHelpPanel.SelectedItem);
 
-                this.ShowHelpPanel(help.Name);
+                this.Help.ShowHelpPanel(help.Name);
 
                 comboBoxHelpPanel.SelectedItem = null;  // this will allow panel to be reopenned if it is closed (we always want to generate a changed event.
             }
