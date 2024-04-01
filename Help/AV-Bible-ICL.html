@@ -504,12 +504,12 @@ FROM / UNTIL parameters can limit the scope of the \@delete command.
 
 ### 2.3 - Settings
 
-| Action      | Parameters                                |
-| ----------- | ----------------------------------------- |
-| **@clear**  | *setting* or ALL                          |
-| **@get**    | **optional:** *setting* or ALL or VERSION |
-| **@set**    | *setting* **=** *value*                   |
-| **@absorb** | ***id*** or ***tag***                     |
+| Action      | Parameters                   |
+| ----------- | ---------------------------- |
+| **@clear**  | *setting* or ALL             |
+| **@get**    | *setting* or ALL or revision |
+| **@set**    | *setting* **=** *value*      |
+| **@absorb** | ***id*** or ***tag***        |
 
 **TABLE 2-3.a** - **Listing of additional CONTROL actions**
 
@@ -529,11 +529,11 @@ FROM / UNTIL parameters can limit the scope of the \@delete command.
 
 
 
-| **example**              | **explanation**                                              | shorthand equivalent |
-| ------------------------ | ------------------------------------------------------------ | -------------------- |
-| **@set** search.span = 8 | Assign a control setting                                     | \@span = 8           |
-| **@get** search.span     | get a control setting                                        | \@span               |
-| **@clear** search.span   | Clear the setting; restores the setting to its default value | \@clear span         |
+| **example**       | **explanation**                                              | shorthand equivalent |
+| ----------------- | ------------------------------------------------------------ | -------------------- |
+| **@set** span = 8 | Assign a control setting                                     | **@span** = 8        |
+| **@get** span     | get a control setting                                        | **@span**            |
+| **@clear** span   | Clear the setting; restores the setting to its default value | n/a                  |
 
 **TABLE 2-3.c** - **set/clear/get** action operate on configuration settings
 
@@ -546,11 +546,11 @@ In all, AVX-Quelle manifests six user-controlled settings. Each allows all three
 | lexicon.search   | search    | the lexicon to be used for searching                         | av or avx or dual<br/>(kjv or modern or both)                | dual / both   |
 | lexicon.render   | render    | the lexicon to be used for display/rendering                 | av/avx (kjv/modern)                                          | av / kjv      |
 | format           | -         | format of results on output                                  | see Table 7                                                  | text / utf8   |
-| similarity       | -         | Streamlined syntax for setting similarity.word<br/>and similarity.lemma to the same value<br/>fuzzy phonetics matching threshold is between 1 and 99<br/>0 or *none* means: do not match on phonetics (use text only)<br/>100 or *exact* means that an *exact* phonetics match is expected | 33% to 99% [fuzzy] **or** ...<br>0 **or** *none*<br>100 **or** *exact* | 0 / none      |
-| similarity.word  | word      | fuzzy phonetics matching as described above, but this prefix only affects similarity matching on the word. | 33% to 99% [fuzzy] **or** ...<br>0 **or** *none*<br>100 **or** *exact* | 0 / none      |
-| similarity.lemma | lemma     | fuzzy phonetics matching as described above, but this prefix only affects similarity matching on the lemma. | 33% to 99% [fuzzy] **or** ...<br>0 **or** *none*<br>100 **or** *exact* | 0 / none      |
+| similarity       | -         | Streamlined syntax for setting similarity.word<br/>and similarity.lemma to the same value<br/>fuzzy phonetics matching threshold is between 33% and 99%<br/>0% or *none* means: do not match on phonetics (use text only)<br/>100% or *exact* means that an *exact* phonetics match is expected | 33% to 99% [fuzzy] **or** ...<br>0% **or** *none*<br>100% **or** *exact* | 0% / none     |
+| similarity.word  | word      | fuzzy phonetics matching as described above, but this prefix only affects similarity matching on the word. | 33% to 99% [fuzzy] **or** ...<br>0% **or** *none*<br>100% **or** *exact* | 0% / none     |
+| similarity.lemma | lemma     | fuzzy phonetics matching as described above, but this prefix only affects similarity matching on the lemma. | 33% to 99% [fuzzy] **or** ...<br>0% **or** *none*<br>100% **or** *exact* | 0% / none     |
 | revision         | -         | Not really a true setting: it works with the *@get* command to retrieve the revision number of the ICL grammar supported by AV-Engine. This value is read-only. | 4.x.yz                                                       | n/a           |
-| ALL              | -         | ALL is an aggregate setting: it works with the *@clear* command to reset all variables above to their default values. It is used with \@get to fetch all settings. It can also be used in the settings block of a statement to override values to default or the currently saved values for situations where a macro is utilized. | n/a                                                          | n/a           |
+| ALL              | -         | ALL is an aggregate setting: it works with the *@clear* command to reset all variables above to their default values. It is used with *@get* to fetch all settings. It can also be used in the settings block of a statement to override values to default or the currently saved values for situations where a macro is utilized. | n/a                                                          | n/a           |
 
 **TABLE 2-3.d** - Summary of AV-Bible Settings
 
@@ -574,7 +574,7 @@ It should be noted that there is a distinction between **@set** and and ***assig
 
 This command reveals the current Grammar revision of the Imperative Control Language (ICL), implemented  by the command interpreter of AV-Bible:
 
-\@get revision
+*@get* revision
 
 ---
 
