@@ -95,6 +95,7 @@
             <Label x:Name="ChapterHelperDown" FontFamily="WebDings" FontSize="24" Margin="8,0,0,0" Foreground="White" HorizontalAlignment="Left" Content="" MouseUp="LessChapterHelper_MouseUp" ManipulationCompleted="LessChapterHelper_FingerUp" BorderThickness="0" />
             <Label x:Name="ChapterHelperMin" FontFamily="WebDings" FontSize="24" Margin="8,1,0,0" Foreground="White" MouseUp="CloseChapterHelper_MouseUp" ManipulationCompleted="CloseChapterHelper_FingerUp" Width="34" Height="41" VerticalAlignment="Center" HorizontalAlignment="Left" Content="" Visibility="Collapsed" />
             <Label x:Name="ChapterHelperUp" FontFamily="WebDings" FontSize="24" Margin="0,1,0,0" Foreground="White" HorizontalAlignment="Left" Content="" MouseUp="OpenChapterHelper_MouseUp" ManipulationCompleted="OpenChapterHelper_FingerUp" BorderThickness="0" />
+            <Label x:Name="CommandStatus" FontSize="18" Margin="0,0,0,0" Height="32" VerticalAlignment="Center" MouseUp="DismissStatus_Tick" ManipulationCompleted="DismissStatus_Tick"/>
         </StackPanel>
         <StackPanel Background="Black" Grid.Column="1" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,0">
             <TextBlock x:Name="DeleteSummary" Text="Delete a panel:  " Foreground="LightCyan" HorizontalAlignment="Stretch" TextAlignment="Right" VerticalAlignment="Center" />

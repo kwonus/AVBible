@@ -23,6 +23,7 @@
     using System.Linq;
     using Blueprint.Model.Implicit;
     using BlueprintBlue.Model.Results;
+    using System.Windows.Threading;
 
     internal class ChapterSpec
     {
@@ -136,6 +137,12 @@
         internal AVEngine Engine = new();
         internal QueryResult? Results = null;
         internal QSettings Settings;
+
+        private static readonly Brush SuccessStatus = System.Windows.Media.Brushes.DarkGreen;
+        private static readonly Brush WarningStatus = System.Windows.Media.Brushes.Orange;
+        private static readonly Brush ErrorStatus = System.Windows.Media.Brushes.Maroon;
+
+        System.Windows.Threading.DispatcherTimer CommandStatusTimer;
 
         private (uint count, bool ok) GetBookHitCount(byte b)
         {
@@ -307,6 +314,9 @@
 
             this.Help = new();
             this.ResultsICL = new();
+            this.CommandStatusTimer = new System.Windows.Threading.DispatcherTimer();
+            this.CommandStatusTimer.Tick += DismissStatus_Tick;
+            this.CommandStatusTimer.Interval = new TimeSpan(0, 0, 9);
 
             SectionStack.SetBookSelector(this.BookSelection, this);
 
@@ -1295,7 +1305,10 @@
             {
                 success = tuple.message.Equals("ok", StringComparison.InvariantCultureIgnoreCase);
                 if (!success)
+                {
                     Console.Error.WriteLine(tuple.message);
+                    this.DisplayStatus(tuple.message, MainWindow.ErrorStatus);
+                }
             }
             if (success)
             {
@@ -1312,9 +1325,20 @@
                         this.Help.ShowHelpPanel(text);
                         this.Results = null;
                     }
-                    else
+                    else if (type == typeof(QGet))
                     {
                         this.ResultsICL.ShowResultsPanel(tuple.message);
+                        this.Results = null;
+                    }
+                    else if (type == typeof(QSet))
+                    {
+                        this.DisplayStatus("Setting updated successfully", MainWindow.SuccessStatus);
+                        this.Results = null;
+                    }
+                    else
+                    {
+                        this.DisplayStatus("Not implemented yet", MainWindow.WarningStatus);
+                        this.Results = null;
                     }
                     return (success, status, null, tuple.singleton, null);
                 }
@@ -1910,6 +1934,18 @@
                 if (!encodings.Contains(chicklet.BookChapter))
                     chicklet.Refresh(false);
             }
+        }
+
+        private void DisplayStatus(string text, Brush color)
+        {
+            this.CommandStatus.Content = text;
+            this.CommandStatus.Foreground = color;
+            this.CommandStatusTimer.Start();
+        }
+        private void DismissStatus_Tick(object sender, EventArgs e)
+        {
+            this.CommandStatus.Content = string.Empty;
+            this.CommandStatusTimer.Stop();
         }
     }
 }
