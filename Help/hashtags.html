@@ -27,7 +27,7 @@ It’s that simple, now instead of typing the entire statement, we can utilize t
 
 The *use* command works for command-history works exactly the same way as it does for macros.  After issuing a *@view* command, the user might receive a response as follows.
 
-*@view* -history
+*@view* -history from #1 to #3
 
 1>  @set %span = 7
 
@@ -47,8 +47,8 @@ would be shorthand to for the search specified as:
 
 | Action      | Syntax                                                       |
 | ----------- | ------------------------------------------------------------ |
-| **@delete** | *tag* <u>or</u> *wildcard* <u>or</u> -macro FROM <u>and/or</u> UNTIL<br/>**FROM parameter :** *from* yyyy/mm/dd<br/>**UNTIL parameter :** *until* yyyy/mm/dd |
-| **@view**   | *tag* <u>or</u> *wildcard* <u>or</u> -macro <u>optional</u> FROM <u>and/or</u> UNTIL<br/>**FROM parameter :** *from* yyyy/mm/dd<br/>**UNTIL parameter :** *until* yyyy/mm/dd |
+| **@delete** | #*tag* <u>or</u> #*wildcard* <u>or</u> -macro FROM <u>and/or</u> TO<br/>**FROM parameter :** *from* yyyy/mm/dd **or** *from* yyyy-mm-dd **or** *from* mm/dd/yyyy **or** *from* mm-dd-yyyy<br/>**TO parameter :** *to* yyyy/mm/dd **or** *to* yyyy-mm-dd **or** *to* mm/dd/yyyy **or** *to* mm-dd-yyyy |
+| **@view**   | #*tag* <u>or</u> #*wildcard* <u>or</u> -macro FROM <u>and/or</u> TO<br/>**FROM parameter :** *from* yyyy/mm/dd **or** *from* yyyy-mm-dd **or** *from* mm/dd/yyyy **or** *from* mm-dd-yyyy<br/>**TO parameter :** *to* yyyy/mm/dd **or** *to* yyyy-mm-dd **or** *to* mm/dd/yyyy **or** *to* mm-dd-yyyy |
 | **@absorb** | **permitted:** *tag*                                         |
 
 ### Additional explicit macro commands:
@@ -71,11 +71,11 @@ If you want the same settings to be persisted to your current session that were 
 
 ### Viewing & Managing History
 
-| Verb        | Syntax Category | Parameters                                                   |
-| ----------- | --------------- | ------------------------------------------------------------ |
-| **@delete** | Configuration   | -history FROM <u>and/or</u> UNTIL<br/>**FROM parameter :** *from* *id* <u>or</u> *from* yyyy/mm/dd<br/>**UNTIL parameter :** *until* *id* <u>or</u> *until* yyyy/mm/dd |
-| **@view**   | Configuration   | *id* <u>or</u> -history <u>optional</u> FROM <u>and/or</u> UNTIL<br/>**FROM parameter :** *from* *id* <u>or</u> *from* yyyy/mm/dd<br/>**UNTIL parameter :** *until* *id* <u>or</u> *until* yyyy/mm/dd |
-| **@absorb** | Configuration   | ***id***                                                     |
+| Verb        | Parameters                                                   |
+| ----------- | ------------------------------------------------------------ |
+| **@delete** | \#*id* <u>or</u> -history FROM <u>and/or</u> TO<br/>**DATE FROM/TO PARAMETERS:**<br/>**FROM: *from* yyyy/mm/dd **or** *from* yyyy-mm-dd **or** *from* mm/dd/yyyy **or** *from* mm-dd-yyyy<br/>**TO:** *to* yyyy/mm/dd **or** *to* yyyy-mm-dd **or** *to* mm/dd/yyyy **or** *to* mm-dd-yyyy<br/>**ID FROM/TO PARAMETERS:**<br/>**FROM** : *from* #id<br/>**TO:** *to* #id |
+| **@view**   | \#*id* <u>or</u> -history <u>optional</u> FROM <u>and/or</u> UNTIL<br/>**DATE FROM/TO PARAMETERS:**<br/>**FROM: *from* yyyy/mm/dd **or** *from* yyyy-mm-dd **or** *from* mm/dd/yyyy **or** *from* mm-dd-yyyy<br/>**TO:** *to* yyyy/mm/dd **or** *to* yyyy-mm-dd **or** *to* mm/dd/yyyy **or** *to* mm-dd-yyyy<br/>**ID FROM/TO PARAMETERS:**<br/>**FROM** : *from* #id<br/>**TO:** *to* #id |
+| **@absorb** | ***id***                                                     |
 
 **SEARCH HISTORY** 
 
@@ -83,17 +83,13 @@ If you want the same settings to be persisted to your current session that were 
 
 *@view* -history
 
-To reveal all history up until now, type:
-
-\@view until now
-
 To reveal all searches since January 1, 2024, type:
 
 *@view* from 2024/1/1
 
 To reveal for the single month of January 2024:
 
-*@view* from 2024/1/1 until 2024/1/31
+*@view* from 2024/1/1 to 2024/1/31
 
 To reveal all history since id:5 [inclusive]:
 
