@@ -104,25 +104,25 @@ The following settings affect how selected verses [i.e. search results] are rend
 
 ##### Example settings that affect search behavior:
 
-sayest you art&/verb/   :lexicon.search=kjv  :span=7  :similarity.word=85%
+sayest you art&/verb/   +lexicon.search=kjv  +span=7  +similarity.word=85%
 
 The settings block is between the square braces. It is exactly equivalent to this statement:
 
-sayest you art&/verb/ :search=kjv  :span=7  :word=85%
+sayest you art&/verb/ +search=kjv  +span=7  +word=85%
 
-search:kjv -- use the kjv lexicon for searching [not the modern lexicon (art&/verb/ would never be found in the modern lexicon)]
++search=kjv -- use the kjv lexicon for searching [not the modern lexicon (art&/verb/ would never be found in the modern lexicon)]
 
-word:85% -- exact matches are not necessary, any word need only match with an 85% [sounds-alike] similarity threshold.
++word=85% -- exact matches are not necessary, any word need only match with an 85% [sounds-alike] similarity threshold.
 
-span:7 -- three search terms are expressed in the search. All three must be within a 7-word-span in order to constitute a match.
++span=7 -- three search terms are expressed in the search. All three must be within a 7-word-span in order to constitute a match.
 
 ##### Example settings that affect rendering behavior:
 
-< Genesis 3  :render=modern  format=html   > C:\users\my-username\Documents\Genesis-3.html
+< Genesis 3  +render=modern  +format=html  > C:\users\my-username\Documents\Genesis-3.html
 
 The above statement includes an optional export directive [creating a file]. The following statement does exactly the same thing
 
-:render=avx  :format=html  < Gen3  >  C:\users\my-username\Documents\Genesis-3.html
++render=avx  +format=html  < Gen3  >  C:\users\my-username\Documents\Genesis-3.html
 
 For more details on what each setting means, perform this command:
 @help settings

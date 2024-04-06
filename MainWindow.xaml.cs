@@ -22,8 +22,6 @@
     using Blueprint.Blue;
     using System.Linq;
     using Blueprint.Model.Implicit;
-    using BlueprintBlue.Model.Results;
-    using System.Windows.Threading;
 
     internal class ChapterSpec
     {
@@ -299,10 +297,9 @@
                 Window_UnMaximize(null, null);
             }
         }
-        private string temp_settings_file = @"C:\Users\Me\AppData\Roaming\AV-Bible\settings.yaml";
         protected virtual void LoadAppState()
         {
-            this.Settings = new QSettings(temp_settings_file);
+            this.Settings = new QSettings(QContext.SettingsFile);
             this.ButtonAVT_Click(null, null);
         }
 
@@ -654,7 +651,7 @@
             }
             if (settings == null)
             {
-                settings = new QSettings(this.temp_settings_file);
+                settings = new QSettings(QContext.SettingsFile);
             }
 
             if (header || script)
@@ -762,7 +759,7 @@
                     }
                     if (settings == null)
                     {
-                        settings = new QSettings(this.temp_settings_file);
+                        settings = new QSettings(QContext.SettingsFile);
                     }
                     Dictionary<uint, QueryMatch> matches = book != null ? book.Matches : new();
                     ChapterRendering chapter = Engine.GetChapter(b, c, matches);
@@ -1283,7 +1280,7 @@
             SetSearchView(); // used to be SetChapterViewViaSearch(index, reset)
         }
 
-        (bool success, SelectionResultType status, QueryResult? results, QExplicitResult? singleton, SearchScope? scope) QuelleCommand(string text)
+        (bool success, SelectionResultType status, QueryResult? results, SearchScope? scope) QuelleCommand(string text)
         {
             bool success = false;
             var tuple = Engine.Execute(text);
@@ -1340,16 +1337,16 @@
                         this.DisplayStatus("Not implemented yet", MainWindow.WarningStatus);
                         this.Results = null;
                     }
-                    return (success, status, null, tuple.singleton, null);
+                    return (success, status, null, null);
                 }
                 else if (tuple.search != null && tuple.search.Expression != null)
                 {
                     this.Results = tuple.search;
                 }
-                return (success, status, tuple.search, null, tuple.search.Expression.Scope);
+                return (success, status, tuple.search, tuple.search.Expression.Scope);
             }
             this.Results = null;
-            return (false, status, tuple.search, tuple.singleton, null);
+            return (false, status, tuple.search, null);
         }
         private void SetEntireView(byte bk)
         {

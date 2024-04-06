@@ -79,7 +79,6 @@
                     case "macros":
                     case "tags":
                     case "tagging":
-                    case "invoke":
                     case "apply":
                     case "delete":
                     case "review": return Path.Combine(HelpFolder, "index-hashtags.html");
