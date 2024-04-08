@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AVBible"
         xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         mc:Ignorable="d"
-        Title="AV-Bible | Results" Height="390" Width="680" Closing="Window_Closing"
+        Title="AV-Bible | Results" Height="415" Width="680" Closing="Window_Closing"
         Margin="0,0,0,0"
         Background="LightGray">
     <DockPanel>

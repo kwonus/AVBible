@@ -1322,7 +1322,7 @@
                         this.Help.ShowHelpPanel(text);
                         this.Results = null;
                     }
-                    else if (type == typeof(QGet))
+                    else if (type == typeof(QGet) || type == typeof(QViewHistory) || type == typeof(QViewMacro) || type == typeof(QBulkHistory) || type == typeof(QBulkMacros))
                     {
                         this.ResultsICL.ShowResultsPanel(tuple.message);
                         this.Results = null;
