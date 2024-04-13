@@ -80,7 +80,7 @@
                 <ComboBox Grid.Column="2" x:Name="comboBoxHelpPanel" SelectionChanged="comboBoxHelpPanel_SelectionChanged" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="Black" Background="Gray" Height="9" Width="134">
                     <ComboBoxItem Name="application">General Application Help</ComboBoxItem>
                     <ComboBoxItem Name="kjv">Help with the Language of the KJV</ComboBoxItem>
-                    <ComboBoxItem Name="icl">Help with ICL Syntax</ComboBoxItem>
+                    <ComboBoxItem Name="bql">Help with BQL Syntax</ComboBoxItem>
                     <ComboBoxItem Name="search">Help with Search Syntax</ComboBoxItem>
                     <ComboBoxItem Name="control">Help with Control Settings</ComboBoxItem>
                     <ComboBoxItem Name="history">Help with Search History</ComboBoxItem>

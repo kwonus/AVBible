@@ -128,7 +128,7 @@
         private int id;
         private const double narrow = 70.0;
         private HelpWindow Help;
-        private ResultsWindow ResultsICL;
+        private ResultsWindow ResultsBQL;
 
         internal uint ViewbookStartNum;
         internal uint ChapterChickletIndex = 0;
@@ -310,7 +310,7 @@
             LoadAppState();
 
             this.Help = new();
-            this.ResultsICL = new();
+            this.ResultsBQL = new();
             this.CommandStatusTimer = new System.Windows.Threading.DispatcherTimer();
             this.CommandStatusTimer.Tick += DismissStatus_Tick;
             this.CommandStatusTimer.Interval = new TimeSpan(0, 0, 9);
@@ -1324,7 +1324,7 @@
                     }
                     else if (type == typeof(QGet) || type == typeof(QViewHistory) || type == typeof(QViewMacro) || type == typeof(QBulkHistory) || type == typeof(QBulkMacros))
                     {
-                        this.ResultsICL.ShowResultsPanel(tuple.message);
+                        this.ResultsBQL.ShowResultsPanel(tuple.message);
                         this.Results = null;
                     }
                     else if (type == typeof(QSet))
@@ -1743,7 +1743,7 @@
         private void MainWin_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             this.Help.CloseHelpWindow();
-            this.ResultsICL.CloseResultsWindow();
+            this.ResultsBQL.CloseResultsWindow();
             SaveWindowState();
         }
 

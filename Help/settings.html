@@ -7,7 +7,7 @@
 | **@clear**  | *setting* or ALL             | n/a                  |
 | **@get**    | *setting* or ALL or revision | n/a                  |
 | **@set**    | *setting* **=** *value*      | *@setting* = value   |
-| **@absorb** | ***id*** or ***tag***        | n/a                  |
+| **@absorb** | ***tag***                    | n/a                  |
 
 #### Examples
 
@@ -57,7 +57,7 @@ In all, AVX-Quelle manifests six user-controlled settings. Each allows all three
 | similarity       | -         | Streamlined syntax for setting similarity.word<br/>and similarity.lemma to the same value<br/>Phonetics matching threshold is between 33% and 100%. 100% represents an exact sounds-alike match. Any percentage less than 100, represents a fuzzy sounds-similar match <br/>Similarity matching can be completely disabled by setting this value to off | 33% to 100% **or** *off*                      | off           |
 | similarity.word  | word      | fuzzy phonetics matching as described above, but this prefix only affects similarity matching on the word. | 33% to 100% **or** *off*                      | off           |
 | similarity.lemma | lemma     | fuzzy phonetics matching as described above, but this prefix only affects similarity matching on the lemma. | 33% to 100% **or** *off*                      | off           |
-| revision         | -         | Not really a true setting: it works with the *@get* command to retrieve the revision number of the ICL grammar supported by AV-Engine. This value is read-only. | 4.x.yz                                        | n/a           |
+| revision         | -         | Not really a true setting: it works with the *@get* command to retrieve the revision number of the S4T grammar supported by AV-Engine. This value is read-only. | 4.x.yz                                        | n/a           |
 | ALL              | -         | ALL is an aggregate setting: it works with the *@clear* command to reset all variables above to their default values. It is used with *@get* to fetch all settings. It can also be used in the settings block of a statement to override values to default or the currently saved values for situations where a macro is utilized. | n/a                                           | n/a           |
 
 The *@get* command fetches these values. The *@get* command requires a single argument. Examples are below:

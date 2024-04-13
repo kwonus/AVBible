@@ -1,6 +1,6 @@
 <script src="./html-generator/md-page.js"></script><noscript>
 
-There are two types of hashtags in ICL. Hashtags with text labels refer to macro definitions. Hashtags with numerics reference a search command previously executed in the command history of AV-Bible.
+There are two types of hashtags in S4T query language. Hashtags with text labels refer to macro definitions. Hashtags with numerics reference a search command previously executed in the command history of AV-Bible.
 
 ### Macro Hashtags *(text)*
 
@@ -82,11 +82,11 @@ If you want the same settings to be persisted to your current session that were 
 
 | Verb                | Parameters                                                   |
 | ------------------- | ------------------------------------------------------------ |
-| **@view**           | *id*                                                         |
-| **@absorb**         | *id*                                                         |
-| **@delete**         | *id*                                                         |
-| **@history**        | *<u>optional:</u>*  ***from*** {DATE} <u>and/or</u> ***to*** {DATE} ***<- OR ->*** ***from*** *id* <u>and/or</u> ***to*** *id* |
-| **@history delete** | ***from*** {DATE} <u>and/or</u> ***to*** {DATE} ***<- OR ->*** ***from*** *id* <u>and/or</u> ***to*** *id* |
+| **@view**           | *tag*                                                        |
+| **@absorb**         | *tag*                                                        |
+| **@delete**         | *tag*                                                        |
+| **@history**        | *<u>optional:</u>*  ***from*** {DATE} <u>and/or</u> ***to*** {DATE} ***<- OR ->*** ***from*** *tag* <u>and/or</u> ***to*** *tag* |
+| **@history delete** | ***from*** {DATE} <u>and/or</u> ***to*** {DATE} ***<- OR ->*** ***from*** *tag* <u>and/or</u> ***to*** *tag* |
 
 **DATE PARAMETER:**<br/>{DATE}: any of:
 
@@ -109,7 +109,7 @@ To reveal for the single month of January 2024:
 
 *@history* from 2024/1/1 to 2024/1/31
 
-To reveal all history since id:5 [inclusive]:
+To reveal all history since tag:5 [inclusive]:
 
 *@history* from 5
 
@@ -125,7 +125,7 @@ FROM / TO parameters can limit the scope of the delete command:
 
 *@history delete from 12/31/2023 to 4/17/2024*
 
-To delete a single hashtag in history, it works nearly identically to macros. In the case of history, we supply the id as a parameter to the view command:
+To delete a single hashtag in history, it works nearly identically to macros. In the case of history, we supply the tag as a parameter to the view command:
 
 \@view 3
 

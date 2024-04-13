@@ -3,22 +3,22 @@
 
 Near the end of the last century, Google pioneered the modern search interface by employing an elegantly simple "search box". This was an evolution away from the complex interfaces that preceded it. Still, it becomes problematic when we want to search for multiple terms, unless we expect to merely "match every term".
 
-Imperative Control Language (ICL) provides a concise yet comprehensive command-language for searching, configuring, and controlling the AV-Bible application.  Its grammar supports Boolean operations such as AND, OR, and NOT. While great care has been taken to support the construction of complex queries, greater care has been taken to maintain a clear and concise syntax.
+Search-for-Truth (S4T) query language provides a concise yet comprehensive syntax for searching and studying the scriptures, configuring, and controlling the AV-Bible application. It gets its name from the Bereans found in Acts 17:11-12, along with those Christians mentioned in 2 Thessalonians 12-13, and Paul's instruction to Timothy in II Timothy 2:15.  God instructs us to "study" his word, and S4T can streamline the mechanics of that activity (only the soul and spirit can actively study the scriptures). In any event, S4T grammar supports Boolean operations such as AND, OR, and NOT. Great care has been taken to support the construction of complex queries. Greater care has been taken to maintain a clear and concise syntax.
 
-ICL is consistent with itself. Naturally, existing scripting languages have some influence on ICL syntax. However, we always favor simplicity over versatility. This avoids complexity of syntax and makes behavior easy to describe. There might be edge cases where a more versatile grammar might have reduced keystrokes. Yet, by avoiding nuance, ICL is easy to learn, easy to type, and easy to remember.  In fact, search expressions often look no different than they would appear today in a Google or Bing search. Incidentally, ICL is a dialect of Quelle and conforms to the Quelle Specification.
+S4T is consistent with itself. S4T always favors simplicity over versatility. Avoiding complexity of syntax, makes the grammar easier to explain. S4T also avoids nuance (we chose not to imitate "i" before "e" except after "c"). Without complexity and nuance, S4T is easy to learn, easy to type, and easy to remember.  In fact, search expressions often look no different than they would appear today in a Google or Bing search. Incidentally, S4T is a dialect of Quelle and conforms to the Quelle Specification.
 
-### Overview of ICL Grammar
+### Overview of S4T Grammar
 
-There are two types of statements
+There are two types of S4T statements
 
-| Statement Type      | Syntax                                                       |
-| ------------------- | ------------------------------------------------------------ |
-| Selection  Criteria | Combines search criteria and scoping filters for tailored verse selection.<br/>Configuration settings can also be combined and incorporated into the selection criteria. |
-| Discrete Imperative | single action for configuration and/or application control (cannot be combined with other actions) |
+| Statement Type       | Syntax                                                       |
+| -------------------- | ------------------------------------------------------------ |
+| Selection  Statement | Combines search criteria and scoping filters for tailored verse selection.<br/>Configuration settings can also be combined and incorporated into the selection criteria. |
+| Imperative Statement | single action for configuration and/or application control (cannot be combined with other actions) |
 
 #### Selection Criteria (includes search operations)
 
-Selection Criteria contains <u>required</u> Selection Criteria, followed by an <u>optional</u> Directive:
+Selection Statement contains <u>required</u> Selection Criteria, followed by an <u>optional</u> Directive:
 
 The selection criteria controls how verses are selected. It is made up of one to three blocks. The ordering of blocks is partly prescribed. When present, the expression block must be in the initial position. The scoping block and the settings-block must follow the expression when provided. The scoping block and settings-block can be in either order (so long as they are listed before the scoping block when present). 
 
@@ -45,13 +45,13 @@ To be clear, a macro cannot be created for a statement that exports selection/se
 | Macro (*apply* tag to macro)                                 | ***\|\| tag***                                               |
 | Export Block (*export* results of selection criteria to a file) | ***> filepath*** or<br/>***>> filepath*** or<br/>***=> filepath*** |
 
-#### Discrete Imperatives
+#### Imperative Statements
 
-Non-selection statements instigate configuration changes or application control. These statements always begin with **@**. They are executed individually and cannot be combined with any other actions. Imperatives that begin with \@ cannot be combined with search expressions. This is why they are called Discrete Imperatives.
+Non-selection statements instigate configuration changes or application control. These statements always begin with **@**. They are executed individually and cannot be combined with any other actions. Imperatives that begin with \@ cannot be combined with search expressions. They are always discrete/singleton commands.
 
 #### Configuration Statements
 
-ICL supports three categories of configuration. These are described more completely in Section 2.
+S4T supports three categories of configuration. These are described more completely in Section 2.
 
 | Configuration Targets | Configuration Actions           |
 | --------------------- | ------------------------------- |
@@ -61,18 +61,18 @@ ICL supports three categories of configuration. These are described more complet
 
 #### Control Statements
 
-ICL has only two control imperatives. These are described more completely in Section 3.
+S4T has only two control statements. These are described more completely in Section 3.
 
 | Control Targets   | Control Actions | Optional Parameter | Description                         |
 | ----------------- | --------------- | ------------------ | ----------------------------------- |
-| Usage Information | \@help          | topic              | Help with ICL syntax and usage      |
+| Usage Information | \@help          | topic              | Help with S4T syntax and usage      |
 | System Control    | \@exit          | -                  | Exit the application or interpreter |
 
 ## Section 1 - Selection/Search 
 
-From a linguistic standpoint, all ICL statements are issued in the imperative. The subject of the verb is always "you understood". As the user, you are commanding the application what to do. Some statements have additional guiding parameters. These parameters instruct what the command is to act upon.
+From a linguistic standpoint, all S4T statements are issued in the imperative. The subject of the verb is always "you understood". As the user, you are commanding the application what to do. Some statements have additional guiding parameters. These parameters instruct what the command is to act upon.
 
-Consider these two examples of ICL statements (first Configuration, followed by Search):
+Consider these two examples of S4T statements (first Configuration, followed by Search):
 
 \@lexicon.searh = KJV
 
@@ -87,7 +87,7 @@ It should be noted that these two imperatives, while similar, do not have identi
 - *@search.lexicon = KJV*
 - *+search.lexicon = KJV*
 
-The former is a configuration imperative: it changes the lexicon setting for all future searches. Whereas, the latter is merely a temporary block assigment: it only affects Selection Statement of which it is a part. Subsequent searches are unaffected by block assignments (they are always temprorary). There are times when a user will want a setting to persist, and other times when she does not. ICL permits the user to choose.
+The former is a configuration imperative: it changes the lexicon setting for all future searches. Whereas, the latter is merely a temporary block assigment: it only affects Selection Statement of which it is a part. Subsequent searches are unaffected by block assignments (they are always temprorary). There are times when a user will want a setting to persist, and other times when she does not. S4T permits the user to choose.
 
 #### QuickStart
 
@@ -95,7 +95,7 @@ Consider this proximity search (find Moses and Aaron within a single span of sev
 
 *Moses Aaron  +span = 7*
 
-ICL syntax can specify the lexicon to search, by also supplying temporary settings:
+S4T syntax can specify the lexicon to search, by also supplying temporary settings:
 
 *Moses Aaron +span = 7  +lexicon.search = KJV*
 
@@ -117,7 +117,7 @@ These constructs can even be combined. For example:
 
 In all cases, “...” means “followed by”, but the ellipsis allows other words to appear between "said" and "Aaron". Likewise, it allows words to appear between "said" and "Miriam". 
 
-ICL is designed to be intuitive. It provides the ability to invoke Boolean logic for term-matching and/or linguistic feature-matching. As we saw above, the pipe symbol ( | ) can be used to invoke an *OR* condition.
+S4T is designed to be intuitive. It provides the ability to invoke Boolean logic for term-matching and/or linguistic feature-matching. As we saw above, the pipe symbol ( | ) can be used to invoke an *OR* condition.
 
 ### 1.1 - Selection Criteria
 
@@ -137,14 +137,14 @@ As we saw in the overview, there three blocks that compose Selection Criteria:
   - *filter directives*
   - *use filters (partial macro utilization)*
 
-| Action   | Type             | Position | Action Syntax                            | Repeatable Action                                     |
-| -------- | ---------------- | -------- | ---------------------------------------- | ----------------------------------------------------- |
-| *find*   | Expression Block | initial  | search expression or ***#id***           | **no**                                                |
-| *use*    | Expression Block | initial  | ***#tag*** or ***#id ***                 | **no**: only one macro is permitted per block         |
-| *assign* | Settings Block   | initial  | ***+setting = value***                   | yes (e.g. ***+format=md +lexicon=kjv +span=verse*** ) |
-| *use*    | Settings Block   | initial  | ***+ #tag*** or<br/>***+ #id***          | **no**: only one macro is permitted per block         |
-| *filter* | Scoping Block    | post     | ***< scope***                            | yes (e.g. ***< Genesis 3 < Revelation 1-3***)         |
-| *use*    | Scoping Block    | post     | **<** ***#tag***  or<br/>**<** ***#id*** | **no**: only one macro is permitted per block         |
+| Action   | Type             | Position | Action Syntax                  | Repeatable Action                                     |
+| -------- | ---------------- | -------- | ------------------------------ | ----------------------------------------------------- |
+| *find*   | Expression Block | initial  | search expression or ***#id*** | **no**                                                |
+| *use*    | Expression Block | initial  | ***#tag***                     | **no**: only one hashtag is permitted per block       |
+| *assign* | Settings Block   | initial  | ***+setting = value***         | yes (e.g. ***+format=md +lexicon=kjv +span=verse*** ) |
+| *use*    | Settings Block   | initial  | ***+ #tag***                   | **no**: only one macro is permitted per block         |
+| *filter* | Scoping Block    | post     | ***< scope***                  | yes (e.g. ***< Genesis 3 < Revelation 1-3***)         |
+| *use*    | Scoping Block    | post     | **<** ***#tag***               | **no**: only one macro is permitted per block         |
 
 **Table 1-1** - Summary of actions expressible in the Selection Criteria segment of a Selection/Search imperative statement
 
@@ -156,7 +156,7 @@ The ampersand symbol can similarly be used to represent *AND* conditions upon te
 
 "part&/verb/"
 
-The SDK, provided by Digital-AV, has marked each word of the bible text for part-of-speech. With the rich syntax of ICL, this type of search is easy and intuitive.
+The SDK, provided by Digital-AV, has marked each word of the bible text for part-of-speech. With the rich syntax of S4T, this type of search is easy and intuitive.
 
 Of course, part-of-speech expressions can also be used independently of an AND condition, as follows:
 
@@ -295,9 +295,9 @@ The *use* action is supported in each of the three Selection Criteria blocks:
 - Settings *(partial macro utilization)*
 - Scoping *(partial macro utilization)*
 
-Each of the block types supports the *use* action. However, each block limited to, at most, one *use* action. The *use* action references either a tag for a macro or a statement id revealed by the \@view imperative. As there are  a maximum of three blocks in the selection criteria, a statement could contain up to three *use* actions (one per block).
+Each of the block types supports the *use* action. However, each block limited to, at most, one *use* action. The *use* action references a tag (either for a macro or a tag revealed by the \@history imperative). As there are  a maximum of three blocks in the selection criteria, a statement could contain up to three *use* actions (one per block).
 
-The expression block supports full macro utilization.  In the earlier example:
+The expression block supports full hashtag utilization.  In the earlier example:
 
 #eternal-power-romans
 
@@ -326,7 +326,7 @@ Likewise, in this example, this clause utilizes only the filters defined within 
 
 Macro utilization within a block disallows all other entries within the block; macro utilization in a block is not compatible with any other entries in that same block.
 
-Specifically, the following statements / clauses are not supported by ICL:
+Specifically, the following statements / clauses are not supported by S4T:
 
 **NOT SUPPORTED:**  #eternal-power-romans without excuse  
 
@@ -352,7 +352,7 @@ However, if the user desires the current settings to be used instead, a speciali
 
 ***result:*** Gen 1:1 In the beginning, God created ...
 
-Still, a macro can be redefined/overwritten. This doesn't disable macro determinism, even though it feels like it does. The assumption is that the user is explicitly redefining the meaning of macro and ICL does not require an explicit \@delete of the tag prior to re-applying. Here is an example:
+Still, a macro can be redefined/overwritten. This doesn't disable macro determinism, even though it feels like it does. The assumption is that the user is explicitly redefining the meaning of macro and S4T does not require an explicit \@delete of the tag prior to re-applying. Here is an example:
 
 eternal power godhead without excuse + #eternal-power-romans < #eternal-power-romans || #eternal-power-romans
 
@@ -364,9 +364,9 @@ Just like macro utilization, the *use* action is supported in each of the three 
 - Settings *(partial macro utilization)*
 - Scoping *(partial macro utilization)*
 
-Each of the block types supports the *use* action. However, each block limited to, at most, one *use* action. The *use* action references either a tag for a macro or a statement id revealed by  the \@*view* imperative. As there are a maximum of three blocks in the selection criteria, a statement could contain up to three *use* actions (one per block).
+EAs previously stated, each of the block types supports the *use* action. However, each block limited to, at most, one *use* action. The *use* action references a tag (e.g. the tag revealed by the \@history imperative). As there are  a maximum of three blocks in the selection criteria, a statement could contain up to three *use* actions (one per block).
 
-Only the expression block supports full macro utilization.
+Only the expression block supports full hashtag utilization.
 
 Expression block macros sometimes undergo demotion. A historic utilization within the expression block is demoted into a partial macro when a provided block within the selection criteria conflicts with the macro definition. Assume that this command is identified by the \@view command by id := 5:
 
@@ -383,7 +383,7 @@ Expression block macros sometimes undergo demotion. A historic utilization withi
 
 Outside of the expression block, partial *usage* applies by block type. For example, this clause utilizes only the settings defined where id = 5.
 
-+ #5
+\+ #5
 
 Likewise, in this example, this clause utilizes only the filters for id = 5.
 
@@ -391,7 +391,7 @@ Likewise, in this example, this clause utilizes only the filters for id = 5.
 
 Just like macros, utilization within a block disallows all other entries within the block; utilization in a block is not compatible with any other entries in that same block.
 
-Specifically, the following statements / clauses are not supported by ICL:
+Specifically, the following statements / clauses are not supported by S4T:
 
 **NOT SUPPORTED:**  #5 without excuse  
 
@@ -446,11 +446,11 @@ If you want the same settings to be persisted to your current session that were 
 
 | Verb                | Parameters                                                   |
 | ------------------- | ------------------------------------------------------------ |
-| **@view**           | *id*                                                         |
-| **@absorb**         | *id*                                                         |
-| **@delete**         | *id*                                                         |
-| **@history**        | *<u>optional:</u>*  ***from*** {DATE} <u>and/or</u> ***to*** {DATE} ***<- OR ->*** ***from*** *id* <u>and/or</u> ***to*** *id* |
-| **@history delete** | ***from*** {DATE} <u>and/or</u> ***to*** {DATE} ***<- OR ->*** ***from*** *id* <u>and/or</u> ***to*** *id* |
+| **@view**           | *tag*                                                        |
+| **@absorb**         | *tag*                                                        |
+| **@delete**         | *tag*                                                        |
+| **@history**        | *<u>optional:</u>*  ***from*** {DATE} <u>and/or</u> ***to*** {DATE} ***<- OR ->*** ***from*** *tag* <u>and/or</u> ***to*** *tag* |
+| **@history delete** | ***from*** {DATE} <u>and/or</u> ***to*** {DATE} ***<- OR ->*** ***from*** *tag* <u>and/or</u> ***to*** *tag* |
 
 **TABLE 2-2** -- **Viewing & deleting history**
 
@@ -475,7 +475,7 @@ To reveal for the single month of January 2024:
 
 *@history* from 2024/1/1 to 2024/1/31
 
-To reveal all history since id:5 [inclusive]:
+To reveal all history since tag:5 [inclusive]:
 
 *@history* from 5
 
@@ -503,7 +503,7 @@ eternal power
 
 Again, *utilizing* a command from your command history is *used* just like a macro. Moreover, as with macros, control settings are persisted within your command history to provide invocation determinism. That means that control settings that were in place during the original command are utilized for the invocation.
 
-Command history captures all settings. We have already discussed macro-determinism. Invoking commands by their ids behave exactly like macros. In other words, invoking command history never persists changes into your environment, unless you explicitly request such behavior with the \@absorb command.
+Command history captures all settings. We have already discussed macro-determinism. Invoking commands by their history tags behave exactly as invoking with macro tags. Specifically, invoking command history never persists changes into your environment, unless you explicitly request such behavior with the \@absorb command.
 
 **RESETTING COMMAND HISTORY**
 
@@ -522,7 +522,7 @@ FROM / TO parameters can limit the scope of the delete command:
 | **@clear**  | *setting* or ALL             |
 | **@get**    | *setting* or ALL or revision |
 | **@set**    | *setting* **=** *value*      |
-| **@absorb** | ***id*** or ***tag***        |
+| **@absorb** | ***tag***                    |
 
 **TABLE 2-3.a** - **Listing of additional CONTROL actions**
 
@@ -562,7 +562,7 @@ In all, AVX-Quelle manifests six user-controlled settings. Each allows all three
 | similarity       | -         | Streamlined syntax for setting similarity.word<br/>and similarity.lemma to the same value<br/>Phonetics matching threshold is between 33% and 100%. 100% represents an exact sounds-alike match. Any percentage less than 100, represents a fuzzy sounds-similar match <br/>Similarity matching can be completely disabled by setting this value to off | 33% to 100% **or** *off*                      | off           |
 | similarity.word  | word      | fuzzy phonetics matching as described above, but this prefix only affects similarity matching on the word. | 33% to 100% **or** *off*                      | off           |
 | similarity.lemma | lemma     | fuzzy phonetics matching as described above, but this prefix only affects similarity matching on the lemma. | 33% to 100% **or** *off*                      | off           |
-| revision         | -         | Not really a true setting: it works with the *@get* command to retrieve the revision number of the ICL grammar supported by AV-Engine. This value is read-only. | 4.x.yz                                        | n/a           |
+| revision         | -         | Not really a true setting: it works with the *@get* command to retrieve the revision number of the S4T grammar supported by AV-Engine. This value is read-only. | 4.x.yz                                        | n/a           |
 | ALL              | -         | ALL is an aggregate setting: it works with the *@clear* command to reset all variables above to their default values. It is used with *@get* to fetch all settings. It can also be used in the settings block of a statement to override values to default or the currently saved values for situations where a macro is utilized. | n/a                                           | n/a           |
 
 **TABLE 2-3.d** - Summary of AV-Bible Settings
@@ -585,13 +585,13 @@ It should be noted that there is a distinction between **@set** and and ***assig
 
 **QUERYING DRIVER FOR VERSION INFORMATION**
 
-This command reveals the current Grammar revision of the Imperative Control Language (ICL), implemented  by the command interpreter of AV-Bible:
+This command reveals the current Grammar revision of the Search-for-Truth (S4T) query language, implemented  in AV-Bible:
 
 *@get* revision
 
 ---
 
-In general, the ICL command processor can be thought of as a stateless server. The only exceptions of its stateless nature are:
+In general, the S4T command processor can be thought of as a stateless server. The only exceptions of its stateless nature are:
 
 1. non-default settings assigned using the **@set** command
 
@@ -627,21 +627,21 @@ Type this to terminate the app:
 
 ## Section 4 - Grammar and Design Elements
 
-An object model to manifest the ICL grammar is depicted below:
+An object model to manifest the S4T grammar is depicted below:
 
 ![QCommand](./diagrams/QCommand.png)
 
-### 4.1 - Glossary of ICL Terminology
+### 4.1 - Glossary of S4T Terminology
 
 **Actions:** Actions are complete verb-clauses issued in the imperative [you-understood].  Many actions have one or more parameters.  But just like English, a verb phrase can be a single word with no explicit subject and no explicit object.  Consider this English sentence:
 
 Go!
 
-The subject of this sentence is "you understood".  Similarly, all verbs are issued without an explicit subject. The object of the verb in the one word sentence above is also unstated.  ICL operates in an analogous manner.  Consider this English sentence:
+The subject of this sentence is "you understood".  Similarly, all verbs are issued without an explicit subject. The object of the verb in the one word sentence above is also unstated.  S4T operates in an analogous manner.  Consider this English sentence:
 
 Go Home!
 
-Like the earlier example, the subject is "you understood".  The object this time is defined, and insists that "you" should go home.  Some verbs always have objects, others sometimes do, and still others never do. ICL follows this same pattern and some ICL verbs require direct-objects; and some do not.  In the various tables throughout this document, required and optional parameters are identified, These parameters represent the object of the verb within each respective table.
+Like the earlier example, the subject is "you understood".  The object this time is defined, and insists that "you" should go home.  Some verbs always have objects, others sometimes do, and still others never do. S4T follows this same pattern and some S4T verbs require direct-objects; and some do not.  In the various tables throughout this document, required and optional parameters are identified, These parameters represent the object of the verb within each respective table.
 
 **Selection Criteria**: Selection what text to render is determined with a search expression, scoping filters, or both.
 
@@ -656,17 +656,17 @@ Like the earlier example, the subject is "you understood".  The object this time
 
 **Booleans and Negations:**
 
-**and:** In Boolean logic, **and** means that all terms must be found. With ICL, **and** is represented by terms that appear within an unquoted clause. **And** logic is also available on each search-term by using the **&** operator.
+**and:** In Boolean logic, **and** means that all terms must be found. With S4T, **and** is represented by terms that appear within an unquoted clause. **And** logic is also available on each search-term by using the **&** operator.
 
-**or:** In Boolean logic, **or** means that any term constitutes a match. With ICL, **and** is represented per each search-term by using the **|** operator.
+**or:** In Boolean logic, **or** means that any term constitutes a match. With S4T, **and** is represented per each search-term by using the **|** operator.
 
-**not:** In Boolean logic, means that the feature must not be found. With ICL, *not* is represented by the hyphen ( **-** ) and applies to individual features within a fragment of a search expression. It is best used in conjunction with other features, because any non-match will be included in results. 
+**not:** In Boolean logic, means that the feature must not be found. With S4T, *not* is represented by the hyphen ( **-** ) and applies to individual features within a fragment of a search expression. It is best used in conjunction with other features, because any non-match will be included in results. 
 
 hyphen ( **-** ) means that any non-match satisfies the search condition. Used by itself, it would likely return every verse. Therefore, it should be used judiciously.
 
 ### 4.2 - Specialized Search tokens in AV-Bible
 
-The lexical search domain of ICL includes all words in the original KJV text. It can also optionally search using a modernized lexicon of the KJV (e.g. hast and has; this is controllable with the search.lexicon setting).  The table below lists linguistic extensions available in ICL.
+The lexical search domain of S4T includes all words in the original KJV text. It can also optionally search using a modernized lexicon of the KJV (e.g. hast and has; this is controllable with the search.lexicon setting).  The table below lists linguistic extensions available in S4T.
 
 | Search Term        | Operator Type                           | Meaning                                                      | Maps To                                                      | Mask   |
 | ------------------ | --------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------ |
@@ -732,22 +732,22 @@ The lexical search domain of ICL includes all words in the original KJV text. It
 | 99999:H            | Strongs Number                          | decimal Strongs number for the Hebrew word in the Old Testament | One of Strongs\[4\]                                          | 0x7FFF |
 | 99999:G            | Strongs Number                          | decimal Strongs number for the Greek word in the New Testament | One of Strongs\[4\]                                          | 0x7FFF |
 
-### 4-3 - Object Model to support ICL search tokens
+### 4-3 - Object Model to support S4T search tokens
 
-An object model to support specialized ICL Search Tokens is depicted below:
+An object model to support specialized S4T Search Tokens is depicted below:
 
 ![QFind](./diagrams/QFind.png)
 
-### 4.4 - ICL conformance to the Quelle specification
+### 4.4 - S4T conformance to the Quelle specification
 
 Quelle specifies two possible implementation levels:
 
 - Level 1 [basic search support]
 - Level 2 [search support includes also searching on part-of-speech tags]
 
-ICL is a Level 2 Quelle implementation with augmented search capabilities. ICL extends Quelle to include AVX-Framework-specific constructs.  These extensions provide additional specialized search features and the ability to manage two distinct lexicons for the biblical texts.
+S4T is a Level 2 Quelle implementation with augmented search capabilities. S4T extends Quelle to include AVX-Framework-specific constructs.  These extensions provide additional specialized search features and the ability to manage two distinct lexicons for the biblical texts.
 
-1. ICL represents the biblical text with two substantially similar, but distinct, lexicons. The search.lexicon setting can be specified by the user to control which lexicon is to be searched. Likewise, the render.lexicon setting is used to control which lexicon is used for displaying the biblical text. As an example, the KJV text of "thou art" would be modernized to "you are".
+1. S4T represents the biblical text with two substantially similar, but distinct, lexicons. The search.lexicon setting can be specified by the user to control which lexicon is to be searched. Likewise, the render.lexicon setting is used to control which lexicon is used for displaying the biblical text. As an example, the KJV text of "thou art" would be modernized to "you are".
 
    - AV/KJV *(a lexicon that faithfully represents the KJV bible; AV purists should select this setting)*
 
@@ -757,7 +757,7 @@ ICL is a Level 2 Quelle implementation with augmented search capabilities. ICL e
 
    The Dual/Both setting for lexicon.search indicates that searching should consider both lexicons. The The Dual/Both setting for lexicon.render indicates that results should be displayed for both renderings [whether this is side-by-side or in-parallel depends on the format and the application where the display-rendering occurs]. Left unspecified, the lexicon setting applies to lexicon.search and lexicon.render components.
 
-2. ICL provides support for fuzzy-match-logic. The similarity setting can be specified by the user to control the similarity threshold for approximate matching. An exact lexical match is expected when similarity is set to *off*. 
+2. S4T provides support for fuzzy-match-logic. The similarity setting can be specified by the user to control the similarity threshold for approximate matching. An exact lexical match is expected when similarity is set to *off*. 
 
    Phonetics matches are enabled when similarity is set between 33% and 100%. Similarity is calculated based upon the phonetic representation for the word.
 
@@ -774,7 +774,7 @@ AV-Bible uses the AV-1769 edition of the sacred text. It substantially agrees wi
 - AV-Bible - 2007 Edition for Windows XP
 - AV-Bible - 2011 Edition for Windows Vista
 - AV-Bible - 2021 Edition for Windows 10
-- AV-Bible - 2024 Edition for Windows 11 (current release; initial release to support ICL)
+- AV-Bible - 2024 Edition for Windows 11 (current release; initial release to support S4T)
 
 Decades ago, AV-Bible (aka AV-1995, AV-1997, ... AV-2011), were found on internet bulletin boards and the now defunct bible.advocate.com website. More recent legacy versions are still available at the avbible.net website. Modern editions are distributed on the Microsoft store.
 
