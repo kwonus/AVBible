@@ -2,12 +2,12 @@
 
 ### Commands that control persistent Settings
 
-| Action      | Parameters                   | shorthand invocation |
-| ----------- | ---------------------------- | -------------------- |
-| **@clear**  | *setting* or ALL             | n/a                  |
-| **@get**    | *setting* or ALL or revision | n/a                  |
-| **@set**    | *setting* **=** *value*      | *@setting* = value   |
-| **@absorb** | ***tag***                    | n/a                  |
+| Action     | Parameters                   | shorthand invocation |
+| ---------- | ---------------------------- | -------------------- |
+| **@clear** | *setting* or ALL             | n/a                  |
+| **@get**   | *setting* or ALL or revision | n/a                  |
+| **@set**   | *setting* **=** *value*      | *@setting* = value   |
+| **@use**   | ***tag***                    | n/a                  |
 
 #### Examples
 
@@ -19,7 +19,7 @@
 
 **@get** format
 
-The *@get* format command would return text.  We call this: "last assignment wins". However, there is one caveat to this precedence order: regardless of where in the statement a macro or history invocation is provided within a statement, it never has precedence over a setting that is actually visible within the statement.
+The *@get* format command would return text.  We call this: "last assignment wins". However, there is one caveat to this precedence order: regardless of where in the statement a hashtag *utilization* is provided within a statement, it never has precedence over a setting that is actually visible within the statement.
 
 Finally, there is a bit more to say about the similarity setting, because it actually has two components. If we issue this command, it affects similarity in two distinct ways:
 
@@ -58,7 +58,7 @@ In all, AVX-Quelle manifests six user-controlled settings. Each allows all three
 | similarity.word  | word      | fuzzy phonetics matching as described above, but this prefix only affects similarity matching on the word. | 33% to 100% **or** *off*                      | off           |
 | similarity.lemma | lemma     | fuzzy phonetics matching as described above, but this prefix only affects similarity matching on the lemma. | 33% to 100% **or** *off*                      | off           |
 | revision         | -         | Not really a true setting: it works with the *@get* command to retrieve the revision number of the S4T grammar supported by AV-Engine. This value is read-only. | 4.x.yz                                        | n/a           |
-| ALL              | -         | ALL is an aggregate setting: it works with the *@clear* command to reset all variables above to their default values. It is used with *@get* to fetch all settings. It can also be used in the settings block of a statement to override values to default or the currently saved values for situations where a macro is utilized. | n/a                                           | n/a           |
+| ALL              | -         | ALL is an aggregate setting: it works with the *@clear* command to reset all variables above to their default values. It is used with *@get* to fetch all settings. | n/a                                           | n/a           |
 
 The *@get* command fetches these values. The *@get* command requires a single argument. Examples are below:
 

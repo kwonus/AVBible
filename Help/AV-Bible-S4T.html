@@ -53,11 +53,11 @@ Non-selection statements instigate configuration changes or application control.
 
 S4T supports three categories of configuration. These are described more completely in Section 2.
 
-| Configuration Targets | Configuration Actions           |
-| --------------------- | ------------------------------- |
-| User Settings         | \@set, \@get, \@clear, \@absorb |
-| User Macros           | \@view, \@delete                |
-| User History          | \@view, \@delete                |
+| Configuration Targets | Configuration Actions        |
+| --------------------- | ---------------------------- |
+| User Settings         | \@set, \@get, \@clear, \@use |
+| User Macros           | \@view, \@delete             |
+| User History          | \@view, \@delete             |
 
 #### Control Statements
 
@@ -126,25 +126,25 @@ As we saw in the overview, there three blocks that compose Selection Criteria:
 - Expression Block Components
 
   - *find expression*
-  - *use expression (full macro utilization)*
+  - *complete hashtag utilization*
 - Settings Block Components
 
   - *assign setting*
 
-  - *use settings (partial macro utilization)*
+  - *partial hashtag utilization*
 - Scoping Block
 
   - *filter directives*
-  - *use filters (partial macro utilization)*
+  - *partial hashtag utilization*
 
-| Action   | Type             | Position | Action Syntax                  | Repeatable Action                                     |
-| -------- | ---------------- | -------- | ------------------------------ | ----------------------------------------------------- |
-| *find*   | Expression Block | initial  | search expression or ***#id*** | **no**                                                |
-| *use*    | Expression Block | initial  | ***#tag***                     | **no**: only one hashtag is permitted per block       |
-| *assign* | Settings Block   | initial  | ***+setting = value***         | yes (e.g. ***+format=md +lexicon=kjv +span=verse*** ) |
-| *use*    | Settings Block   | initial  | ***+ #tag***                   | **no**: only one macro is permitted per block         |
-| *filter* | Scoping Block    | post     | ***< scope***                  | yes (e.g. ***< Genesis 3 < Revelation 1-3***)         |
-| *use*    | Scoping Block    | post     | **<** ***#tag***               | **no**: only one macro is permitted per block         |
+| Action    | Type             | Position | Action Syntax                  | Repeatable Action                                     |
+| --------- | ---------------- | -------- | ------------------------------ | ----------------------------------------------------- |
+| *find*    | Expression Block | initial  | search expression or ***#id*** | **no**                                                |
+| *utilize* | Expression Block | initial  | ***#tag***                     | **no**: only one hashtag is permitted per block       |
+| *assign*  | Settings Block   | initial  | ***+setting = value***         | yes (e.g. ***+format=md +lexicon=kjv +span=verse*** ) |
+| *utilize* | Settings Block   | initial  | ***+ #tag***                   | **no**: only one macro is permitted per block         |
+| *filter*  | Scoping Block    | post     | ***< scope***                  | yes (e.g. ***< Genesis 3 < Revelation 1-3***)         |
+| *utilize* | Scoping Block    | post     | **<** ***#tag***               | **no**: only one macro is permitted per block         |
 
 **Table 1-1** - Summary of actions expressible in the Selection Criteria segment of a Selection/Search imperative statement
 
@@ -289,13 +289,13 @@ Combining with a scoping black , we could replace the contents of an existing fi
 
 ### 1.4 - Macro Utilization
 
-The *use* action is supported in each of the three Selection Criteria blocks:
+The *utilize* action is supported in each of the three Selection Criteria blocks:
 
-- Expression *(full macro utilization)*
-- Settings *(partial macro utilization)*
-- Scoping *(partial macro utilization)*
+- Expression *(full hashtag utilization)*
+- Settings *(partial hashtag utilization)*
+- Scoping *(partial hashtag utilization)*
 
-Each of the block types supports the *use* action. However, each block limited to, at most, one *use* action. The *use* action references a tag (either for a macro or a tag revealed by the \@history imperative). As there are  a maximum of three blocks in the selection criteria, a statement could contain up to three *use* actions (one per block).
+Each of the block types supports hashtag utilization. However, each block limited to, at most, a single utilization. The *utilization* references a hashtag (either for a macro, revealed by the @macros command; or for a previous command, revealed by the \@history imperative). As there are  a maximum of three blocks in the selection criteria, a statement could contain up to three *utilizations* (one per block).
 
 The expression block supports full hashtag utilization.  In the earlier example:
 
@@ -307,16 +307,15 @@ Expression block macros sometimes undergo demotion. A macro within the expressio
 
 Recall that the macro definition: eternal power < Romans  +span=7 +similarity=85%  || eternal-power-romans
 
-| Macro Statement                      | Utilization level         | Explanation                                             |
-| ------------------------------------ | ------------------------- | ------------------------------------------------------- |
-| #eternal-power-romans                | full macro utilization    | no conflicts                                            |
-| #eternal-power-romans +all=current   | partial macro utilization | explicit settings replace any settings defined in macro |
-| #eternal-power-romans < Acts         | partial macro utilization | explicit filter replaces any filters defined in macro   |
-| #eternal-power-romans +span=7 < Acts | partial macro utilization | only the search expression is utilized from the macro   |
+| Macro Statement                      | Utilization level         | Explanation                                           |
+| ------------------------------------ | ------------------------- | ----------------------------------------------------- |
+| #eternal-power-romans                | full macro utilization    | no conflicts                                          |
+| #eternal-power-romans < Acts         | partial macro utilization | explicit filter replaces any filters defined in macro |
+| #eternal-power-romans +span=7 < Acts | partial macro utilization | only the search expression is utilized from the macro |
 
 **Table 1-4** - Macro utilization in a Search Expression 
 
-Outside of the expression block, partial macros *use* only the part of the macro that applies to the block type. For example, this clause utilizes only the settings defined within the macro.:
+Outside of the expression block, partial macros *utilize* only the part of the macro that applies to the block type. For example, this clause utilizes only the settings defined within the macro.:
 
 + #eternal-power-romans
 
@@ -346,25 +345,15 @@ in beginning || in_beginning
 
 ***result:*** none
 
-However, if the user desires the current settings to be used instead, a specialized control setting +all=current represents all currently persisted settings; just include it in the statement (as show below). 
-
-#in_beginning + all=current < genesis 1
-
-***result:*** Gen 1:1 In the beginning, God created ...
-
-Still, a macro can be redefined/overwritten. This doesn't disable macro determinism, even though it feels like it does. The assumption is that the user is explicitly redefining the meaning of macro and S4T does not require an explicit \@delete of the tag prior to re-applying. Here is an example:
-
-eternal power godhead without excuse + #eternal-power-romans < #eternal-power-romans || #eternal-power-romans
-
 ### 1.5 - History Utilization
 
-Just like macro utilization, the *use* action is supported in each of the three Selection Criteria blocks:
+Just like macro utilization, history *utilization* is supported in each of the three Selection Criteria blocks:
 
-- Expression *(full macro utilization)*
-- Settings *(partial macro utilization)*
-- Scoping *(partial macro utilization)*
+- Expression *(full hashtag utilization)*
+- Settings *(partial hashtag utilization)*
+- Scoping *(partial hashtag utilization)*
 
-EAs previously stated, each of the block types supports the *use* action. However, each block limited to, at most, one *use* action. The *use* action references a tag (e.g. the tag revealed by the \@history imperative). As there are  a maximum of three blocks in the selection criteria, a statement could contain up to three *use* actions (one per block).
+As previously stated, each of the block types supports hashtag *utilization* . However, each block limited to, at most, one *utilization*. Hashtags can be discovered via the \@history command. As there are a maximum of three blocks in the selection criteria, there are a maximum of three utilizations per statement (one per block).
 
 Only the expression block supports full hashtag utilization.
 
@@ -372,12 +361,11 @@ Expression block macros sometimes undergo demotion. A historic utilization withi
 
 "in ... beginning" +span=3 +similarity=85% < Genesis < John
 
-| Statement         | Utilization level         | Explanation                                             |
-| ----------------- | ------------------------- | ------------------------------------------------------- |
-| #5                | full macro utilization    | no conflicts                                            |
-| #5 +all=current   | partial macro utilization | explicit settings replace any settings defined in macro |
-| #5 < Acts         | partial macro utilization | explicit filter replaces any filters defined in macro   |
-| #5 +span=7 < Acts | partial macro utilization | only the search expression is utilized from the macro   |
+| Statement         | Utilization level   | Explanation                                           |
+| ----------------- | ------------------- | ----------------------------------------------------- |
+| #5                | full utilization    | no conflicts                                          |
+| #5 < Acts         | partial utilization | explicit filter replaces any filters defined in macro |
+| #5 +span=7 < Acts | partial utilization | only the search expression is utilized from the macro |
 
 **Table 1-5** - History utilization in a Search Expression 
 
@@ -410,7 +398,7 @@ It should be noted that any historic id references are expanded prior to applyin
 | Action             | Syntax                                                       |
 | ------------------ | ------------------------------------------------------------ |
 | **@view**          | *tag*                                                        |
-| **@absorb**        | *tag*                                                        |
+| **@use**           | *tag*                                                        |
 | **@delete**        | *tag*                                                        |
 | **@macros**        | *wildcard*  ***<- OR ->***   ***from*** {DATE} <u>and/or</u> ***to*** {DATE} |
 | **@macros delete** | *wildcard*  ***<- OR ->***   ***from*** {DATE} <u>and/or</u> ***to*** {DATE} |
@@ -434,20 +422,20 @@ If the user wanted to remove this definition, the \@delete action is used:
 
 \@delete another-macro
 
-If you want the same settings to be persisted to your current session that were in place during macro definition, the \@absorb command will persist all settings for the macro into your current session
+If you want the same settings to be persisted to your current session that were in place during macro definition, the \@use command will persist all settings for the macro into your current session
 
-\@absorb my-favorite-settings-macro 
+\@use my-favorite-settings-macro 
 
 **NOTE:**
 
-​       \@absorb also works with search history.
+​       \@use also works with search history.
 
 ### 2.2 - History
 
 | Verb                | Parameters                                                   |
 | ------------------- | ------------------------------------------------------------ |
 | **@view**           | *tag*                                                        |
-| **@absorb**         | *tag*                                                        |
+| **@use**            | *tag*                                                        |
 | **@delete**         | *tag*                                                        |
 | **@history**        | *<u>optional:</u>*  ***from*** {DATE} <u>and/or</u> ***to*** {DATE} |
 | **@history delete** | ***from*** {DATE} <u>and/or</u> ***to*** {DATE}              |
@@ -481,23 +469,23 @@ All ranges are inclusive.
 
 **History Utilization**
 
-The *use* command works for command-history works exactly the same way as it does for macros.  After issuing a *@view* command to show history, the user might receive a response as follows.
+The hashtag *utilization* works for command-history works exactly the same way as it does for macros.  After issuing a *@view* command, the user might receive a response as follows.
 
 *@view 3*
 
 3> eternal power
 
-And the use command can utilize any command listed.
+And the command can be re-invoked as follows:
 
 #3
 
-would be shorthand to for the search specified as:
+That would be an abbreviated way to execute a search specified as:
 
 eternal power
 
 Again, *utilizing* a command from your command history is *used* just like a macro. Moreover, as with macros, control settings are persisted within your command history to provide invocation determinism. That means that control settings that were in place during the original command are utilized for the invocation.
 
-Command history captures all settings. We have already discussed macro-determinism. Invoking commands by their history tags behave exactly as invoking with macro tags. Specifically, invoking command history never persists changes into your environment, unless you explicitly request such behavior with the \@absorb command.
+Command history captures all settings. We have already discussed macro-determinism. Invoking commands by their history tags behave exactly as invoking with macro tags. Specifically, invoking command history never persists changes into your environment, unless you explicitly request such behavior with the \@use command.
 
 **RESETTING COMMAND HISTORY**
 
@@ -511,12 +499,12 @@ FROM / TO parameters can limit the scope of the delete command:
 
 ### 2.3 - Settings
 
-| Action      | Parameters                   |
-| ----------- | ---------------------------- |
-| **@clear**  | *setting* or ALL             |
-| **@get**    | *setting* or ALL or revision |
-| **@set**    | *setting* **=** *value*      |
-| **@absorb** | ***tag***                    |
+| Action     | Parameters                   |
+| ---------- | ---------------------------- |
+| **@clear** | *setting* or ALL             |
+| **@get**   | *setting* or ALL or revision |
+| **@set**   | *setting* **=** *value*      |
+| **@use**   | ***tag***                    |
 
 **TABLE 2-3.a** - **Listing of additional CONTROL actions**
 
@@ -532,7 +520,7 @@ FROM / TO parameters can limit the scope of the delete command:
 | **JSON**            | *@format = json*     |                  |
 | **YAML**            | *@format = yaml*     |                  |
 
-**TABLE 2-3.b** - **@set** format command can be used to set the default content-formatting for for use with the export verb
+**TABLE 2-3.b** - **@set** format command can be used to set the default content-formatting for use with the export verb
 
 
 
@@ -557,7 +545,7 @@ In all, AVX-Quelle manifests six user-controlled settings. Each allows all three
 | similarity.word  | word      | fuzzy phonetics matching as described above, but this prefix only affects similarity matching on the word. | 33% to 100% **or** *off*                      | off           |
 | similarity.lemma | lemma     | fuzzy phonetics matching as described above, but this prefix only affects similarity matching on the lemma. | 33% to 100% **or** *off*                      | off           |
 | revision         | -         | Not really a true setting: it works with the *@get* command to retrieve the revision number of the S4T grammar supported by AV-Engine. This value is read-only. | 4.x.yz                                        | n/a           |
-| ALL              | -         | ALL is an aggregate setting: it works with the *@clear* command to reset all variables above to their default values. It is used with *@get* to fetch all settings. It can also be used in the settings block of a statement to override values to default or the currently saved values for situations where a macro is utilized. | n/a                                           | n/a           |
+| ALL              | -         | ALL is an aggregate setting: it works with the *@clear* command to reset all variables above to their default values. It is used with *@get* to fetch all settings. | n/a                                           | n/a           |
 
 **TABLE 2-3.d** - Summary of AV-Bible Settings
 

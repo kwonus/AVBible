@@ -72,7 +72,7 @@
                     case "set":
                     case "clear":
                     case "get":
-                    case "absorb": return Path.Combine(HelpFolder, "index-settings.html");
+                    case "use": return Path.Combine(HelpFolder, "index-settings.html");
 
                     case "macro":
                     case "history":

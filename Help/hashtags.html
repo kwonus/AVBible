@@ -25,13 +25,13 @@ It’s that simple, now instead of typing the entire statement, we can utilize t
 
 ### History Hashtags *(numerics)*
 
-The *use* command works for command-history works exactly the same way as it does for macros.  After issuing a *@view* command to show history, the user might receive a response as follows.
+The hashtag utilization works for command-history works exactly the same way as it does for macros.  After issuing a *@view* command to show history, the user might receive a response as follows.
 
 *@view 3*
 
 3> eternal power
 
-And the use command can utilize any command listed.
+And implicit hashtag utilization allows he reissue any previous command.
 
 #3
 
@@ -44,7 +44,7 @@ would be shorthand to for the search specified as:
 | Action             | Syntax                                                       |
 | ------------------ | ------------------------------------------------------------ |
 | **@view**          | *tag*                                                        |
-| **@absorb**        | *tag*                                                        |
+| **@use**           | *tag*                                                        |
 | **@delete**        | *tag*                                                        |
 | **@macros**        | *wildcard*  ***<- OR ->***   ***from*** {DATE} <u>and/or</u> ***to*** {DATE} |
 | **@macros delete** | *wildcard*  ***<- OR ->***   ***from*** {DATE} <u>and/or</u> ***to*** {DATE} |
@@ -66,20 +66,20 @@ If the user wanted to remove this definition, the \@delete action is used:
 
 \@delete another-macro
 
-If you want the same settings to be persisted to your current session that were in place during macro definition, the \@absorb command will persist all settings for the macro into your current session
+If you want the same settings to be persisted to your current session that were in place during macro definition, the \@use command will persist all settings for the macro into your current session
 
-\@absorb my-favorite-settings-macro 
+\@use my-favorite-settings-macro 
 
 **NOTE:**
 
-​       \@absorb also works with search history.
+​       \@use also works with search history.
 
 ### Viewing & Managing Search History
 
 | Verb                | Parameters                                                   |
 | ------------------- | ------------------------------------------------------------ |
 | **@view**           | *tag*                                                        |
-| **@absorb**         | *tag*                                                        |
+| **@use**            | *tag*                                                        |
 | **@delete**         | *tag*                                                        |
 | **@history**        | *<u>optional:</u>*  ***from*** {DATE} <u>and/or</u> ***to*** {DATE} |
 | **@history delete** | ***from*** {DATE} <u>and/or</u> ***to*** {DATE}              |
@@ -127,7 +127,7 @@ If the user wanted to remove this item, the \@delete action is used:
 
 ### Hashtag Utilization
 
-The *use* command behaves identically, whether for macro utilization or history utilization.
+Hashtag utilization behaves identically for history tags and macro tags.
 
 In the selection block of a search expression, every aspect of the hashtag is utilized (Search, scope, and settings). This is called full hashtag utilization. There is one caveat however:
 
