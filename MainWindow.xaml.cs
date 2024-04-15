@@ -1332,6 +1332,11 @@
                         this.DisplayStatus("Setting updated successfully", MainWindow.SuccessStatus);
                         this.Results = null;
                     }
+                    else if (type == typeof(QDeleteHistory) || type == typeof(QDeleteMacro))
+                    {
+                        this.DisplayStatus(tuple.message, MainWindow.SuccessStatus);
+                        this.Results = null;
+                    }
                     else
                     {
                         this.DisplayStatus("Not implemented yet", MainWindow.WarningStatus);
