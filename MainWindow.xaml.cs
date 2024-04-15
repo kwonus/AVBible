@@ -1322,7 +1322,7 @@
                         this.Help.ShowHelpPanel(text);
                         this.Results = null;
                     }
-                    else if (type == typeof(QAbsorb) || type == typeof(QGet) || type == typeof(QViewHistory) || type == typeof(QViewMacro) || type == typeof(QBulkHistory) || type == typeof(QBulkMacros))
+                    else if (type == typeof(QClear) || type == typeof(QAbsorb) || type == typeof(QGet) || type == typeof(QViewHistory) || type == typeof(QViewMacro) || type == typeof(QBulkHistory) || type == typeof(QBulkMacros))
                     {
                         this.ResultsBQL.ShowResultsPanel(tuple.message);
                         this.Results = null;
