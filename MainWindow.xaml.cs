@@ -1301,7 +1301,17 @@
             else if (message)
             {
                 success = tuple.message.Equals("ok", StringComparison.InvariantCultureIgnoreCase);
-                if (!success)
+                if (success)
+                {
+                    switch (tuple.directive)
+                    {
+                        case DirectiveResultType.MacroCreated: this.DisplayStatus("Macro created.", MainWindow.SuccessStatus); break;
+                        case DirectiveResultType.MacroCreationFailed: this.DisplayStatus("Macro creation failed.", MainWindow.ErrorStatus); break;
+                        case DirectiveResultType.ExportSuccessful: this.DisplayStatus("Export succeeded.", MainWindow.SuccessStatus); break;
+                        case DirectiveResultType.ExportFailed: this.DisplayStatus("Export failed.", MainWindow.ErrorStatus); break;
+                    }
+                }
+                else
                 {
                     Console.Error.WriteLine(tuple.message);
                     this.DisplayStatus(tuple.message, MainWindow.ErrorStatus);

@@ -13,14 +13,14 @@ There are two types of S4T statements
 
 | Statement Type       | Syntax                                                       |
 | -------------------- | ------------------------------------------------------------ |
-| Selection  Statement | Combines search criteria and scoping filters for tailored verse selection.<br/>Configuration settings can also be combined and incorporated into the selection criteria. |
+| Selection Statement  | Combines search criteria and scoping filters for tailored verse selection.<br/>Configuration settings can also be combined and incorporated into the selection criteria. |
 | Imperative Statement | single action for configuration and/or application control (cannot be combined with other actions) |
 
 #### Selection Criteria (includes search operations)
 
-Selection Statement contains <u>required</u> Selection Criteria, followed by an <u>optional</u> Directive:
+Selection Statement contains Selection Criteria, followed by an <u>optional</u> Directive:
 
-The selection criteria controls how verses are selected. It is made up of one to three blocks. The ordering of blocks is partly prescribed. When present, the expression block must be in the initial position. The scoping block and the settings-block must follow the expression when provided. The scoping block and settings-block can be in either order (so long as they are listed before the scoping block when present). 
+The selection criteria controls how verses are selected. It is made up of one to three blocks. The ordering of blocks is partly prescribed. When present, the expression block must be in the initial position. The scoping block and/or the settings-block follow the expression block (when expressed). So long as scoping clauses are grouped into a single block <u>and</u> the settings clauses are grouped into a single block, those two blocks can be in either order (so long as they are listed after the expression block when it is expressed). 
 
 - Search Expression Block
 - Settings Block
