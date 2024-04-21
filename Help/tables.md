@@ -102,7 +102,6 @@
 | **Markdown**        | *@format = markdown* | *@format = md*   |
 | **Text** (UTF8)     | *@format = text*     | *@format = utf8* |
 | **HTML**            | *@format = html*     |                  |
-| **JSON**            | *@format = json*     |                  |
 | **YAML**            | *@format = yaml*     |                  |
 
 ### SETTINGS ACTIONS
