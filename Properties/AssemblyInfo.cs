@@ -1,18 +1,18 @@
 ﻿using System.Reflection;
-using System.Resources;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Markup;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AVBible")]
-[assembly: AssemblyDescription("AV Bible for Windows")]
+[assembly: AssemblyTitle("AV-Bible")]
+[assembly: AssemblyDescription("AV-Bible for Windows")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("DigitalAV")]
-[assembly: AssemblyProduct("AVBible")]
-[assembly: AssemblyCopyright("Copyright © 1996-2021")]
+[assembly: AssemblyCompany("Digital-AV")]
+[assembly: AssemblyProduct("AV-Bible")]
+[assembly: AssemblyCopyright("Copyright © 1996-2024")]
+[assembly: RootNamespace("AVBible")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -51,5 +51,5 @@ using System.Windows;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("8.1.8.30")]
-[assembly: AssemblyFileVersion("8.1.8.30")]
+[assembly: AssemblyVersion("9.24.4.29")]
+[assembly: AssemblyFileVersion("9.24.4.29")]
