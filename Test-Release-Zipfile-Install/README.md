@@ -28,7 +28,7 @@ https://github.com/kwonus/AVBible/raw/omega/Test-Release-Zipfile-Install/AV-Bibl
 
 Extract the contents of the "zip file" to a folder (Right-click on downloaded zip file and select \<Extract All\>
 
-It might default to a folder named AV-Bible-2024 in downloads; that works, or it can be save to any folder.
+It might default to a folder named AV-Bible-2024 in downloads; that works, or it can be saved to any folder.
 
 Wherever it is extracted to, that is where you can run it from.
 
