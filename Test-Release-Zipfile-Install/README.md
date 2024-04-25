@@ -21,7 +21,7 @@ Install WebView2, by going to https://developer.microsoft.com/en-us/microsoft-ed
 
 **STEP #2:**
 
-To run the test release of AV-Bible-2024, download and install this "zip file":
+To run the test release of AV-Bible-2024, download and install this "zip file":<br/>
 https://github.com/kwonus/AVBible/raw/omega/Test-Release-Zipfile-Install/AV-Bible-2024.zip
 
 **STEP #3**
