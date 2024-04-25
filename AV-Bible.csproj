@@ -1,0 +1,173 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Globals">
+    <WebView2UseWinRT>False</WebView2UseWinRT>
+    <WV2WinRTPlatformReferencesLevel>explicit</WV2WinRTPlatformReferencesLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows10.0.17763.0</TargetFramework>
+    <OutputType>WinExe</OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWPF>true</UseWPF>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <StartupObject>AVBible.App</StartupObject>
+    <ApplicationIcon>gutenburg-press-256.ico</ApplicationIcon>
+    <Win32Resource />
+    <PackageProjectUrl>http://Digital-AV.org</PackageProjectUrl>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
+    <Platforms>AnyCPU;x64;x86</Platforms>
+    <Copyright>© Kevin Wonus</Copyright>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <OutputPath>bin\x64\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <OutputPath>bin\x86\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="gutenburg-press-256.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="gutenburg-press-256.ico" />
+    <Resource Include="Images\Arrow - Down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Arrow - Left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Arrow - Right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Arrow - Up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Blank - Black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Blank - Blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Border 01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\gear.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\gear2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Glossy Grey Square.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GPanel-0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GPanel-00.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GPanel-1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GPanel-2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GPanel-3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GPanel-4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GPanel-5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GPanel-N.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Gradient Border YellowLight Square.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Gradient Yellow Square.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\leather-metal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Metal 2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\mono_many.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\MPanel-0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\MPanel-00.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\MPanel-1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\MPanel-2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\MPanel-3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\MPanel-4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\MPanel-5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\MPanel-N.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Orb Glossy White.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SearchBubble.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Shadow 3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Shadow Bottom 01 - Black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AV-Engine\AV-Engine.csproj" />
+    <ProjectReference Include="..\AV-Search\AV-Search.csproj" />
+    <ProjectReference Include="..\BlackLightFork\Blacklight.Controls.Wpf.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\blank-190.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Remove="packages\Microsoft.ProjectReunion.WinUI.0.8.0\lib\net5.0-windows10.0.18362.0\Microsoft.WinUI\Themes\generic.xaml" />
+    <Page Remove="packages\Microsoft.ProjectReunion.WinUI.0.8.0\lib\uap10.0\Microsoft.UI\Themes\generic.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2365.46" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+</Project>
