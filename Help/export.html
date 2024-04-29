@@ -2,7 +2,7 @@
 
 | Export Directive  *(follows Selection Criteria)* |   Create file    | Create or Overwrite file | Create or Append File |
 | ------ | :---------: | --------------- | ------------------------------- |
-| *export*                                         | **>** *filename* | **=>** *filename*        | **>>** *filename*     |
+| *export*                                         | **?>** *filename* | **>** *filename*        | **>>** *filename*     |
 
 **Table 1-3** - Syntax summary for the *export* action in the Export Directive of a Selection/Search imperative statement.
 
@@ -20,7 +20,11 @@ Combining only with a scoping black , we could append Genesis chapter two, to an
 
 Combining with a scoping black , we could replace the contents of an existing file with Genesis chapter three:
 
-< Genesis 3  => C:\users\my-user-name\documents\existing-file.md
+< Genesis 3  > C:\users\my-user-name\documents\existing-file.md
+
+If you want to avoid accidental overwriting of previous exports, then you can do this:
+
+< Genesis 3  **?**> C:\users\my-user-name\documents\existing-file.md
 
 **Export Format Options:**
 
@@ -29,7 +33,6 @@ Combining with a scoping black , we could replace the contents of an existing fi
 | **Markdown**        | *@format = markdown* | *@format = md*   |
 | **Text** (UTF8)     | *@format = text*     | *@format = utf8* |
 | **HTML**            | *@format = html*     |                  |
-| **JSON**            | *@format = json*     |                  |
 | **YAML**            | *@format = yaml*     |                  |
 
 See the **@set** format command by issuing this imperative:
