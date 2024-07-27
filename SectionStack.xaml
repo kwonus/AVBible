@@ -133,7 +133,6 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="130" />
@@ -141,13 +140,14 @@
                 </Grid.ColumnDefinitions>
                 <Label Name="B40" Grid.Row="0" Grid.Column="0" Foreground="White" MouseMove="Book_MouseMove" MouseUp="Book_OnMouseUp" TouchUp="Book_OnTouchUp">Matthew</Label>
                 <Label Name="B41" Grid.Row="1" Grid.Column="0" Foreground="White" MouseMove="Book_MouseMove" MouseUp="Book_OnMouseUp" TouchUp="Book_OnTouchUp">Mark</Label>
-                <Label Name="B42" Grid.Row="2" Grid.Column="0" Foreground="White" MouseMove="Book_MouseMove" MouseUp="Book_OnMouseUp" TouchUp="Book_OnTouchUp">Luke</Label>
-                <Label Name="B43" Grid.Row="3" Grid.Column="0" Foreground="White" MouseMove="Book_MouseMove" MouseUp="Book_OnMouseUp" TouchUp="Book_OnTouchUp">John</Label>
-                <Label Name="B44" Grid.Row="0" Grid.Column="1" Foreground="White" MouseMove="Book_MouseMove" MouseUp="Book_OnMouseUp" TouchUp="Book_OnTouchUp">Acts</Label>
+                <Label Name="B42" Grid.Row="0" Grid.Column="1" Foreground="White" MouseMove="Book_MouseMove" MouseUp="Book_OnMouseUp" TouchUp="Book_OnTouchUp">Luke</Label>
+                <Label Name="B43" Grid.Row="1" Grid.Column="1" Foreground="White" MouseMove="Book_MouseMove" MouseUp="Book_OnMouseUp" TouchUp="Book_OnTouchUp">John</Label>
+                <Label Name="B44" Grid.Row="2" Grid.Column="1" Foreground="White" MouseMove="Book_MouseMove" MouseUp="Book_OnMouseUp" TouchUp="Book_OnTouchUp">Acts</Label>
             </Grid>
             <Label Name="NTChurch" Background="DarkGray" MouseMove="Section_MouseMove" MouseUp="Section_OnMouseUp" TouchUp="Section_OnTouchUp" Margin="20,0,20,0">Church Epistles</Label>
             <Grid Visibility="Collapsed" Name="PanelChurchEpistles" Margin="20,0,20,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" TextBlock.FontFamily="calibri" TextBlock.FontSize="14">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -160,16 +160,16 @@
                 <Label Name="B45" Grid.Row="0" Grid.Column="0" Foreground="White" MouseMove="Book_MouseMove" MouseUp="Book_OnMouseUp" TouchUp="Book_OnTouchUp">Romans</Label>
                 <Label Name="B46" Grid.Row="1" Grid.Column="0" Foreground="White" MouseMove="Book_MouseMove" MouseUp="Book_OnMouseUp" TouchUp="Book_OnTouchUp">1 Corinthians</Label>
                 <Label Name="B47" Grid.Row="2" Grid.Column="0" Foreground="White" MouseMove="Book_MouseMove" MouseUp="Book_OnMouseUp" TouchUp="Book_OnTouchUp">2 Corinthians</Label>
-                <Label Name="B48" Grid.Row="0" Grid.Column="1" Foreground="White" MouseMove="Book_MouseMove" MouseUp="Book_OnMouseUp" TouchUp="Book_OnTouchUp">Galations</Label>
-                <Label Name="B49" Grid.Row="1" Grid.Column="1" Foreground="White" MouseMove="Book_MouseMove" MouseUp="Book_OnMouseUp" TouchUp="Book_OnTouchUp">Ephesians</Label>
-                <Label Name="B50" Grid.Row="2" Grid.Column="1" Foreground="White" MouseMove="Book_MouseMove" MouseUp="Book_OnMouseUp" TouchUp="Book_OnTouchUp">Phillipians</Label>
-                <Label Name="B51" Grid.Row="3" Grid.Column="1" Foreground="White" MouseMove="Book_MouseMove" MouseUp="Book_OnMouseUp" TouchUp="Book_OnTouchUp">Colossians</Label>
+                <Label Name="B48" Grid.Row="3" Grid.Column="0" Foreground="White" MouseMove="Book_MouseMove" MouseUp="Book_OnMouseUp" TouchUp="Book_OnTouchUp">Galations</Label>
+                <Label Name="B49" Grid.Row="4" Grid.Column="0" Foreground="White" MouseMove="Book_MouseMove" MouseUp="Book_OnMouseUp" TouchUp="Book_OnTouchUp">Ephesians</Label>
+                <Label Name="B50" Grid.Row="0" Grid.Column="1" Foreground="White" MouseMove="Book_MouseMove" MouseUp="Book_OnMouseUp" TouchUp="Book_OnTouchUp">Phillipians</Label>
+                <Label Name="B51" Grid.Row="1" Grid.Column="1" Foreground="White" MouseMove="Book_MouseMove" MouseUp="Book_OnMouseUp" TouchUp="Book_OnTouchUp">Colossians</Label>
+                <Label Name="B52" Grid.Row="2" Grid.Column="1" Foreground="White" MouseMove="Book_MouseMove" MouseUp="Book_OnMouseUp" TouchUp="Book_OnTouchUp">1 Thessalonians</Label>
+                <Label Name="B53" Grid.Row="3" Grid.Column="1" Foreground="White" MouseMove="Book_MouseMove" MouseUp="Book_OnMouseUp" TouchUp="Book_OnTouchUp">2 Thessalonians</Label>
             </Grid>
             <Label Name="NTPastoral" Background="DarkGray" MouseMove="Section_MouseMove" MouseUp="Section_OnMouseUp" TouchUp="Section_OnTouchUp" Margin="20,0,20,0">Pastoral Epistles</Label>
             <Grid Visibility="Collapsed" Name="PanelPastoralEpistles" Margin="20,0,20,0" VerticalAlignment="Top" HorizontalAlignment="Stretch" TextBlock.FontFamily="calibri" TextBlock.FontSize="14">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
@@ -177,10 +177,8 @@
                     <ColumnDefinition Width="120" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Label Name="B52" Grid.Row="0" Grid.Column="0" Foreground="White" MouseMove="Book_MouseMove" MouseUp="Book_OnMouseUp" TouchUp="Book_OnTouchUp">1 Thessalonians</Label>
-                <Label Name="B53" Grid.Row="1" Grid.Column="0" Foreground="White" MouseMove="Book_MouseMove" MouseUp="Book_OnMouseUp" TouchUp="Book_OnTouchUp">2 Thessalonians</Label>
-                <Label Name="B54" Grid.Row="2" Grid.Column="0" Foreground="White" MouseMove="Book_MouseMove" MouseUp="Book_OnMouseUp" TouchUp="Book_OnTouchUp">1 Timothy</Label>
-                <Label Name="B55" Grid.Row="3" Grid.Column="0" Foreground="White" MouseMove="Book_MouseMove" MouseUp="Book_OnMouseUp" TouchUp="Book_OnTouchUp">2 Timothy</Label>
+                <Label Name="B54" Grid.Row="0" Grid.Column="0" Foreground="White" MouseMove="Book_MouseMove" MouseUp="Book_OnMouseUp" TouchUp="Book_OnTouchUp">1 Timothy</Label>
+                <Label Name="B55" Grid.Row="1" Grid.Column="0" Foreground="White" MouseMove="Book_MouseMove" MouseUp="Book_OnMouseUp" TouchUp="Book_OnTouchUp">2 Timothy</Label>
                 <Label Name="B56" Grid.Row="0" Grid.Column="1" Foreground="White" MouseMove="Book_MouseMove" MouseUp="Book_OnMouseUp" TouchUp="Book_OnTouchUp">Titus</Label>
                 <Label Name="B57" Grid.Row="1" Grid.Column="1" Foreground="White" MouseMove="Book_MouseMove" MouseUp="Book_OnMouseUp" TouchUp="Book_OnTouchUp">Philemon</Label>
             </Grid>
