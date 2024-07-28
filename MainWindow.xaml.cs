@@ -22,6 +22,7 @@
     using Blueprint.Blue;
     using System.Linq;
     using Blueprint.Model.Implicit;
+    using Windows.UI.WebUI;
 
     internal class ChapterSpec
     {
@@ -1396,14 +1397,20 @@
                     if (exp.Books.ContainsKey(b))
                     {
                         QueryBook bk = exp.Books[b];
-                        if (bk.Chapters.ContainsKey(c))
-                        {
-                            QueryChapter ch = bk.Chapters[c];
+                        byte v = 0;
 
-                            foreach (QueryMatch match in bk.Matches.Values)
+                        foreach (var match in bk.Matches.Values)
+                        {
+                            byte mc = match.Start.C;
+
+                            if (mc == c)
                             {
-                                if (match.Start.InRange(b, c) || match.Until.InRange(b, c))
+                                byte mv = match.Start.V;
+                                if (mv > v)
+                                {
+                                    v = mv;
                                     weight++;
+                                }
                             }
                         }
                     }
