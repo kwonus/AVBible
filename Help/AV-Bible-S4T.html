@@ -392,7 +392,6 @@ Specifically, the following statements / clauses are not supported by S4T:
 It should be noted that any historic id references are expanded prior to applying the new tags for macros. As mentioned in the previous section, we call this macro-determinism.  Therefore, even if an id is removed from the search history with the \@delete command, any macros that it were referenced within, continue to behave identically post-deletion.
 
 
-
 ## Section 2 - Configuration Statements
 
 ### 2.1 - Macros
@@ -403,365 +402,364 @@ It should be noted that any historic id references are expanded prior to applyin
 | **@use**           | *tag*                                                        |
 | **@delete**        | *tag*                                                        |
 | **@macros**        | *wildcard*  ***<- OR ->***   ***from*** {DATE} <u>and/or</u> ***to*** {DATE} |
-| **@macros delete** | *wildcard*  ***<- OR ->
-    ***   ***from*** {DATE} <u>and/or</u> ***to*** {DATE} |
+| **@macros delete** | *wildcard*  ***<- OR ->***   ***from*** {DATE} <u>and/or</u> ***to*** {DATE} |
 
-    **TABLE 2-1** -- **Viewing and deleting macros**
+**TABLE 2-1** -- **Viewing and deleting macros**
 
-    **DATE PARAMETER:**<br />{DATE}: any of:
+**DATE PARAMETER:**<br />{DATE}: any of:
 
-    - yyyy/mm/dd
-    - yyyy-mm-dd
-    - mm/dd/yyyy
-    - mm-dd-yyyy
+- yyyy/mm/dd
+- yyyy-mm-dd
+- mm/dd/yyyy
+- mm-dd-yyyy
 
-    ##### Overview of macro commands:
+##### Overview of macro commands:
 
-    Viewing and Deletion of macros and history are nearly identical for single hashtag references. In the case of macros, we supply the tag name or label as a parameter to the view command:
+Viewing and Deletion of macros and history are nearly identical for single hashtag references. In the case of macros, we supply the tag name or label as a parameter to the view command:
 
-    \@view another-macro
+\@view another-macro
 
-    If the user wanted to remove this definition, the \@delete action is used:
+If the user wanted to remove this definition, the \@delete action is used:
 
-    \@delete another-macro
+\@delete another-macro
 
-    If you want the same settings to be persisted to your current session that were in place during macro definition, the \@use command will persist all settings for the macro into your current session
+If you want the same settings to be persisted to your current session that were in place during macro definition, the \@use command will persist all settings for the macro into your current session
 
-    \@use my-favorite-settings-macro
+\@use my-favorite-settings-macro
 
-    **NOTE:**
+**NOTE:**
 
-    ​       \@use also works with search history.
+​       \@use also works with search history.
 
-    ### 2.2 - History
+### 2.2 - History
 
-    | Verb                | Parameters                                                   |
-    | ------------------- | ------------------------------------------------------------ |
-    | **@view**           | *tag*                                                        |
-    | **@use**            | *tag*                                                        |
-    | **@delete**         | *tag*                                                        |
-    | **@history**        | *<u>optional:</u>*  ***from*** {DATE} <u>and/or</u> ***to*** {DATE} |
-    | **@history delete** | ***from*** {DATE} <u>and/or</u> ***to*** {DATE}              |
+| Verb                | Parameters                                                   |
+| ------------------- | ------------------------------------------------------------ |
+| **@view**           | *tag*                                                        |
+| **@use**            | *tag*                                                        |
+| **@delete**         | *tag*                                                        |
+| **@history**        | *<u>optional:</u>*  ***from*** {DATE} <u>and/or</u> ***to*** {DATE} |
+| **@history delete** | ***from*** {DATE} <u>and/or</u> ***to*** {DATE}              |
 
-    **TABLE 2-2** -- **Viewing & deleting history**
+**TABLE 2-2** -- **Viewing & deleting history**
 
-    **DATE PARAMETER:**<br />{DATE}: any of:
+**DATE PARAMETER:**<br />{DATE}: any of:
 
-    - yyyy/mm/dd
-    - yyyy-mm-dd
-    - mm/dd/yyyy
-    - mm-dd-yyyy
+- yyyy/mm/dd
+- yyyy-mm-dd
+- mm/dd/yyyy
+- mm-dd-yyyy
 
-    **SEARCH HISTORY**
+**SEARCH HISTORY**
 
-    *@history* allows you to see your previous activity.  To show the last ten searches, type:
+*@history* allows you to see your previous activity.  To show the last ten searches, type:
 
-    *@history*
+*@history*
 
-    To reveal all searches since January 1, 2024, type:
+To reveal all searches since January 1, 2024, type:
 
-    *@history* from 2024/1/1
+*@history* from 2024/1/1
 
-    To reveal for the single month of January 2024:
+To reveal for the single month of January 2024:
 
-    *@history* from 2024/1/1 to 2024/1/31
+*@history* from 2024/1/1 to 2024/1/31
 
-    To reveal all history since tag:5 [inclusive]:
+To reveal all history since tag:5 [inclusive]:
 
-    All ranges are inclusive.
+All ranges are inclusive.
 
-    **History Utilization**
+**History Utilization**
 
-    The hashtag *utilization* works for command-history works exactly the same way as it does for macros.  After issuing a *@view* command, the user might receive a response as follows.
+The hashtag *utilization* works for command-history works exactly the same way as it does for macros.  After issuing a *@view* command, the user might receive a response as follows.
 
-    *@view 3*
+*@view 3*
 
-    3> eternal power
+3> eternal power
 
-    And the command can be re-invoked as follows:
+And the command can be re-invoked as follows:
 
-    #3
+#3
 
-    That would be an abbreviated way to execute a search specified as:
+That would be an abbreviated way to execute a search specified as:
 
-    eternal power
+eternal power
 
-    Again, *utilizing* a command from your command history is *used* just like a macro. Moreover, as with macros, control settings are persisted within your command history to provide invocation determinism. That means that control settings that were in place during the original command are utilized for the invocation.
+Again, *utilizing* a command from your command history is *used* just like a macro. Moreover, as with macros, control settings are persisted within your command history to provide invocation determinism. That means that control settings that were in place during the original command are utilized for the invocation.
 
-    Command history captures all settings. We have already discussed macro-determinism. Invoking commands by their history tags behave exactly as invoking with macro tags. Specifically, invoking command history never persists changes into your environment, unless you explicitly request such behavior with the \@use command.
+Command history captures all settings. We have already discussed macro-determinism. Invoking commands by their history tags behave exactly as invoking with macro tags. Specifically, invoking command history never persists changes into your environment, unless you explicitly request such behavior with the \@use command.
 
-    **RESETTING COMMAND HISTORY**
+**RESETTING COMMAND HISTORY**
 
-    The *@history* command can be used to remove <u>all</u> command history. To remove all command history:
+The *@history* command can be used to remove <u>all</u> command history. To remove all command history:
 
-    *@history delete all*
+*@history delete all*
 
-    FROM / TO parameters can limit the scope of the delete command:
+FROM / TO parameters can limit the scope of the delete command:
 
-    *@history delete from 12/31/2023 to 4/17/2024*
+*@history delete from 12/31/2023 to 4/17/2024*
 
-    ### 2.3 - Settings
+### 2.3 - Settings
 
-    | Action     | Parameters                   |
-    | ---------- | ---------------------------- |
-    | **@clear** | *setting* or ALL             |
-    | **@get**   | *setting* or ALL or revision |
-    | **@set**   | *setting* **=** *value*      |
-    | **@use**   | ***tag***                    |
+| Action     | Parameters                   |
+| ---------- | ---------------------------- |
+| **@clear** | *setting* or ALL             |
+| **@get**   | *setting* or ALL or revision |
+| **@set**   | *setting* **=** *value*      |
+| **@use**   | ***tag***                    |
 
-    **TABLE 2-3.a** - **Listing of additional CONTROL actions**
+**TABLE 2-3.a** - **Listing of additional CONTROL actions**
 
 
 
-    **Export Format Options:**
+**Export Format Options:**
 
-    | Export Content Type | Command              | Synonym          |
-    | ------------------- | -------------------- | ---------------- |
-    | **Markdown**        | *@format = markdown* | *@format = md*   |
-    | **Text** (UTF8)     | *@format = text*     | *@format = utf8* |
-    | **HTML**            | *@format = html*     |                  |
-    | **YAML**            | *@format = yaml*     |                  |
+| Export Content Type | Command              | Synonym          |
+| ------------------- | -------------------- | ---------------- |
+| **Markdown**        | *@format = markdown* | *@format = md*   |
+| **Text** (UTF8)     | *@format = text*     | *@format = utf8* |
+| **HTML**            | *@format = html*     |                  |
+| **YAML**            | *@format = yaml*     |                  |
 
-    **TABLE 2-3.b** - **@set** format command can be used to set the default content-formatting for use with the export verb
+**TABLE 2-3.b** - **@set** format command can be used to set the default content-formatting for use with the export verb
 
 
 
-    | **example**       | **explanation**                                              | shorthand equivalent |
-    | ----------------- | ------------------------------------------------------------ | -------------------- |
-    | **@set** span = 8 | Assign a control setting                                     | **@span** = 8        |
-    | **@get** span     | get a control setting                                        | n/a                  |
-    | **@clear** span   | Clear the setting; restores the setting to its default value | n/a                  |
+| **example**       | **explanation**                                              | shorthand equivalent |
+| ----------------- | ------------------------------------------------------------ | -------------------- |
+| **@set** span = 8 | Assign a control setting                                     | **@span** = 8        |
+| **@get** span     | get a control setting                                        | n/a                  |
+| **@clear** span   | Clear the setting; restores the setting to its default value | n/a                  |
 
-    **TABLE 2-3.c** - **set/clear/get** action operate on configuration settings
+**TABLE 2-3.c** - **set/clear/get** action operate on configuration settings
 
-    In all, AVX-Quelle manifests six user-controlled settings. Each allows all three actions: ***set***, ***@clear***, and ***@get*** verbs. There are two additional settings that are effectively read-only, albeit, ALL does work with *@clear* Table 2.3.d lists all settings .
+In all, AVX-Quelle manifests six user-controlled settings. Each allows all three actions: ***set***, ***@clear***, and ***@get*** verbs. There are two additional settings that are effectively read-only, albeit, ALL does work with *@clear* Table 2.3.d lists all settings .
 
-    | Setting Name     | Shorthand | Meaning                                                      | Values                                        | Default Value |
-    | ---------------- | --------- | ------------------------------------------------------------ | --------------------------------------------- | ------------- |
-    | span             | -         | proximity distance limit (can be "verse" or number of words) | verse or<br /> 1 to 999                        | verse         |
-    | lexicon          | -         | Streamlined syntax for setting lexicon.search<br /> and lexicon.render to the same value | av or avx or dual<br />(kjv or modern or both) | n/a           |
-    | lexicon.search   | search    | the lexicon to be used for searching                         | av or avx or dual<br />(kjv or modern or both) | dual / both   |
-    | lexicon.render   | render    | the lexicon to be used for display/rendering                 | av/avx (kjv/modern)                           | av / kjv      |
-    | format           | -         | format of results on output                                  | see Table 7                                   | text / utf8   |
-    | similarity       | -         | Streamlined syntax for setting similarity.word<br />and similarity.lemma to the same value<br />Phonetics matching threshold is between 33% and 100%. 100% represents an exact sounds-alike match. Any percentage less than 100, represents a fuzzy sounds-similar match <br />Similarity matching can be completely disabled by setting this value to off | 33% to 100% **or** *off*                      | off           |
-    | similarity.word  | word      | fuzzy phonetics matching as described above, but this prefix only affects similarity matching on the word. | 33% to 100% **or** *off*                      | off           |
-    | similarity.lemma | lemma     | fuzzy phonetics matching as described above, but this prefix only affects similarity matching on the lemma. | 33% to 100% **or** *off*                      | off           |
-    | revision         | -         | Not really a true setting: it works with the *@get* command to retrieve the revision number of the S4T grammar supported by AV-Engine. This value is read-only. | 4.x.yz                                        | n/a           |
-    | ALL              | -         | ALL is an aggregate setting: it works with the *@clear* command to reset all variables above to their default values. It is used with *@get* to fetch all settings. | n/a                                           | n/a           |
+| Setting Name     | Shorthand | Meaning                                                      | Values                                        | Default Value |
+| ---------------- | --------- | ------------------------------------------------------------ | --------------------------------------------- | ------------- |
+| span             | -         | proximity distance limit (can be "verse" or number of words) | verse or<br /> 1 to 999                        | verse         |
+| lexicon          | -         | Streamlined syntax for setting lexicon.search<br /> and lexicon.render to the same value | av or avx or dual<br />(kjv or modern or both) | n/a           |
+| lexicon.search   | search    | the lexicon to be used for searching                         | av or avx or dual<br />(kjv or modern or both) | dual / both   |
+| lexicon.render   | render    | the lexicon to be used for display/rendering                 | av/avx (kjv/modern)                           | av / kjv      |
+| format           | -         | format of results on output                                  | see Table 7                                   | text / utf8   |
+| similarity       | -         | Streamlined syntax for setting similarity.word<br />and similarity.lemma to the same value<br />Phonetics matching threshold is between 33% and 100%. 100% represents an exact sounds-alike match. Any percentage less than 100, represents a fuzzy sounds-similar match <br />Similarity matching can be completely disabled by setting this value to off | 33% to 100% **or** *off*                      | off           |
+| similarity.word  | word      | fuzzy phonetics matching as described above, but this prefix only affects similarity matching on the word. | 33% to 100% **or** *off*                      | off           |
+| similarity.lemma | lemma     | fuzzy phonetics matching as described above, but this prefix only affects similarity matching on the lemma. | 33% to 100% **or** *off*                      | off           |
+| revision         | -         | Not really a true setting: it works with the *@get* command to retrieve the revision number of the S4T grammar supported by AV-Engine. This value is read-only. | 4.x.yz                                        | n/a           |
+| ALL              | -         | ALL is an aggregate setting: it works with the *@clear* command to reset all variables above to their default values. It is used with *@get* to fetch all settings. | n/a                                           | n/a           |
 
-    **TABLE 2-3.d** - Summary of AV-Bible Settings
+**TABLE 2-3.d** - Summary of AV-Bible Settings
 
-    The *@get* command fetches these values. The *@get* command requires a single argument. Examples are below:
+The *@get* command fetches these values. The *@get* command requires a single argument. Examples are below:
 
-    *@get* span
+*@get* span
 
-    *@get* format
+*@get* format
 
-    All settings can be cleared using an explicit command:
+All settings can be cleared using an explicit command:
 
-    *@clear* ALL
+*@clear* ALL
 
-    **Persistence of Settings**
+**Persistence of Settings**
 
-    It should be noted that there is a distinction between **@set** and and ***assign*** actions. The first action is an application configuration-imperative, and it is persistent (it affects all subsequent statements). Contrariwise, the ***assign*** action affects only the single statement wherein it is executed. We refer to this distinction as *persistence* vs *assignment*.
+It should be noted that there is a distinction between **@set** and and ***assign*** actions. The first action is an application configuration-imperative, and it is persistent (it affects all subsequent statements). Contrariwise, the ***assign*** action affects only the single statement wherein it is executed. We refer to this distinction as *persistence* vs *assignment*.
 
-    ### 2.4 - Miscellaneous Information
+### 2.4 - Miscellaneous Information
 
-    **QUERYING DRIVER FOR VERSION INFORMATION**
+**QUERYING DRIVER FOR VERSION INFORMATION**
 
-    This command reveals the current Grammar revision of the Search-for-Truth (S4T) query language, implemented  in AV-Bible:
+This command reveals the current Grammar revision of the Search-for-Truth (S4T) query language, implemented  in AV-Bible:
 
-    *@get* revision
+*@get* revision
 
-    ---
+---
 
-    In general, the S4T command processor can be thought of as a stateless server. The only exceptions of its stateless nature are:
+In general, the S4T command processor can be thought of as a stateless server. The only exceptions of its stateless nature are:
 
-    1. non-default settings assigned using the **@set** command
+1. non-default settings assigned using the **@set** command
 
-    2. defined macro tags.
+2. defined macro tags.
 
-    3. command history
+3. command history
 
 
 
-    ## Section 3 - Control Statements
+## Section 3 - Control Statements
 
-    ### 3.1 - Program Help
+### 3.1 - Program Help
 
-    To get general help, use this command:
+To get general help, use this command:
 
-    *@help*
+*@help*
 
-    Or for specific topics:
+Or for specific topics:
 
-    *@help* find
+*@help* find
 
-    *@help* set
+*@help* set
 
-    *@help* export
+*@help* export
 
-    etc ...
+etc ...
 
-    ### 3.2 - Exiting the Application
+### 3.2 - Exiting the Application
 
-    Type this to terminate the app:
+Type this to terminate the app:
 
-    *@exit*
+*@exit*
 
-    ## Section 4 - Grammar and Design Elements
+## Section 4 - Grammar and Design Elements
 
-    An object model to manifest the S4T grammar is depicted below:
+An object model to manifest the S4T grammar is depicted below:
 
-    ![QCommand](./diagrams/QCommand.png)
+![QCommand](./diagrams/QCommand.png)
 
-    ### 4.1 - Glossary of S4T Terminology
+### 4.1 - Glossary of S4T Terminology
 
-    **Actions:** Actions are complete verb-clauses issued in the imperative [you-understood].  Many actions have one or more parameters.  But just like English, a verb phrase can be a single word with no explicit subject and no explicit object.  Consider this English sentence:
+**Actions:** Actions are complete verb-clauses issued in the imperative [you-understood].  Many actions have one or more parameters.  But just like English, a verb phrase can be a single word with no explicit subject and no explicit object.  Consider this English sentence:
 
-    Go!
+Go!
 
-    The subject of this sentence is "you understood".  Similarly, all verbs are issued without an explicit subject. The object of the verb in the one word sentence above is also unstated.  S4T operates in an analogous manner.  Consider this English sentence:
+The subject of this sentence is "you understood".  Similarly, all verbs are issued without an explicit subject. The object of the verb in the one word sentence above is also unstated.  S4T operates in an analogous manner.  Consider this English sentence:
 
-    Go Home!
+Go Home!
 
-    Like the earlier example, the subject is "you understood".  The object this time is defined, and insists that "you" should go home.  Some verbs always have objects, others sometimes do, and still others never do. S4T follows this same pattern and some S4T verbs require direct-objects; and some do not.  In the various tables throughout this document, required and optional parameters are identified, These parameters represent the object of the verb within each respective table.
+Like the earlier example, the subject is "you understood".  The object this time is defined, and insists that "you" should go home.  Some verbs always have objects, others sometimes do, and still others never do. S4T follows this same pattern and some S4T verbs require direct-objects; and some do not.  In the various tables throughout this document, required and optional parameters are identified, These parameters represent the object of the verb within each respective table.
 
-    **Selection Criteria**: Selection what text to render is determined with a search expression, scoping filters, or both.
+**Selection Criteria**: Selection what text to render is determined with a search expression, scoping filters, or both.
 
-    **Search Expression**: The Search Expression has fragments, and fragments have features. For an expression to match, all fragments must match (Logical AND). For a fragment to match, any feature must match (Logical OR). AND is represented by &. OR is represented by |.
+**Search Expression**: The Search Expression has fragments, and fragments have features. For an expression to match, all fragments must match (Logical AND). For a fragment to match, any feature must match (Logical OR). AND is represented by &. OR is represented by |.
 
-    **Unquoted SEARCH clauses:** an unquoted search clause contains one or more search fragments. If there is more than one fragment in the clause, then each fragment is logically AND’ed together.
+**Unquoted SEARCH clauses:** an unquoted search clause contains one or more search fragments. If there is more than one fragment in the clause, then each fragment is logically AND’ed together.
 
-    **Quoted SEARCH clauses:** a quoted clause contains a single string of terms to search. An explicit match on the string is required. However, an ellipsis ( … ) can be used to indicate that other terms may silently intervene within the quoted string.
+**Quoted SEARCH clauses:** a quoted clause contains a single string of terms to search. An explicit match on the string is required. However, an ellipsis ( … ) can be used to indicate that other terms may silently intervene within the quoted string.
 
-    - It is called *quoted,* as the entire clause is sandwiched on both sides by double-quotes ( " )
-    - The absence of double-quotes means that the statement is unquoted
+- It is called *quoted,* as the entire clause is sandwiched on both sides by double-quotes ( " )
+- The absence of double-quotes means that the statement is unquoted
 
-    **Booleans and Negations:**
+**Booleans and Negations:**
 
-    **and:** In Boolean logic, **and** means that all terms must be found. With S4T, **and** is represented by terms that appear within an unquoted clause. **And** logic is also available on each search-term by using the **&** operator.
+**and:** In Boolean logic, **and** means that all terms must be found. With S4T, **and** is represented by terms that appear within an unquoted clause. **And** logic is also available on each search-term by using the **&** operator.
 
-    **or:** In Boolean logic, **or** means that any term constitutes a match. With S4T, **and** is represented per each search-term by using the **|** operator.
+**or:** In Boolean logic, **or** means that any term constitutes a match. With S4T, **and** is represented per each search-term by using the **|** operator.
 
-    **not:** In Boolean logic, means that the feature must not be found. With S4T, *not* is represented by the hyphen ( **-** ) and applies to individual features within a fragment of a search expression. It is best used in conjunction with other features, because any non-match will be included in results.
+**not:** In Boolean logic, means that the feature must not be found. With S4T, *not* is represented by the hyphen ( **-** ) and applies to individual features within a fragment of a search expression. It is best used in conjunction with other features, because any non-match will be included in results.
 
-    hyphen ( **-** ) means that any non-match satisfies the search condition. Used by itself, it would likely return every verse. Therefore, it should be used judiciously.
+hyphen ( **-** ) means that any non-match satisfies the search condition. Used by itself, it would likely return every verse. Therefore, it should be used judiciously.
 
-    ### 4.2 - Specialized Search tokens in AV-Bible
+### 4.2 - Specialized Search tokens in AV-Bible
 
-    The lexical search domain of S4T includes all words in the original KJV text. It can also optionally search using a modernized lexicon of the KJV (e.g. hast and has; this is controllable with the search.lexicon setting).  The table below lists linguistic extensions available in S4T.
+The lexical search domain of S4T includes all words in the original KJV text. It can also optionally search using a modernized lexicon of the KJV (e.g. hast and has; this is controllable with the search.lexicon setting).  The table below lists linguistic extensions available in S4T.
 
-    | Search Term        | Operator Type                           | Meaning                                                      | Maps To                                                      | Mask   |
-    | ------------------ | --------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------ |
-    | un\*               | wildcard (example)                      | starts with: un                                              | all lexicon entries that start with "un"                     | 0x3FFF |
-    | \*ness             | wildcard (example)                      | ends with: ness                                              | all lexicon entries that end with "ness"                     | 0x3FFF |
-    | un\*ness           | wildcard (example)                      | starts with: un<br />ends with: ness                          | all lexicon entries that start with "un", and end with "ness" | 0x3FFF |
-    | \*profit\*         | wildcard (example)                      | contains: profit                                             | all lexicon entries that contain both "profit"               | 0x3FFF |
-    | \*pro\*fit\*       | wildcard (example)                      | contains: pro and fit                                        | all lexicon entries that contain both "pro" and "fit" (in any order) | 0x3FFF |
-    | un\*profit*ness    | wildcard (example)                      | starts with: un<br />contains: profit<br />ends with: ness     | all lexicon entries that start with "un", contain "profit", and end with "ness" | 0x3FFF |
-    | un\*pro\*fit\*ness | wildcard (example)                      | starts with: un<br />contains: pro and fit<br />ends with: ness | all lexicon entries that start with "un", contain "pro" and "fit", and end with "ness" | 0x3FFF |
-    | ~ʃɛpɝd*            | phonetic wildcard (example)             | Tilde marks the wildcard as phonetic (wildcards never perform sounds-alike searching) | All lexical entries that start with the sound ʃɛpɝd (this would include shepherd, shepherds, shepherding...) | TBD    |
-    | ~ʃɛpɝdz            | sounds-alike search using IPA (example) | Tilde marks the search term as phonetic (and if similarity is set between 33 and 99, search handles approximate matching) | This would match the lexical entry "shepherds" (and possibly similar terms, depending on similarity threshold) | TDB    |
-    | \(is)              | lemma                                   | search on all words that share the same lemma as is: be, is, are, art, ... | be is are art ...                                            | 0x3FFF |
-    | /noun/             | lexical marker                          | any word where part of speech is a noun                      | POS12::0x010                                                 | 0x0FF0 |
-    | /n/                | lexical marker                          | synonym for /noun/                                           | POS12::0x010                                                 | 0x0FF0 |
-    | /verb/             | lexical marker                          | any word where part of speech is a verb                      | POS12::0x100                                                 | 0x0FF0 |
-    | /v/                | lexical marker                          | synonym for /verb/                                           | POS12::0x100                                                 | 0x0FF0 |
-    | /pronoun/          | lexical marker                          | any word where part of speech is a pronoun                   | POS12::0x020                                                 | 0x0FF0 |
-    | /pn/               | lexical marker                          | synonym for /pronoun/                                        | POS12::0x020                                                 | 0x0FF0 |
-    | /adjective/        | lexical marker                          | any word where part of speech is an adjective                | POS12::0xF00                                                 | 0x0FFF |
-    | /adj/              | lexical marker                          | synonym for /adjective/                                      | POS12::0xF00                                                 | 0x0FFF |
-    | /adverb/           | lexical marker                          | any word where part of speech is an adverb                   | POS12::0xA00                                                 | 0x0FFF |
-    | /adv/              | lexical marker                          | synonym for /adverb/                                         | POS12::0xA00                                                 | 0x0FFF |
-    | /determiner/       | lexical marker                          | any word where part of speech is a determiner                | POS12::0xD00                                                 | 0x0FF0 |
-    | /det/              | lexical marker                          | synonym for /determiner/                                     | POS12::0xD00                                                 | 0x0FF0 |
-    | /preposition/      | lexical marker                          | any word where part of speech is a preposition               | POS12::0x400                                                 | 0x0FF0 |
-    | /prep/             | lexical marker                          | any word where part of speech is a preposition               | POS12::0x400                                                 | 0x0FF0 |
-    | /1p/               | lexical marker                          | any word where it is inflected for 1st person (pronouns and verbs) | POS12::0x100                                                 | 0x3000 |
-    | /2p/               | lexical marker                          | any word where it is inflected for 2nd person (pronouns and verbs) | POS12::0x200                                                 | 0x3000 |
-    | /3p/               | lexical marker                          | any word where it is inflected for 3rd person (pronouns, verbs, and nouns) | POS12::0x300                                                 | 0x3000 |
-    | /singular/         | lexical marker                          | any word that is known to be singular (pronouns, verbs, and nouns) | POS12::0x400                                                 | 0xC000 |
-    | /plural/           | lexical marker                          | any word that is known to be plural (pronouns, verbs, and nouns) | POS12::0x800                                                 | 0xC000 |
-    | /WH/               | lexical marker                          | any word that is a WH word (e.g., Who, What, When, Where, How) | POS12::0xC00                                                 | 0xC000 |
-    | /BoB/              | transition marker                       | any word where it is the first word of the book (e.g. first word in Genesis) | TRAN::0xE0                                                   | 0xF0   |
-    | /BoC/              | transition marker                       | any word where it is the first word of the chapter           | TRAN::0x60                                                   | 0xF0   |
-    | /BoV/              | transition marker                       | any word where it is the first word of the verse             | TRAN::0x20                                                   | 0xF0   |
-    | /EoB/              | transition marker                       | any word where it is the last word of the book (e.g. last word in revelation) | TRAN::0xF0                                                   | 0xF0   |
-    | /EoC/              | transition marker                       | any word where it is the last word of the chapter            | TRAN::0x70                                                   | 0xF0   |
-    | /EoV/              | transition marker                       | any word where it is the last word of the verse              | TRAN::0x30                                                   | 0xF0   |
-    | /Hsm/              | segment marker                          | Hard Segment Marker (end) ... one of \. \? \!                | TRAN::0x40                                                   | 0x07   |
-    | /Csm/              | segment marker                          | Core Segment Marker (end) ... \:                             | TRAN::0x20                                                   | 0x07   |
-    | /Rsm/              | segment marker                          | Real Segment Marker (end) ... one of \. \? \! \:             | TRAN::0x60                                                   | 0x07   |
-    | /Ssm/              | segment marker                          | Soft Segment Marker (end) ... one of \, \; \( \) --          | TRAN::0x10                                                   | 0x07   |
-    | /sm/               | segment marker                          | Any Segment Marker (end)  ... any of the above               | TRAN::!=0x00                                                 | 0x07   |
-    | /_/                | punctuation                             | any word that is immediately marked for clausal punctuation  | PUNC::!=0x00                                                 | 0xE0   |
-    | /!/                | punctuation                             | any word that is immediately followed by an exclamation mark | PUNC::0x80                                                   | 0xE0   |
-    | /?/                | punctuation                             | any word that is immediately followed by a question mark     | PUNC::0xC0                                                   | 0xE0   |
-    | /./                | punctuation                             | any word that is immediately followed by a period (declarative) | PUNC::0xE0                                                   | 0xE0   |
-    | /-/                | punctuation                             | any word that is immediately followed by a hyphen/dash       | PUNC::0xA0                                                   | 0xE0   |
-    | /;/                | punctuation                             | any word that is immediately followed by a semicolon         | PUNC::0x20                                                   | 0xE0   |
-    | /,/                | punctuation                             | any word that is immediately followed by a comma             | PUNC::0x40                                                   | 0xE0   |
-    | /:/                | punctuation                             | any word that is immediately followed by a colon (information follows) | PUNC::0x60                                                   | 0xE0   |
-    | /'/                | punctuation                             | any word that is possessive, marked with an apostrophe       | PUNC::0x10                                                   | 0x10   |
-    | /)/                | parenthetical text                      | any word that is immediately followed by a close parenthesis | PUNC::0x0C                                                   | 0x0C   |
-    | /(/                | parenthetical text                      | any word contained within parenthesis                        | PUNC::0x04                                                   | 0x04   |
-    | /Italics/          | text decoration                         | italicized words marked with this bit in punctuation byte    | PUNC::0x02                                                   | 0x02   |
-    | /Jesus/            | text decoration                         | words of Jesus marked with this bit in punctuation byte      | PUNC::0x01                                                   | 0x01   |
-    | /delta/            | lexicon                                 | [archaic] word can be transformed into modern American English |                                                              |        |
-    | [type]             | named entity                            | Entities are recognized by MorphAdorner. They are also matched against Hitchcock's database. This functionality is experimental and considered BETA. | type=person man<br />woman tribe city<br />river mountain<br />animal gemstone<br />measurement any<br />any_Hitchcock |        |
-    | \[FFFF\]           | PN+POS(12)                              | hexadecimal representation of bits for a PN+POS(12) value.   | See Digital-AV SDK                                           | uint16 |
-    | \[FFFFFFFF\]       | POS(32)                                 | hexadecimal representation of bits for a POS(32) value.      | See Digital-AV SDK                                           | uint32 |
-    | \[string\]         | nupos-string                            | NUPOS string representing part-of-speech. This is the preferred syntax over POS(32), even though they are equivalent. NUPOS part-of-speech values have higher fidelity than the 16-bit PN+POS(12) representations. | See Part-of-Speech-for-Digital-AV.docx                       | uint32 |
-    | 99999:H            | Strongs Number                          | decimal Strongs number for the Hebrew word in the Old Testament | One of Strongs\[4\]                                          | 0x7FFF |
-    | 99999:G            | Strongs Number                          | decimal Strongs number for the Greek word in the New Testament | One of Strongs\[4\]                                          | 0x7FFF |
+| Search Term        | Operator Type                           | Meaning                                                      | Maps To                                                      | Mask   |
+| ------------------ | --------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------ |
+| un\*               | wildcard (example)                      | starts with: un                                              | all lexicon entries that start with "un"                     | 0x3FFF |
+| \*ness             | wildcard (example)                      | ends with: ness                                              | all lexicon entries that end with "ness"                     | 0x3FFF |
+| un\*ness           | wildcard (example)                      | starts with: un<br />ends with: ness                          | all lexicon entries that start with "un", and end with "ness" | 0x3FFF |
+| \*profit\*         | wildcard (example)                      | contains: profit                                             | all lexicon entries that contain both "profit"               | 0x3FFF |
+| \*pro\*fit\*       | wildcard (example)                      | contains: pro and fit                                        | all lexicon entries that contain both "pro" and "fit" (in any order) | 0x3FFF |
+| un\*profit*ness    | wildcard (example)                      | starts with: un<br />contains: profit<br />ends with: ness     | all lexicon entries that start with "un", contain "profit", and end with "ness" | 0x3FFF |
+| un\*pro\*fit\*ness | wildcard (example)                      | starts with: un<br />contains: pro and fit<br />ends with: ness | all lexicon entries that start with "un", contain "pro" and "fit", and end with "ness" | 0x3FFF |
+| ~ʃɛpɝd*            | phonetic wildcard (example)             | Tilde marks the wildcard as phonetic (wildcards never perform sounds-alike searching) | All lexical entries that start with the sound ʃɛpɝd (this would include shepherd, shepherds, shepherding...) | TBD    |
+| ~ʃɛpɝdz            | sounds-alike search using IPA (example) | Tilde marks the search term as phonetic (and if similarity is set between 33 and 99, search handles approximate matching) | This would match the lexical entry "shepherds" (and possibly similar terms, depending on similarity threshold) | TDB    |
+| \(is)              | lemma                                   | search on all words that share the same lemma as is: be, is, are, art, ... | be is are art ...                                            | 0x3FFF |
+| /noun/             | lexical marker                          | any word where part of speech is a noun                      | POS12::0x010                                                 | 0x0FF0 |
+| /n/                | lexical marker                          | synonym for /noun/                                           | POS12::0x010                                                 | 0x0FF0 |
+| /verb/             | lexical marker                          | any word where part of speech is a verb                      | POS12::0x100                                                 | 0x0FF0 |
+| /v/                | lexical marker                          | synonym for /verb/                                           | POS12::0x100                                                 | 0x0FF0 |
+| /pronoun/          | lexical marker                          | any word where part of speech is a pronoun                   | POS12::0x020                                                 | 0x0FF0 |
+| /pn/               | lexical marker                          | synonym for /pronoun/                                        | POS12::0x020                                                 | 0x0FF0 |
+| /adjective/        | lexical marker                          | any word where part of speech is an adjective                | POS12::0xF00                                                 | 0x0FFF |
+| /adj/              | lexical marker                          | synonym for /adjective/                                      | POS12::0xF00                                                 | 0x0FFF |
+| /adverb/           | lexical marker                          | any word where part of speech is an adverb                   | POS12::0xA00                                                 | 0x0FFF |
+| /adv/              | lexical marker                          | synonym for /adverb/                                         | POS12::0xA00                                                 | 0x0FFF |
+| /determiner/       | lexical marker                          | any word where part of speech is a determiner                | POS12::0xD00                                                 | 0x0FF0 |
+| /det/              | lexical marker                          | synonym for /determiner/                                     | POS12::0xD00                                                 | 0x0FF0 |
+| /preposition/      | lexical marker                          | any word where part of speech is a preposition               | POS12::0x400                                                 | 0x0FF0 |
+| /prep/             | lexical marker                          | any word where part of speech is a preposition               | POS12::0x400                                                 | 0x0FF0 |
+| /1p/               | lexical marker                          | any word where it is inflected for 1st person (pronouns and verbs) | POS12::0x100                                                 | 0x3000 |
+| /2p/               | lexical marker                          | any word where it is inflected for 2nd person (pronouns and verbs) | POS12::0x200                                                 | 0x3000 |
+| /3p/               | lexical marker                          | any word where it is inflected for 3rd person (pronouns, verbs, and nouns) | POS12::0x300                                                 | 0x3000 |
+| /singular/         | lexical marker                          | any word that is known to be singular (pronouns, verbs, and nouns) | POS12::0x400                                                 | 0xC000 |
+| /plural/           | lexical marker                          | any word that is known to be plural (pronouns, verbs, and nouns) | POS12::0x800                                                 | 0xC000 |
+| /WH/               | lexical marker                          | any word that is a WH word (e.g., Who, What, When, Where, How) | POS12::0xC00                                                 | 0xC000 |
+| /BoB/              | transition marker                       | any word where it is the first word of the book (e.g. first word in Genesis) | TRAN::0xE0                                                   | 0xF0   |
+| /BoC/              | transition marker                       | any word where it is the first word of the chapter           | TRAN::0x60                                                   | 0xF0   |
+| /BoV/              | transition marker                       | any word where it is the first word of the verse             | TRAN::0x20                                                   | 0xF0   |
+| /EoB/              | transition marker                       | any word where it is the last word of the book (e.g. last word in revelation) | TRAN::0xF0                                                   | 0xF0   |
+| /EoC/              | transition marker                       | any word where it is the last word of the chapter            | TRAN::0x70                                                   | 0xF0   |
+| /EoV/              | transition marker                       | any word where it is the last word of the verse              | TRAN::0x30                                                   | 0xF0   |
+| /Hsm/              | segment marker                          | Hard Segment Marker (end) ... one of \. \? \!                | TRAN::0x40                                                   | 0x07   |
+| /Csm/              | segment marker                          | Core Segment Marker (end) ... \:                             | TRAN::0x20                                                   | 0x07   |
+| /Rsm/              | segment marker                          | Real Segment Marker (end) ... one of \. \? \! \:             | TRAN::0x60                                                   | 0x07   |
+| /Ssm/              | segment marker                          | Soft Segment Marker (end) ... one of \, \; \( \) --          | TRAN::0x10                                                   | 0x07   |
+| /sm/               | segment marker                          | Any Segment Marker (end)  ... any of the above               | TRAN::!=0x00                                                 | 0x07   |
+| /_/                | punctuation                             | any word that is immediately marked for clausal punctuation  | PUNC::!=0x00                                                 | 0xE0   |
+| /!/                | punctuation                             | any word that is immediately followed by an exclamation mark | PUNC::0x80                                                   | 0xE0   |
+| /?/                | punctuation                             | any word that is immediately followed by a question mark     | PUNC::0xC0                                                   | 0xE0   |
+| /./                | punctuation                             | any word that is immediately followed by a period (declarative) | PUNC::0xE0                                                   | 0xE0   |
+| /-/                | punctuation                             | any word that is immediately followed by a hyphen/dash       | PUNC::0xA0                                                   | 0xE0   |
+| /;/                | punctuation                             | any word that is immediately followed by a semicolon         | PUNC::0x20                                                   | 0xE0   |
+| /,/                | punctuation                             | any word that is immediately followed by a comma             | PUNC::0x40                                                   | 0xE0   |
+| /:/                | punctuation                             | any word that is immediately followed by a colon (information follows) | PUNC::0x60                                                   | 0xE0   |
+| /'/                | punctuation                             | any word that is possessive, marked with an apostrophe       | PUNC::0x10                                                   | 0x10   |
+| /)/                | parenthetical text                      | any word that is immediately followed by a close parenthesis | PUNC::0x0C                                                   | 0x0C   |
+| /(/                | parenthetical text                      | any word contained within parenthesis                        | PUNC::0x04                                                   | 0x04   |
+| /Italics/          | text decoration                         | italicized words marked with this bit in punctuation byte    | PUNC::0x02                                                   | 0x02   |
+| /Jesus/            | text decoration                         | words of Jesus marked with this bit in punctuation byte      | PUNC::0x01                                                   | 0x01   |
+| /delta/            | lexicon                                 | [archaic] word can be transformed into modern American English |                                                              |        |
+| [type]             | named entity                            | Entities are recognized by MorphAdorner. They are also matched against Hitchcock's database. This functionality is experimental and considered BETA. | type=person man<br />woman tribe city<br />river mountain<br />animal gemstone<br />measurement any<br />any_Hitchcock |        |
+| \[FFFF\]           | PN+POS(12)                              | hexadecimal representation of bits for a PN+POS(12) value.   | See Digital-AV SDK                                           | uint16 |
+| \[FFFFFFFF\]       | POS(32)                                 | hexadecimal representation of bits for a POS(32) value.      | See Digital-AV SDK                                           | uint32 |
+| \[string\]         | nupos-string                            | NUPOS string representing part-of-speech. This is the preferred syntax over POS(32), even though they are equivalent. NUPOS part-of-speech values have higher fidelity than the 16-bit PN+POS(12) representations. | See Part-of-Speech-for-Digital-AV.docx                       | uint32 |
+| 99999:H            | Strongs Number                          | decimal Strongs number for the Hebrew word in the Old Testament | One of Strongs\[4\]                                          | 0x7FFF |
+| 99999:G            | Strongs Number                          | decimal Strongs number for the Greek word in the New Testament | One of Strongs\[4\]                                          | 0x7FFF |
 
-    ### 4-3 - Object Model to support S4T search tokens
+### 4-3 - Object Model to support S4T search tokens
 
-    An object model to support specialized S4T Search Tokens is depicted below:
+An object model to support specialized S4T Search Tokens is depicted below:
 
-    ![QFind](./diagrams/QFind.png)
+![QFind](./diagrams/QFind.png)
 
-    ### 4.4 - S4T conformance to the Quelle specification
+### 4.4 - S4T conformance to the Quelle specification
 
-    Quelle specifies two possible implementation levels:
+Quelle specifies two possible implementation levels:
 
-    - Level 1 [basic search support]
-    - Level 2 [search support includes also searching on part-of-speech tags]
+- Level 1 [basic search support]
+- Level 2 [search support includes also searching on part-of-speech tags]
 
-    S4T is a Level 2 Quelle implementation with augmented search capabilities. S4T extends Quelle to include AVX-Framework-specific constructs.  These extensions provide additional specialized search features and the ability to manage two distinct lexicons for the biblical texts.
+S4T is a Level 2 Quelle implementation with augmented search capabilities. S4T extends Quelle to include AVX-Framework-specific constructs.  These extensions provide additional specialized search features and the ability to manage two distinct lexicons for the biblical texts.
 
-    1. S4T represents the biblical text with two substantially similar, but distinct, lexicons. The search.lexicon setting can be specified by the user to control which lexicon is to be searched. Likewise, the render.lexicon setting is used to control which lexicon is used for displaying the biblical text. As an example, the KJV text of "thou art" would be modernized to "you are".
+1. S4T represents the biblical text with two substantially similar, but distinct, lexicons. The search.lexicon setting can be specified by the user to control which lexicon is to be searched. Likewise, the render.lexicon setting is used to control which lexicon is used for displaying the biblical text. As an example, the KJV text of "thou art" would be modernized to "you are".
 
-    - AV/KJV *(a lexicon that faithfully represents the KJV bible; AV purists should select this setting)*
+- AV/KJV *(a lexicon that faithfully represents the KJV bible; AV purists should select this setting)*
 
-    - AVX/Modern *(a lexicon that that has been modernized to appear more like contemporary English)*
+- AVX/Modern *(a lexicon that that has been modernized to appear more like contemporary English)*
 
-    - Dual/Both *(use both lexicons)*
+- Dual/Both *(use both lexicons)*
 
-    The Dual/Both setting for lexicon.search indicates that searching should consider both lexicons. The The Dual/Both setting for lexicon.render indicates that results should be displayed for both renderings [whether this is side-by-side or in-parallel depends on the format and the application where the display-rendering occurs]. Left unspecified, the lexicon setting applies to lexicon.search and lexicon.render components.
+The Dual/Both setting for lexicon.search indicates that searching should consider both lexicons. The The Dual/Both setting for lexicon.render indicates that results should be displayed for both renderings [whether this is side-by-side or in-parallel depends on the format and the application where the display-rendering occurs]. Left unspecified, the lexicon setting applies to lexicon.search and lexicon.render components.
 
-    2. S4T provides support for fuzzy-match-logic. The similarity setting can be specified by the user to control the similarity threshold for approximate matching. An exact lexical match is expected when similarity is set to *off*.
+2. S4T provides support for fuzzy-match-logic. The similarity setting can be specified by the user to control the similarity threshold for approximate matching. An exact lexical match is expected when similarity is set to *off*.
 
-    Phonetics matches are enabled when similarity is set between 33% and 100%. Similarity is calculated based upon the phonetic representation for the word.
+Phonetics matches are enabled when similarity is set between 33% and 100%. Similarity is calculated based upon the phonetic representation for the word.
 
-    The minimum permitted similarity threshold is 33%. Any similarity threshold between 1% and 32% produces a syntax error.
+The minimum permitted similarity threshold is 33%. Any similarity threshold between 1% and 32% produces a syntax error.
 
-    A similarity setting of 100% still uses phonetics, but expects an exact phonetic match (e.g. "there" and "their" are a 100% phonetic match).
+A similarity setting of 100% still uses phonetics, but expects an exact phonetic match (e.g. "there" and "their" are a 100% phonetic match).
 
-    AV-Bible uses the AV-1769 edition of the sacred text. It substantially agrees with the "Bearing Precious Seed" bibles, as published by local church ministries. The text itself has undergone review by Christian missionaries, pastors, and lay people since the mid-1990's. The original incarnation of the digitized AV-1769 text was implemented in the free PC/Windows app known as:
+AV-Bible uses the AV-1769 edition of the sacred text. It substantially agrees with the "Bearing Precious Seed" bibles, as published by local church ministries. The text itself has undergone review by Christian missionaries, pastors, and lay people since the mid-1990's. The original incarnation of the digitized AV-1769 text was implemented in the free PC/Windows app known as:
 
-    - AV-Bible - 1995 Edition for Windows 95 & Windows NT 3.5
-    - AV-Bible - 1997 Edition for Windows 95 & Windows NT 4.0
-    - AV-Bible - 1999 Edition for Windows 98 & Windows NT 4.0
-    - AV-Bible - 2000 Edition for Windows Me & Windows 2000
-    - AV-Bible - 2007 Edition for Windows XP
-    - AV-Bible - 2011 Edition for Windows Vista
-    - AV-Bible - 2021 Edition for Windows 10
-    - AV-Bible - 2024 Edition for Windows 11 (experimental release; initial release to support S4T)
-    - AV-Bible - 2025 Edition for Windows 11 (current release with minor maintenance updates from 2024 baseline)
+- AV-Bible - 1995 Edition for Windows 95 & Windows NT 3.5
+- AV-Bible - 1997 Edition for Windows 95 & Windows NT 4.0
+- AV-Bible - 1999 Edition for Windows 98 & Windows NT 4.0
+- AV-Bible - 2000 Edition for Windows Me & Windows 2000
+- AV-Bible - 2007 Edition for Windows XP
+- AV-Bible - 2011 Edition for Windows Vista
+- AV-Bible - 2021 Edition for Windows 10
+- AV-Bible - 2024 Edition for Windows 11 (experimental release; initial release to support S4T)
+- AV-Bible - 2025 Edition for Windows 11 (current release with minor maintenance updates from 2024 baseline)
 
-    Decades ago, AV-Bible (aka AV-1995, AV-1997, ... AV-2011), were found on internet bulletin boards and the now defunct bible.advocate.com website. More recent legacy versions are still available at the avbible.net website. Modern editions are distributed on the Microsoft store.
+Decades ago, AV-Bible (aka AV-1995, AV-1997, ... AV-2011), were found on internet bulletin boards and the now defunct bible.advocate.com website. More recent legacy versions are still available at the avbible.net website. Modern editions are distributed on the Microsoft store.
 
-    Please see https://Digital-AV.org for additional information about the SDK.
+Please see https://Digital-AV.org for additional information about the SDK.
 
