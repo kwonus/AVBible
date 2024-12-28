@@ -1,4 +1,3 @@
-<script src="./html-generator/md-page.js"></script><noscript>
 Early-Modern-English, the language spoken at the time of Shakespeare, is known to be more morphologically rich than contemporary Modern-English. There are also some words that are seldomly used today. We'll discuss a few of those, too. For brevity's sake, we will refer to a word in the Early-Modern-English vocabulary as an "Elizabethan Word". Likewise, we will refer to a word in the contemporary modern English vocabulary as a "modern word" or a "modern equivalent".
 
 First, let's take a look at second-person pronouns and their precise meanings. Afterwards, we'll see how these outdated pronouns align with today's first-person pronouns:
