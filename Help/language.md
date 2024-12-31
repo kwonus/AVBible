@@ -90,6 +90,7 @@ For future reference, there are numerous candidates for the next edition of AVX.
 | Elizabethan Word | Modern and/or Americanized equivalent |
 | ---------------- | ------------------------------------- |
 | **basest**       | most base                             |
+| **bare**         | bore                                  |
 | **honour**       | honor                                 |
 | **honourest**    | honor                                 |
 | **honoureth**    | honors                                |
