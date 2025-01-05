@@ -76,21 +76,13 @@ Next, let's examine a couple Elizabethan words that say a lot in a single word. 
 | **hither**    | from there to here | here              |
 | **thither**   | from here to there | there             |
 
-Finally, there are several modernizations that do not obscure meaning. The following list contains examples:
-
-| Elizabethan Word | Modern equivalent |
-| ---------------- | ----------------- |
-| **divers**       | diverse           |
-| **builded**      | built             |
-| **vilest**       | most vile         |
-| **goodliest**    | best              |
-
-For future reference, there are numerous candidates for the next edition of AVX. Some of these are Americanizations:
+Finally, there are several modernizations and Americanizations that do not obscure meaning. Here are some examples:
 
 | Elizabethan Word | Modern and/or Americanized equivalent |
 | ---------------- | ------------------------------------- |
-| **basest**       | most base                             |
-| **bare**         | bore                                  |
+| **divers**       | diverse                               |
+| **builded**      | built                                 |
+| **goodliest**    | best                                  |
 | **honour**       | honor                                 |
 | **honourest**    | honor                                 |
 | **honoureth**    | honors                                |
@@ -99,13 +91,13 @@ For future reference, there are numerous candidates for the next edition of AVX.
 | **dishonoureth** | dishonors                             |
 | **colour**       | color                                 |
 
-The AVX button in AV-Bible-2025 is able to modernize the text by utilizing a singular bi-text lexicon. Incidentally, the KJV bible is sometimes called "The Authorized Version", because it was authorized by the king. The two most significant editions of the KJV are named by their publication dates, notably: the AV-1611 and the AV-1769.  Aside from a few printing-press typos in the original AV-1611, both editions contain the very same words.
+The AVX button in AV-Bible 2025 is able to modernize the text by utilizing a singular bi-text lexicon. Incidentally, the KJV bible is sometimes called "The Authorized Version", because it was authorized by the king. The two most significant editions of the KJV are named by their publication dates, notably: the AV-1611 and the AV-1769.  Aside from a few printing-press typos in the original AV-1611, both editions contain the very same words.
 
 To be clear, in the seventeenth century, word spellings had not yet been fully standardized. In fact, it was emblematic of advanced education to actually vary spellings. These varied spellings were many in the original AV-1611. By the eighteenth century, spellings became standardized. Moreover, English orthography was updated, during this same period (orthography is somewhat analogous to computer fonts). That updated orthography is still what we use in contemporary English today. Some letters also morphed after the 1611 printing. In summary, the AV-1769 essentially retained the pronunciations of the AV-1611 Edition [i.e. the spoken words remained the same]. After all, "faith cometh by hearing and hearing by the word of God."  Only the spellings and the orthography were updated. Of course, a handful printing-press-typos were discovered in that initial printing of 1611. These were corrected in 1613 and obviously also in the AV-1769 Edition.
 
 In short, word for word, the AV-1611 and the AV-1769 are the same book. Yet, contemporary English speakers might struggle a bit with the antiquated orthography and non-standard spellings of the AV-1611, but much less so with the AV-1769. In fact, the 1769 edition is essentially what we call the KJV bible today. The AV-Bible-2025 Windows app standardizes on the AV-1769 spellings and orthography.
 
-The concept of AVX was actually inspired by the 1769 edition. The app author views pronoun morphology, verb conjugation, and the modernization thereof, to be analogous to spelling standardization and the embrace of a modern orthography. Nevertheless, AVX is not a complete translation. Instead, it is a mechanical [software/data] mapping of a Elizabethan English lexicon into a contemporary modern English lexicon. While the mapping is always precise, the transformed verses from this software process is not always sparkly clean. Sometimes the mapping generates awkward sentences. In these rare situations, AVX is harder to understand than the original KJV passage.  While AVX can be a valuable study-help for the KJV, it is not a complete edition/version of the bible.  Where AVX-modernization works, it works wonderfully. Where it fails, it's best to consult the passage directly in the KJV. To further emphasize AVX as a study help, AV-Bible-2025 provides side-by-side KJV and AVX verse-renderings. By default, these side-by-side renderings highlight word differences between KJV and AVX. In other words, AVX modernizations are highlighted when rendered side-by-side. Difference highlighting can always be turned on and off.
+The concept of AVX was actually inspired by the 1769 edition. The app author views pronoun morphology, verb conjugation, and the modernization thereof, to be analogous to spelling standardization and the embrace of a modern orthography. Nevertheless, AVX is not a complete translation. Instead, it is a mechanical [software/data] mapping of a Elizabethan English lexicon into a contemporary modern English lexicon. While the mapping is always precise, the transformed verses from this software process is not always sparkly clean. Sometimes the mapping generates awkward sentences. In these rare situations, AVX is harder to understand than the original KJV passage.  While AVX can be a valuable study-help for the KJV, it is not a complete edition/version of the bible.  Where AVX-modernization works, it works wonderfully. Where it fails, it's best to consult the passage directly in the KJV. To further emphasize AVX as a study help, AV-Bible-2025 provides side-by-side KJV and AVX verse-renderings. By default, these side-by-side renderings highlight word differences between KJV and AVX. In other words, AVX modernizations are highlighted when rendered side-by-side. Difference highlighting can always be turned on and off.  Additionally, words that differ from the KJV in the AVX are always superscripted (**1** means 2nd-person singular. **n** means 2nd-person plural. **3** means 3rd-person [e.g. verbs such as wouldst]. ***** means some other modernization [e.g. color<sup>*</sup>]). Only words that differ from the KJV are superscripted.
 
 Incidentally, AVX stands for AV eXtensions.  Again, It is not a new translation; it is not a new edition of the KJV; it merely aids in understanding the very words of the very bible that fueled the most effective missionary period that the world has ever seen.
 

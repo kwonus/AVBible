@@ -11,7 +11,7 @@ using System.Windows.Markup;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Digital-AV")]
 [assembly: AssemblyProduct("AV-Bible")]
-[assembly: AssemblyCopyright("Copyright © 1996-2024")]
+[assembly: AssemblyCopyright("Copyright © 1996-2025")]
 [assembly: RootNamespace("AVBible")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -51,5 +51,5 @@ using System.Windows.Markup;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("9.24.7.28")]
-[assembly: AssemblyFileVersion("9.24.7.28")]
+[assembly: AssemblyVersion("9.25.1.04")]
+[assembly: AssemblyFileVersion("9.25.1.04")]

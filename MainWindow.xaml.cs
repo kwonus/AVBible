@@ -920,7 +920,10 @@
                             {
                                 char n = '0';
 
-                                if (word.PnPos.number == NUMBER.Singular)
+                                if ((!word.NuPos.StartsWith("v")) && (!word.NuPos.StartsWith("p"))) // not a verb and not a pronoun
+                                    n = '*'; // mark the change, but it is NOT person number (e.g. divers modernized spelling)
+
+                                else if (word.PnPos.number == NUMBER.Singular)
                                     n = '1';
                                 else if (word.PnPos.number == NUMBER.Plural)
                                     n = 'n';
