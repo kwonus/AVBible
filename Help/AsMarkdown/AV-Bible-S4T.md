@@ -1,4 +1,3 @@
-<script src="./html-generator/md-page.js"></script><noscript>
 ## Background
 
 Near the end of the last century, Google pioneered the modern search interface by employing an elegantly simple "search box". This was an evolution away from the complex interfaces that preceded it. Still, it becomes problematic when we want to search for multiple terms, unless we expect to merely "match every term".

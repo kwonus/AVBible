@@ -1,4 +1,3 @@
-<script src="./html-generator/md-page.js"></script><noscript>
 
 See "S4T Grammar" for detailed usage information of the Search-for-Truth (S4T) Grammar, and various parameters for each command.
 
