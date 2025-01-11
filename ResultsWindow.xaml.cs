@@ -1,6 +1,9 @@
 ﻿namespace AVBible
 {
+    using Blueprint.Blue;
+    using Microsoft.Web.WebView2.Core;
     using System;
+    using System.IO;
     using System.Windows;
 
     /// <summary>
@@ -8,16 +11,13 @@
     /// </summary>
     public partial class ResultsWindow : Window
     {
-        private bool CoreInitialized;
         private bool CanClose;
         private string Content;
         public ResultsWindow()
         {
             InitializeComponent();
-            this.HtmlControl.Loaded += ResultsWindow_Initialized; // this will initialize core of WebView2, and circumvents an exception being thrown.
 
             this.CanClose = false;
-            this.CoreInitialized = false;
             this.Content = string.Empty;
         }
 
@@ -38,6 +38,37 @@
 
         private void DisplayResultsPanel()
         {
+            int attempts = 0;
+Retry:
+            string tempfile = System.IO.Path.Combine(QContext.Home, "temp-history-output.html");
+            try
+            {
+                ++ attempts;
+                this.HtmlControl.NavigateToString(this.Content);
+                if (File.Exists(tempfile))
+                {
+                    File.Delete(tempfile);
+                }
+            }
+            catch // In 9.25.1.11 version (2025/1/11), first display alwys produces an exception
+            {
+                if (attempts == 1)
+                try
+                {
+                    // Initialize CoreWebView2
+                    var task1 = CoreWebView2Environment.CreateAsync(null, QContext.Home);
+                    task1.Wait();
+                    var task2 = this.HtmlControl.EnsureCoreWebView2Async(task1.Result);
+
+                    goto Retry;
+                }
+                catch
+                {
+                    ;
+                }
+                System.IO.File.WriteAllText(tempfile, this.Content);
+                this.HtmlControl.Source = new Uri(tempfile);
+            }
             this.Show();
             this.Activate();
             this.Topmost = true;
@@ -48,27 +79,7 @@
         public void ShowResultsPanel(string content)
         {
             this.Content = content;
-
-            if (this.CoreInitialized)
-            {
-                this.HtmlControl.NavigateToString(this.Content);
-            }
-            else
-            {
-                this.HtmlControl.Source = new Uri("about:blank");
-            }
             this.DisplayResultsPanel();
-        }
-
-        private async void ResultsWindow_Initialized(object sender, RoutedEventArgs e)
-        {
-            // Initialize CoreWebView2
-            await this.HtmlControl.EnsureCoreWebView2Async(null);
-
-            // Load HTML content
-            this.HtmlControl.NavigateToString(this.Content);
-
-            this.CoreInitialized = true;
         }
     }
 }

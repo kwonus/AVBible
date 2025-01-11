@@ -151,7 +151,7 @@
     <Page Remove="packages\Microsoft.ProjectReunion.WinUI.0.8.0\lib\uap10.0\Microsoft.UI\Themes\generic.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2365.46" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2903.40" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\Settings.Designer.cs">
