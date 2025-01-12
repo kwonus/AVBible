@@ -6,43 +6,39 @@
 - Microsoft-Store app/installer is in development, but additional capabilities may be available in this installer
 - Early this year, this installer will provide the option of installing also an Addin for Microsoft Word
 
-Here is a Microsoft thingie that unlocks some functionality of AV-Bible 2025, including the ability to view help files in the app:
+#### Prerequisites:
 
-https://developer.microsoft.com/en-us/microsoft-edge/webview2/ 
+**Prerequisite I:**
 
-
-
-![images/webview2.png](./images/webview2.png)
-
-#### Two Prerequisites:
-
-**Prerequisite A:**
-
-Download and Install Microsoft .NET 8.0 Desktop Runtime (v8.0.11)
+Download and Install *Microsoft .NET 8.0 Desktop Runtime (v8.0.11)*
 
 https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-8.0.11-windows-x64-installer
 
-**Prerequisite B:**
+**Prerequisite II:**
 
-Install Microsoft WebView2, by going to https://developer.microsoft.com/en-us/microsoft-edge/webview2/ and scrolling down to "Evergreen Standalone Installer" (x64).
+*Microsoft WebView2* unlocks some functionality of AV-Bible 2025, including the ability to view help files in the app.
 
-#### Setup Instructions:
+Install *WebView2*, by going to https://developer.microsoft.com/en-us/microsoft-edge/webview2/ and scrolling down to "Evergreen Standalone Installer" (x64).
 
-**STEP #1:**
+![images/webview2.png](./images/webview2.png)
 
-**1.a** - Download this setup program:<br/>
+#### AV-Bible Setup Instructions:
+
+**STEP #1:**  Download this setup program:<br/>
 https://github.com/kwonus/AVBible/raw/omega/Installation-Instructions/AV-Bible-2025-Setup.exe
 
-**1.b** - Click on the downloads icon. Next click on the ellipses [ ... ] and click Keep
+**STEP #2:**  Click on the downloads icon. Next click on the ellipses [ ... ] and click Keep
 
 ![Screen-Shot](./images/AV-Bible-2025-keep.png)
 
-**1.c** - Click on the <u>Open File</u> link.
+**STEP #3:**  Click on the <u>Open File</u> link.
 
-**1.d** - Click on Yes button:
+**STEP #4:**  Click on the Yes button:
 ![Screen-Shot](./images/AV-Bible-2025-Yes.png)
 
-**STEP #2:**
+
+
+#### AV-Bible Usage Instructions:
 
 The program that you just installed is named "AV-Bible" and found in C:\Program Files\AV-Bible\AV-Bible.exe. An optional desktop icon can be added on the setup program above that simplifies program launch.
 
@@ -54,7 +50,7 @@ You should be able to view help files by clicking on the help menu pull-down:
 
 
 
-#### Removal:
+#### AV-Bible Removal:
 
 Should you want to delete this application, this can be accomplished using the standard Microsoft Windows Control Panel:
 
