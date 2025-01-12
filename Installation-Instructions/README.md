@@ -30,12 +30,21 @@ Install Microsoft WebView2, by going to https://developer.microsoft.com/en-us/mi
 
 **STEP #1:**
 
-Download this setup program:<br/>
+**1.a** - Download this setup program:<br/>
 https://github.com/kwonus/AVBible/raw/omega/Installation-Instructions/AV-Bible-2025-Setup.exe
+
+**1.b** - Click on the downloads icon. Next click on the ellipses [ ... ] and click Keep
+
+![Screen-Shot](./images/AV-Bible-2025-keep.png)
+
+**1.c** - Click on the <u>Open File</u> link.
+
+**1.d** - Click on Yes button:
+![Screen-Shot](./images/AV-Bible-2025-Yes.png)
 
 **STEP #2:**
 
-The program name that you just installed is "AV-Bible" in C:\Program Files\AV-Bible\AV-Bible.exe. An optional desktop icon can be added on the setup program above that simplifies program launch.
+The program that you just installed is named "AV-Bible" and found in C:\Program Files\AV-Bible\AV-Bible.exe. An optional desktop icon can be added on the setup program above that simplifies program launch.
 
 **Once it is running ...**
 
