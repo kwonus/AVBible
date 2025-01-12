@@ -6,13 +6,11 @@
     <UseWPF>true</UseWPF>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <StartupObject>AVBible.App</StartupObject>
-    <ApplicationIcon>gutenburg-press-256.ico</ApplicationIcon>
-    <Win32Resource />
     <PackageProjectUrl>http://Digital-AV.org</PackageProjectUrl>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
     <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
     <Platforms>AnyCPU;x64;x86</Platforms>
     <Copyright>© Kevin Wonus</Copyright>
+    <ApplicationIcon>gutenburg-press-256.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <OutputPath>bin\x64\Debug\</OutputPath>
@@ -165,5 +163,8 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
 </Project>
