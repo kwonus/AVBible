@@ -310,6 +310,9 @@
             LoadWindowState();
             LoadAppState();
 
+            var foo = new WindowMarkDownFlow();
+            foo.Show();
+
             this.Help = new();
             this.ResultsBQL = new();
             this.CommandStatusTimer = new System.Windows.Threading.DispatcherTimer();

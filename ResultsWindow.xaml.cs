@@ -5,6 +5,7 @@
     using System;
     using System.IO;
     using System.Windows;
+    using AVBible.TabularResults;
 
     /// <summary>
     /// Interaction logic for Window1.xaml
@@ -38,37 +39,6 @@
 
         private void DisplayResultsPanel()
         {
-            int attempts = 0;
-Retry:
-            string tempfile = System.IO.Path.Combine(QContext.Home, "temp-history-output.html");
-            try
-            {
-                ++ attempts;
-                this.HtmlControl.NavigateToString(this.Content);
-                if (File.Exists(tempfile))
-                {
-                    File.Delete(tempfile);
-                }
-            }
-            catch // In 9.25.1.11 version (2025/1/11), first display alwys produces an exception
-            {
-                if (attempts == 1)
-                try
-                {
-                    // Initialize CoreWebView2
-                    var task1 = CoreWebView2Environment.CreateAsync(null, QContext.Home);
-                    task1.Wait();
-                    var task2 = this.HtmlControl.EnsureCoreWebView2Async(task1.Result);
-
-                    goto Retry;
-                }
-                catch
-                {
-                    ;
-                }
-                System.IO.File.WriteAllText(tempfile, this.Content);
-                this.HtmlControl.Source = new Uri(tempfile);
-            }
             this.Show();
             this.Activate();
             this.Topmost = true;
@@ -79,6 +49,37 @@ Retry:
         public void ShowResultsPanel(string content)
         {
             this.Content = content;
+#if DEBUG
+            string tempfile = System.IO.Path.Combine(QContext.Home, "temp-history-output.html");
+#endif
+            try
+            {
+                CustomTable table = new(string.Empty);
+                string[] lines = this.Content.Split(CustomTableStyle.TR, StringSplitOptions.RemoveEmptyEntries);
+                int cnt = 0;
+                foreach (var row in lines)
+                {
+                    string text = row.Trim();
+                    if (string.IsNullOrEmpty(text)) continue;
+                    switch (++cnt)
+                    {
+                        case 1: table = new(text); break;
+                        case 2: table.AddRow(text, isHeader: true); break;
+                        default: table.AddRow(text); break;
+                    }
+                }
+#if DEBUG
+                var test1 = table.Foreground;
+                var test2 = table.Background;
+                var test3 = table.FontSize;
+                var test4 = table.FontFamilies;
+#endif
+                table.Render(this);
+            }
+            catch
+            {
+                ;
+            }
             this.DisplayResultsPanel();
         }
     }
