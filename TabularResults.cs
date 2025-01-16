@@ -41,7 +41,7 @@ namespace AVBible.TabularResults
         {
             get
             {
-                return this.Foreground ?? this.Table.Foreground ?? new TableColor("black");
+                return this.Foreground ?? this.Table.Foreground ?? new TableColor("white");
             }
         }
         public TableColor ActualBackground
@@ -179,14 +179,19 @@ namespace AVBible.TabularResults
         public bool AddRow(string input, bool isHeader = false)
         {
             TableRow row = new(this, input);
-            string[] fields = input.Split(TD, StringSplitOptions.RemoveEmptyEntries);
+            string[] fields = input.Split(TD, StringSplitOptions.None);
 
             if (fields.Length > 1)
             {
-                row.Content = new string[fields.Length - 1];
-                for (int i = 1; i < fields.Length; i++)
+                row.Content = new string[fields.Length / 2];
+                for (int f = 0; f < fields.Length; f++)
                 {
-                    row.Content[i - 1] = fields[i];
+                    bool odd = f % 2 == 1;
+                    if (odd)
+                    {
+                        int c = f / 2;
+                        row.Content[c] = fields[f];
+                    }
                 }
                 row.IsHeader = isHeader;
                 this.Rows.Add(row);
@@ -202,26 +207,27 @@ namespace AVBible.TabularResults
         }
         public bool Render(ResultsWindow window)
         {
-            var table = window.ResultsFlowTable;
-            table.BorderThickness = new(3.0);
+            var gray  = new TableColor("#252526").color;
+            var white = Brushes.White; // new TableColor("#FFFFFF").color;
+            var black = Brushes.Black; // new TableColor("#000000").color;
+
+            var table = new Table();
+            table.BorderThickness = new(1.5);
             if (this.Rows.Count >= 1 && this.Rows[0].Content.Length >= 1)
             {
-                if (this.Background != null)
-                {
-                    window.Background = this.Background.color;
-                    table.Background = this.Background.color;
-                }
-                if (this.Foreground != null)
-                {
-                    window.Foreground = this.Foreground.color;
-                    table.Foreground = this.Foreground.color;
-                    table.BorderBrush = this.Foreground.color;
-                }
+                window.Background = gray;
+                table.Background = gray;
+
+                window.Foreground = white;
+                table.Foreground = white;
+                //table.BorderBrush = this.Foreground.color;
 
                 // Add columns definitions
                 for (int c = 0; c < this.Rows[0].Content.Length; c++)
                 {
-                    table.Columns.Add(new TableColumn());
+                    TableColumn column = new();
+                    column.Width = GridLength.Auto;
+                    table.Columns.Add(column);
                 }
                 // Add records
                 TableRowGroup results = new();
@@ -234,15 +240,24 @@ namespace AVBible.TabularResults
                         Run run = new(row.Content[c]);
                         Paragraph paragraph = new Paragraph(run);
                         paragraph.FontWeight = row.IsHeader ? FontWeights.Bold : FontWeights.Normal;
-                        paragraph.FontSize = row.ActualFontSize;
-                        paragraph.Background = row.ActualBackground.color;
-                        paragraph.Foreground = row.ActualForeground.color;
+                        paragraph.FontSize = 16; // row.ActualFontSize;
+                        paragraph.Background = black;
+                        paragraph.Foreground = white;
                         TableCell cell = new TableCell(paragraph);
+                        cell.BorderThickness = table.BorderThickness;
+                        cell.BorderBrush = new TableColor("gray").color;
                         record.Cells.Add(cell);
                     }
                     results.Rows.Add(record);
                 }
                 table.RowGroups.Add(results);
+
+                FlowDocument flowDoc = new();
+                flowDoc.Blocks.Add(table);
+                flowDoc.Background = gray;
+                flowDoc.Foreground = white;
+
+                window.ResultsFlowDoc.Document = flowDoc;
                 return true;
             }
             return false;

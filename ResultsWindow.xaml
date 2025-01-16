@@ -7,13 +7,7 @@ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   Table is a Block element, and as such must be hosted in a container
   for Block elements.  FlowDocument provides such a container. 
 -->
-    <FlowDocument Name="ResultsFlowDoc" Background="Gray">
-        <Table Name="ResultsFlowTable" BorderThickness="1" Background="Gray" FontFamily="Calibri">
-            <!-- Colum definitions will go in here. -->
-            <!-- <Table.Columns/> -->
-            
-            <!-- This TableRowGroup hosts all records for the table. -->
-            <!-- <TableRowGroup/> -->
-        </Table>
-    </FlowDocument>
+    <Grid>
+        <FlowDocumentScrollViewer Name="ResultsFlowDoc"/>
+    </Grid>
 </Window>

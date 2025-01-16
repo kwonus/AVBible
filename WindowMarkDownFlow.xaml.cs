@@ -17,9 +17,9 @@ namespace AVBible
         {
             InitializeComponent();
 
-            FlowDocumentReader[] tabs = [ this.Doc_AppHelp, this.Doc_CommandHelp, this.Doc_ExportHelp, this.Doc_GrammarHelp, this.Doc_HashtagHelp, this.Doc_LanguageHelp, this.Doc_SearchHelp, this.Doc_SettingsHelp ];
+            FlowDocumentScrollViewer[] tabs = [ this.Doc_AppHelp, this.Doc_CommandHelp, this.Doc_ExportHelp, this.Doc_GrammarHelp, this.Doc_HashtagHelp, this.Doc_LanguageHelp, this.Doc_SearchHelp, this.Doc_SettingsHelp ];
 
-            foreach (FlowDocumentReader tab in tabs)
+            foreach (FlowDocumentScrollViewer tab in tabs)
             {
                 string[] segments = tab.Name.Split(ParseDelimiters, StringSplitOptions.RemoveEmptyEntries);
                 if (segments.Length == 2)
@@ -34,7 +34,6 @@ namespace AVBible
                             .Build()
                         );
                         tab.Document = doc;
-                        tab.ViewingMode = FlowDocumentReaderViewingMode.Scroll;
                         // Set the page width
                         // tab.IsTwoPageViewEnabled = false;
                         // Set the page padding (top, left, bottom, right)

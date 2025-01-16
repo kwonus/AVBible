@@ -8,28 +8,28 @@
         Title="AV-Bible | Help" Height="450" Width="800">
     <TabControl Name="HelpTabs" TabStripPlacement="Left" FontFamily="TimesNewRoman" FontSize="24">
         <TabItem Header="Application Overview" Name="Tab_AppHelp">
-            <FlowDocumentReader Name="Doc_AppHelp"/>
+            <FlowDocumentScrollViewer Name="Doc_AppHelp"/>
         </TabItem>
         <TabItem Header="Early Modern English" Name="Tab_LanguageHelp">
-            <FlowDocumentReader Name="Doc_LanguageHelp" ViewingMode="Scroll"/>
+            <FlowDocumentScrollViewer Name="Doc_LanguageHelp"/>
         </TabItem>
         <TabItem Header="Search-for-Truth Grammar" Name="Tab_GrammarHelp">
-            <FlowDocumentReader Name="Doc_GrammarHelp" ViewingMode="Scroll"/>
+            <FlowDocumentScrollViewer Name="Doc_GrammarHelp"/>
         </TabItem>
         <TabItem Header="Selection/Search Criteria" Name="Tab_SearchHelp">
-            <FlowDocumentReader Name="Doc_SearchHelp" ViewingMode="Scroll"/>
+            <FlowDocumentScrollViewer Name="Doc_SearchHelp"/>
         </TabItem>
         <TabItem Header="Control Settings" Name="Tab_SettingsHelp">
-            <FlowDocumentReader Name="Doc_SettingsHelp" ViewingMode="Scroll"/>
+            <FlowDocumentScrollViewer Name="Doc_SettingsHelp"/>
         </TabItem>
         <TabItem Header="Hastags &amp; History" Name="Tab_HashTagHelp">
-            <FlowDocumentReader Name="Doc_HashtagHelp" ViewingMode="Scroll"/>
+            <FlowDocumentScrollViewer Name="Doc_HashtagHelp"/>
         </TabItem>
         <TabItem Header="Exporting Results" Name="Tab_ExporthHelp">
-            <FlowDocumentReader Name="Doc_ExportHelp" ViewingMode="Scroll"/>
+            <FlowDocumentScrollViewer Name="Doc_ExportHelp"/>
         </TabItem>
         <TabItem Header="System Imperatives" Name="Tab_CommandhHelp">
-            <FlowDocumentReader Name="Doc_CommandHelp" ViewingMode="Scroll"/>
+            <FlowDocumentScrollViewer Name="Doc_CommandHelp"/>
         </TabItem>
     </TabControl>
 
