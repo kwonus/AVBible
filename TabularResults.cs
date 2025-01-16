@@ -205,7 +205,7 @@ namespace AVBible.TabularResults
             }
             return false;
         }
-        public bool Render(ResultsWindow window)
+        public bool Render(ResultsWindow window, FlowDocumentScrollViewer viewer)
         {
             var gray  = new TableColor("#252526").color;
             var white = Brushes.White; // new TableColor("#FFFFFF").color;
@@ -257,7 +257,7 @@ namespace AVBible.TabularResults
                 flowDoc.Background = gray;
                 flowDoc.Foreground = white;
 
-                window.ResultsFlowDoc.Document = flowDoc;
+                viewer.Document = flowDoc;
                 return true;
             }
             return false;

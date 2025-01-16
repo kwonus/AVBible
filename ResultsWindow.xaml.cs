@@ -74,7 +74,7 @@
                 var test3 = table.FontSize;
                 var test4 = table.FontFamilies;
 #endif
-                table.Render(this);
+                table.Render(this, this.ResultsFlowDoc);
             }
             catch
             {
