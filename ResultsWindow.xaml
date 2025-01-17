@@ -1,7 +1,7 @@
 ﻿<Window x:Class="AVBible.ResultsWindow"
 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="600" Width="800">
 <!-- 
   SEE: https://learn.microsoft.com/en-us/dotnet/desktop/wpf/advanced/table-overview?view=netframeworkdesktop-4.8&viewFallbackFrom=netdesktop-8.0
   Table is a Block element, and as such must be hosted in a container

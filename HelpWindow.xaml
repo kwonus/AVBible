@@ -4,12 +4,34 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AVBible"
-        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         mc:Ignorable="d"
-        Title="AV-Bible | Help" Height="768" Width="1024" Closing="Window_Closing"
-        Margin="0,0,0,0"
-        Background="LightGray">
-    <DockPanel>
-        <wv2:WebView2 Name="HtmlControl" Source="about:blank"/>
-    </DockPanel>
+        Title="AV-Bible | Help" Height="450" Width="800"
+        Closing="Window_Closing">
+    <TabControl Name="HelpTabs" TabStripPlacement="Left" FontFamily="TimesNewRoman" FontSize="24">
+        <TabItem Header="Application Overview" Name="Tab_AppHelp">
+            <FlowDocumentScrollViewer Name="Doc_AppHelp"/>
+        </TabItem>
+        <TabItem Header="Early Modern English" Name="Tab_LanguageHelp">
+            <FlowDocumentScrollViewer Name="Doc_LanguageHelp"/>
+        </TabItem>
+        <TabItem Header="Search-for-Truth Grammar" Name="Tab_GrammarHelp">
+            <FlowDocumentScrollViewer Name="Doc_GrammarHelp"/>
+        </TabItem>
+        <TabItem Header="Selection/Search Criteria" Name="Tab_SearchHelp">
+            <FlowDocumentScrollViewer Name="Doc_SearchHelp"/>
+        </TabItem>
+        <TabItem Header="Control Settings" Name="Tab_SettingsHelp">
+            <FlowDocumentScrollViewer Name="Doc_SettingsHelp"/>
+        </TabItem>
+        <TabItem Header="Hastags &amp; History" Name="Tab_HashTagHelp">
+            <FlowDocumentScrollViewer Name="Doc_HashtagHelp"/>
+        </TabItem>
+        <TabItem Header="Exporting Results" Name="Tab_ExportHelp">
+            <FlowDocumentScrollViewer Name="Doc_ExportHelp"/>
+        </TabItem>
+        <TabItem Header="System Imperatives" Name="Tab_CommandhHelp">
+            <FlowDocumentScrollViewer Name="Doc_CommandHelp"/>
+        </TabItem>
+    </TabControl>
+
 </Window>

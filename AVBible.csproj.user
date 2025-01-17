@@ -4,12 +4,12 @@
     <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Update="WindowMarkDownFlow.xaml.cs">
+    <Compile Update="HelpWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="WindowMarkDownFlow.xaml">
+    <Page Update="HelpWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
