@@ -1,7 +1,6 @@
 ﻿namespace AVBible
 {
     using Blueprint.Blue;
-    using Microsoft.Web.WebView2.Core;
     using System;
     using System.IO;
     using System.Windows;

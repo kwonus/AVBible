@@ -4,6 +4,7 @@ using Neo.Markdig.Xaml;
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace AVBible
 {
@@ -74,13 +75,14 @@ namespace AVBible
         {
             string[] topics = request.Split(AVEngine.splitters, StringSplitOptions.RemoveEmptyEntries);
 
+            TabItem selected = this.Tab_AppHelp;
             foreach (string topic in topics)
             {
                 switch (topic.ToLower())
                 {
                     case "search-for-truth":
                     case "s4t":
-                    case "grammar": this.HelpTabs.SelectedIndex = this.Tab_GrammarHelp.TabIndex; break;
+                    case "grammar": selected = this.Tab_GrammarHelp; break;
 
                     case "selection":
                     case "criteria":
@@ -89,7 +91,7 @@ namespace AVBible
                     case "find":
                     case "scope":
                     case "scoping":
-                    case "filter": this.HelpTabs.SelectedItem = this.Tab_SearchHelp; break;
+                    case "filter": selected = this.Tab_SearchHelp; break;
 
                     case "ye":
                     case "thee":
@@ -98,7 +100,7 @@ namespace AVBible
                     case "early":
                     case "kjv":
                     case "language":
-                    case "english": this.HelpTabs.SelectedItem = this.Tab_LanguageHelp; break;
+                    case "english": selected = this.Tab_LanguageHelp; break;
 
                     case "control":
                     case "settings":
@@ -106,7 +108,7 @@ namespace AVBible
                     case "set":
                     case "clear":
                     case "get":
-                    case "use": this.HelpTabs.SelectedItem = this.Tab_SettingsHelp; break;
+                    case "use": selected = this.Tab_SettingsHelp; break;
 
                     case "macro":
                     case "history":
@@ -116,20 +118,20 @@ namespace AVBible
                     case "tagging":
                     case "apply":
                     case "delete":
-                    case "review": this.HelpTabs.SelectedItem = this.Tab_HashTagHelp; break;
+                    case "review": selected = this.Tab_HashTagHelp; break;
 
                     case "application":
-                    case "app": this.HelpTabs.SelectedItem = this.Tab_AppHelp; break;
+                    case "app": selected = this.Tab_AppHelp; break;
 
                     case "output":
                     case "print":
-                    case "export": this.HelpTabs.SelectedItem = this.Tab_ExportHelp; break;
+                    case "export": selected = this.Tab_ExportHelp; break;
 
                     case "system":
-                    case "command": this.HelpTabs.SelectedItem = this.Tab_CommandhHelp; break;
+                    case "command": selected = this.Tab_CommandhHelp; break;
                 }
             }
-            this.HelpTabs.SelectedItem = this.Tab_AppHelp;
+            Dispatcher.BeginInvoke(new Action(() => this.HelpTabs.SelectedItem = selected), DispatcherPriority.Render);
         }
     }
 }
