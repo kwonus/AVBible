@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<DOCUMENT Type="Advanced Installer" CreateVersion="19.4" version="22.3" PreviousModules="express" Modules="professional" RootPath="." Language="en" Id="{BD848AFA-6A77-4D95-A20D-4C720BF3E24C}">
+  <COMPONENT cid="caphyon.advinst.msicomp.ProjectOptionsComponent">
+    <ROW Name="Application_AssetGenDestFolderPath" Value="Generated Assets" ValueType="1"/>
+    <ROW Name="Application_WorkingDir" Value="APPDIR"/>
+    <ROW Name="AssetGenPkgDestFolderPath" Value="Generated Assets" ValueType="1"/>
+    <ROW Name="HiddenItems" Value="ActSyncAppComponent;CPLAppletComponent;AutorunComponent;GameUxComponent;SilverlightSlnComponent;SharePointSlnComponent"/>
+    <ROW Name="MigrationUninstallCode" Value="{38BDDD89-9C74-41C6-AF53-458454320E75}"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
+    <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
+    <ROW Property="ALLUSERS" Value="1"/>
+    <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
+    <ROW Property="ARPPRODUCTICON" Value="gutenburgpress256.exe" Type="8"/>
+    <ROW Property="Manufacturer" Value="DigitalAV"/>
+    <ROW Property="ProductCode" Value="1033:{F85E0FE0-DE24-4A84-8653-972E9034EF58} " Type="16"/>
+    <ROW Property="ProductLanguage" Value="1033"/>
+    <ROW Property="ProductName" Value="AV-Bible"/>
+    <ROW Property="ProductVersion" Value="9.25.1" Options="32"/>
+    <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
+    <ROW Property="UpgradeCode" Value="{38BDDD89-9C74-41C6-AF53-458454320E75}"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiDirsComponent">
+    <ROW Directory="APPDIR" Directory_Parent="TARGETDIR" DefaultDir="APPDIR:." IsPseudoRoot="1"/>
+    <ROW Directory="AppDataFolder" Directory_Parent="TARGETDIR" DefaultDir="APPDAT~1|AppDataFolder" IsPseudoRoot="1"/>
+    <ROW Directory="Assets" Directory_Parent="TARGETDIR" DefaultDir="Assets" IsPseudoRoot="1"/>
+    <ROW Directory="Data_Dir" Directory_Parent="APPDIR" DefaultDir="Data"/>
+    <ROW Directory="DesktopFolder" Directory_Parent="TARGETDIR" DefaultDir="DESKTO~1|DesktopFolder" IsPseudoRoot="1"/>
+    <ROW Directory="Help_Dir" Directory_Parent="APPDIR" DefaultDir="Help"/>
+    <ROW Directory="NewFolder_Dir" Directory_Parent="AppDataFolder" DefaultDir="AV-Bible"/>
+    <ROW Directory="ProgramFiles64Folder" Directory_Parent="TARGETDIR" DefaultDir="PROGRA~2|ProgramFiles64Folder" IsPseudoRoot="1"/>
+    <ROW Directory="SHORTCUTDIR" Directory_Parent="TARGETDIR" DefaultDir="SHORTC~1|SHORTCUTDIR" IsPseudoRoot="1"/>
+    <ROW Directory="TARGETDIR" DefaultDir="SourceDir"/>
+    <ROW Directory="css_Dir" Directory_Parent="Help_Dir" DefaultDir="css"/>
+    <ROW Directory="diagrams_Dir" Directory_Parent="Help_Dir" DefaultDir="diagrams"/>
+    <ROW Directory="htmlgenerator_Dir" Directory_Parent="Help_Dir" DefaultDir="HTML-G~1|html-generator"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCompsComponent">
+    <ROW Component="A0BFC224E0E9125ADE0B2DBF343" ComponentId="{06E0D284-709D-4460-BDEF-983E5CABC428}" Directory_="APPDIR" Attributes="4" KeyPath="A0BFC224E0E9125ADE0B2DBF343" Options="2"/>
+    <ROW Component="APPDIR" ComponentId="{6613CCFC-0B27-4123-8B37-B47C31829024}" Directory_="APPDIR" Attributes="0"/>
+    <ROW Component="AVBible.dll" ComponentId="{2CF220D3-99BE-4AB5-A05A-6AF57035F0B0}" Directory_="APPDIR" Attributes="0" KeyPath="AVBible.dll"/>
+    <ROW Component="AVBible.exe" ComponentId="{F71DCE06-1380-4BE4-85BA-E1C6793127E8}" Directory_="APPDIR" Attributes="256" KeyPath="AVBible.exe"/>
+    <ROW Component="AVBible.runtimeconfig.json" ComponentId="{AC6F4148-8DD0-46AD-9506-E8A8609F3EC3}" Directory_="APPDIR" Attributes="0" KeyPath="AVBible.runtimeconfig.json" Type="0"/>
+    <ROW Component="AVEngine.dll" ComponentId="{B5671EAA-95DB-4148-B8E9-CE40E45BB0E3}" Directory_="APPDIR" Attributes="0" KeyPath="AVEngine.dll"/>
+    <ROW Component="AVSearch.dll" ComponentId="{F20883D8-5482-4045-9672-F9B739F1C3DE}" Directory_="APPDIR" Attributes="0" KeyPath="AVSearch.dll"/>
+    <ROW Component="AVXLib.dll" ComponentId="{F7317584-E0CB-46CD-8B79-77BECBF3B0BC}" Directory_="APPDIR" Attributes="0" KeyPath="AVXLib.dll"/>
+    <ROW Component="AVXOmega.data" ComponentId="{2557DCA5-6FA5-4513-872E-9CDF2C0AB86A}" Directory_="Data_Dir" Attributes="0" KeyPath="AVXOmega.data" Type="0"/>
+    <ROW Component="Blacklight.Controls.Wpf.dll" ComponentId="{44429261-BFAA-499F-9671-64DD7CA26AC6}" Directory_="APPDIR" Attributes="0" KeyPath="Blacklight.Controls.Wpf.dll"/>
+    <ROW Component="BlueprintBlueLib.dll" ComponentId="{60DA5FD3-0B1D-43AC-8B3E-3D6999011C42}" Directory_="APPDIR" Attributes="0" KeyPath="BlueprintBlueLib.dll"/>
+    <ROW Component="Microsoft.Windows.SDK.NET.dll" ComponentId="{661B8BAC-719B-42F7-9C3C-93BBE931410A}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.Windows.SDK.NET.dll"/>
+    <ROW Component="PhonemeEmbeddings.dll" ComponentId="{62004A80-AD3B-41D4-B9DE-74AB57395BCC}" Directory_="APPDIR" Attributes="0" KeyPath="PhonemeEmbeddings.dll"/>
+    <ROW Component="ProductInformation" ComponentId="{5D6FE968-8AA4-45CC-AD54-198DD6ECF625}" Directory_="APPDIR" Attributes="4" KeyPath="Version"/>
+    <ROW Component="QCommand.png" ComponentId="{0A3F5665-E839-4374-BA5C-EB47A6B1D343}" Directory_="diagrams_Dir" Attributes="0" KeyPath="QCommand.png" Type="0"/>
+    <ROW Component="SHORTCUTDIR" ComponentId="{03B9825B-0448-4378-8227-528DA44CF137}" Directory_="SHORTCUTDIR" Attributes="0"/>
+    <ROW Component="Store50x50Logo.scale100.png" ComponentId="{DBB39791-CB5A-4035-B1D3-C2D52D9AAB74}" Directory_="Assets" Attributes="0" KeyPath="Store50x50Logo.scale100.png" Type="0"/>
+    <ROW Component="WinRT.Runtime.dll" ComponentId="{4D4DF57E-C4A3-4DBA-8B0D-C3D5156AAB6E}" Directory_="APPDIR" Attributes="0" KeyPath="WinRT.Runtime.dll"/>
+    <ROW Component="YamlDotNet.dll" ComponentId="{DC59A306-CB23-405A-B983-E6D79662A49B}" Directory_="APPDIR" Attributes="0" KeyPath="YamlDotNet.dll"/>
+    <ROW Component="application.html" ComponentId="{488ECBA7-5313-40D9-A520-083CC15D5E30}" Directory_="Help_Dir" Attributes="0" KeyPath="application.html" Type="0"/>
+    <ROW Component="mdpage.js" ComponentId="{5C179854-C3BB-47D4-902A-9B7FBF458F1C}" Directory_="htmlgenerator_Dir" Attributes="0" KeyPath="mdpage.js" Type="0"/>
+    <ROW Component="pinshot_blue.dll" ComponentId="{717AD7A1-E3C1-4693-A824-AA7F57861262}" Directory_="APPDIR" Attributes="256" KeyPath="pinshot_blue.dll"/>
+    <ROW Component="settings.yaml_1" ComponentId="{483542B8-59E2-4BA1-96CB-AED98DC93EF6}" Directory_="NewFolder_Dir" Attributes="0" KeyPath="settings.yaml_1" Type="0"/>
+    <ROW Component="style.css" ComponentId="{3084C70D-6341-404F-8CAA-30864C774B47}" Directory_="css_Dir" Attributes="0" KeyPath="style.css" Type="0"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
+    <ROW Feature="A0BFC224E0E9125ADE0B2DBF343" Title=".NET Desktop Runtime 8.0.11 x64" Description=".NET Desktop Runtime 8.0.11 x64" Display="5" Level="1" Attributes="0"/>
+    <ROW Feature="AiAppXAssets" Title="AiAppXAssets" Description="Description" Display="3" Level="0" Directory_="APPDIR" Attributes="0" Options="271" Builds="Build_MSIX_APPX"/>
+    <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0"/>
+    <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
+    <ROW File="AVEngine.dll" Component_="AVEngine.dll" FileName="AV-ENG~1.DLL|AV-Engine.dll" Attributes="0" SourcePath="..\AVBible\bin\x64\Release\net8.0-windows10.0.17763.0\AV-Engine.dll" SelfReg="false"/>
+    <ROW File="AVSearch.dll" Component_="AVSearch.dll" FileName="AV-SEA~1.DLL|AV-Search.dll" Attributes="0" SourcePath="..\AVBible\bin\x64\Release\net8.0-windows10.0.17763.0\AV-Search.dll" SelfReg="false"/>
+    <ROW File="AVBible.dll" Component_="AVBible.dll" FileName="AVBible.dll" Attributes="0" SourcePath="..\AVBible\bin\x64\Release\net8.0-windows10.0.17763.0\AVBible.dll" SelfReg="false"/>
+    <ROW File="AVBible.exe" Component_="AVBible.exe" FileName="AVBible.exe" Attributes="0" SourcePath="..\AVBible\bin\x64\Release\net8.0-windows10.0.17763.0\AVBible.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="AVXLib.dll" Component_="AVXLib.dll" FileName="AVXLib.dll" Attributes="0" SourcePath="..\AVBible\bin\x64\Release\net8.0-windows10.0.17763.0\AVXLib.dll" SelfReg="false"/>
+    <ROW File="Blacklight.Controls.Wpf.dll" Component_="Blacklight.Controls.Wpf.dll" FileName="BLACKL~1.DLL|Blacklight.Controls.Wpf.dll" Attributes="0" SourcePath="..\AVBible\bin\x64\Release\net8.0-windows10.0.17763.0\Blacklight.Controls.Wpf.dll" SelfReg="false"/>
+    <ROW File="BlueprintBlueLib.dll" Component_="BlueprintBlueLib.dll" FileName="BLUEPR~1.DLL|Blueprint-Blue-Lib.dll" Attributes="0" SourcePath="..\AVBible\bin\x64\Release\net8.0-windows10.0.17763.0\Blueprint-Blue-Lib.dll" SelfReg="false"/>
+    <ROW File="style.css" Component_="style.css" FileName="style.css" Attributes="0" SourcePath="..\AVBible\Help\css\style.css" SelfReg="false"/>
+    <ROW File="QCommand.png" Component_="QCommand.png" FileName="QCommand.png" Attributes="0" SourcePath="..\AVBible\Help\diagrams\QCommand.png" SelfReg="false"/>
+    <ROW File="QFind.png" Component_="QCommand.png" FileName="QFind.png" Attributes="0" SourcePath="..\AVBible\Help\diagrams\QFind.png" SelfReg="false"/>
+    <ROW File="mdpage.js" Component_="mdpage.js" FileName="md-page.js" Attributes="0" SourcePath="..\AVBible\Help\html-generator\md-page.js" SelfReg="false"/>
+    <ROW File="PhonemeEmbeddings.dll" Component_="PhonemeEmbeddings.dll" FileName="PHONEM~1.DLL|PhonemeEmbeddings.dll" Attributes="0" SourcePath="..\AVBible\bin\x64\Release\net8.0-windows10.0.17763.0\PhonemeEmbeddings.dll" SelfReg="false"/>
+    <ROW File="pinshot_blue.dll" Component_="pinshot_blue.dll" FileName="PINSHO~1.DLL|pinshot_blue.dll" Attributes="0" SourcePath="..\AVBible\bin\x64\Release\net8.0-windows10.0.17763.0\pinshot_blue.dll" SelfReg="false"/>
+    <ROW File="YamlDotNet.dll" Component_="YamlDotNet.dll" FileName="YAMLDO~1.DLL|YamlDotNet.dll" Attributes="0" SourcePath="..\AVBible\bin\x64\Release\net8.0-windows10.0.17763.0\YamlDotNet.dll" SelfReg="false"/>
+    <ROW File="Store50x50Logo.scale100.png" Component_="Store50x50Logo.scale100.png" FileName="STORE5~1.PNG|Store50x50Logo.scale-100.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.targetsize-48_altform-unplated.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare71x71Logo.scale100.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIBL~1.PNG|AVBible.exeSquare71x71Logo.scale-100.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare71x71Logo.scale-100.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare71x71Logo.scale120.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIBL~2.PNG|AVBible.exeSquare71x71Logo.scale-120.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare71x71Logo.scale-120.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare71x71Logo.scale125.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIBL~3.PNG|AVBible.exeSquare71x71Logo.scale-125.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare71x71Logo.scale-125.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare71x71Logo.scale140.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIBL~4.PNG|AVBible.exeSquare71x71Logo.scale-140.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare71x71Logo.scale-140.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare71x71Logo.scale150.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIBL~5.PNG|AVBible.exeSquare71x71Logo.scale-150.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare71x71Logo.scale-150.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare71x71Logo.scale160.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIBL~6.PNG|AVBible.exeSquare71x71Logo.scale-160.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare71x71Logo.scale-160.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare71x71Logo.scale180.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIBL~7.PNG|AVBible.exeSquare71x71Logo.scale-180.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare71x71Logo.scale-180.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare71x71Logo.scale200.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIBL~8.PNG|AVBible.exeSquare71x71Logo.scale-200.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare71x71Logo.scale-200.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare71x71Logo.scale220.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIBL~9.PNG|AVBible.exeSquare71x71Logo.scale-220.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare71x71Logo.scale-220.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare71x71Logo.scale225.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~10.PNG|AVBible.exeSquare71x71Logo.scale-225.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare71x71Logo.scale-225.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare71x71Logo.scale240.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~11.PNG|AVBible.exeSquare71x71Logo.scale-240.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare71x71Logo.scale-240.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare71x71Logo.scale250.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~12.PNG|AVBible.exeSquare71x71Logo.scale-250.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare71x71Logo.scale-250.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare71x71Logo.scale300.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~13.PNG|AVBible.exeSquare71x71Logo.scale-300.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare71x71Logo.scale-300.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare71x71Logo.scale400.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~14.PNG|AVBible.exeSquare71x71Logo.scale-400.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare71x71Logo.scale-400.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare71x71Logo.scale500.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~15.PNG|AVBible.exeSquare71x71Logo.scale-500.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare71x71Logo.scale-500.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare150x150Logo.scale100.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~16.PNG|AVBible.exeSquare150x150Logo.scale-100.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare150x150Logo.scale-100.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare150x150Logo.scale120.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~17.PNG|AVBible.exeSquare150x150Logo.scale-120.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare150x150Logo.scale-120.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare150x150Logo.scale125.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~18.PNG|AVBible.exeSquare150x150Logo.scale-125.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare150x150Logo.scale-125.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare150x150Logo.scale140.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~19.PNG|AVBible.exeSquare150x150Logo.scale-140.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare150x150Logo.scale-140.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare150x150Logo.scale150.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~20.PNG|AVBible.exeSquare150x150Logo.scale-150.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare150x150Logo.scale-150.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare150x150Logo.scale160.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~21.PNG|AVBible.exeSquare150x150Logo.scale-160.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare150x150Logo.scale-160.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare150x150Logo.scale180.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~22.PNG|AVBible.exeSquare150x150Logo.scale-180.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare150x150Logo.scale-180.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare150x150Logo.scale200.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~23.PNG|AVBible.exeSquare150x150Logo.scale-200.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare150x150Logo.scale-200.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare150x150Logo.scale220.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~24.PNG|AVBible.exeSquare150x150Logo.scale-220.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare150x150Logo.scale-220.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare150x150Logo.scale225.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~25.PNG|AVBible.exeSquare150x150Logo.scale-225.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare150x150Logo.scale-225.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare150x150Logo.scale240.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~26.PNG|AVBible.exeSquare150x150Logo.scale-240.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare150x150Logo.scale-240.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare150x150Logo.scale250.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~27.PNG|AVBible.exeSquare150x150Logo.scale-250.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare150x150Logo.scale-250.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare150x150Logo.scale300.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~28.PNG|AVBible.exeSquare150x150Logo.scale-300.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare150x150Logo.scale-300.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare150x150Logo.scale400.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~29.PNG|AVBible.exeSquare150x150Logo.scale-400.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare150x150Logo.scale-400.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare150x150Logo.scale500.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~30.PNG|AVBible.exeSquare150x150Logo.scale-500.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare150x150Logo.scale-500.png" SelfReg="false"/>
+    <ROW File="AVBible.exeWide310x150Logo.scale100.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~31.PNG|AVBible.exeWide310x150Logo.scale-100.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeWide310x150Logo.scale-100.png" SelfReg="false"/>
+    <ROW File="AVBible.exeWide310x150Logo.scale120.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~32.PNG|AVBible.exeWide310x150Logo.scale-120.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeWide310x150Logo.scale-120.png" SelfReg="false"/>
+    <ROW File="AVBible.exeWide310x150Logo.scale125.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~33.PNG|AVBible.exeWide310x150Logo.scale-125.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeWide310x150Logo.scale-125.png" SelfReg="false"/>
+    <ROW File="AVBible.exeWide310x150Logo.scale140.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~34.PNG|AVBible.exeWide310x150Logo.scale-140.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeWide310x150Logo.scale-140.png" SelfReg="false"/>
+    <ROW File="AVBible.exeWide310x150Logo.scale150.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~35.PNG|AVBible.exeWide310x150Logo.scale-150.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeWide310x150Logo.scale-150.png" SelfReg="false"/>
+    <ROW File="AVBible.exeWide310x150Logo.scale160.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~36.PNG|AVBible.exeWide310x150Logo.scale-160.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeWide310x150Logo.scale-160.png" SelfReg="false"/>
+    <ROW File="AVBible.exeWide310x150Logo.scale180.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~37.PNG|AVBible.exeWide310x150Logo.scale-180.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeWide310x150Logo.scale-180.png" SelfReg="false"/>
+    <ROW File="AVBible.exeWide310x150Logo.scale200.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~38.PNG|AVBible.exeWide310x150Logo.scale-200.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeWide310x150Logo.scale-200.png" SelfReg="false"/>
+    <ROW File="AVBible.exeWide310x150Logo.scale220.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~39.PNG|AVBible.exeWide310x150Logo.scale-220.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeWide310x150Logo.scale-220.png" SelfReg="false"/>
+    <ROW File="AVBible.exeWide310x150Logo.scale225.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~40.PNG|AVBible.exeWide310x150Logo.scale-225.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeWide310x150Logo.scale-225.png" SelfReg="false"/>
+    <ROW File="AVBible.exeWide310x150Logo.scale240.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~41.PNG|AVBible.exeWide310x150Logo.scale-240.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeWide310x150Logo.scale-240.png" SelfReg="false"/>
+    <ROW File="AVBible.exeWide310x150Logo.scale250.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~42.PNG|AVBible.exeWide310x150Logo.scale-250.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeWide310x150Logo.scale-250.png" SelfReg="false"/>
+    <ROW File="AVBible.exeWide310x150Logo.scale300.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~43.PNG|AVBible.exeWide310x150Logo.scale-300.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeWide310x150Logo.scale-300.png" SelfReg="false"/>
+    <ROW File="AVBible.exeWide310x150Logo.scale400.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~44.PNG|AVBible.exeWide310x150Logo.scale-400.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeWide310x150Logo.scale-400.png" SelfReg="false"/>
+    <ROW File="AVBible.exeWide310x150Logo.scale500.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~45.PNG|AVBible.exeWide310x150Logo.scale-500.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeWide310x150Logo.scale-500.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare310x310Logo.scale100.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~46.PNG|AVBible.exeSquare310x310Logo.scale-100.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare310x310Logo.scale-100.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare310x310Logo.scale120.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~47.PNG|AVBible.exeSquare310x310Logo.scale-120.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare310x310Logo.scale-120.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare310x310Logo.scale125.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~48.PNG|AVBible.exeSquare310x310Logo.scale-125.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare310x310Logo.scale-125.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare310x310Logo.scale140.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~49.PNG|AVBible.exeSquare310x310Logo.scale-140.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare310x310Logo.scale-140.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare310x310Logo.scale150.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~50.PNG|AVBible.exeSquare310x310Logo.scale-150.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare310x310Logo.scale-150.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare310x310Logo.scale160.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~51.PNG|AVBible.exeSquare310x310Logo.scale-160.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare310x310Logo.scale-160.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare310x310Logo.scale180.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~52.PNG|AVBible.exeSquare310x310Logo.scale-180.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare310x310Logo.scale-180.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare310x310Logo.scale200.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~53.PNG|AVBible.exeSquare310x310Logo.scale-200.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare310x310Logo.scale-200.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare310x310Logo.scale220.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~54.PNG|AVBible.exeSquare310x310Logo.scale-220.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare310x310Logo.scale-220.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare310x310Logo.scale225.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~55.PNG|AVBible.exeSquare310x310Logo.scale-225.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare310x310Logo.scale-225.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare310x310Logo.scale240.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~56.PNG|AVBible.exeSquare310x310Logo.scale-240.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare310x310Logo.scale-240.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare310x310Logo.scale250.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~57.PNG|AVBible.exeSquare310x310Logo.scale-250.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare310x310Logo.scale-250.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare310x310Logo.scale300.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~58.PNG|AVBible.exeSquare310x310Logo.scale-300.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare310x310Logo.scale-300.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare310x310Logo.scale400.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~59.PNG|AVBible.exeSquare310x310Logo.scale-400.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare310x310Logo.scale-400.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare310x310Logo.scale500.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~60.PNG|AVBible.exeSquare310x310Logo.scale-500.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare310x310Logo.scale-500.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare44x44Logo.scale100.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~61.PNG|AVBible.exeSquare44x44Logo.scale-100.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.scale-100.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare44x44Logo.targetsize16.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~62.PNG|AVBible.exeSquare44x44Logo.targetsize-16.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.targetsize-16.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare44x44Logo.targetsize16_altformunplated.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~63.PNG|AVBible.exeSquare44x44Logo.targetsize-16_altform-unplated.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.targetsize-16_altform-unplated.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare44x44Logo.targetsize16_altformlightunplated.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~64.PNG|AVBible.exeSquare44x44Logo.targetsize-16_altform-lightunplated.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.targetsize-16_altform-lightunplated.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare44x44Logo.scale120.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~65.PNG|AVBible.exeSquare44x44Logo.scale-120.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.scale-120.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare44x44Logo.scale125.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~66.PNG|AVBible.exeSquare44x44Logo.scale-125.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.scale-125.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare44x44Logo.targetsize24.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~67.PNG|AVBible.exeSquare44x44Logo.targetsize-24.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.targetsize-24.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare44x44Logo.targetsize24_altformunplated.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~68.PNG|AVBible.exeSquare44x44Logo.targetsize-24_altform-unplated.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.targetsize-24_altform-unplated.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare44x44Logo.targetsize24_altformlightunplated.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~69.PNG|AVBible.exeSquare44x44Logo.targetsize-24_altform-lightunplated.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.targetsize-24_altform-lightunplated.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare44x44Logo.scale140.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~70.PNG|AVBible.exeSquare44x44Logo.scale-140.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.scale-140.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare44x44Logo.scale150.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~71.PNG|AVBible.exeSquare44x44Logo.scale-150.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.scale-150.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare44x44Logo.targetsize32.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~72.PNG|AVBible.exeSquare44x44Logo.targetsize-32.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.targetsize-32.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare44x44Logo.targetsize32_altformunplated.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~73.PNG|AVBible.exeSquare44x44Logo.targetsize-32_altform-unplated.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.targetsize-32_altform-unplated.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare44x44Logo.targetsize32_altformlightunplated.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~74.PNG|AVBible.exeSquare44x44Logo.targetsize-32_altform-lightunplated.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.targetsize-32_altform-lightunplated.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare44x44Logo.scale160.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~75.PNG|AVBible.exeSquare44x44Logo.scale-160.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.scale-160.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare44x44Logo.scale180.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~76.PNG|AVBible.exeSquare44x44Logo.scale-180.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.scale-180.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare44x44Logo.scale200.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~77.PNG|AVBible.exeSquare44x44Logo.scale-200.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.scale-200.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare44x44Logo.targetsize48.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~78.PNG|AVBible.exeSquare44x44Logo.targetsize-48.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.targetsize-48.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare44x44Logo.targetsize48_altformunplated.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~79.PNG|AVBible.exeSquare44x44Logo.targetsize-48_altform-unplated.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.targetsize-48_altform-unplated.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare44x44Logo.targetsize48_altformlightunplated.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~80.PNG|AVBible.exeSquare44x44Logo.targetsize-48_altform-lightunplated.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.targetsize-48_altform-lightunplated.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare44x44Logo.scale220.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~81.PNG|AVBible.exeSquare44x44Logo.scale-220.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.scale-220.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare44x44Logo.scale225.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~82.PNG|AVBible.exeSquare44x44Logo.scale-225.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.scale-225.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare44x44Logo.scale240.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~83.PNG|AVBible.exeSquare44x44Logo.scale-240.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.scale-240.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare44x44Logo.scale250.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~84.PNG|AVBible.exeSquare44x44Logo.scale-250.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.scale-250.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare44x44Logo.scale300.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~85.PNG|AVBible.exeSquare44x44Logo.scale-300.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.scale-300.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare44x44Logo.scale400.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~86.PNG|AVBible.exeSquare44x44Logo.scale-400.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.scale-400.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare44x44Logo.targetsize256.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~87.PNG|AVBible.exeSquare44x44Logo.targetsize-256.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.targetsize-256.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare44x44Logo.targetsize256_altformunplated.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~88.PNG|AVBible.exeSquare44x44Logo.targetsize-256_altform-unplated.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.targetsize-256_altform-unplated.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare44x44Logo.targetsize256_altformlightunplated.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~89.PNG|AVBible.exeSquare44x44Logo.targetsize-256_altform-lightunplated.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.targetsize-256_altform-lightunplated.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSquare44x44Logo.scale500.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~90.PNG|AVBible.exeSquare44x44Logo.scale-500.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.scale-500.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSplashScreen.scale100.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~91.PNG|AVBible.exeSplashScreen.scale-100.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSplashScreen.scale-100.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSplashScreen.scale120.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~92.PNG|AVBible.exeSplashScreen.scale-120.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSplashScreen.scale-120.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSplashScreen.scale125.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~93.PNG|AVBible.exeSplashScreen.scale-125.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSplashScreen.scale-125.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSplashScreen.scale140.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~94.PNG|AVBible.exeSplashScreen.scale-140.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSplashScreen.scale-140.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSplashScreen.scale150.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~95.PNG|AVBible.exeSplashScreen.scale-150.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSplashScreen.scale-150.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSplashScreen.scale160.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~96.PNG|AVBible.exeSplashScreen.scale-160.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSplashScreen.scale-160.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSplashScreen.scale180.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~97.PNG|AVBible.exeSplashScreen.scale-180.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSplashScreen.scale-180.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSplashScreen.scale200.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~98.PNG|AVBible.exeSplashScreen.scale-200.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSplashScreen.scale-200.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSplashScreen.scale220.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIB~99.PNG|AVBible.exeSplashScreen.scale-220.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSplashScreen.scale-220.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSplashScreen.scale225.png" Component_="Store50x50Logo.scale100.png" FileName="AVBI~100.PNG|AVBible.exeSplashScreen.scale-225.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSplashScreen.scale-225.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSplashScreen.scale240.png" Component_="Store50x50Logo.scale100.png" FileName="AVBI~101.PNG|AVBible.exeSplashScreen.scale-240.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSplashScreen.scale-240.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSplashScreen.scale250.png" Component_="Store50x50Logo.scale100.png" FileName="AVBI~102.PNG|AVBible.exeSplashScreen.scale-250.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSplashScreen.scale-250.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSplashScreen.scale300.png" Component_="Store50x50Logo.scale100.png" FileName="AVBI~103.PNG|AVBible.exeSplashScreen.scale-300.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSplashScreen.scale-300.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSplashScreen.scale400.png" Component_="Store50x50Logo.scale100.png" FileName="AVBI~104.PNG|AVBible.exeSplashScreen.scale-400.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSplashScreen.scale-400.png" SelfReg="false"/>
+    <ROW File="AVBible.exeSplashScreen.scale500.png" Component_="Store50x50Logo.scale100.png" FileName="AVBI~105.PNG|AVBible.exeSplashScreen.scale-500.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSplashScreen.scale-500.png" SelfReg="false"/>
+    <ROW File="AVBible.exeBadgeLogo.scale100.png" Component_="Store50x50Logo.scale100.png" FileName="AVBI~106.PNG|AVBible.exeBadgeLogo.scale-100.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeBadgeLogo.scale-100.png" SelfReg="false"/>
+    <ROW File="AVBible.exeBadgeLogo.scale120.png" Component_="Store50x50Logo.scale100.png" FileName="AVBI~107.PNG|AVBible.exeBadgeLogo.scale-120.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeBadgeLogo.scale-120.png" SelfReg="false"/>
+    <ROW File="AVBible.exeBadgeLogo.scale125.png" Component_="Store50x50Logo.scale100.png" FileName="AVBI~108.PNG|AVBible.exeBadgeLogo.scale-125.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeBadgeLogo.scale-125.png" SelfReg="false"/>
+    <ROW File="AVBible.exeBadgeLogo.scale140.png" Component_="Store50x50Logo.scale100.png" FileName="AVBI~109.PNG|AVBible.exeBadgeLogo.scale-140.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeBadgeLogo.scale-140.png" SelfReg="false"/>
+    <ROW File="AVBible.exeBadgeLogo.scale150.png" Component_="Store50x50Logo.scale100.png" FileName="AVBI~110.PNG|AVBible.exeBadgeLogo.scale-150.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeBadgeLogo.scale-150.png" SelfReg="false"/>
+    <ROW File="AVBible.exeBadgeLogo.scale160.png" Component_="Store50x50Logo.scale100.png" FileName="AVBI~111.PNG|AVBible.exeBadgeLogo.scale-160.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeBadgeLogo.scale-160.png" SelfReg="false"/>
+    <ROW File="AVBible.exeBadgeLogo.scale180.png" Component_="Store50x50Logo.scale100.png" FileName="AVBI~112.PNG|AVBible.exeBadgeLogo.scale-180.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeBadgeLogo.scale-180.png" SelfReg="false"/>
+    <ROW File="AVBible.exeBadgeLogo.scale200.png" Component_="Store50x50Logo.scale100.png" FileName="AVBI~113.PNG|AVBible.exeBadgeLogo.scale-200.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeBadgeLogo.scale-200.png" SelfReg="false"/>
+    <ROW File="AVBible.exeBadgeLogo.scale220.png" Component_="Store50x50Logo.scale100.png" FileName="AVBI~114.PNG|AVBible.exeBadgeLogo.scale-220.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeBadgeLogo.scale-220.png" SelfReg="false"/>
+    <ROW File="AVBible.exeBadgeLogo.scale225.png" Component_="Store50x50Logo.scale100.png" FileName="AVBI~115.PNG|AVBible.exeBadgeLogo.scale-225.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeBadgeLogo.scale-225.png" SelfReg="false"/>
+    <ROW File="AVBible.exeBadgeLogo.scale240.png" Component_="Store50x50Logo.scale100.png" FileName="AVBI~116.PNG|AVBible.exeBadgeLogo.scale-240.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeBadgeLogo.scale-240.png" SelfReg="false"/>
+    <ROW File="AVBible.exeBadgeLogo.scale250.png" Component_="Store50x50Logo.scale100.png" FileName="AVBI~117.PNG|AVBible.exeBadgeLogo.scale-250.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeBadgeLogo.scale-250.png" SelfReg="false"/>
+    <ROW File="AVBible.exeBadgeLogo.scale300.png" Component_="Store50x50Logo.scale100.png" FileName="AVBI~118.PNG|AVBible.exeBadgeLogo.scale-300.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeBadgeLogo.scale-300.png" SelfReg="false"/>
+    <ROW File="AVBible.exeBadgeLogo.scale400.png" Component_="Store50x50Logo.scale100.png" FileName="AVBI~119.PNG|AVBible.exeBadgeLogo.scale-400.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeBadgeLogo.scale-400.png" SelfReg="false"/>
+    <ROW File="AVBible.exeBadgeLogo.scale500.png" Component_="Store50x50Logo.scale100.png" FileName="AVBI~120.PNG|AVBible.exeBadgeLogo.scale-500.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeBadgeLogo.scale-500.png" SelfReg="false"/>
+    <ROW File="application.html" Component_="application.html" FileName="APPLIC~1.HTM|application.html" Attributes="0" SourcePath="..\AVBible\Help\application.html" SelfReg="false"/>
+    <ROW File="AVBibleS4T.html" Component_="application.html" FileName="AV-BIB~1.HTM|AV-Bible-S4T.html" Attributes="0" SourcePath="..\AVBible\Help\AV-Bible-S4T.html" SelfReg="false"/>
+    <ROW File="export.html" Component_="application.html" FileName="EXPORT~1.HTM|export.html" Attributes="0" SourcePath="..\AVBible\Help\export.html" SelfReg="false"/>
+    <ROW File="hashtags.html" Component_="application.html" FileName="HASHTA~1.HTM|hashtags.html" Attributes="0" SourcePath="..\AVBible\Help\hashtags.html" SelfReg="false"/>
+    <ROW File="Index.html" Component_="application.html" FileName="INDEX~1.HTM|Index.html" Attributes="0" SourcePath="..\AVBible\Help\Index.html" SelfReg="false"/>
+    <ROW File="Indexapplication.html" Component_="application.html" FileName="INDEX-~1.HTM|Index-application.html" Attributes="0" SourcePath="..\AVBible\Help\Index-application.html" SelfReg="false"/>
+    <ROW File="Indexexport.html" Component_="application.html" FileName="INDEX-~2.HTM|Index-export.html" Attributes="0" SourcePath="..\AVBible\Help\Index-export.html" SelfReg="false"/>
+    <ROW File="Indexhashtags.html" Component_="application.html" FileName="INDEX-~3.HTM|Index-hashtags.html" Attributes="0" SourcePath="..\AVBible\Help\Index-hashtags.html" SelfReg="false"/>
+    <ROW File="Indexlanguage.html" Component_="application.html" FileName="INDEX-~4.HTM|Index-language.html" Attributes="0" SourcePath="..\AVBible\Help\Index-language.html" SelfReg="false"/>
+    <ROW File="Indexselection.html" Component_="application.html" FileName="INDEX-~5.HTM|Index-selection.html" Attributes="0" SourcePath="..\AVBible\Help\Index-selection.html" SelfReg="false"/>
+    <ROW File="Indexsettings.html" Component_="application.html" FileName="INDEX-~6.HTM|Index-settings.html" Attributes="0" SourcePath="..\AVBible\Help\Index-settings.html" SelfReg="false"/>
+    <ROW File="Indexsystem.html" Component_="application.html" FileName="INDEX-~7.HTM|Index-system.html" Attributes="0" SourcePath="..\AVBible\Help\Index-system.html" SelfReg="false"/>
+    <ROW File="language.html" Component_="application.html" FileName="LANGUA~1.HTM|language.html" Attributes="0" SourcePath="..\AVBible\Help\language.html" SelfReg="false"/>
+    <ROW File="selection.html" Component_="application.html" FileName="SELECT~1.HTM|selection.html" Attributes="0" SourcePath="..\AVBible\Help\selection.html" SelfReg="false"/>
+    <ROW File="settings.html" Component_="application.html" FileName="SETTIN~1.HTM|settings.html" Attributes="0" SourcePath="..\AVBible\Help\settings.html" SelfReg="false"/>
+    <ROW File="system.html" Component_="application.html" FileName="SYSTEM~1.HTM|system.html" Attributes="0" SourcePath="..\AVBible\Help\system.html" SelfReg="false"/>
+    <ROW File="topics.html" Component_="application.html" FileName="TOPICS~1.HTM|topics.html" Attributes="0" SourcePath="..\AVBible\Help\topics.html" SelfReg="false"/>
+    <ROW File="Store50x50Logo.scale125.png" Component_="Store50x50Logo.scale100.png" FileName="STORE5~5.PNG|Store50x50Logo.scale-125.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.targetsize-48_altform-lightunplated.png" SelfReg="false"/>
+    <ROW File="Store50x50Logo.scale150.png" Component_="Store50x50Logo.scale100.png" FileName="STORE5~3.PNG|Store50x50Logo.scale-150.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare71x71Logo.scale-250.png" SelfReg="false"/>
+    <ROW File="Store50x50Logo.scale200.png" Component_="Store50x50Logo.scale100.png" FileName="STORE5~4.PNG|Store50x50Logo.scale-200.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare150x150Logo.scale-150.png" SelfReg="false"/>
+    <ROW File="Store50x50Logo.scale400.png" Component_="Store50x50Logo.scale100.png" FileName="STORE5~6.PNG|Store50x50Logo.scale-400.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.targetsize-256_altform-unplated.png" SelfReg="false"/>
+    <ROW File="WinRT.Runtime.dll" Component_="WinRT.Runtime.dll" FileName="WINRTR~1.DLL|WinRT.Runtime.dll" Attributes="0" SourcePath="..\AVBible\bin\x64\Release\net8.0-windows10.0.17763.0\WinRT.Runtime.dll" SelfReg="false"/>
+    <ROW File="AVBible.runtimeconfig.json" Component_="AVBible.runtimeconfig.json" FileName="AVBIBL~1.JSO|AVBible.runtimeconfig.json" Attributes="0" SourcePath="..\AVBible\bin\x64\Release\net8.0-windows10.0.17763.0\AVBible.runtimeconfig.json" SelfReg="false"/>
+    <ROW File="Microsoft.Windows.SDK.NET.dll" Component_="Microsoft.Windows.SDK.NET.dll" FileName="MICROS~3.DLL|Microsoft.Windows.SDK.NET.dll" Attributes="0" SourcePath="..\AVBible\bin\x64\Release\net8.0-windows10.0.17763.0\Microsoft.Windows.SDK.NET.dll" SelfReg="false"/>
+    <ROW File="settings.yaml_1" Component_="settings.yaml_1" FileName="SETTIN~1.YAM|settings.yaml" Attributes="0" SourcePath="..\..\Users\Me\AppData\Roaming\AV-Bible\settings.yaml" SelfReg="false"/>
+    <ROW File="AVXOmega.data" Component_="AVXOmega.data" FileName="AVX-OM~1.DAT|AVX-Omega.data" Attributes="0" SourcePath="..\AVBible\Data\AVX-Omega.data" SelfReg="false"/>
+    <ROW File="AVXOmega.md5" Component_="AVXOmega.data" FileName="AVX-OM~1.MD5|AVX-Omega.md5" Attributes="0" SourcePath="..\AVBible\Data\AVX-Omega.md5" SelfReg="false"/>
+    <ROW File="AVXOmega.txt" Component_="AVXOmega.data" FileName="AVX-OM~1.TXT|AVX-Omega.txt" Attributes="0" SourcePath="..\AVBible\Data\AVX-Omega.txt" SelfReg="false"/>
+    <ROW File="en_US.txt" Component_="AVXOmega.data" FileName="en_US.txt" Attributes="0" SourcePath="..\AVBible\Data\en_US.txt" SelfReg="false"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.AppXCfgComponent">
+    <ROW ID="Configuration" Order="1" ManifestFile="AppxManifest.xml" TargetOs="4" AutoUpdatesFrequency="0" AutoUpdatesOptions="0" ManifestBundleFile="AppxBundleManifest.xml"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.BootstrOptComponent">
+    <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="18"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.BootstrapperUISequenceComponent">
+    <ROW Action="AI_AppSearchEx" Condition="AI_BOOTSTRAPPER" Sequence="251"/>
+    <ROW Action="AI_DownloadPrereq" Condition="AI_BOOTSTRAPPER AND (NOT AI_PrereqsFulfilled)" Sequence="695"/>
+    <ROW Action="AI_ExtractPrereq" Condition="AI_BOOTSTRAPPER AND (NOT AI_PrereqsFulfilled)" Sequence="696"/>
+    <ROW Action="AI_InstallPrePrerequisite" Condition="AI_BOOTSTRAPPER AND (NOT AI_PrereqsFulfilled)" Sequence="697"/>
+    <ROW Action="AI_VerifyPrePrereq" Condition="AI_BOOTSTRAPPER AND (NOT AI_PrereqsFulfilled)" Sequence="698"/>
+    <ROW Action="AI_CleanPrePrereq" Condition="AI_BOOTSTRAPPER AND (NOT AI_PrereqsFulfilled)" Sequence="699"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
+    <ROW BuildKey="Build_MSIX_APPX" BuildName="Build_MSIX_APPX" BuildOrder="1" BuildType="7" PackageFolder="Build_MSIX_APPXSetupFiles" Languages="en" UwpTargetDesktop="TargetDeviceFamily" UwpAppXBuildUploadFile="true" UwpAppInstallerManifestFile="MsixAppInstallerData.xml"/>
+    <ROW BuildKey="Build_MSIX_APPXSubBuild" BuildName="x64" BuildOrder="2" BuildType="8" ParentBuild="Build_MSIX_APPX"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
+    <ROW Path="&lt;AI_DICTS&gt;ui.ail"/>
+    <ROW Path="&lt;AI_DICTS&gt;ui_en.ail"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.DigCertStoreComponent">
+    <ROW DigitalCertificate="..\DAV-Self-Signed.pfx" SignerDescription="[|ProductName]" SignOptions="0" SignTool="0" UseSha256="1" Password="1B99ECA48593EC032A80A253EC428711" Subject="CN=DigitalAV, O=DigitalAV, C=US"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.FragmentComponent">
+    <ROW Fragment="CommonUI.aip" Path="&lt;AI_FRAGS&gt;CommonUI.aip"/>
+    <ROW Fragment="FolderDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\FolderDlg.aip"/>
+    <ROW Fragment="MaintenanceTypeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\MaintenanceTypeDlg.aip"/>
+    <ROW Fragment="MaintenanceWelcomeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\MaintenanceWelcomeDlg.aip"/>
+    <ROW Fragment="SequenceDialogs.aip" Path="&lt;AI_THEMES&gt;classic\fragments\SequenceDialogs.aip"/>
+    <ROW Fragment="Sequences.aip" Path="&lt;AI_FRAGS&gt;Sequences.aip"/>
+    <ROW Fragment="StaticUIStrings.aip" Path="&lt;AI_FRAGS&gt;StaticUIStrings.aip"/>
+    <ROW Fragment="Themes.aip" Path="&lt;AI_FRAGS&gt;Themes.aip"/>
+    <ROW Fragment="UI.aip" Path="&lt;AI_THEMES&gt;classic\fragments\UI.aip"/>
+    <ROW Fragment="Validation.aip" Path="&lt;AI_FRAGS&gt;Validation.aip"/>
+    <ROW Fragment="VerifyRemoveDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\VerifyRemoveDlg.aip"/>
+    <ROW Fragment="VerifyRepairDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\VerifyRepairDlg.aip"/>
+    <ROW Fragment="WelcomeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\WelcomeDlg.aip"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.GenericXmlAttributeComponent">
+    <ROW XmlAttribute="Alias" XmlElement="ExecutionAlias" Name="Alias" Flags="0" Order="0" Value="AVBible.exe"/>
+    <ROW XmlAttribute="AllowUserInteraction" XmlElement="UX" Name="AllowUserInteraction" Flags="0" Order="0" Value="false"/>
+    <ROW XmlAttribute="AppNameInTitle" XmlElement="UX" Name="AppNameInTitle" Flags="0" Order="0" Value="false"/>
+    <ROW XmlAttribute="BackgroundColor" XmlElement="VisualElements" Name="BackgroundColor" Flags="0" Order="0" Value="transparent"/>
+    <ROW XmlAttribute="BadgeLogo" XmlElement="LockScreen" Name="BadgeLogo" Flags="0" Order="0" FileId="AVBible.exeBadgeLogo.scale100.png"/>
+    <ROW XmlAttribute="Category" XmlElement="Extension" Name="Category" Flags="0" Order="0" Value="windows.appExecutionAlias"/>
+    <ROW XmlAttribute="Category_1" XmlElement="Extension_1" Name="Category" Flags="0" Order="0" Value="windows.desktopAppMigration"/>
+    <ROW XmlAttribute="Description" XmlElement="VisualElements" Name="Description" Flags="0" Order="0" Value="AVBible.exe"/>
+    <ROW XmlAttribute="DisplayName" XmlElement="VisualElements" Name="DisplayName" Flags="0" Order="0" Value="AVBible.exe"/>
+    <ROW XmlAttribute="EntryPoint" XmlElement="Application" Name="EntryPoint" Flags="0" Order="0" Value="Windows.FullTrustApplication"/>
+    <ROW XmlAttribute="EntryPoint_1" XmlElement="Extension_1" Name="EntryPoint" Flags="0" Order="0" Value="Windows.FullTrustApplication"/>
+    <ROW XmlAttribute="Executable" XmlElement="Application" Name="Executable" Flags="0" Order="0" FileId="AVBible.exe"/>
+    <ROW XmlAttribute="Executable_1" XmlElement="Extension_1" Name="Executable" Flags="0" Order="0" FileId="AVBible.exe"/>
+    <ROW XmlAttribute="HorizontalAlignment" XmlElement="LaunchWhenReady" Name="HorizontalAlignment" Flags="0" Order="0" Value="left"/>
+    <ROW XmlAttribute="HorizontalAlignment_1" XmlElement="Icon" Name="HorizontalAlignment" Flags="0" Order="0" Value="left"/>
+    <ROW XmlAttribute="HorizontalAlignment_2" XmlElement="Buttons" Name="HorizontalAlignment" Flags="0" Order="0" Value="left"/>
+    <ROW XmlAttribute="Id" XmlElement="Application" Name="Id" Flags="0" Order="0" Value="AVBible.exe"/>
+    <ROW XmlAttribute="IgnorableNamespaces" XmlElement="AppInstallerUX" Name="IgnorableNamespaces" Flags="0" Order="0" Value="ux ux2"/>
+    <ROW XmlAttribute="Image" XmlElement="SplashScreen" Name="Image" Flags="0" Order="0" FileId="AVBible.exeSplashScreen.scale100.png"/>
+    <ROW XmlAttribute="IsSecondaryButtonAccent" XmlElement="Buttons" Name="IsSecondaryButtonAccent" Flags="0" Order="0" Value="false"/>
+    <ROW XmlAttribute="Language" XmlElement="Resource" Name="Language" Flags="0" Order="0" Value="en-US"/>
+    <ROW XmlAttribute="MaxVersionTested" XmlElement="TargetDeviceFamily" Name="MaxVersionTested" Flags="0" Order="0" Value="10.0.22631.0"/>
+    <ROW XmlAttribute="MinVersion" XmlElement="TargetDeviceFamily" Name="MinVersion" Flags="0" Order="0" Value="10.0.22000.0"/>
+    <ROW XmlAttribute="Mode" XmlElement="AppInformation" Name="Mode" Flags="0" Order="0" Value="flyout"/>
+    <ROW XmlAttribute="Name" XmlElement="Identity" Name="Name" Flags="0" Order="0" Value="51374Digital-AV.org.AV-Bible"/>
+    <ROW XmlAttribute="Name_1" XmlElement="Capability" Name="Name" Flags="0" Order="0" Value="unvirtualizedResources"/>
+    <ROW XmlAttribute="Name_2" XmlElement="TargetDeviceFamily" Name="Name" Flags="0" Order="0" Value="Windows.Desktop"/>
+    <ROW XmlAttribute="Name_4" XmlElement="Capability_1" Name="Name" Flags="0" Order="0" Value="runFullTrust"/>
+    <ROW XmlAttribute="Notification" XmlElement="LockScreen" Name="Notification" Flags="0" Order="0" Value="badge"/>
+    <ROW XmlAttribute="Orientation" XmlElement="Buttons" Name="Orientation" Flags="0" Order="0" Value="horizontal"/>
+    <ROW XmlAttribute="Preference" XmlElement="Rotation" Name="Preference" Flags="0" Order="0" Value="portrait"/>
+    <ROW XmlAttribute="Preference_1" XmlElement="Rotation_1" Name="Preference" Flags="0" Order="0" Value="landscape"/>
+    <ROW XmlAttribute="Preference_2" XmlElement="Rotation_2" Name="Preference" Flags="0" Order="0" Value="portraitFlipped"/>
+    <ROW XmlAttribute="Preference_3" XmlElement="Rotation_3" Name="Preference" Flags="0" Order="0" Value="landscapeFlipped"/>
+    <ROW XmlAttribute="PrimaryButtonMode" XmlElement="Buttons" Name="PrimaryButtonMode" Flags="0" Order="0" Value="normal"/>
+    <ROW XmlAttribute="ProcessorArchitecture" XmlElement="Identity" Name="ProcessorArchitecture" Flags="0" Order="0" Value="x64"/>
+    <ROW XmlAttribute="Publisher" XmlElement="Identity" Name="Publisher" Flags="0" Order="0" Value="CN=38696806-5992-4D3E-8515-F76B2A3AB575"/>
+    <ROW XmlAttribute="Scale" XmlElement="Resource_1" Name="Scale" Flags="0" Order="0" Value="100"/>
+    <ROW XmlAttribute="SecondaryButtonMode" XmlElement="Buttons" Name="SecondaryButtonMode" Flags="0" Order="0" Value="normal"/>
+    <ROW XmlAttribute="ShortcutPath" XmlElement="DesktopApp" Name="ShortcutPath" Flags="0" Order="0" Value="%APPDATA%\Microsoft\Windows\Start Menu\Programs\AV-Bible\AVBible.exe.lnk"/>
+    <ROW XmlAttribute="ShortcutPath_1" XmlElement="DesktopApp_1" Name="ShortcutPath" Flags="0" Order="0" Value="%PROGRAMDATA%\Microsoft\Windows\Start Menu\Programs\AV-Bible\AVBible.exe.lnk"/>
+    <ROW XmlAttribute="ShortcutPath_2" XmlElement="DesktopApp_2" Name="ShortcutPath" Flags="0" Order="0" Value="%USERPROFILE%\Desktop\AVBible.exe.lnk"/>
+    <ROW XmlAttribute="Size" XmlElement="Icon" Name="Size" Flags="0" Order="0" Value="default"/>
+    <ROW XmlAttribute="Square150x150Logo" XmlElement="VisualElements" Name="Square150x150Logo" Flags="0" Order="0" FileId="AVBible.exeSquare150x150Logo.scale100.png"/>
+    <ROW XmlAttribute="Square310x310Logo" XmlElement="DefaultTile" Name="Square310x310Logo" Flags="0" Order="0" FileId="AVBible.exeSquare310x310Logo.scale100.png"/>
+    <ROW XmlAttribute="Square44x44Logo" XmlElement="VisualElements" Name="Square44x44Logo" Flags="0" Order="0" FileId="AVBible.exeSquare44x44Logo.scale100.png"/>
+    <ROW XmlAttribute="Square71x71Logo" XmlElement="DefaultTile" Name="Square71x71Logo" Flags="0" Order="0" FileId="AVBible.exeSquare71x71Logo.scale100.png"/>
+    <ROW XmlAttribute="Version" XmlElement="Identity" Name="Version" Flags="0" Order="0" Value="9.25.1.0"/>
+    <ROW XmlAttribute="Version_1" XmlElement="AppInstallerUX" Name="Version" Flags="0" Order="0" Value="1.0.0"/>
+    <ROW XmlAttribute="Wide310x150Logo" XmlElement="DefaultTile" Name="Wide310x150Logo" Flags="0" Order="0" FileId="AVBible.exeWide310x150Logo.scale100.png"/>
+    <ROW XmlAttribute="xmlns" XmlElement="AppInstallerUX" Name="xmlns" Flags="0" Order="0" Value="http://schemas.microsoft.com/msix/appinstallerux"/>
+    <ROW XmlAttribute="xmlnsux" XmlElement="AppInstallerUX" Name="xmlns:ux" Flags="0" Order="0" Value="http://schemas.microsoft.com/msix/appinstallerux"/>
+    <ROW XmlAttribute="xmlnsux2" XmlElement="AppInstallerUX" Name="xmlns:ux2" Flags="0" Order="0" Value="http://schemas.microsoft.com/msix/appinstallerux"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.GenericXmlElementComponent">
+    <ROW XmlElement="AppExecutionAlias" ParentElement="Extension" Name="AppExecutionAlias" Order="0" Flags="0" Type="0"/>
+    <ROW XmlElement="AppInformation" ParentElement="AppInstallerUX" Name="AppInformation" Order="4" Flags="0" Type="0"/>
+    <ROW XmlElement="AppInstallerUX" Name="AppInstallerUX" Order="0" Flags="0" Type="0"/>
+    <ROW XmlElement="Application" ParentElement="Applications" Name="Application" Order="0" Flags="0" Type="4"/>
+    <ROW XmlElement="Applications" ParentElement="Package" Name="Applications" Order="3" Flags="0" Type="3"/>
+    <ROW XmlElement="Bundle" Name="Bundle" Order="0" Flags="0" Type="0"/>
+    <ROW XmlElement="Buttons" ParentElement="AppInstallerUX" Name="Buttons" Order="2" Flags="0" Type="0"/>
+    <ROW XmlElement="Capabilities" ParentElement="Package" Name="Capabilities" Order="4" Flags="0" Type="0"/>
+    <ROW XmlElement="Capability" ParentElement="Capabilities" Name="Capability" Order="0" Flags="0" Type="0"/>
+    <ROW XmlElement="Capability_1" ParentElement="Capabilities" Name="Capability" Order="1" Flags="0" Type="0"/>
+    <ROW XmlElement="DefaultTile" ParentElement="VisualElements" Name="DefaultTile" Order="1" Flags="0" Type="0"/>
+    <ROW XmlElement="Dependencies" ParentElement="Package" Name="Dependencies" Order="5" Flags="0" Type="0"/>
+    <ROW XmlElement="DesktopApp" ParentElement="DesktopAppMigration" Name="DesktopApp" Order="0" Flags="0" Type="0"/>
+    <ROW XmlElement="DesktopAppMigration" ParentElement="Extension_1" Name="DesktopAppMigration" Order="0" Flags="0" Type="0"/>
+    <ROW XmlElement="DesktopApp_1" ParentElement="DesktopAppMigration" Name="DesktopApp" Order="1" Flags="0" Type="0"/>
+    <ROW XmlElement="DesktopApp_2" ParentElement="DesktopAppMigration" Name="DesktopApp" Order="2" Flags="0" Type="0"/>
+    <ROW XmlElement="DisplayName" ParentElement="Properties" Name="DisplayName" Order="1" Flags="0" Text="AV-Bible" Type="0"/>
+    <ROW XmlElement="ExecutionAlias" ParentElement="AppExecutionAlias" Name="ExecutionAlias" Order="0" Flags="0" Type="0"/>
+    <ROW XmlElement="Extension" ParentElement="Extensions" Name="Extension" Order="0" Flags="0" Type="54"/>
+    <ROW XmlElement="Extension_1" ParentElement="Extensions" Name="Extension" Order="1" Flags="0" Type="55"/>
+    <ROW XmlElement="Extensions" ParentElement="Application" Name="Extensions" Order="1" Flags="0" Type="0"/>
+    <ROW XmlElement="FileSystemWriteVirtualization" ParentElement="Properties" Name="FileSystemWriteVirtualization" Order="3" Flags="30" Text="disabled" Type="168"/>
+    <ROW XmlElement="Icon" ParentElement="AppInstallerUX" Name="Icon" Order="5" Flags="0" Type="0"/>
+    <ROW XmlElement="Identity" ParentElement="Package" Name="Identity" Order="0" Flags="0" Type="0"/>
+    <ROW XmlElement="InitialRotationPreference" ParentElement="VisualElements" Name="InitialRotationPreference" Order="0" Flags="0" Type="0"/>
+    <ROW XmlElement="LaunchWhenReady" ParentElement="AppInstallerUX" Name="LaunchWhenReady" Order="3" Flags="0" Type="0"/>
+    <ROW XmlElement="LockScreen" ParentElement="VisualElements" Name="LockScreen" Order="3" Flags="0" Type="0"/>
+    <ROW XmlElement="Logo" ParentElement="Properties" Name="Logo" Order="2" Flags="0" FileId="Store50x50Logo.scale100.png" Type="0"/>
+    <ROW XmlElement="Package" Name="Package" Order="0" Flags="0" Type="6"/>
+    <ROW XmlElement="Properties" ParentElement="Package" Name="Properties" Order="2" Flags="0" Type="0"/>
+    <ROW XmlElement="PublisherDisplayName" ParentElement="Properties" Name="PublisherDisplayName" Order="0" Flags="0" Text="DigitalAV" Type="0"/>
+    <ROW XmlElement="Resource" ParentElement="Resources" Name="Resource" Order="0" Flags="0" Type="0"/>
+    <ROW XmlElement="Resource_1" ParentElement="Resources" Name="Resource" Order="1" Flags="0" Type="0"/>
+    <ROW XmlElement="Resources" ParentElement="Package" Name="Resources" Order="1" Flags="0" Type="0"/>
+    <ROW XmlElement="Rotation" ParentElement="InitialRotationPreference" Name="Rotation" Order="0" Flags="0" Type="0"/>
+    <ROW XmlElement="Rotation_1" ParentElement="InitialRotationPreference" Name="Rotation" Order="1" Flags="0" Type="0"/>
+    <ROW XmlElement="Rotation_2" ParentElement="InitialRotationPreference" Name="Rotation" Order="2" Flags="0" Type="0"/>
+    <ROW XmlElement="Rotation_3" ParentElement="InitialRotationPreference" Name="Rotation" Order="3" Flags="0" Type="0"/>
+    <ROW XmlElement="SplashScreen" ParentElement="VisualElements" Name="SplashScreen" Order="2" Flags="0" Type="0"/>
+    <ROW XmlElement="TargetDeviceFamily" ParentElement="Dependencies" Name="TargetDeviceFamily" Order="0" Flags="0" Type="28"/>
+    <ROW XmlElement="UX" ParentElement="AppInstallerUX" Name="UX" Order="1" Flags="0" Type="0"/>
+    <ROW XmlElement="VisualElements" ParentElement="Application" Name="VisualElements" Order="0" Flags="0" Type="0"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.GenericXmlFileComponent">
+    <ROW XmlFile="AppxBundleManifest.xml" FileName="AppxBundleManifest.xml" RootElement="Bundle" Flags="89" Version="1.0" Encoding="UTF-8" IndentUnits="2"/>
+    <ROW XmlFile="AppxManifest.xml" FileName="AppxManifest.xml" RootElement="Package" Flags="89" Version="1.0" Encoding="UTF-8" IndentUnits="2"/>
+    <ROW XmlFile="MsixAppInstallerData.xml" FileName="MsixAppInstallerData.xml" RootElement="AppInstallerUX" Flags="89" Version="1.0" Encoding="UTF-8" IndentUnits="2"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiActionTextComponent">
+    <ROW Action="AI_DownloadPrereq" Description="Downloading prerequisite software" DescriptionLocId="ActionText.Description.AI_DownloadPrereq" Template="[1]" TemplateLocId="ActionText.Template.AI_DownloadPrereq"/>
+    <ROW Action="AI_ExtractPrereq" Description="Extracting prerequisite software" DescriptionLocId="ActionText.Description.AI_ExtractPrereq" Template="[1]" TemplateLocId="ActionText.Template.AI_ExtractPrereq"/>
+    <ROW Action="AI_InstallPostPrerequisite" Description="Configuring prerequisite software" DescriptionLocId="ActionText.Description.AI_InstallPrerequisite" Template="[1]" TemplateLocId="ActionText.Template.AI_InstallPrerequisite"/>
+    <ROW Action="AI_InstallPrePrerequisite" Description="Configuring prerequisite software" DescriptionLocId="ActionText.Description.AI_InstallPrerequisite" Template="[1]" TemplateLocId="ActionText.Template.AI_InstallPrerequisite"/>
+    <ROW Action="AI_InstallPrerequisite" Description="Configuring prerequisite software" DescriptionLocId="ActionText.Description.AI_InstallPrerequisite" Template="[1]" TemplateLocId="ActionText.Template.AI_InstallPrerequisite"/>
+    <ROW Action="AI_VerifyPrePrereq" Description="Verifying prerequisites" DescriptionLocId="ActionText.Description.AI_VerifyPrereq" Template="[1] was not installed correctly." TemplateLocId="ActionText.Template.AI_VerifyPrereq"/>
+    <ROW Action="AI_VerifyPrereq" Description="Verifying prerequisites" DescriptionLocId="ActionText.Description.AI_VerifyPrereq" Template="[1] was not installed correctly." TemplateLocId="ActionText.Template.AI_VerifyPrereq"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiBinaryComponent">
+    <ROW Name="Prereq.dll" SourcePath="&lt;AI_CUSTACTS&gt;Prereq.dll"/>
+    <ROW Name="aicustact.dll" SourcePath="&lt;AI_CUSTACTS&gt;aicustact.dll"/>
+    <ROW Name="file_deleter.ps1" SourcePath="&lt;AI_SCRIPTS&gt;file_deleter.ps1"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiControlEventComponent">
+    <ROW Dialog_="WelcomeDlg" Control_="Next" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="1"/>
+    <ROW Dialog_="FolderDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_INSTALL" Ordering="201"/>
+    <ROW Dialog_="FolderDlg" Control_="Back" Event="NewDialog" Argument="WelcomeDlg" Condition="AI_INSTALL" Ordering="1"/>
+    <ROW Dialog_="MaintenanceWelcomeDlg" Control_="Next" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT" Ordering="99"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_MAINT" Ordering="198"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="CustomizeDlg" Condition="AI_MAINT" Ordering="202"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_INSTALL" Ordering="197"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="201"/>
+    <ROW Dialog_="CustomizeDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_MAINT" Ordering="101"/>
+    <ROW Dialog_="CustomizeDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT" Ordering="1"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="ChangeButton" Event="NewDialog" Argument="CustomizeDlg" Condition="AI_MAINT" Ordering="501"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceWelcomeDlg" Condition="AI_MAINT" Ordering="1"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="RemoveButton" Event="NewDialog" Argument="VerifyRemoveDlg" Condition="AI_MAINT AND InstallMode=&quot;Remove&quot;" Ordering="601"/>
+    <ROW Dialog_="VerifyRemoveDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT AND InstallMode=&quot;Remove&quot;" Ordering="1"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="RepairButton" Event="NewDialog" Argument="VerifyRepairDlg" Condition="AI_MAINT AND InstallMode=&quot;Repair&quot;" Ordering="601"/>
+    <ROW Dialog_="VerifyRepairDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT AND InstallMode=&quot;Repair&quot;" Ordering="1"/>
+    <ROW Dialog_="VerifyRepairDlg" Control_="Repair" Event="EndDialog" Argument="Return" Condition="AI_MAINT AND InstallMode=&quot;Repair&quot;" Ordering="399" Options="1"/>
+    <ROW Dialog_="VerifyRemoveDlg" Control_="Remove" Event="EndDialog" Argument="Return" Condition="AI_MAINT AND InstallMode=&quot;Remove&quot;" Ordering="299" Options="1"/>
+    <ROW Dialog_="PatchWelcomeDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_PATCH" Ordering="201"/>
+    <ROW Dialog_="ResumeDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_RESUME" Ordering="299"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_PATCH" Ordering="199"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="PatchWelcomeDlg" Condition="AI_PATCH" Ordering="203"/>
+    <ROW Dialog_="FatalError" Control_="Finish" Event="DoAction" Argument="AI_RollbackPrereq" Condition="1" Ordering="106"/>
+    <ROW Dialog_="ExitDialog" Control_="Finish" Event="DoAction" Argument="AI_CleanPrereq" Condition="1" Ordering="303"/>
+    <ROW Dialog_="FatalError" Control_="Finish" Event="DoAction" Argument="AI_CleanPrereq" Condition="1" Ordering="107"/>
+    <ROW Dialog_="UserExit" Control_="Finish" Event="DoAction" Argument="AI_CleanPrereq" Condition="1" Ordering="103"/>
+    <ROW Dialog_="FatalError" Control_="Finish" Event="DoAction" Argument="AI_RollbackPrePrereq" Condition="1" Ordering="108"/>
+    <ROW Dialog_="ExitDialog" Control_="Finish" Event="DoAction" Argument="AI_CleanPrePrereq" Condition="1" Ordering="304"/>
+    <ROW Dialog_="FatalError" Control_="Finish" Event="DoAction" Argument="AI_CleanPrePrereq" Condition="1" Ordering="109"/>
+    <ROW Dialog_="UserExit" Control_="Finish" Event="DoAction" Argument="AI_CleanPrePrereq" Condition="1" Ordering="104"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCreateFolderComponent">
+    <ROW Directory_="APPDIR" Component_="APPDIR" ManualDelete="true"/>
+    <ROW Directory_="SHORTCUTDIR" Component_="SHORTCUTDIR" ManualDelete="false"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCustActComponent">
+    <ROW Action="AI_AppSearchEx" Type="1" Source="Prereq.dll" Target="DoAppSearchEx"/>
+    <ROW Action="AI_CleanPrePrereq" Type="65" Source="Prereq.dll" Target="CleanPrereq" WithoutSeq="true"/>
+    <ROW Action="AI_CleanPrereq" Type="65" Source="Prereq.dll" Target="CleanPrereq" WithoutSeq="true"/>
+    <ROW Action="AI_DOWNGRADE" Type="19" Target="4010"/>
+    <ROW Action="AI_DownloadPrereq" Type="1" Source="Prereq.dll" Target="DownloadPrereq"/>
+    <ROW Action="AI_DpiContentScale" Type="1" Source="aicustact.dll" Target="DpiContentScale"/>
+    <ROW Action="AI_EnableDebugLog" Type="321" Source="aicustact.dll" Target="EnableDebugLog"/>
+    <ROW Action="AI_ExtractPrereq" Type="65" Source="Prereq.dll" Target="ExtractPrereq"/>
+    <ROW Action="AI_InstallModeCheck" Type="1" Source="aicustact.dll" Target="UpdateInstallMode" WithoutSeq="true"/>
+    <ROW Action="AI_InstallPostPrerequisite" Type="1" Source="Prereq.dll" Target="InstallPostPrereq"/>
+    <ROW Action="AI_InstallPrePrerequisite" Type="65" Source="Prereq.dll" Target="InstallPrePrereq"/>
+    <ROW Action="AI_InstallPrerequisite" Type="1" Source="Prereq.dll" Target="InstallPrereq"/>
+    <ROW Action="AI_MigrateInstallerProps" Type="1" Source="aicustact.dll" Target="MigrateInstallerProps"/>
+    <ROW Action="AI_PREPARE_UPGRADE" Type="65" Source="aicustact.dll" Target="PrepareUpgrade"/>
+    <ROW Action="AI_PRESERVE_INSTALL_TYPE" Type="65" Source="aicustact.dll" Target="PreserveInstallType"/>
+    <ROW Action="AI_RESTORE_LOCATION" Type="65" Source="aicustact.dll" Target="RestoreLocation"/>
+    <ROW Action="AI_ResolveKnownFolders" Type="1" Source="aicustact.dll" Target="AI_ResolveKnownFolders"/>
+    <ROW Action="AI_RestoreInstallerProps" Type="1" Source="aicustact.dll" Target="RestoreInstallerProps" WithoutSeq="true"/>
+    <ROW Action="AI_RollbackPrePrereq" Type="65" Source="Prereq.dll" Target="RollbackPrePrereq" WithoutSeq="true"/>
+    <ROW Action="AI_RollbackPrereq" Type="65" Source="Prereq.dll" Target="RollbackPrereq" WithoutSeq="true"/>
+    <ROW Action="AI_SHOW_LOG" Type="65" Source="aicustact.dll" Target="LaunchLogFile" WithoutSeq="true"/>
+    <ROW Action="AI_STORE_LOCATION" Type="51" Source="ARPINSTALLLOCATION" Target="[APPDIR]"/>
+    <ROW Action="AI_VerifyPrePrereq" Type="1" Source="Prereq.dll" Target="VerifyPrePrereq"/>
+    <ROW Action="AI_VerifyPrereq" Type="1" Source="Prereq.dll" Target="VerifyPrereq"/>
+    <ROW Action="SET_APPDIR" Type="307" Source="APPDIR" Target="[ProgramFilesFolder][Manufacturer]\[ProductName]" MultiBuildTarget="Build_MSIX_APPX:[ProgramFiles64Folder][ProductName]"/>
+    <ROW Action="SET_SHORTCUTDIR" Type="307" Source="SHORTCUTDIR" Target="[ProgramMenuFolder][ProductName]"/>
+    <ROW Action="SET_TARGETDIR_TO_APPDIR" Type="51" Source="TARGETDIR" Target="[APPDIR]"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatCompsComponent">
+    <ROW Feature_="MainFeature" Component_="APPDIR"/>
+    <ROW Feature_="MainFeature" Component_="ProductInformation"/>
+    <ROW Feature_="MainFeature" Component_="AVEngine.dll"/>
+    <ROW Feature_="MainFeature" Component_="AVSearch.dll"/>
+    <ROW Feature_="MainFeature" Component_="AVBible.dll"/>
+    <ROW Feature_="MainFeature" Component_="AVBible.exe"/>
+    <ROW Feature_="MainFeature" Component_="AVXLib.dll"/>
+    <ROW Feature_="MainFeature" Component_="Blacklight.Controls.Wpf.dll"/>
+    <ROW Feature_="MainFeature" Component_="BlueprintBlueLib.dll"/>
+    <ROW Feature_="MainFeature" Component_="style.css"/>
+    <ROW Feature_="MainFeature" Component_="QCommand.png"/>
+    <ROW Feature_="MainFeature" Component_="mdpage.js"/>
+    <ROW Feature_="MainFeature" Component_="PhonemeEmbeddings.dll"/>
+    <ROW Feature_="MainFeature" Component_="pinshot_blue.dll"/>
+    <ROW Feature_="MainFeature" Component_="YamlDotNet.dll"/>
+    <ROW Feature_="MainFeature" Component_="SHORTCUTDIR"/>
+    <ROW Feature_="AiAppXAssets" Component_="Store50x50Logo.scale100.png"/>
+    <ROW Feature_="MainFeature" Component_="application.html"/>
+    <ROW Feature_="MainFeature" Component_="AVBible.runtimeconfig.json"/>
+    <ROW Feature_="MainFeature" Component_="Microsoft.Windows.SDK.NET.dll"/>
+    <ROW Feature_="MainFeature" Component_="WinRT.Runtime.dll"/>
+    <ROW Feature_="MainFeature" Component_="settings.yaml_1"/>
+    <ROW Feature_="MainFeature" Component_="AVXOmega.data"/>
+    <ROW Feature_="A0BFC224E0E9125ADE0B2DBF343" Component_="A0BFC224E0E9125ADE0B2DBF343"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
+    <ROW Name="gutenburgpress256.exe" SourcePath="..\AVBible\gutenburg-press-256.ico" Index="0"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiInstExSeqComponent">
+    <ROW Action="AI_DOWNGRADE" Condition="AI_NEWERPRODUCTFOUND AND (UILevel &lt;&gt; 5)" Sequence="210"/>
+    <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
+    <ROW Action="AI_STORE_LOCATION" Condition="(Not Installed) OR REINSTALL" Sequence="1501"/>
+    <ROW Action="AI_PREPARE_UPGRADE" Condition="AI_UPGRADE=&quot;No&quot; AND (Not Installed)" Sequence="1399"/>
+    <ROW Action="AI_ResolveKnownFolders" Sequence="52"/>
+    <ROW Action="AI_EnableDebugLog" Sequence="51"/>
+    <ROW Action="AI_MigrateInstallerProps" Condition="SETUPEXEDIR AND ((UILevel = 2) OR (UILevel = 3))" Sequence="6599"/>
+    <ROW Action="AI_VerifyPrereq" Sequence="1101"/>
+    <ROW Action="AI_AppSearchEx" Sequence="101"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiInstallUISequenceComponent">
+    <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
+    <ROW Action="AI_ResolveKnownFolders" Sequence="53"/>
+    <ROW Action="AI_DpiContentScale" Sequence="52"/>
+    <ROW Action="AI_EnableDebugLog" Sequence="51"/>
+    <ROW Action="AI_PRESERVE_INSTALL_TYPE" Sequence="199"/>
+    <ROW Action="AI_DownloadPrereq" Sequence="1296"/>
+    <ROW Action="AI_ExtractPrereq" Sequence="1297"/>
+    <ROW Action="AI_InstallPrerequisite" Sequence="1298"/>
+    <ROW Action="AI_InstallPostPrerequisite" Sequence="1301"/>
+    <ROW Action="AI_CleanPrereq" Sequence="1302"/>
+    <ROW Action="AI_AppSearchEx" Sequence="101"/>
+    <ROW Action="AI_InstallPrePrerequisite" Condition="Installed" Sequence="1299"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiRegsComponent">
+    <ROW Registry="A0BFC224E0E9125ADE0B2DBF343" Root="-1" Key="Software\Caphyon\Advanced Installer\Prereqs\[ProductCode]\[ProductVersion]" Name="A0BFC224E0E9125ADE0B2DBF343" Value="1" Component_="A0BFC224E0E9125ADE0B2DBF343"/>
+    <ROW Registry="AdvancedInstaller" Root="-1" Key="Software\Caphyon\Advanced Installer" Name="\"/>
+    <ROW Registry="Caphyon" Root="-1" Key="Software\Caphyon" Name="\"/>
+    <ROW Registry="Manufacturer" Root="-1" Key="Software\[Manufacturer]" Name="\"/>
+    <ROW Registry="Path" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="Path" Value="[APPDIR]" Component_="ProductInformation"/>
+    <ROW Registry="Prereqs" Root="-1" Key="Software\Caphyon\Advanced Installer\Prereqs" Name="\"/>
+    <ROW Registry="ProductCode" Root="-1" Key="Software\Caphyon\Advanced Installer\Prereqs\[ProductCode]" Name="\"/>
+    <ROW Registry="ProductName" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="\"/>
+    <ROW Registry="ProductVersion" Root="-1" Key="Software\Caphyon\Advanced Installer\Prereqs\[ProductCode]\[ProductVersion]" Name="\"/>
+    <ROW Registry="Software" Root="-1" Key="Software" Name="\"/>
+    <ROW Registry="Version" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="Version" Value="[ProductVersion]" Component_="ProductInformation"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiShortsComponent">
+    <ROW Shortcut="AVBible.exe" Directory_="SHORTCUTDIR" Name="AVBible.exe" Component_="AVBible.exe" Target="[#AVBible.exe]" Description="AVBible.exe" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="AVBible.exe_1" Directory_="DesktopFolder" Name="AVBible.exe" Component_="AVBible.exe" Target="[#AVBible.exe]" Description="AVBible.exe" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiThemeComponent">
+    <ATTRIBUTE name="UsedTheme" value="classic"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiUpgradeComponent">
+    <ROW UpgradeCode="[|UpgradeCode]" VersionMin="0.0.1" VersionMax="[|ProductVersion]" Attributes="769" ActionProperty="OLDPRODUCTS"/>
+    <ROW UpgradeCode="[|UpgradeCode]" VersionMin="[|ProductVersion]" Attributes="2" ActionProperty="AI_NEWERPRODUCTFOUND"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.PreReqComponent">
+    <ROW PrereqKey="A0BFC224E0E9125ADE0B2DBF343" DisplayName=".NET Desktop Runtime 8.0.11 x64" VersionMin="8.0" SetupFileUrl="https://download.visualstudio.microsoft.com/download/pr/27bcdd70-ce64-4049-ba24-2b14f9267729/d4a435e55182ce5424a7204c2cf2b3ea/windowsdesktop-runtime-8.0.11-win-x64.exe" Location="1" ExactSize="0" WinNTVersions="Windows 9x/ME/NT/2000/XP/Vista/Windows 7/Windows 8 x86/Windows 8.1 x86/Windows 10 x86" WinNT64Versions="Windows 7 RTM x64, Windows 8 x64, Windows Server 2012 x64, Windows 10 version 1507 x64, Windows 10 version 1511 x64" Operator="1" NoUiComLine="/q /norestart" Options="fx" TargetName=".NET 8.0" Feature="A0BFC224E0E9125ADE0B2DBF343"/>
+    <ATTRIBUTE name="PrereqsOrder" value="A0BFC224E0E9125ADE0B2DBF343"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.PreReqSearchComponent">
+    <ROW SearchKey="A0BFC224E0E9125ADE0B2DBF343SystemFo" Prereq="A0BFC224E0E9125ADE0B2DBF343" SearchType="14" SearchString="[ProgramFiles64Folder]dotnet\shared\Microsoft.WindowsDesktop.App" VerMin="8.0.11" Order="1" Property="PreReqSearch_A0BFC224E0E9125ADE0B2D"/>
+  </COMPONENT>
+</DOCUMENT>
