@@ -232,6 +232,15 @@
     <ROW File="AVXOmega.md5" Component_="AVXOmega.data" FileName="AVX-OM~1.MD5|AVX-Omega.md5" Attributes="0" SourcePath="..\AVBible\Data\AVX-Omega.md5" SelfReg="false"/>
     <ROW File="AVXOmega.txt" Component_="AVXOmega.data" FileName="AVX-OM~1.TXT|AVX-Omega.txt" Attributes="0" SourcePath="..\AVBible\Data\AVX-Omega.txt" SelfReg="false"/>
     <ROW File="en_US.txt" Component_="AVXOmega.data" FileName="en_US.txt" Attributes="0" SourcePath="..\AVBible\Data\en_US.txt" SelfReg="false"/>
+    <ROW File="application.md" Component_="application.html" FileName="APPLIC~1.MD|application.md" Attributes="0" SourcePath="..\Help\application.md" SelfReg="false"/>
+    <ROW File="AVBibleS4T.md" Component_="application.html" FileName="AV-BIB~1.MD|AV-Bible-S4T.md" Attributes="0" SourcePath="..\Help\AV-Bible-S4T.md" SelfReg="false"/>
+    <ROW File="export.md" Component_="application.html" FileName="export.md" Attributes="0" SourcePath="..\Help\export.md" SelfReg="false"/>
+    <ROW File="hashtags.md" Component_="application.html" FileName="hashtags.md" Attributes="0" SourcePath="..\Help\hashtags.md" SelfReg="false"/>
+    <ROW File="selection.md" Component_="application.html" FileName="SELECT~1.MD|selection.md" Attributes="0" SourcePath="..\Help\selection.md" SelfReg="false"/>
+    <ROW File="settings.md" Component_="application.html" FileName="settings.md" Attributes="0" SourcePath="..\Help\settings.md" SelfReg="false"/>
+    <ROW File="system.md" Component_="application.html" FileName="system.md" Attributes="0" SourcePath="..\Help\system.md" SelfReg="false"/>
+    <ROW File="tables.md" Component_="application.html" FileName="tables.md" Attributes="0" SourcePath="..\Help\tables.md" SelfReg="false"/>
+    <ROW File="language.md" Component_="application.html" FileName="language.md" Attributes="0" SourcePath="..\Help\language.md" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AppXCfgComponent">
     <ROW ID="Configuration" Order="1" ManifestFile="AppxManifest.xml" TargetOs="4" AutoUpdatesFrequency="0" AutoUpdatesOptions="0" ManifestBundleFile="AppxBundleManifest.xml"/>
@@ -256,7 +265,7 @@
     <ROW Path="&lt;AI_DICTS&gt;ui_en.ail"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.DigCertStoreComponent">
-    <ROW DigitalCertificate="..\DAV-Self-Signed.pfx" SignerDescription="[|ProductName]" SignOptions="0" SignTool="0" UseSha256="1" Password="1B99ECA48593EC032A80A253EC428711" Subject="CN=DigitalAV, O=DigitalAV, C=US"/>
+    <ROW DigitalCertificate="..\DAV-Self-Signed.pfx" SignerDescription="[|ProductName]" SignOptions="0" SignTool="0" UseSha256="1" Password="1B99ECA48593EC032A80A253EC428711"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.FragmentComponent">
     <ROW Fragment="CommonUI.aip" Path="&lt;AI_FRAGS&gt;CommonUI.aip"/>
@@ -531,7 +540,7 @@
     <ATTRIBUTE name="UsedTheme" value="classic"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiUpgradeComponent">
-    <ROW UpgradeCode="[|UpgradeCode]" VersionMin="0.0.1" VersionMax="[|ProductVersion]" Attributes="769" ActionProperty="OLDPRODUCTS"/>
+    <ROW UpgradeCode="[|UpgradeCode]" VersionMin="0.0.1" VersionMax="[|ProductVersion]" Attributes="257" ActionProperty="OLDPRODUCTS"/>
     <ROW UpgradeCode="[|UpgradeCode]" VersionMin="[|ProductVersion]" Attributes="2" ActionProperty="AI_NEWERPRODUCTFOUND"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.PreReqComponent">
