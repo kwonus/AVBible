@@ -1,4 +1,4 @@
-### These are instructions for installing Release-Candidate #3 of AV-Bible 2025
+### These are instructions for installing AV-Bible *(Version 9.25.1.20)*
 
 #### Requirements:
 
