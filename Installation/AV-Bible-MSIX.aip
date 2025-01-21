@@ -11,7 +11,6 @@
     <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
     <ROW Property="ALLUSERS" Value="1"/>
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
-    <ROW Property="ARPPRODUCTICON" Value="gutenburgpress256.exe" Type="8"/>
     <ROW Property="Manufacturer" Value="DigitalAV"/>
     <ROW Property="ProductCode" Value="1033:{F85E0FE0-DE24-4A84-8653-972E9034EF58} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
@@ -24,8 +23,8 @@
     <ROW Directory="APPDIR" Directory_Parent="TARGETDIR" DefaultDir="APPDIR:." IsPseudoRoot="1"/>
     <ROW Directory="AppDataFolder" Directory_Parent="TARGETDIR" DefaultDir="APPDAT~1|AppDataFolder" IsPseudoRoot="1"/>
     <ROW Directory="Assets" Directory_Parent="TARGETDIR" DefaultDir="Assets" IsPseudoRoot="1"/>
-    <ROW Directory="Data_Dir" Directory_Parent="APPDIR" DefaultDir="Data"/>
     <ROW Directory="DesktopFolder" Directory_Parent="TARGETDIR" DefaultDir="DESKTO~1|DesktopFolder" IsPseudoRoot="1"/>
+    <ROW Directory="DigitalAV_Dir" Directory_Parent="APPDIR" DefaultDir="DIGITA~1|Digital-AV"/>
     <ROW Directory="Help_Dir" Directory_Parent="APPDIR" DefaultDir="Help"/>
     <ROW Directory="NewFolder_Dir" Directory_Parent="AppDataFolder" DefaultDir="AV-Bible"/>
     <ROW Directory="ProgramFiles64Folder" Directory_Parent="TARGETDIR" DefaultDir="PROGRA~2|ProgramFiles64Folder" IsPseudoRoot="1"/>
@@ -44,10 +43,12 @@
     <ROW Component="AVEngine.dll" ComponentId="{B5671EAA-95DB-4148-B8E9-CE40E45BB0E3}" Directory_="APPDIR" Attributes="0" KeyPath="AVEngine.dll"/>
     <ROW Component="AVSearch.dll" ComponentId="{F20883D8-5482-4045-9672-F9B739F1C3DE}" Directory_="APPDIR" Attributes="0" KeyPath="AVSearch.dll"/>
     <ROW Component="AVXLib.dll" ComponentId="{F7317584-E0CB-46CD-8B79-77BECBF3B0BC}" Directory_="APPDIR" Attributes="0" KeyPath="AVXLib.dll"/>
-    <ROW Component="AVXOmega.data" ComponentId="{2557DCA5-6FA5-4513-872E-9CDF2C0AB86A}" Directory_="Data_Dir" Attributes="0" KeyPath="AVXOmega.data" Type="0"/>
+    <ROW Component="AVXOmega.data_1" ComponentId="{72F1910A-5B8B-4736-83C6-5E3802DD7506}" Directory_="DigitalAV_Dir" Attributes="0" KeyPath="AVXOmega.data_1" Type="0"/>
     <ROW Component="Blacklight.Controls.Wpf.dll" ComponentId="{44429261-BFAA-499F-9671-64DD7CA26AC6}" Directory_="APPDIR" Attributes="0" KeyPath="Blacklight.Controls.Wpf.dll"/>
     <ROW Component="BlueprintBlueLib.dll" ComponentId="{60DA5FD3-0B1D-43AC-8B3E-3D6999011C42}" Directory_="APPDIR" Attributes="0" KeyPath="BlueprintBlueLib.dll"/>
+    <ROW Component="Markdig.dll" ComponentId="{0739B2DC-CE63-44D3-864F-F9419D40B5DC}" Directory_="APPDIR" Attributes="0" KeyPath="Markdig.dll"/>
     <ROW Component="Microsoft.Windows.SDK.NET.dll" ComponentId="{661B8BAC-719B-42F7-9C3C-93BBE931410A}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.Windows.SDK.NET.dll"/>
+    <ROW Component="Neo.Markdig.Xaml.dll" ComponentId="{692EEB0F-4716-4CAF-A331-DD89ACA354DC}" Directory_="APPDIR" Attributes="0" KeyPath="Neo.Markdig.Xaml.dll"/>
     <ROW Component="PhonemeEmbeddings.dll" ComponentId="{62004A80-AD3B-41D4-B9DE-74AB57395BCC}" Directory_="APPDIR" Attributes="0" KeyPath="PhonemeEmbeddings.dll"/>
     <ROW Component="ProductInformation" ComponentId="{5D6FE968-8AA4-45CC-AD54-198DD6ECF625}" Directory_="APPDIR" Attributes="4" KeyPath="Version"/>
     <ROW Component="QCommand.png" ComponentId="{0A3F5665-E839-4374-BA5C-EB47A6B1D343}" Directory_="diagrams_Dir" Attributes="0" KeyPath="QCommand.png" Type="0"/>
@@ -55,7 +56,7 @@
     <ROW Component="Store50x50Logo.scale100.png" ComponentId="{DBB39791-CB5A-4035-B1D3-C2D52D9AAB74}" Directory_="Assets" Attributes="0" KeyPath="Store50x50Logo.scale100.png" Type="0"/>
     <ROW Component="WinRT.Runtime.dll" ComponentId="{4D4DF57E-C4A3-4DBA-8B0D-C3D5156AAB6E}" Directory_="APPDIR" Attributes="0" KeyPath="WinRT.Runtime.dll"/>
     <ROW Component="YamlDotNet.dll" ComponentId="{DC59A306-CB23-405A-B983-E6D79662A49B}" Directory_="APPDIR" Attributes="0" KeyPath="YamlDotNet.dll"/>
-    <ROW Component="application.html" ComponentId="{488ECBA7-5313-40D9-A520-083CC15D5E30}" Directory_="Help_Dir" Attributes="0" KeyPath="application.html" Type="0"/>
+    <ROW Component="application.html" ComponentId="{EE8DF331-1D24-45EE-ABE6-A03B49F739A7}" Directory_="Help_Dir" Attributes="0" KeyPath="application.html" Type="0"/>
     <ROW Component="mdpage.js" ComponentId="{5C179854-C3BB-47D4-902A-9B7FBF458F1C}" Directory_="htmlgenerator_Dir" Attributes="0" KeyPath="mdpage.js" Type="0"/>
     <ROW Component="pinshot_blue.dll" ComponentId="{717AD7A1-E3C1-4693-A824-AA7F57861262}" Directory_="APPDIR" Attributes="256" KeyPath="pinshot_blue.dll"/>
     <ROW Component="settings.yaml_1" ComponentId="{483542B8-59E2-4BA1-96CB-AED98DC93EF6}" Directory_="NewFolder_Dir" Attributes="0" KeyPath="settings.yaml_1" Type="0"/>
@@ -68,20 +69,20 @@
     <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
-    <ROW File="AVEngine.dll" Component_="AVEngine.dll" FileName="AV-ENG~1.DLL|AV-Engine.dll" Attributes="0" SourcePath="..\AVBible\bin\x64\Release\net8.0-windows10.0.17763.0\AV-Engine.dll" SelfReg="false"/>
-    <ROW File="AVSearch.dll" Component_="AVSearch.dll" FileName="AV-SEA~1.DLL|AV-Search.dll" Attributes="0" SourcePath="..\AVBible\bin\x64\Release\net8.0-windows10.0.17763.0\AV-Search.dll" SelfReg="false"/>
-    <ROW File="AVBible.dll" Component_="AVBible.dll" FileName="AVBible.dll" Attributes="0" SourcePath="..\AVBible\bin\x64\Release\net8.0-windows10.0.17763.0\AVBible.dll" SelfReg="false"/>
-    <ROW File="AVBible.exe" Component_="AVBible.exe" FileName="AVBible.exe" Attributes="0" SourcePath="..\AVBible\bin\x64\Release\net8.0-windows10.0.17763.0\AVBible.exe" SelfReg="false" DigSign="true"/>
-    <ROW File="AVXLib.dll" Component_="AVXLib.dll" FileName="AVXLib.dll" Attributes="0" SourcePath="..\AVBible\bin\x64\Release\net8.0-windows10.0.17763.0\AVXLib.dll" SelfReg="false"/>
-    <ROW File="Blacklight.Controls.Wpf.dll" Component_="Blacklight.Controls.Wpf.dll" FileName="BLACKL~1.DLL|Blacklight.Controls.Wpf.dll" Attributes="0" SourcePath="..\AVBible\bin\x64\Release\net8.0-windows10.0.17763.0\Blacklight.Controls.Wpf.dll" SelfReg="false"/>
-    <ROW File="BlueprintBlueLib.dll" Component_="BlueprintBlueLib.dll" FileName="BLUEPR~1.DLL|Blueprint-Blue-Lib.dll" Attributes="0" SourcePath="..\AVBible\bin\x64\Release\net8.0-windows10.0.17763.0\Blueprint-Blue-Lib.dll" SelfReg="false"/>
-    <ROW File="style.css" Component_="style.css" FileName="style.css" Attributes="0" SourcePath="..\AVBible\Help\css\style.css" SelfReg="false"/>
-    <ROW File="QCommand.png" Component_="QCommand.png" FileName="QCommand.png" Attributes="0" SourcePath="..\AVBible\Help\diagrams\QCommand.png" SelfReg="false"/>
-    <ROW File="QFind.png" Component_="QCommand.png" FileName="QFind.png" Attributes="0" SourcePath="..\AVBible\Help\diagrams\QFind.png" SelfReg="false"/>
-    <ROW File="mdpage.js" Component_="mdpage.js" FileName="md-page.js" Attributes="0" SourcePath="..\AVBible\Help\html-generator\md-page.js" SelfReg="false"/>
-    <ROW File="PhonemeEmbeddings.dll" Component_="PhonemeEmbeddings.dll" FileName="PHONEM~1.DLL|PhonemeEmbeddings.dll" Attributes="0" SourcePath="..\AVBible\bin\x64\Release\net8.0-windows10.0.17763.0\PhonemeEmbeddings.dll" SelfReg="false"/>
-    <ROW File="pinshot_blue.dll" Component_="pinshot_blue.dll" FileName="PINSHO~1.DLL|pinshot_blue.dll" Attributes="0" SourcePath="..\AVBible\bin\x64\Release\net8.0-windows10.0.17763.0\pinshot_blue.dll" SelfReg="false"/>
-    <ROW File="YamlDotNet.dll" Component_="YamlDotNet.dll" FileName="YAMLDO~1.DLL|YamlDotNet.dll" Attributes="0" SourcePath="..\AVBible\bin\x64\Release\net8.0-windows10.0.17763.0\YamlDotNet.dll" SelfReg="false"/>
+    <ROW File="AVEngine.dll" Component_="AVEngine.dll" FileName="AV-ENG~1.DLL|AV-Engine.dll" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\AV-Engine.dll" SelfReg="false"/>
+    <ROW File="AVSearch.dll" Component_="AVSearch.dll" FileName="AV-SEA~1.DLL|AV-Search.dll" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\AV-Search.dll" SelfReg="false"/>
+    <ROW File="AVBible.dll" Component_="AVBible.dll" FileName="AVBible.dll" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\AVBible.dll" SelfReg="false"/>
+    <ROW File="AVBible.exe" Component_="AVBible.exe" FileName="AVBible.exe" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\AVBible.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="AVXLib.dll" Component_="AVXLib.dll" FileName="AVXLib.dll" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\AVXLib.dll" SelfReg="false"/>
+    <ROW File="Blacklight.Controls.Wpf.dll" Component_="Blacklight.Controls.Wpf.dll" FileName="BLACKL~1.DLL|Blacklight.Controls.Wpf.dll" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\Blacklight.Controls.Wpf.dll" SelfReg="false"/>
+    <ROW File="BlueprintBlueLib.dll" Component_="BlueprintBlueLib.dll" FileName="BLUEPR~1.DLL|Blueprint-Blue-Lib.dll" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\Blueprint-Blue-Lib.dll" SelfReg="false"/>
+    <ROW File="style.css" Component_="style.css" FileName="style.css" Attributes="0" SourcePath="..\Help\css\style.css" SelfReg="false"/>
+    <ROW File="QCommand.png" Component_="QCommand.png" FileName="QCommand.png" Attributes="0" SourcePath="..\Help\diagrams\QCommand.png" SelfReg="false"/>
+    <ROW File="QFind.png" Component_="QCommand.png" FileName="QFind.png" Attributes="0" SourcePath="..\Help\diagrams\QFind.png" SelfReg="false"/>
+    <ROW File="mdpage.js" Component_="mdpage.js" FileName="md-page.js" Attributes="0" SourcePath="..\Help\html-generator\md-page.js" SelfReg="false"/>
+    <ROW File="PhonemeEmbeddings.dll" Component_="PhonemeEmbeddings.dll" FileName="PHONEM~1.DLL|PhonemeEmbeddings.dll" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\PhonemeEmbeddings.dll" SelfReg="false"/>
+    <ROW File="pinshot_blue.dll" Component_="pinshot_blue.dll" FileName="PINSHO~1.DLL|pinshot_blue.dll" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\pinshot_blue.dll" SelfReg="false"/>
+    <ROW File="YamlDotNet.dll" Component_="YamlDotNet.dll" FileName="YAMLDO~1.DLL|YamlDotNet.dll" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\YamlDotNet.dll" SelfReg="false"/>
     <ROW File="Store50x50Logo.scale100.png" Component_="Store50x50Logo.scale100.png" FileName="STORE5~1.PNG|Store50x50Logo.scale-100.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.targetsize-48_altform-unplated.png" SelfReg="false"/>
     <ROW File="AVBible.exeSquare71x71Logo.scale100.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIBL~1.PNG|AVBible.exeSquare71x71Logo.scale-100.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare71x71Logo.scale-100.png" SelfReg="false"/>
     <ROW File="AVBible.exeSquare71x71Logo.scale120.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIBL~2.PNG|AVBible.exeSquare71x71Logo.scale-120.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare71x71Logo.scale-120.png" SelfReg="false"/>
@@ -203,44 +204,47 @@
     <ROW File="AVBible.exeBadgeLogo.scale300.png" Component_="Store50x50Logo.scale100.png" FileName="AVBI~118.PNG|AVBible.exeBadgeLogo.scale-300.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeBadgeLogo.scale-300.png" SelfReg="false"/>
     <ROW File="AVBible.exeBadgeLogo.scale400.png" Component_="Store50x50Logo.scale100.png" FileName="AVBI~119.PNG|AVBible.exeBadgeLogo.scale-400.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeBadgeLogo.scale-400.png" SelfReg="false"/>
     <ROW File="AVBible.exeBadgeLogo.scale500.png" Component_="Store50x50Logo.scale100.png" FileName="AVBI~120.PNG|AVBible.exeBadgeLogo.scale-500.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeBadgeLogo.scale-500.png" SelfReg="false"/>
-    <ROW File="application.html" Component_="application.html" FileName="APPLIC~1.HTM|application.html" Attributes="0" SourcePath="..\AVBible\Help\application.html" SelfReg="false"/>
-    <ROW File="AVBibleS4T.html" Component_="application.html" FileName="AV-BIB~1.HTM|AV-Bible-S4T.html" Attributes="0" SourcePath="..\AVBible\Help\AV-Bible-S4T.html" SelfReg="false"/>
-    <ROW File="export.html" Component_="application.html" FileName="EXPORT~1.HTM|export.html" Attributes="0" SourcePath="..\AVBible\Help\export.html" SelfReg="false"/>
-    <ROW File="hashtags.html" Component_="application.html" FileName="HASHTA~1.HTM|hashtags.html" Attributes="0" SourcePath="..\AVBible\Help\hashtags.html" SelfReg="false"/>
-    <ROW File="Index.html" Component_="application.html" FileName="INDEX~1.HTM|Index.html" Attributes="0" SourcePath="..\AVBible\Help\Index.html" SelfReg="false"/>
-    <ROW File="Indexapplication.html" Component_="application.html" FileName="INDEX-~1.HTM|Index-application.html" Attributes="0" SourcePath="..\AVBible\Help\Index-application.html" SelfReg="false"/>
-    <ROW File="Indexexport.html" Component_="application.html" FileName="INDEX-~2.HTM|Index-export.html" Attributes="0" SourcePath="..\AVBible\Help\Index-export.html" SelfReg="false"/>
-    <ROW File="Indexhashtags.html" Component_="application.html" FileName="INDEX-~3.HTM|Index-hashtags.html" Attributes="0" SourcePath="..\AVBible\Help\Index-hashtags.html" SelfReg="false"/>
-    <ROW File="Indexlanguage.html" Component_="application.html" FileName="INDEX-~4.HTM|Index-language.html" Attributes="0" SourcePath="..\AVBible\Help\Index-language.html" SelfReg="false"/>
-    <ROW File="Indexselection.html" Component_="application.html" FileName="INDEX-~5.HTM|Index-selection.html" Attributes="0" SourcePath="..\AVBible\Help\Index-selection.html" SelfReg="false"/>
-    <ROW File="Indexsettings.html" Component_="application.html" FileName="INDEX-~6.HTM|Index-settings.html" Attributes="0" SourcePath="..\AVBible\Help\Index-settings.html" SelfReg="false"/>
-    <ROW File="Indexsystem.html" Component_="application.html" FileName="INDEX-~7.HTM|Index-system.html" Attributes="0" SourcePath="..\AVBible\Help\Index-system.html" SelfReg="false"/>
-    <ROW File="language.html" Component_="application.html" FileName="LANGUA~1.HTM|language.html" Attributes="0" SourcePath="..\AVBible\Help\language.html" SelfReg="false"/>
-    <ROW File="selection.html" Component_="application.html" FileName="SELECT~1.HTM|selection.html" Attributes="0" SourcePath="..\AVBible\Help\selection.html" SelfReg="false"/>
-    <ROW File="settings.html" Component_="application.html" FileName="SETTIN~1.HTM|settings.html" Attributes="0" SourcePath="..\AVBible\Help\settings.html" SelfReg="false"/>
-    <ROW File="system.html" Component_="application.html" FileName="SYSTEM~1.HTM|system.html" Attributes="0" SourcePath="..\AVBible\Help\system.html" SelfReg="false"/>
-    <ROW File="topics.html" Component_="application.html" FileName="TOPICS~1.HTM|topics.html" Attributes="0" SourcePath="..\AVBible\Help\topics.html" SelfReg="false"/>
     <ROW File="Store50x50Logo.scale125.png" Component_="Store50x50Logo.scale100.png" FileName="STORE5~5.PNG|Store50x50Logo.scale-125.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.targetsize-48_altform-lightunplated.png" SelfReg="false"/>
     <ROW File="Store50x50Logo.scale150.png" Component_="Store50x50Logo.scale100.png" FileName="STORE5~3.PNG|Store50x50Logo.scale-150.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare71x71Logo.scale-250.png" SelfReg="false"/>
     <ROW File="Store50x50Logo.scale200.png" Component_="Store50x50Logo.scale100.png" FileName="STORE5~4.PNG|Store50x50Logo.scale-200.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare150x150Logo.scale-150.png" SelfReg="false"/>
     <ROW File="Store50x50Logo.scale400.png" Component_="Store50x50Logo.scale100.png" FileName="STORE5~6.PNG|Store50x50Logo.scale-400.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.targetsize-256_altform-unplated.png" SelfReg="false"/>
-    <ROW File="WinRT.Runtime.dll" Component_="WinRT.Runtime.dll" FileName="WINRTR~1.DLL|WinRT.Runtime.dll" Attributes="0" SourcePath="..\AVBible\bin\x64\Release\net8.0-windows10.0.17763.0\WinRT.Runtime.dll" SelfReg="false"/>
-    <ROW File="AVBible.runtimeconfig.json" Component_="AVBible.runtimeconfig.json" FileName="AVBIBL~1.JSO|AVBible.runtimeconfig.json" Attributes="0" SourcePath="..\AVBible\bin\x64\Release\net8.0-windows10.0.17763.0\AVBible.runtimeconfig.json" SelfReg="false"/>
-    <ROW File="Microsoft.Windows.SDK.NET.dll" Component_="Microsoft.Windows.SDK.NET.dll" FileName="MICROS~3.DLL|Microsoft.Windows.SDK.NET.dll" Attributes="0" SourcePath="..\AVBible\bin\x64\Release\net8.0-windows10.0.17763.0\Microsoft.Windows.SDK.NET.dll" SelfReg="false"/>
-    <ROW File="settings.yaml_1" Component_="settings.yaml_1" FileName="SETTIN~1.YAM|settings.yaml" Attributes="0" SourcePath="..\..\Users\Me\AppData\Roaming\AV-Bible\settings.yaml" SelfReg="false"/>
-    <ROW File="AVXOmega.data" Component_="AVXOmega.data" FileName="AVX-OM~1.DAT|AVX-Omega.data" Attributes="0" SourcePath="..\AVBible\Data\AVX-Omega.data" SelfReg="false"/>
-    <ROW File="AVXOmega.md5" Component_="AVXOmega.data" FileName="AVX-OM~1.MD5|AVX-Omega.md5" Attributes="0" SourcePath="..\AVBible\Data\AVX-Omega.md5" SelfReg="false"/>
-    <ROW File="AVXOmega.txt" Component_="AVXOmega.data" FileName="AVX-OM~1.TXT|AVX-Omega.txt" Attributes="0" SourcePath="..\AVBible\Data\AVX-Omega.txt" SelfReg="false"/>
-    <ROW File="en_US.txt" Component_="AVXOmega.data" FileName="en_US.txt" Attributes="0" SourcePath="..\AVBible\Data\en_US.txt" SelfReg="false"/>
+    <ROW File="WinRT.Runtime.dll" Component_="WinRT.Runtime.dll" FileName="WINRTR~1.DLL|WinRT.Runtime.dll" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\WinRT.Runtime.dll" SelfReg="false"/>
+    <ROW File="AVBible.runtimeconfig.json" Component_="AVBible.runtimeconfig.json" FileName="AVBIBL~1.JSO|AVBible.runtimeconfig.json" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\AVBible.runtimeconfig.json" SelfReg="false"/>
+    <ROW File="Microsoft.Windows.SDK.NET.dll" Component_="Microsoft.Windows.SDK.NET.dll" FileName="MICROS~3.DLL|Microsoft.Windows.SDK.NET.dll" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\Microsoft.Windows.SDK.NET.dll" SelfReg="false"/>
+    <ROW File="settings.yaml_1" Component_="settings.yaml_1" FileName="SETTIN~1.YAM|settings.yaml" Attributes="0" SourcePath="..\..\..\Users\Me\AppData\Roaming\AV-Bible\settings.yaml" SelfReg="false"/>
+    <ROW File="AVXOmega.data_1" Component_="AVXOmega.data_1" FileName="AVX-OM~1.DAT|AVX-Omega.data" Attributes="0" SourcePath="..\Digital-AV\AVX-Omega.data" SelfReg="false"/>
+    <ROW File="AVXOmega.md5_1" Component_="AVXOmega.data_1" FileName="AVX-OM~1.MD5|AVX-Omega.md5" Attributes="0" SourcePath="..\Digital-AV\AVX-Omega.md5" SelfReg="false"/>
+    <ROW File="AVXOmega.txt_1" Component_="AVXOmega.data_1" FileName="AVX-OM~1.TXT|AVX-Omega.txt" Attributes="0" SourcePath="..\Digital-AV\AVX-Omega.txt" SelfReg="false"/>
+    <ROW File="en_US.txt_1" Component_="AVXOmega.data_1" FileName="en_US.txt" Attributes="0" SourcePath="..\Digital-AV\en_US.txt" SelfReg="false"/>
+    <ROW File="application.html" Component_="application.html" FileName="APPLIC~1.HTM|application.html" Attributes="0" SourcePath="..\Help\application.html" SelfReg="false"/>
     <ROW File="application.md" Component_="application.html" FileName="APPLIC~1.MD|application.md" Attributes="0" SourcePath="..\Help\application.md" SelfReg="false"/>
+    <ROW File="AVBibleS4T.html" Component_="application.html" FileName="AV-BIB~1.HTM|AV-Bible-S4T.html" Attributes="0" SourcePath="..\Help\AV-Bible-S4T.html" SelfReg="false"/>
     <ROW File="AVBibleS4T.md" Component_="application.html" FileName="AV-BIB~1.MD|AV-Bible-S4T.md" Attributes="0" SourcePath="..\Help\AV-Bible-S4T.md" SelfReg="false"/>
+    <ROW File="export.html" Component_="application.html" FileName="EXPORT~1.HTM|export.html" Attributes="0" SourcePath="..\Help\export.html" SelfReg="false"/>
     <ROW File="export.md" Component_="application.html" FileName="export.md" Attributes="0" SourcePath="..\Help\export.md" SelfReg="false"/>
+    <ROW File="hashtags.html" Component_="application.html" FileName="HASHTA~1.HTM|hashtags.html" Attributes="0" SourcePath="..\Help\hashtags.html" SelfReg="false"/>
     <ROW File="hashtags.md" Component_="application.html" FileName="hashtags.md" Attributes="0" SourcePath="..\Help\hashtags.md" SelfReg="false"/>
-    <ROW File="selection.md" Component_="application.html" FileName="SELECT~1.MD|selection.md" Attributes="0" SourcePath="..\Help\selection.md" SelfReg="false"/>
-    <ROW File="settings.md" Component_="application.html" FileName="settings.md" Attributes="0" SourcePath="..\Help\settings.md" SelfReg="false"/>
-    <ROW File="system.md" Component_="application.html" FileName="system.md" Attributes="0" SourcePath="..\Help\system.md" SelfReg="false"/>
-    <ROW File="tables.md" Component_="application.html" FileName="tables.md" Attributes="0" SourcePath="..\Help\tables.md" SelfReg="false"/>
+    <ROW File="Index.html" Component_="application.html" FileName="INDEX~1.HTM|Index.html" Attributes="0" SourcePath="..\Help\Index.html" SelfReg="false"/>
+    <ROW File="Indexapplication.html" Component_="application.html" FileName="INDEX-~1.HTM|Index-application.html" Attributes="0" SourcePath="..\Help\Index-application.html" SelfReg="false"/>
+    <ROW File="Indexexport.html" Component_="application.html" FileName="INDEX-~2.HTM|Index-export.html" Attributes="0" SourcePath="..\Help\Index-export.html" SelfReg="false"/>
+    <ROW File="Indexhashtags.html" Component_="application.html" FileName="INDEX-~3.HTM|Index-hashtags.html" Attributes="0" SourcePath="..\Help\Index-hashtags.html" SelfReg="false"/>
+    <ROW File="Indexlanguage.html" Component_="application.html" FileName="INDEX-~4.HTM|Index-language.html" Attributes="0" SourcePath="..\Help\Index-language.html" SelfReg="false"/>
+    <ROW File="Indexselection.html" Component_="application.html" FileName="INDEX-~5.HTM|Index-selection.html" Attributes="0" SourcePath="..\Help\Index-selection.html" SelfReg="false"/>
+    <ROW File="Indexsettings.html" Component_="application.html" FileName="INDEX-~6.HTM|Index-settings.html" Attributes="0" SourcePath="..\Help\Index-settings.html" SelfReg="false"/>
+    <ROW File="Indexsystem.html" Component_="application.html" FileName="INDEX-~7.HTM|Index-system.html" Attributes="0" SourcePath="..\Help\Index-system.html" SelfReg="false"/>
+    <ROW File="language.html" Component_="application.html" FileName="LANGUA~1.HTM|language.html" Attributes="0" SourcePath="..\Help\language.html" SelfReg="false"/>
     <ROW File="language.md" Component_="application.html" FileName="language.md" Attributes="0" SourcePath="..\Help\language.md" SelfReg="false"/>
+    <ROW File="selection.html" Component_="application.html" FileName="SELECT~1.HTM|selection.html" Attributes="0" SourcePath="..\Help\selection.html" SelfReg="false"/>
+    <ROW File="selection.md" Component_="application.html" FileName="SELECT~1.MD|selection.md" Attributes="0" SourcePath="..\Help\selection.md" SelfReg="false"/>
+    <ROW File="settings.html" Component_="application.html" FileName="SETTIN~1.HTM|settings.html" Attributes="0" SourcePath="..\Help\settings.html" SelfReg="false"/>
+    <ROW File="settings.md" Component_="application.html" FileName="settings.md" Attributes="0" SourcePath="..\Help\settings.md" SelfReg="false"/>
+    <ROW File="system.html" Component_="application.html" FileName="SYSTEM~1.HTM|system.html" Attributes="0" SourcePath="..\Help\system.html" SelfReg="false"/>
+    <ROW File="system.md" Component_="application.html" FileName="system.md" Attributes="0" SourcePath="..\Help\system.md" SelfReg="false"/>
+    <ROW File="topics.html" Component_="application.html" FileName="TOPICS~1.HTM|topics.html" Attributes="0" SourcePath="..\Help\topics.html" SelfReg="false"/>
+    <ROW File="Markdig.dll" Component_="Markdig.dll" FileName="Markdig.dll" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\Markdig.dll" SelfReg="false"/>
+    <ROW File="AVBible.deps.json" Component_="AVBible.runtimeconfig.json" FileName="AVBIBL~2.JSO|AVBible.deps.json" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\AVBible.deps.json" SelfReg="false"/>
+    <ROW File="gutenburgpress256.ico" Component_="AVBible.runtimeconfig.json" FileName="GUTENB~1.ICO|gutenburg-press-256.ico" Attributes="0" SourcePath="..\gutenburg-press-256.ico" SelfReg="false"/>
+    <ROW File="Neo.Markdig.Xaml.dll" Component_="Neo.Markdig.Xaml.dll" FileName="NEOMAR~1.DLL|Neo.Markdig.Xaml.dll" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\Neo.Markdig.Xaml.dll" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AppXCfgComponent">
     <ROW ID="Configuration" Order="1" ManifestFile="AppxManifest.xml" TargetOs="4" AutoUpdatesFrequency="0" AutoUpdatesOptions="0" ManifestBundleFile="AppxBundleManifest.xml"/>
@@ -483,16 +487,18 @@
     <ROW Feature_="MainFeature" Component_="YamlDotNet.dll"/>
     <ROW Feature_="MainFeature" Component_="SHORTCUTDIR"/>
     <ROW Feature_="AiAppXAssets" Component_="Store50x50Logo.scale100.png"/>
-    <ROW Feature_="MainFeature" Component_="application.html"/>
     <ROW Feature_="MainFeature" Component_="AVBible.runtimeconfig.json"/>
     <ROW Feature_="MainFeature" Component_="Microsoft.Windows.SDK.NET.dll"/>
     <ROW Feature_="MainFeature" Component_="WinRT.Runtime.dll"/>
     <ROW Feature_="MainFeature" Component_="settings.yaml_1"/>
-    <ROW Feature_="MainFeature" Component_="AVXOmega.data"/>
     <ROW Feature_="A0BFC224E0E9125ADE0B2DBF343" Component_="A0BFC224E0E9125ADE0B2DBF343"/>
+    <ROW Feature_="MainFeature" Component_="AVXOmega.data_1"/>
+    <ROW Feature_="MainFeature" Component_="application.html"/>
+    <ROW Feature_="MainFeature" Component_="Markdig.dll"/>
+    <ROW Feature_="MainFeature" Component_="Neo.Markdig.Xaml.dll"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
-    <ROW Name="gutenburgpress256.exe" SourcePath="..\AVBible\gutenburg-press-256.ico" Index="0"/>
+    <ROW Name="AVBible.exe" SourcePath="..\gutenburg-press-256.ico" Index="0"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstExSeqComponent">
     <ROW Action="AI_DOWNGRADE" Condition="AI_NEWERPRODUCTFOUND AND (UILevel &lt;&gt; 5)" Sequence="210"/>
@@ -533,8 +539,8 @@
     <ROW Registry="Version" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="Version" Value="[ProductVersion]" Component_="ProductInformation"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiShortsComponent">
-    <ROW Shortcut="AVBible.exe" Directory_="SHORTCUTDIR" Name="AVBible.exe" Component_="AVBible.exe" Target="[#AVBible.exe]" Description="AVBible.exe" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
-    <ROW Shortcut="AVBible.exe_1" Directory_="DesktopFolder" Name="AVBible.exe" Component_="AVBible.exe" Target="[#AVBible.exe]" Description="AVBible.exe" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="AVBible.exe" Directory_="SHORTCUTDIR" Name="AVBible.exe" Component_="AVBible.exe" Target="[#AVBible.exe]" Description="AVBible.exe" Hotkey="0" Icon_="AVBible.exe" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="AVBible.exe_1" Directory_="DesktopFolder" Name="AVBible.exe" Component_="AVBible.exe" Target="[#AVBible.exe]" Description="AVBible.exe" Hotkey="0" Icon_="AVBible.exe" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiThemeComponent">
     <ATTRIBUTE name="UsedTheme" value="classic"/>
@@ -548,6 +554,6 @@
     <ATTRIBUTE name="PrereqsOrder" value="A0BFC224E0E9125ADE0B2DBF343"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.PreReqSearchComponent">
-    <ROW SearchKey="A0BFC224E0E9125ADE0B2DBF343SystemFo" Prereq="A0BFC224E0E9125ADE0B2DBF343" SearchType="14" SearchString="[ProgramFiles64Folder]dotnet\shared\Microsoft.WindowsDesktop.App" VerMin="8.0.11" Order="1" Property="PreReqSearch_A0BFC224E0E9125ADE0B2D"/>
+    <ROW SearchKey="A0BFC224E0E9125ADE0B2DBF343SystemFo" Prereq="A0BFC224E0E9125ADE0B2DBF343" SearchType="14" SearchString="[ProgramFiles64Folder]dotnet\shared\Microsoft.WindowsDesktop.App" VerMin="8.0.11" Order="1" Property="PreReqSearch_A0BFC224E0E9125ADE0B2D" Platform="1"/>
   </COMPONENT>
 </DOCUMENT>
