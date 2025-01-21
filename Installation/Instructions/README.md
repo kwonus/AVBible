@@ -18,7 +18,7 @@ https://github.com/kwonus/AVBible/raw/main/Installation/Setup/AV-Bible-2025-Setu
 
 **STEP #2:**  Click on the downloads icon. Next click on the ellipses [ ... ] and click Keep
 
-![Screen-Shot](./images/AV-Bible-2025-keep.png)
+![Screen-Shot](./images/AV-Bible-2025-Keep.png)
 
 **STEP #3:**  Click on the <u>Open File</u> link.
 
