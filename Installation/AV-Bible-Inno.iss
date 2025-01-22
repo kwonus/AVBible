@@ -32,11 +32,11 @@ ArchitecturesAllowed=x64compatible
 ; the 64-bit view of the registry.
 ArchitecturesInstallIn64BitMode=x64compatible
 DisableProgramGroupPage=yes
-LicenseFile=C:\src\AV-Bible\LICENSE.md
+LicenseFile={#RootSRC}\AV-Bible\LICENSE.md
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 PrivilegesRequired=lowest
 OutputBaseFilename=AV-Bible-2025-Setup
-SetupIconFile=C:\src\AVBible\gutenburg-press-256.ico
+SetupIconFile={#RootSRC}\AV-Bible\gutenburg-press-256.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
