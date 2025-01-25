@@ -22,7 +22,8 @@
     using Blueprint.Blue;
     using System.Linq;
     using Blueprint.Model.Implicit;
-    using Windows.UI.WebUI;
+    using System.Linq;
+    using Windows.Globalization.DateTimeFormatting;
 
     internal class ChapterSpec
     {
@@ -1968,6 +1969,89 @@
         {
             this.CommandStatus.Content = string.Empty;
             this.CommandStatusTimer.Stop();
+        }
+        private (Dictionary<Int64, ExpandableHistory> history, Dictionary<Int64, ExpandableMacro> macros, QSettings settings) MigrationData()
+        {
+            DateTime t1 = DateTime.Now;
+
+            IEnumerable<ExpandableInvocation> ihistory = QContext.GetHistory(null, null);
+            IEnumerable<ExpandableInvocation> imacros = QContext.GetMacros(null, null);
+
+            Dictionary<Int64, ExpandableHistory> history = new();
+            Dictionary<Int64, ExpandableMacro> macros = new();
+
+            if (ihistory != null)
+            {
+                foreach (ExpandableHistory invocation in
+                    from item in ihistory orderby
+                        item.TimeStamp,
+                        ((ExpandableHistory)item).Id.year,
+                        ((ExpandableHistory)item).Id.month,
+                        ((ExpandableHistory)item).Id.day,
+                        ((ExpandableHistory)item).Id.sequence
+                    select (ExpandableHistory)item)
+                {
+                    Int64 stamp = invocation.TimeStamp;
+                    DateTime stamp_date = DateTime.FromFileTime(stamp);
+                    DateTime t2 = DateTime.Now;
+
+                    bool tooRecent = false;
+                    if (stamp_date.Year == t1.Year && stamp_date.Month == t1.Month && stamp_date.Day == t1.Day)
+                        tooRecent = true;
+                    if (stamp_date.Year == t2.Year && stamp_date.Month == t2.Month && stamp_date.Day == t2.Day)
+                        tooRecent = true;
+
+                    // We fix keys (earlier versions of the yaml did not have a timestamp; default is DateTime.Now)
+                    if (tooRecent)
+                    {
+                        string file = System.IO.Path.Combine(QContext.HistoryPath, invocation.Id.year.ToString(), invocation.Id.month.ToString(), invocation.Id.day.ToString(), invocation.Id.sequence.ToString() + ".yaml");
+
+                        FileInfo info = new(file);
+                        invocation.OverrideTimestamp(info.CreationTime.ToFileTime());
+                    }
+                    Int64 key = invocation.TimeStamp;
+                    while (!history.ContainsKey(key))
+                    {
+                        key = invocation.OverrideTimestamp(invocation.TimeStamp + 1);
+                    }
+                    history[key] = invocation;
+                }
+            }
+            if (imacros != null)
+            {
+                foreach (ExpandableMacro invocation in
+                    from item in imacros
+                    orderby
+                        item.TimeStamp
+                    select (ExpandableMacro)item)
+                {
+                    Int64 stamp = invocation.TimeStamp;
+                    DateTime stamp_date = DateTime.FromFileTime(stamp);
+                    DateTime t2 = DateTime.Now;
+
+                    bool tooRecent = false;
+                    if (stamp_date.Year == t1.Year && stamp_date.Month == t1.Month && stamp_date.Day == t1.Day)
+                        tooRecent = true;
+                    if (stamp_date.Year == t2.Year && stamp_date.Month == t2.Month && stamp_date.Day == t2.Day)
+                        tooRecent = true;
+
+                    // We fix keys (earlier versions of the yaml did not have a timestamp; default is DateTime.Now)
+                    if (tooRecent)
+                    {
+                        string file = System.IO.Path.Combine(QContext.HistoryPath, invocation.Tag + ".yaml");
+
+                        FileInfo info = new(file);
+                        invocation.OverrideTimestamp(info.CreationTime.ToFileTime());  
+                    }
+                    Int64 key = invocation.TimeStamp;
+                    while (!history.ContainsKey(key))
+                    {
+                        key = invocation.OverrideTimestamp(invocation.TimeStamp + 1);
+                    }
+                    macros[key] = invocation;
+                }
+            }
+            return (history, macros, this.Settings);
         }
     }
 }
