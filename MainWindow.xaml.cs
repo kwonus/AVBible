@@ -24,6 +24,7 @@
     using Blueprint.Model.Implicit;
     using System.Linq;
     using Windows.Globalization.DateTimeFormatting;
+    using System.Diagnostics;
 
     internal class ChapterSpec
     {
@@ -304,6 +305,10 @@
             this.Settings = new QSettings(QContext.SettingsFile);
             this.ButtonAVT_Click(null, null);
         }
+        public bool MSA
+        {
+            get => Process.GetCurrentProcess().MainModule.ModuleName.Contains("Windows");
+        }
 
         public MainWindow()
         {
@@ -311,6 +316,10 @@
             LoadWindowState();
             LoadAppState();
 
+            if (this.MSA)
+            {
+                this.Title = "AV-Bible for Windows";
+            }
             this.Help = new();
             this.ResultsBQL = new();
             this.CommandStatusTimer = new System.Windows.Threading.DispatcherTimer();
@@ -1328,7 +1337,7 @@
                 {
                     var type = tuple.stmt.Singleton.GetType();
 
-                    if (type == typeof(QExit))
+                    if (type == typeof(QControl))
                     {
                         this.Close();
                     }
@@ -1428,6 +1437,26 @@
         }
         private void SetSearchView(int index = 0, bool reset = true)
         {
+            if (this.TextCriteria.Text.Contains(">") && this.MSA) // Microsoft Store App
+            {
+                MessageBox.Show("Microsoft Store Apps do not support exporting information to your local computer. To enable this feature, you would need to upgrade to the full-featured application. See Application help for instructions.");
+                return;
+            }
+            if (this.TextCriteria.Text.Trim().Equals("@backup", StringComparison.InvariantCultureIgnoreCase) && this.MSA) // Microsoft Store App
+            {
+                MessageBox.Show("Microsoft Store Apps do not support this feature. To enable this feature, you would need to upgrade to the full-featured application. See Application help for instructions.");
+                return;
+            }
+            if (this.TextCriteria.Text.Trim().Equals("@restore", StringComparison.InvariantCultureIgnoreCase) && this.MSA) // Microsoft Store App
+            {
+                MessageBox.Show("Microsoft Store Apps do not support this feature. To enable this feature, you would need to upgrade to the full-featured application. See Application help for instructions.");
+                return;
+            }
+            if (this.TextCriteria.Text.Trim().Equals("@migrate", StringComparison.InvariantCultureIgnoreCase) && !this.MSA) // not Microsoft Store App
+            {
+                MessageBox.Show("This feature is only available in the Microsoft Store App. It is not needed in a full-featured installation. It is only useful for data migration from the Windows Store App into the full-featured AV Bible application. For additional information, consult help in the app for S4T.");
+                return;
+            }
             this.ChapterView.Visibility = Visibility.Visible;
 
             ChapterStack.Children.Clear();
@@ -1495,9 +1524,6 @@
         {
             if (e.Key == Key.Return)
             {
-                /* TO DO: 2024/Q1
-                this.found = null;
-                */
                 SetSearchView();
                 e.Handled = true;
             }

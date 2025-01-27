@@ -40,7 +40,29 @@ Panels can also be removed by clicking on |Delete a panel| combo-box.
 
 Help can be called up by clicking on the help button or by typing @help and an optional topic.
 
-### The AV-Bible Addin for Microsoft Word *(optional additional capability)*
+### AV-Bible installation options
 
-Certain limitations exist on applications, for them to be showcased in the Microsoft Store. AV-Bible is no exception. Yet, additional capabilities are available when a traditional download/installer is invoked. Specifically. AV-Bible offers full integration with Microsoft Word. This additional capability requires direct download and installation from the project repo on Github.</br>. Instructions are available here: [github.com/kwonus/AVBible/tree/main/Installation/Instructions](https://github.com/kwonus/AVBible/tree/main/Installation/Instructions/README.md)
+As of this writing, there are two installation options for AV-Bible. The Windows application itself is substantially the same, regardless of which installation option is chosen. The preferred installation, the most full-featured installation, can be found at the project home of AV-Bible on GitHub. Installation instructions can be found here:
+
+http://github.com/kwonus/AVBible/tree/main/Installation/Instructions 
+
+If AV-Bible was installed from the GitHub project home, you will see *"AV Bible"* in the title bar of the app when it is running.
+
+A more common installation of a more constrained AV-Bible is available on the Microsoft Store. However, restrictions on Windows Store Apps results in fewer features. If the app was installed from the Microsoft Store, you will see *"AV-Bible for Windows"* in the title bar.
+
+Features of the app from a GitHub installation that are disabled in the Microsoft Store app are identified below:
+
+- backup
+- restore
+- export *(exporting search results to a file)*
+
+Moreover, one additional feature can be optionally installed via the GitHub installation:
+
+- AV-Bible Addin for Microsoft Word (see the following section)
+
+Upgrading to the full-featured GitHub installation is supported (See section 3 of the S4T help documentation).
+
+### AV-Bible Addin for Microsoft Word *(AV-Bible features inside Microsoft Word)*
+
+Certain limitations exist on applications, for them to be showcased in the Microsoft Store. AV-Bible is no exception. Yet, additional capabilities are available with the traditional download/installer found on GitHub. Specifically. AV-Bible offers full integration with Microsoft Word. This additional capability requires direct download and installation from its project home on Github.</br>. Instructions are available here: [github.com/kwonus/AVBible/tree/main/Installation/Instructions](https://github.com/kwonus/AVBible/tree/main/Installation/Instructions/README.md)
 
