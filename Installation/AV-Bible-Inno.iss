@@ -40,7 +40,7 @@ SetupIconFile={#RootSRC}\AV-Bible\gutenburg-press-256.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
-OutputDir=Setup
+OutputDir=Release\9.25.1.27
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
