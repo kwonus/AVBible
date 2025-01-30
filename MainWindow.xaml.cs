@@ -1339,7 +1339,25 @@
 
                     if (type == typeof(QControl))
                     {
-                        this.Close();
+                        switch(tuple.stmt.Singleton.Verb)
+                        {
+                            case "exit":    this.Close(); break;
+                            case "migrate": if (this.Migrate())
+                                                this.DisplayStatus("Data has been migrated.", MainWindow.SuccessStatus);
+                                            else
+                                                this.DisplayStatus("Data could not migrated.", MainWindow.ErrorStatus);
+                                            break;
+                            case "backup":  if (this.Backup())
+                                                this.DisplayStatus("Data has been backed up.", MainWindow.SuccessStatus);
+                                            else
+                                                this.DisplayStatus("Backup operation failed.", MainWindow.ErrorStatus);
+                                            break;
+                            case "restore": if (this.Restore())
+                                                this.DisplayStatus("Data has been restored and merged.", MainWindow.SuccessStatus);
+                                            else
+                                                this.DisplayStatus("Data could not restored.", MainWindow.ErrorStatus);
+                                            break;
+                        }
                     }
                     else if (type == typeof(QHelp))
                     {
@@ -1996,11 +2014,52 @@
             this.CommandStatus.Content = string.Empty;
             this.CommandStatusTimer.Stop();
         }
-        private (Dictionary<Int64, ExpandableHistory> history, Dictionary<Int64, ExpandableMacro> macros, QSettings settings) MigrateData()
+        private (MigratableHistory history, Dictionary<string, ExpandableMacro> macros, QSettings settings) MigrateData()
         {
-            (Dictionary<Int64, ExpandableHistory> history, Dictionary<Int64, ExpandableMacro> macros) assets = ExpandableInvocation.MigrationAssets();
+            (MigratableHistory history, Dictionary<string, ExpandableMacro> macros) assets = (ExpandableInvocation.StructuredHistory(), ExpandableInvocation.StructuredMacros());
 
             return (assets.history, assets.macros, this.Settings);
+        }
+        private bool Migrate()
+        {
+            try
+            {
+                var data = this.MigrateData();
+                // (1) push data.history to rest endpoint (requires Data-Manager implementation)
+                // (2) push data.macros to rest endpoint (requires Data-Manager implementation)
+                // (3) push data.settings to rest endpoint (requires Data-Manager implementation)
+            }
+            catch (Exception ex)
+            {
+                ;
+            }
+            return false;
+        }
+        private bool Backup()
+        {
+            try
+            {
+                var data = this.MigrateData();
+                // (1) serialize history to backup-history.yaml
+                //     rename existing backup-history.yaml to include backup-history-timestamp-yaml where timestamp is extracted from file-info
+                //     if backup-history-timestamp-yaml already exists, then overwrite it.
+                // (2) serialize macros to backup-macros.yaml
+                //     rename existing backup-macros.yaml to include backup-macros-timestamp-yaml where timestamp is extracted from file-info
+                //     if backup-macros-timestamp-yaml already exists, then overwrite it.
+                // (3) Ignore settings. It is already serialized
+            }
+            catch (Exception ex)
+            {
+                ;
+            }
+            return false;
+        }
+        private bool Restore()
+        {
+            // (1) call AugmentHistory()
+            // (2) call AugmentMacros()
+            // (3) Ignore settings. It is already serialized
+            return false;
         }
     }
 }
