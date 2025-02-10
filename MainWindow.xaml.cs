@@ -22,9 +22,14 @@
     using Blueprint.Blue;
     using System.Linq;
     using Blueprint.Model.Implicit;
-    using System.Linq;
-    using Windows.Globalization.DateTimeFormatting;
-    using System.Diagnostics;
+    using System.Net.Http;
+
+    using YYYY = System.UInt32;
+    using MM = byte;
+    using DD = byte;
+    using SEQ = System.UInt32;
+    using static AVXLib.Memory.Deserialization;
+    using YamlDotNet.Serialization;
 
     internal class ChapterSpec
     {
@@ -307,8 +312,10 @@
         }
         public bool MSA
         {
-            get => Process.GetCurrentProcess().MainModule.ModuleName.Contains("Windows");
+            get => this.Title.Contains("Windows");
         }
+
+        private bool simulate_MSA = false;
 
         public MainWindow()
         {
@@ -316,7 +323,7 @@
             LoadWindowState();
             LoadAppState();
 
-            if (this.MSA)
+            if (this.MSA || simulate_MSA)
             {
                 this.Title = "AV-Bible for Windows";
             }
@@ -1342,10 +1349,13 @@
                         switch(tuple.stmt.Singleton.Verb)
                         {
                             case "exit":    this.Close(); break;
-                            case "migrate": if (this.Migrate())
-                                                this.DisplayStatus("Data has been migrated.", MainWindow.SuccessStatus);
-                                            else
-                                                this.DisplayStatus("Data could not migrated.", MainWindow.ErrorStatus);
+                            case "migrate": {
+                                                var result = this.Migrate();
+                                                if (result.ok)
+                                                    this.DisplayStatus("Data has been migrated.", MainWindow.SuccessStatus);
+                                                else
+                                                    this.DisplayStatus("Data could not be migrated. " + result.message, MainWindow.ErrorStatus);
+                                            }
                                             break;
                             case "backup":  if (this.Backup())
                                                 this.DisplayStatus("Data has been backed up.", MainWindow.SuccessStatus);
@@ -1457,22 +1467,22 @@
         {
             if (this.TextCriteria.Text.Contains(">") && this.MSA) // Microsoft Store App
             {
-                MessageBox.Show("Microsoft Store Apps do not support exporting information to your local computer. To enable this feature, you would need to upgrade to the full-featured application. See Application help for instructions.");
+                MessageBox.Show(this, "Microsoft Store Apps do not support exporting information to your local computer. To enable this feature, you would need to upgrade to the full-featured application. See Application help for instructions.", this.Title, MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
             if (this.TextCriteria.Text.Trim().Equals("@backup", StringComparison.InvariantCultureIgnoreCase) && this.MSA) // Microsoft Store App
             {
-                MessageBox.Show("Microsoft Store Apps do not support this feature. To enable this feature, you would need to upgrade to the full-featured application. See Application help for instructions.");
+                MessageBox.Show(this, "Microsoft Store Apps do not support this feature. To enable this feature, you would need to upgrade to the full-featured application. See Application help for instructions.", this.Title, MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
             if (this.TextCriteria.Text.Trim().Equals("@restore", StringComparison.InvariantCultureIgnoreCase) && this.MSA) // Microsoft Store App
             {
-                MessageBox.Show("Microsoft Store Apps do not support this feature. To enable this feature, you would need to upgrade to the full-featured application. See Application help for instructions.");
+                MessageBox.Show(this, "Microsoft Store Apps do not support this feature. To enable this feature, you would need to upgrade to the full-featured application. See Application help for instructions.", this.Title, MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
             if (this.TextCriteria.Text.Trim().Equals("@migrate", StringComparison.InvariantCultureIgnoreCase) && !this.MSA) // not Microsoft Store App
             {
-                MessageBox.Show("This feature is only available in the Microsoft Store App. It is not needed in a full-featured installation. It is only useful for data migration from the Windows Store App into the full-featured AV Bible application. For additional information, consult help in the app for S4T.");
+                MessageBox.Show(this, "This feature is only available in the Microsoft Store App. It is not needed in a full-featured installation. It is only useful for data migration from the Windows Store App into the full-featured AV Bible application. For additional information, consult help in the app for S4T.", this.Title, MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
             this.ChapterView.Visibility = Visibility.Visible;
@@ -2020,46 +2030,218 @@
 
             return (assets.history, assets.macros, this.Settings);
         }
-        private bool Migrate()
+        private static readonly HttpClient Client = new();
+        private (bool ok, string message) Migrate()
         {
+            string message = string.Empty;
+            bool totalSuccess = true;
+            bool maskException = false;
             try
             {
+                // https://learn.microsoft.com/dotnet/fundamentals/networking/http/httpclient-guidelines#recommended-use
                 var data = this.MigrateData();
-                // (1) push data.history to rest endpoint (requires Data-Manager implementation)
-                // (2) push data.macros to rest endpoint (requires Data-Manager implementation)
-                // (3) push data.settings to rest endpoint (requires Data-Manager implementation)
+                Dictionary<int, Task<HttpResponseMessage>> responses = new();
+
+                StringBuilder yaml = new();
+                foreach (var item in data.settings.AsYaml())
+                {
+                    yaml.Append(item);
+                    yaml.Append("\n");
+                }
+                Uri settingsURI = new Uri("http://localhost:1769/backup/settings");
+                HttpContent settingsData = new StringContent(yaml.ToString());
+
+                responses[0] = Client.PostAsync(settingsURI, settingsData);
+
+                var serializer = new YamlDotNet.Serialization.Serializer();
+
+                if (data.history != null && data.history.Count > 0)
+                {
+                    Uri uri = new Uri("http://localhost:1769/backup/history");
+
+                    string serialized = serializer.Serialize(data.history);
+                    HttpContent payload = new StringContent(serialized);
+                    responses[1] = Client.PostAsync(uri , payload);
+                }
+                if (data.macros != null && data.macros.Count > 0)
+                {
+                    Uri uri = new Uri("http://localhost:1769/backup/macros");
+
+                    string serialized = serializer.Serialize(data.macros);
+                    HttpContent payload = new StringContent(serialized);
+                    responses[2] = Client.PostAsync(uri, payload);
+                }
+                foreach (KeyValuePair<int, Task<HttpResponseMessage>> response in responses)
+                {
+                    response.Value.Wait(1500); // timeout == 1.5 seconds
+                    if (response.Value.IsCanceled || response.Value.IsFaulted)
+                    {
+                        totalSuccess = false;
+                        if (string.IsNullOrEmpty(message))
+                        {
+                            message = "Data-Manager request failed";
+                        }
+                        if (response.Value.Exception != null && maskException == false)
+                        {
+                            maskException = true;
+                            MessageBox.Show(this, response.Value.Exception.Message, "AV-Bible - Exception Encountered", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        }
+                    }
+                    else if (response.Value.IsCompleted)
+                    {
+                        int code = (int) response.Value.Result.StatusCode;
+                        if (code >= 200 && code <= 205)
+                        {
+                            continue; // AOK ... no message needed
+                        }
+                        else if (code == 405 && maskException == false)
+                        {
+                            maskException = true;
+                            MessageBox.Show(this, "To perform Migration, please perform a full installation of AV-Bible release 9.25.2.9 or higher. Consult application help for additional instructions.", "AV-Bible - AV-Data-Manager Proxy", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        }
+                        totalSuccess = false;
+
+                        if (string.IsNullOrEmpty(message))
+                        {
+                            message = "Data-Manager status code: " + code.ToString();
+                        }
+                    }
+                    else // not sure if this block will ever be entered
+                    {
+                        totalSuccess = false;
+                        if (string.IsNullOrEmpty(message))
+                        {
+                            message = "Data-Manager not available.";
+                        }
+                        if (response.Value.Exception != null && maskException == false)
+                        {
+                            maskException = true;
+                            MessageBox.Show(this, response.Value.Exception.Message, "AV-Bible - Exception Encountered", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        }
+                        else if (maskException == false)
+                        {
+                            maskException = true;
+                            MessageBox.Show(this, "A full installation of AV-Bible is a prerequisite to performing migration. Consult application help for additional instructions.", "AV-Bible - AV-Data-Manager Proxy", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
-                ;
+                totalSuccess = false;
+                if (!maskException)
+                    MessageBox.Show(this, ex.Message, "AV-Bible - Unexpected Exception", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+            return (totalSuccess, message);
+        }
+        private bool SaveOldBackup(string folder, string filename, string timestamp)
+        {
+            string original = Path.Combine(folder, filename);
+
+            if (File.Exists(original))
+            {
+                string root = Path.GetFileNameWithoutExtension(filename);
+                string extent = Path.GetExtension(filename);
+                string candidate = Path.Combine(folder, filename + "-" + timestamp + extent);
+
+                if (File.Exists(candidate))
+                {
+                    File.Delete(candidate);
+                }
+                File.Move(original, candidate);
+                return true;
             }
             return false;
         }
+
         private bool Backup()
         {
+            (string folder, string file) backup;
+            string path;
+            string yaml;
+            bool done = false;
+
+            DateTime now = DateTime.Now;
+            string date = ((now.Year % 100) - 20).ToString("X") + now.Month.ToString("X") + now.Day.ToString();
+            string time = now.Hour.ToString("D2") + now.Minute.ToString("D2") + now.Second.ToString("D2");
+            string stamp = date + "-" + time;
             try
             {
                 var data = this.MigrateData();
+
+                var serializer = new YamlDotNet.Serialization.Serializer();
+
                 // (1) serialize history to backup-history.yaml
                 //     rename existing backup-history.yaml to include backup-history-timestamp-yaml where timestamp is extracted from file-info
                 //     if backup-history-timestamp-yaml already exists, then overwrite it.
+                backup = QContext.BackupHistoryPath;
+                path = Path.Combine(backup.folder, backup.file);
+                this.SaveOldBackup(backup.folder, backup.file, stamp);
+                if (data.history.Count > 0)
+                {
+                    yaml = serializer.Serialize(data.history);
+                    File.WriteAllText(path, yaml);
+                    done = true;
+                }
+
                 // (2) serialize macros to backup-macros.yaml
                 //     rename existing backup-macros.yaml to include backup-macros-timestamp-yaml where timestamp is extracted from file-info
                 //     if backup-macros-timestamp-yaml already exists, then overwrite it.
+                backup = QContext.BackupHistoryPath;
+                path = Path.Combine(backup.folder, backup.file);
+                this.SaveOldBackup(backup.folder, backup.file, stamp);
+                if (data.macros.Count > 0)
+                {
+                    yaml = serializer.Serialize(data.macros);
+                    File.WriteAllText(path, yaml);
+                    done = true;
+                }
+
                 // (3) Ignore settings. It is already serialized
             }
             catch (Exception ex)
             {
-                ;
+                done = false;
             }
-            return false;
+            return done;
         }
         private bool Restore()
         {
+            bool recordsAugmented = false;
+
             // (1) call AugmentHistory()
             // (2) call AugmentMacros()
             // (3) Ignore settings. It is already serialized
-            return false;
+            var backup = QContext.BackupHistoryPath;
+            var path = Path.Combine(backup.folder, backup.file);
+            if (File.Exists(path))
+            {
+                string payload = File.ReadAllText(path);
+                var deserializer = new YamlDotNet.Serialization.Deserializer();
+                var records = deserializer.Deserialize< Dictionary<YYYY, Dictionary<MM, Dictionary<DD, Dictionary<SEQ, ExpandableHistory>>>>>(payload);
+                if (records.Count > 0)
+                {
+                    var cnt = ExpandableInvocation.AugmentHistory(records);
+                    if (cnt > 0)
+                        recordsAugmented = true;
+                }
+            }
+            backup = QContext.BackupMacrosPath;
+            path = Path.Combine(backup.folder, backup.file);
+            if (File.Exists("ffO"))
+            {
+                string payload = File.ReadAllText(path);
+                var deserializer = new YamlDotNet.Serialization.Deserializer();
+                var records = deserializer.Deserialize<Dictionary<string, ExpandableMacro>>(payload);
+                if (records.Count > 0)
+                {
+                    var cnt = ExpandableInvocation.AugmentMacros(records);
+                    if (cnt > 0)
+                        recordsAugmented = true;
+                }
+            }
+            return recordsAugmented;
         }
     }
 }

@@ -589,6 +589,14 @@ In general, the S4T command processor can be thought of as a stateless server. T
 
 ## Section 3 - Control Statements
 
+As of this writing, there are two mechanisms available for installing AV-Bible. In effect, there are two editions.
+
+- The Microsoft Store edition of AV-Bible (Window has "AV-Bible for Windows" in the title bar)
+
+- Full-featured installation from the GitHub repository (AV Bible):
+
+  https://github.com/kwonus/AV-Bible/tree/main/Installation/Instructions
+
 ### 3.1 - Program Help
 
 To get general help, use this command:
@@ -607,6 +615,8 @@ etc ...
 
 ### 3.2 - Backing up history and macros
 
+Available only in the The full-featured edition of AV-Bible (installation available on GitHub project site)
+
 To perform a backup, type this command:
 
 *@backup*
@@ -621,6 +631,8 @@ C:\Users\your-username\AppData\AV-Bible
 If you are unsure if you installed AV-Bible from the Microsoft Store, simply launch AV-Bible on your computer. If the title of the application is "AV-Bible for Windows", then it was installed via the Microsoft Store. Full featured applications have this in the title bar: "AV Bible". A full-featured installation provides additional capabilities, including backup and restore. Windows store applications explicitly disallow writing files to you local computer, and thus prevents direct backup and restore. Follow the instructions in section 3.4 to perform data migration to the full-featured AV-Bible application.
 
 ### 3.3 - Restoring a previous backup 
+
+Available only in the The full-featured edition of AV-Bible (installation available on GitHub project site)
 
 To perform a restore, type this command:
 
@@ -654,33 +666,58 @@ This command is useful for situations: like replacing an old computer with a new
 
 ### 3.4 - Data Migration
 
-As of this writing, there are two mechanisms available for installing AV-Bible:
+Available only in the The Microsoft Store edition of AV-Bible.
 
-- The Microsoft Store (AV-Bible for Windows)
+The \@migrate command is similar to the @backup command. As already mentioned above, there are two editions of AV-Bible. Your current edition supports either \@migrate or \@backup, but not both commands.
+
+- The Microsoft Store edition of AV-Bible (Window has "AV-Bible for Windows" in the title bar)
+
+  - this edition supports the @migrate command
 
 - Full-featured installation from the GitHub repository (AV Bible):
 
   https://github.com/kwonus/AV-Bible/tree/main/Installation/Instructions
 
-Data can be migrated from AV-Bible for Windows into a full-featured AV Bible installation. ***Do not remove*** your AV-Bible for Windows application as removal of the app would also removes the application data. Instead, install the full-featured AV-Bible from GitHub, following these instructions:
+  - this edition supports the @backup command (see Section 3.2)
 
-1. On the same computer with the existing Microsoft Store app, AV-Bible from the GitHub repository, using these instructions:
+
+Data can be migrated from AV-Bible for Windows into the full-featured AV Bible installation. ***Do not remove*** your AV-Bible for Windows application, because removal of the Windows Store app simultaneously removes all application data (including history and macros). Instead, install the full-featured AV-Bible from GitHub, following these instructions:
+
+1. Launch the Windows Store App edition of AV-Bible. It will show "AV-Bible for Windows" in the title bar. Leave this app running.
+
+2. On the same computer with the existing Microsoft Store app, Install AV-Bible from the GitHub repository, using these instructions:
 
    https://github.com/kwonus/AV-Bible/tree/main/Installation/Instructions
 
-   Be sure to select AV-Data-Manager as one of the installed components.
+   Be sure to select both of these options
 
-2. Launch "AV-Bible for Windows" (not the new new "AV-Bible" app if you selected that during the setup)
+   - Install AV-Bible Desktop Application
+   - Install AV-Data-Manager
 
-3. Verify that you see "AV-Bible for Windows" in the title bar
+3. When prompted by the installation, be sure to finalize your installation by selecting:
+   [x] Launch AV-Data-Manager.exe
 
-4. Type this command:
+4. Bring the Windows Store App, namely "AV-Bible for Windows" back to the top. At this point, after the installation, there might also be a second new installation running with "AV Bible" in the title bar. Do not use the newly installed app for this step)
+
+5. Verify that you see "AV-Bible for Windows" in the title bar
+
+6. Type this command:
 
    \@migrate
 
-5. If you intend to utilize only the full-featured AV Bible installation, you are done.
+   If no errors appear, data migration has been initiated.
 
-6. If you intend on replicating migrated data to a new computer, follow the steps in section 3.3
+7. Close the window, titled "AV-Bible for Windows"
+
+8. Next, launch your new installation of AV-Bible, and bring that window to the top. It should have "AV Bible" in the title bar.
+
+9. run this command:
+
+   \@restore   (inside of the AV-Bible application)
+
+10. If no errors appear, data migration is complete and you have successfully migrated your previous history and macros into the new installation.
+
+11. While not required, It is now safe to remove the redundant Windows Store application
 
 ### 3.5 - Exiting the Application
 

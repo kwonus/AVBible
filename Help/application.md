@@ -64,5 +64,7 @@ Upgrading to the full-featured GitHub installation is supported (See section 3 o
 
 ### AV-Bible Addin for Microsoft Word *(AV-Bible features inside Microsoft Word)*
 
-Certain limitations exist on applications, for them to be showcased in the Microsoft Store. AV-Bible is no exception. Yet, additional capabilities are available with the traditional download/installer found on GitHub. Specifically. AV-Bible offers full integration with Microsoft Word. This additional capability requires direct download and installation from its project home on Github.</br>. Instructions are available here: [github.com/kwonus/AVBible/tree/main/Installation/Instructions](https://github.com/kwonus/AVBible/tree/main/Installation/Instructions/README.md)
+Certain limitations exist on applications that are showcased in the Microsoft Store. AV-Bible is no exception. Yet, additional capabilities are available with the traditional download/installer found on GitHub. Specifically. AV-Bible offers full integration with Microsoft Word. This additional capability requires direct download and installation from its project home on Github.</br>. Instructions are available here: [github.com/kwonus/AVBible/tree/main/Installation/Instructions](https://github.com/kwonus/AVBible/tree/main/Installation/Instructions/README.md)
+
+Migration of history and macros into the full-featured application is fully supported. See the \@migrate command in the S4T help file.
 
