@@ -18,9 +18,7 @@ https://aka.ms/vs/17/release/vc_redist.x64.exe
 #### AV-Bible Setup Instructions:
 
 **STEP #1:**  Download and Save this setup program:<br/>
-https://github.com/kwonus/AVBible/raw/main/Installation/Setup/AV-Bible-2025-Setup.exe
-
-(if you do not see the Downloads dialog downloads icon to the right of the star)</br>
+https://github.com/kwonus/AVBible/raw/main/Installation/Setup/AV-Bible-2025-Setup.exe</br>
 
 ![Screen-Shot](./images/AV-Bible-2025-Save.png)
 
