@@ -38,12 +38,10 @@ https://github.com/kwonus/AVBible/raw/main/Installation/Setup/AV-Bible-2025-Setu
 
 ![Screen-Shot](./images/AV-Bible-2025-Open.png)
 
-**STEP #6:**  Click on the <u>Open File</u> link.
-
-**STEP #7:**  Initiate App setup by accepting license agreement and clicking \<Next\></br>
+**STEP #6:**  Initiate App setup by accepting license agreement and clicking \<Next\></br>
 ![Screen-Shot](./images/Setup.png)
 
-**STEP #8:**  Select App features and then click \<Next\></br>
+**STEP #7:**  Select App features and then click \<Next\></br>
 ![Screen-Shot](./images/Features.png)
 
 - To enable the standard AV-Bible Windows application, check the first box. Or select "Compact installation" from the pull-down menu.
@@ -51,12 +49,12 @@ https://github.com/kwonus/AVBible/raw/main/Installation/Setup/AV-Bible-2025-Setu
 - To enable all features, check all boxes or select "Full installation" from the pull-down menu.
 - It is possible to install AV-Data-Manager without installing any other features. This option is useful when Migrating from the Windows Store App edition of AV-Bible to the full-featured application found here. Otherwise, installing ***only*** AV-Data-Manager will not be of any use.
 
-**STEP #9:**  Click \<Next\> until you see this dialog</br>
+**STEP #8:**  Click \<Next\> until you see this dialog</br>
 ![Screen-Shot](./images/Finish.png)
 
 - Always leave \<Launch AV-Bible\> checked. Otherwise the Word Addin will be non-functional.
 
-**STEP #10:**  Click \<Finish\> and your installation is complete.
+**STEP #9:**  Click \<Finish\> and your installation is complete.
 
 - To assure continued functionality of AV-Bible integration with Microsoft Word, AV-Data-Manager will launch automatically every time you logon to your computer. The easiest way to disable AV-Data-Manager is to uninstall the AV-Bible app.
 
