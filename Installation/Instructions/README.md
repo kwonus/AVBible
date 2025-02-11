@@ -62,7 +62,7 @@ https://github.com/kwonus/AVBible/raw/main/Installation/Setup/AV-Bible-2025-Setu
 
 #### AV-Bible Usage Instructions:
 
-The program that you just installed is named "AV-Bible" and found in C:\Program Files\AV-Bible\AV-Bible.exe. An optional desktop icon can be added on the setup program above that simplifies program launch.
+The program that you just installed is named "AV-Bible". An optional desktop icon can be added on the setup program above that simplifies program launch.
 
 **Once it is running ...**
 
