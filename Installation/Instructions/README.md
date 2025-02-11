@@ -1,29 +1,66 @@
-### These are instructions for installing AV-Bible *(Version 9.25.1.20)*
+### These are instructions for installing AV-Bible *(Version 9.25.2.9)*
 
 #### Requirements:
 
 - Windows 11 (x64 -- System Type: 64-bit -- as revealed by \<System Information\> app, found via Windows Start-Menu)
 - AV-Bible 2025 now provides the option of installing the AV-Bible Addin for Microsoft Word
 
-#### Prerequisite:
+#### Prerequisite Downloads:
 
-Download and Install *Microsoft .NET 8.0 Desktop Runtime (v8.0.11)*
+***Prerequisite I -*** Download and Install *Microsoft .NET 8.0 Desktop Runtime (v8.0.11)*
 
 https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-8.0.11-windows-x64-installer
 
+***Prerequisite II -***  Download and Install *Microsoft Visual C++ Runtime*
+
+https://aka.ms/vs/17/release/vc_redist.x64.exe
+
 #### AV-Bible Setup Instructions:
 
-**STEP #1:**  Download this setup program:<br/>
+**STEP #1:**  Download and Save this setup program:<br/>
 https://github.com/kwonus/AVBible/raw/main/Installation/Setup/AV-Bible-2025-Setup.exe
+
+(if you do not see the Downloads dialog downloads icon to the right of the star)
+
+![Screen-Shot](./images/AV-Bible-2025-Save.png)
 
 **STEP #2:**  Click on the downloads icon. Next click on the ellipses [ ... ] and click Keep
 
 ![Screen-Shot](./images/AV-Bible-2025-Keep.png)
 
-**STEP #3:**  Click on the <u>Open File</u> link.
+**STEP #3:**  Click on the <u>Show more</u>.
 
-**STEP #4:**  Click on the Yes button:
-![Screen-Shot](./images/AV-Bible-2025-Yes.png)
+![Screen-Shot](./images/AV-Bible-2025-More.png)
+
+**STEP #4:**  Click <u>Keep anyway</u>
+
+![Screen-Shot](./images/AV-Bible-2025-Trust.png)
+
+**STEP #5:**  Click on the <u>Open file</u> link.
+
+![Screen-Shot](./images/AV-Bible-2025-Open.png)
+
+**STEP #6:**  Click on the <u>Open File</u> link.
+
+**STEP #7:**  Initiate App setup by accepting license agreement and clicking \<Next\>
+![Screen-Shot](./images/Setup.png)
+
+**STEP #8:**  Select App features and then click \<Next\>
+![Screen-Shot](./images/Features.png)
+
+- To enable the standard AV-Bible Windows application, check the first box. Or select "Compact installation" from the pull-down menu.
+- To enable AV-Bible Addin for for Microsoft Word, check the final two boxes. The AV-Bible Addin requires the AV-Data-Manager. To enable AV-Bible features inside of Microsoft Word, both features need be enabled simutaneously.
+- To enable all features, check all boxes or select "Full installation" from the pull-down menu.
+- It is possible to install AV-Data-Manager without installing any other features. This option is useful when Migrating from the Windows Store App edition of AV-Bible to the full-featured application found here. Otherwise, installing ***only*** AV-Data-Manager will not be of any use.
+
+**STEP #9:**  Click \<Next\> until you see this dialog
+![Screen-Shot](./images/Finish.png)
+
+- Always leave \<Launch AV-Bible\> checked. Otherwise the Word Addin will be non-functional.
+
+**STEP #10:**  Click \<Finish\> and your installation is complete.
+
+- To assure continued functionality of AV-Bible integration with Microsoft Word, AV-Data-Manager will launch automatically every time you logon to your computer. The easiest way to disable AV-Data-Manager is to uninstall the AV-Bible app.
 
 
 
@@ -38,6 +75,33 @@ You should be able to view help files by clicking on the help menu pull-down:
 ![Screen-Shot](./images/avbible-help.png)
 
 
+
+#### AV-Bible inside of Microsoft Word:
+
+If you installed the AV-Bible Addin for Microsoft, the Word application will present you with two additional tabs on the ribbon:
+![Screen-Shot](./images/Ribbon.png)
+
+The two ribbons are quite similar. Both the Old testament (OT) tab and the New Testament (NT) tab offer these common functions:
+
+- Find Any Verse
+  - The \<find Any Verse\> button searches both OT and NT books, regardless of which tab it was launched from
+- AV-Bible Settings
+  - This button allows you to customize behavior.
+  - The button shows up on both tabs.
+- User Help
+  - This button allows you to browse the help files of the AV-Bible Addin for Microsoft Word.
+  - The button shows up on both tabs.
+
+Other buttons are distinct between the two tabs:
+
+- Old Testament tab
+  - Insert Any Verse allows ***only*** OT book selections 
+  - Quick access buttons to any book in the OT
+- New Testament tab
+  - Insert Any Verse allows ***only*** NT book selections 
+  - Quick access buttons to any book in the NT
+
+See User Help on either tab for additional guidance on app usage.
 
 #### AV-Bible Removal:
 
