@@ -2097,7 +2097,7 @@
                         else if (code == 405 && maskException == false)
                         {
                             maskException = true;
-                            MessageBox.Show(this, "To perform Migration, please perform a full installation of AV-Bible release 9.25.2.9 or higher. Consult application help for additional instructions.", "AV-Bible - AV-Data-Manager Proxy", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBox.Show(this, "To perform Migration, please perform a full installation of AV-Bible release 9.25.2.17 or higher. Consult application help for additional instructions.", "AV-Bible - AV-Data-Manager Proxy", MessageBoxButton.OK, MessageBoxImage.Information);
 
                         }
                         totalSuccess = false;

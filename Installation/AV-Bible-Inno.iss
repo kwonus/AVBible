@@ -2,14 +2,14 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "AV-Bible"
-#define MyAppVersion "9.25.1.27"
+#define MyAppVersion "9.25.2.9"
 #define MyAppPublisher "Digital-AV.org"
 #define MyAppURL "https://github.com/kwonus/AVBible"
 #define MyRawExeName "AVBible.exe"
 #define MyAppExeName "AV-Bible.exe"
 #define MyMgrExeName "AV-Data-Manager.exe"
 #define RootSRC "C:\src"
-#define DotnetInstaller "windowsdesktop-runtime-8.0.11-win-x64.exe"
+;#define DotnetInstaller "windowsdesktop-runtime-8.0.11-win-x64.exe"
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
