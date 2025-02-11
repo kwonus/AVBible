@@ -20,32 +20,32 @@ https://aka.ms/vs/17/release/vc_redist.x64.exe
 **STEP #1:**  Download and Save this setup program:<br/>
 https://github.com/kwonus/AVBible/raw/main/Installation/Setup/AV-Bible-2025-Setup.exe
 
-(if you do not see the Downloads dialog downloads icon to the right of the star)
+(if you do not see the Downloads dialog downloads icon to the right of the star)</br>
 
 ![Screen-Shot](./images/AV-Bible-2025-Save.png)
 
-**STEP #2:**  Click on the downloads icon. Next click on the ellipses [ ... ] and click Keep
+**STEP #2:**  Click on the downloads icon. Next click on the ellipses [ ... ] and click Keep</br>
 
 ![Screen-Shot](./images/AV-Bible-2025-Keep.png)
 
-**STEP #3:**  Click on the <u>Show more</u>.
+**STEP #3:**  Click on the <u>Show more</u>.</br>
 
 ![Screen-Shot](./images/AV-Bible-2025-More.png)
 
-**STEP #4:**  Click <u>Keep anyway</u>
+**STEP #4:**  Click <u>Keep anyway</u></br>
 
 ![Screen-Shot](./images/AV-Bible-2025-Trust.png)
 
-**STEP #5:**  Click on the <u>Open file</u> link.
+**STEP #5:**  Click on the <u>Open file</u> link.</br>
 
 ![Screen-Shot](./images/AV-Bible-2025-Open.png)
 
 **STEP #6:**  Click on the <u>Open File</u> link.
 
-**STEP #7:**  Initiate App setup by accepting license agreement and clicking \<Next\>
+**STEP #7:**  Initiate App setup by accepting license agreement and clicking \<Next\></br>
 ![Screen-Shot](./images/Setup.png)
 
-**STEP #8:**  Select App features and then click \<Next\>
+**STEP #8:**  Select App features and then click \<Next\></br>
 ![Screen-Shot](./images/Features.png)
 
 - To enable the standard AV-Bible Windows application, check the first box. Or select "Compact installation" from the pull-down menu.
@@ -53,7 +53,7 @@ https://github.com/kwonus/AVBible/raw/main/Installation/Setup/AV-Bible-2025-Setu
 - To enable all features, check all boxes or select "Full installation" from the pull-down menu.
 - It is possible to install AV-Data-Manager without installing any other features. This option is useful when Migrating from the Windows Store App edition of AV-Bible to the full-featured application found here. Otherwise, installing ***only*** AV-Data-Manager will not be of any use.
 
-**STEP #9:**  Click \<Next\> until you see this dialog
+**STEP #9:**  Click \<Next\> until you see this dialog</br>
 ![Screen-Shot](./images/Finish.png)
 
 - Always leave \<Launch AV-Bible\> checked. Otherwise the Word Addin will be non-functional.
@@ -70,7 +70,7 @@ The program that you just installed is named "AV-Bible" and found in C:\Program 
 
 **Once it is running ...**
 
-You should be able to view help files by clicking on the help menu pull-down:
+You should be able to view help files by clicking on the help menu pull-down:</br>
 
 ![Screen-Shot](./images/avbible-help.png)
 
@@ -78,7 +78,7 @@ You should be able to view help files by clicking on the help menu pull-down:
 
 #### AV-Bible inside of Microsoft Word:
 
-If you installed the AV-Bible Addin for Microsoft, the Word application will present you with two additional tabs on the ribbon:
+If you installed the AV-Bible Addin for Microsoft, the Word application will present you with two additional tabs on the ribbon:</br>
 ![Screen-Shot](./images/Ribbon.png)
 
 The two ribbons are quite similar. Both the Old testament (OT) tab and the New Testament (NT) tab offer these common functions:
