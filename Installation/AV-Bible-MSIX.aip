@@ -22,13 +22,11 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiDirsComponent">
     <ROW Directory="APPDIR" Directory_Parent="TARGETDIR" DefaultDir="APPDIR:." IsPseudoRoot="1"/>
-    <ROW Directory="AppDataFolder" Directory_Parent="TARGETDIR" DefaultDir="APPDAT~1|AppDataFolder" IsPseudoRoot="1"/>
     <ROW Directory="Assets" Directory_Parent="TARGETDIR" DefaultDir="Assets" IsPseudoRoot="1"/>
     <ROW Directory="DesktopFolder" Directory_Parent="TARGETDIR" DefaultDir="DESKTO~1|DesktopFolder" IsPseudoRoot="1"/>
     <ROW Directory="DigitalAV_Dir" Directory_Parent="LocalAppDataFolder" DefaultDir="DIGITA~1|Digital-AV"/>
     <ROW Directory="Help_Dir" Directory_Parent="LocalAppDataFolder" DefaultDir="Help"/>
     <ROW Directory="LocalAppDataFolder" Directory_Parent="TARGETDIR" DefaultDir="LOCALA~1|LocalAppDataFolder" IsPseudoRoot="1"/>
-    <ROW Directory="NewFolder_Dir" Directory_Parent="AppDataFolder" DefaultDir="AV-Bible"/>
     <ROW Directory="ProgramFiles64Folder" Directory_Parent="TARGETDIR" DefaultDir="PROGRA~2|ProgramFiles64Folder" IsPseudoRoot="1"/>
     <ROW Directory="SHORTCUTDIR" Directory_Parent="TARGETDIR" DefaultDir="SHORTC~1|SHORTCUTDIR" IsPseudoRoot="1"/>
     <ROW Directory="TARGETDIR" DefaultDir="SourceDir"/>
@@ -58,7 +56,6 @@
     <ROW Component="YamlDotNet.dll" ComponentId="{DC59A306-CB23-405A-B983-E6D79662A49B}" Directory_="APPDIR" Attributes="0" KeyPath="YamlDotNet.dll"/>
     <ROW Component="application.md" ComponentId="{C17B5547-B1DF-480E-98B9-5840017868D2}" Directory_="Help_Dir" Attributes="0" KeyPath="application.md" Type="0"/>
     <ROW Component="pinshot_blue.dll" ComponentId="{717AD7A1-E3C1-4693-A824-AA7F57861262}" Directory_="APPDIR" Attributes="256" KeyPath="pinshot_blue.dll"/>
-    <ROW Component="settings.yaml_1" ComponentId="{483542B8-59E2-4BA1-96CB-AED98DC93EF6}" Directory_="NewFolder_Dir" Attributes="0" KeyPath="settings.yaml_1" Type="0"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
     <ROW Feature="A0BFC224E0E9125ADE0B2DBF343" Title=".NET Desktop Runtime 8.0.11 x64" Description=".NET Desktop Runtime 8.0.11 x64" Display="5" Level="1" Attributes="0"/>
@@ -207,7 +204,6 @@
     <ROW File="WinRT.Runtime.dll" Component_="WinRT.Runtime.dll" FileName="WINRTR~1.DLL|WinRT.Runtime.dll" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\WinRT.Runtime.dll" SelfReg="false"/>
     <ROW File="AVBible.runtimeconfig.json" Component_="AVBible.runtimeconfig.json" FileName="AVBIBL~1.JSO|AVBible.runtimeconfig.json" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\AVBible.runtimeconfig.json" SelfReg="false"/>
     <ROW File="Microsoft.Windows.SDK.NET.dll" Component_="Microsoft.Windows.SDK.NET.dll" FileName="MICROS~3.DLL|Microsoft.Windows.SDK.NET.dll" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\Microsoft.Windows.SDK.NET.dll" SelfReg="false"/>
-    <ROW File="settings.yaml_1" Component_="settings.yaml_1" FileName="SETTIN~1.YAM|settings.yaml" Attributes="0" SourcePath="..\..\..\Users\Me\AppData\Roaming\AV-Bible\settings.yaml" SelfReg="false"/>
     <ROW File="AVXOmega.data_1" Component_="AVXOmega.data_1" FileName="AVX-OM~1.DAT|AVX-Omega.data" Attributes="0" SourcePath="..\Digital-AV\AVX-Omega.data" SelfReg="false"/>
     <ROW File="AVXOmega.md5_1" Component_="AVXOmega.data_1" FileName="AVX-OM~1.MD5|AVX-Omega.md5" Attributes="0" SourcePath="..\Digital-AV\AVX-Omega.md5" SelfReg="false"/>
     <ROW File="AVXOmega.txt_1" Component_="AVXOmega.data_1" FileName="AVX-OM~1.TXT|AVX-Omega.txt" Attributes="0" SourcePath="..\Digital-AV\AVX-Omega.txt" SelfReg="false"/>
@@ -344,7 +340,6 @@
     <ROW XmlElement="Extension" ParentElement="Extensions" Name="Extension" Order="0" Flags="0" Type="54"/>
     <ROW XmlElement="Extension_1" ParentElement="Extensions" Name="Extension" Order="1" Flags="0" Type="55"/>
     <ROW XmlElement="Extensions" ParentElement="Application" Name="Extensions" Order="1" Flags="0" Type="0"/>
-    <ROW XmlElement="FileSystemWriteVirtualization" ParentElement="Properties" Name="FileSystemWriteVirtualization" Order="3" Flags="30" Text="disabled" Type="168"/>
     <ROW XmlElement="Icon" ParentElement="AppInstallerUX" Name="Icon" Order="5" Flags="0" Type="0"/>
     <ROW XmlElement="Identity" ParentElement="Package" Name="Identity" Order="0" Flags="0" Type="0"/>
     <ROW XmlElement="InitialRotationPreference" ParentElement="VisualElements" Name="InitialRotationPreference" Order="0" Flags="0" Type="0"/>
@@ -382,6 +377,7 @@
     <ROW Action="AI_VerifyPrereq" Description="Verifying prerequisites" DescriptionLocId="ActionText.Description.AI_VerifyPrereq" Template="[1] was not installed correctly." TemplateLocId="ActionText.Template.AI_VerifyPrereq"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiBinaryComponent">
+    <ROW Name="PowerShellScriptLauncher.dll" SourcePath="&lt;AI_CUSTACTS&gt;PowerShellScriptLauncher.dll"/>
     <ROW Name="Prereq.dll" SourcePath="&lt;AI_CUSTACTS&gt;Prereq.dll"/>
     <ROW Name="aicustact.dll" SourcePath="&lt;AI_CUSTACTS&gt;aicustact.dll"/>
     <ROW Name="file_deleter.ps1" SourcePath="&lt;AI_SCRIPTS&gt;file_deleter.ps1"/>
@@ -426,6 +422,7 @@
     <ROW Action="AI_AppSearchEx" Type="1" Source="Prereq.dll" Target="DoAppSearchEx"/>
     <ROW Action="AI_CleanPrePrereq" Type="65" Source="Prereq.dll" Target="CleanPrereq" WithoutSeq="true"/>
     <ROW Action="AI_CleanPrereq" Type="65" Source="Prereq.dll" Target="CleanPrereq" WithoutSeq="true"/>
+    <ROW Action="AI_DATA_SETTER" Type="51" Source="CustomActionData" Target="AEYAbABhAGcAcwACADAAAQBQAGEAcgBhAG0AcwACAAEAUAByAG8AcABlAHIAdAB5AAIAWwBTAEMAUgBJAFAAVABGAEkATABFAF8AUABBAFQASABd"/>
     <ROW Action="AI_DOWNGRADE" Type="19" Target="4010"/>
     <ROW Action="AI_DownloadPrereq" Type="1" Source="Prereq.dll" Target="DownloadPrereq"/>
     <ROW Action="AI_DpiContentScale" Type="1" Source="aicustact.dll" Target="DpiContentScale"/>
@@ -447,6 +444,7 @@
     <ROW Action="AI_STORE_LOCATION" Type="51" Source="ARPINSTALLLOCATION" Target="[APPDIR]"/>
     <ROW Action="AI_VerifyPrePrereq" Type="1" Source="Prereq.dll" Target="VerifyPrePrereq"/>
     <ROW Action="AI_VerifyPrereq" Type="1" Source="Prereq.dll" Target="VerifyPrereq"/>
+    <ROW Action="PowerShellScriptFile" Type="1" Source="PowerShellScriptLauncher.dll" Target="RunPowerShellFileScript" Options="134217729" AdditionalSeq="AI_DATA_SETTER"/>
     <ROW Action="SET_APPDIR" Type="307" Source="APPDIR" Target="[ProgramFilesFolder][Manufacturer]\[ProductName]" MultiBuildTarget="Build_MSIX_APPX:[ProgramFiles64Folder][ProductName]"/>
     <ROW Action="SET_SHORTCUTDIR" Type="307" Source="SHORTCUTDIR" Target="[ProgramMenuFolder][ProductName]"/>
     <ROW Action="SET_TARGETDIR_TO_APPDIR" Type="51" Source="TARGETDIR" Target="[APPDIR]"/>
@@ -470,7 +468,6 @@
     <ROW Feature_="MainFeature" Component_="AVBible.runtimeconfig.json"/>
     <ROW Feature_="MainFeature" Component_="Microsoft.Windows.SDK.NET.dll"/>
     <ROW Feature_="MainFeature" Component_="WinRT.Runtime.dll"/>
-    <ROW Feature_="MainFeature" Component_="settings.yaml_1"/>
     <ROW Feature_="A0BFC224E0E9125ADE0B2DBF343" Component_="A0BFC224E0E9125ADE0B2DBF343"/>
     <ROW Feature_="MainFeature" Component_="AVXOmega.data_1"/>
     <ROW Feature_="MainFeature" Component_="application.md"/>
@@ -490,6 +487,8 @@
     <ROW Action="AI_MigrateInstallerProps" Condition="SETUPEXEDIR AND ((UILevel = 2) OR (UILevel = 3))" Sequence="6599"/>
     <ROW Action="AI_VerifyPrereq" Sequence="1101"/>
     <ROW Action="AI_AppSearchEx" Sequence="101"/>
+    <ROW Action="PowerShellScriptFile" Condition="( NOT Installed )" Sequence="6402"/>
+    <ROW Action="AI_DATA_SETTER" Condition="( NOT Installed )" Sequence="6401"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstallUISequenceComponent">
     <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
