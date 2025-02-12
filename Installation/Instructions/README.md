@@ -1,4 +1,4 @@
-### These are instructions for installing AV-Bible *(Version 9.25.2.9)*
+### These are instructions for installing AV-Bible *(Version 9.25.2.11)*
 
 #### Requirements:
 
@@ -62,7 +62,7 @@ https://github.com/kwonus/AVBible/raw/main/Installation/Setup/AV-Bible-2025-Setu
 
 #### AV-Bible Usage Instructions:
 
-The program that you just installed is named "AV-Bible". An optional desktop icon can be added on the setup program above that simplifies program launch.
+The program that you just installed is named "AV-Bible". An optional desktop icon can be added during setup. This simplifies  program launch.
 
 **Once it is running ...**
 
@@ -77,10 +77,11 @@ You should be able to view help files by clicking on the help menu pull-down:</b
 If you installed the AV-Bible Addin for Microsoft, the Word application will present you with two additional tabs on the ribbon:</br>
 ![Screen-Shot](./images/Ribbon.png)
 
-The two ribbons are quite similar. Both the Old testament (OT) tab and the New Testament (NT) tab offer these common functions:
+The two ribbons are quite similar. Both the Old Testament (OT) tab and the New Testament (NT) tab offer these common functions:
 
 - Find Any Verse
   - The \<find Any Verse\> button searches both OT and NT books, regardless of which tab it was launched from
+  - The button shows up on both tabs.
 - AV-Bible Settings
   - This button allows you to customize behavior.
   - The button shows up on both tabs.

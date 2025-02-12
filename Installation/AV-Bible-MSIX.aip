@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<DOCUMENT Type="Advanced Installer" CreateVersion="19.4" version="22.3" PreviousModules="express" Modules="professional" RootPath="." Language="en" Id="{BD848AFA-6A77-4D95-A20D-4C720BF3E24C}">
+<DOCUMENT Type="Advanced Installer" CreateVersion="19.4" version="22.4" PreviousModules="express" Modules="professional" RootPath="." Language="en" Id="{BD848AFA-6A77-4D95-A20D-4C720BF3E24C}">
   <COMPONENT cid="caphyon.advinst.msicomp.ProjectOptionsComponent">
     <ROW Name="Application_AssetGenDestFolderPath" Value="Generated Assets" ValueType="1"/>
     <ROW Name="Application_WorkingDir" Value="APPDIR"/>
@@ -299,7 +299,7 @@
     <ROW XmlAttribute="Preference_3" XmlElement="Rotation_3" Name="Preference" Flags="0" Order="0" Value="landscapeFlipped"/>
     <ROW XmlAttribute="PrimaryButtonMode" XmlElement="Buttons" Name="PrimaryButtonMode" Flags="0" Order="0" Value="normal"/>
     <ROW XmlAttribute="ProcessorArchitecture" XmlElement="Identity" Name="ProcessorArchitecture" Flags="0" Order="0" Value="x64"/>
-    <ROW XmlAttribute="ProcessorArchitecture_1" XmlElement="PackageDependency" Name="ProcessorArchitecture" Flags="1" Order="3" Value="x86"/>
+    <ROW XmlAttribute="ProcessorArchitecture_1" XmlElement="PackageDependency" Name="ProcessorArchitecture" Flags="1" Order="3" Value="x64"/>
     <ROW XmlAttribute="Publisher" XmlElement="Identity" Name="Publisher" Flags="0" Order="0" Value="CN=38696806-5992-4D3E-8515-F76B2A3AB575"/>
     <ROW XmlAttribute="Publisher_1" XmlElement="PackageDependency" Name="Publisher" Flags="0" Order="1" Value="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"/>
     <ROW XmlAttribute="Scale" XmlElement="Resource_1" Name="Scale" Flags="0" Order="0" Value="100"/>

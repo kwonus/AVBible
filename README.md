@@ -1,12 +1,9 @@
 ### AVBible
 Reimagine how fluid the study of scripture can be ...
 
-AV-Bible is built on the latest .Net Framework for Windows Desktop.<br/>
-It is available at the Microsoft Store at:
-https://www.microsoft.com/en-us/p/avbible/9nn9x59qtz3j
+AV-Bible is built on the .Net Framework for Windows Desktop, Version 8.0<br/>
+AV-Bible is available at the Microsoft Store:
+https://www.microsoft.com/store/apps/9N83W16BTMTK
 
-The AV-Bible plugin for Microsoft Word, is available as a separate install at:
-http://digital-av.org/installer/
-
-NOTE TO AUTHOR ... SIG COMMAND:
-sign /sha1 foobar /fd SHA256 /t http://timestamp.digicert.com AV-Addin-Wix5-Installer.msi
+NOTE on How-To Sign:
+sign /sha1 XYZ /fd SHA256 /t http://timestamp.digicert.com foo.msi
