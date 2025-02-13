@@ -48,7 +48,7 @@ http://github.com/kwonus/AVBible/tree/main/Installation/Instructions
 
 If AV-Bible was installed from the GitHub project home, you will see *"AV Bible"* in the title bar of the app when it is running.
 
-A more common installation of a more constrained AV-Bible is available on the Microsoft Store. However, restrictions on Windows Store Apps results in fewer features. If the app was installed from the Microsoft Store, you will see *"AV-Bible for Windows"* in the title bar.
+A more common installation of a more constrained AV-Bible is available on the Microsoft Store. However, restrictions on Microsoft Store Apps results in fewer features. If the app was installed from the Microsoft Store, you will see *"AV-Bible for Windows"* in the title bar.
 
 Features of the app from a GitHub installation that are disabled in the Microsoft Store app are identified below:
 

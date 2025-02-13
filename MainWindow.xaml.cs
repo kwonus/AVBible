@@ -1482,7 +1482,7 @@
             }
             if (this.TextCriteria.Text.Trim().Equals("@migrate", StringComparison.InvariantCultureIgnoreCase) && !this.MSA) // not Microsoft Store App
             {
-                MessageBox.Show(this, "This feature is only available in the Microsoft Store App. It is not needed in a full-featured installation. It is only useful for data migration from the Windows Store App into the full-featured AV Bible application. For additional information, consult help in the app for S4T.", this.Title, MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(this, "This feature is only available in the Microsoft Store App. It is not needed in a full-featured installation. It is only useful for data migration from the Microsoft Store App into the full-featured AV Bible application. For additional information, consult help in the app for S4T.", this.Title, MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
             this.ChapterView.Visibility = Visibility.Visible;

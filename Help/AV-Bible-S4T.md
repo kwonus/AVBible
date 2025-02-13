@@ -628,7 +628,7 @@ C:\Users\your-username\AppData\AV-Bible
 
 ***Note 2:*** If you installed AV-Bible on your old computer via the Microsoft Store, data migration must be performed prior to your backup. See section 3.4 for data migration instructions. After data migration has been performed, the steps of backup and restore can be performed as document in section 3.3.
 
-If you are unsure if you installed AV-Bible from the Microsoft Store, simply launch AV-Bible on your computer. If the title of the application is "AV-Bible for Windows", then it was installed via the Microsoft Store. Full featured applications have this in the title bar: "AV Bible". A full-featured installation provides additional capabilities, including backup and restore. Windows store applications explicitly disallow writing files to you local computer, and thus prevents direct backup and restore. Follow the instructions in section 3.4 to perform data migration to the full-featured AV-Bible application.
+If you are unsure if you installed AV-Bible from the Microsoft Store, simply launch AV-Bible on your computer. If the title of the application is "AV-Bible for Windows", then it was installed via the Microsoft Store. Full featured applications have this in the title bar: "AV Bible". A full-featured installation provides additional capabilities, including backup and restore. Microsoft Store applications explicitly disallow writing files to you local computer, and thus prevents direct backup and restore. Follow the instructions in section 3.4 to perform data migration to the full-featured AV-Bible application.
 
 ### 3.3 - Restoring a previous backup 
 
@@ -681,9 +681,9 @@ The \@migrate command is similar to the @backup command. As already mentioned ab
   - this edition supports the @backup command (see Section 3.2)
 
 
-Data can be migrated from AV-Bible for Windows into the full-featured AV Bible installation. ***Do not remove*** your AV-Bible for Windows application, because removal of the Windows Store app simultaneously removes all application data (including history and macros). Instead, install the full-featured AV-Bible from GitHub, following these instructions:
+Data can be migrated from AV-Bible for Windows into the full-featured AV Bible installation. ***Do not remove*** your AV-Bible for Windows application, because removal of the Microsoft Store app simultaneously removes all application data (including history and macros). Instead, install the full-featured AV-Bible from GitHub, following these instructions:
 
-1. Launch the Windows Store App edition of AV-Bible. It will show "AV-Bible for Windows" in the title bar. Leave this app running.
+1. Launch the Microsoft Store App edition of AV-Bible. It will show "AV-Bible for Windows" in the title bar. Leave this app running.
 
 2. On the same computer with the existing Microsoft Store app, Install AV-Bible from the GitHub repository, using these instructions:
 
@@ -697,7 +697,7 @@ Data can be migrated from AV-Bible for Windows into the full-featured AV Bible i
 3. When prompted by the installation, be sure to finalize your installation by selecting:
    [x] Launch AV-Data-Manager.exe
 
-4. Bring the Windows Store App, namely "AV-Bible for Windows" back to the top. At this point, after the installation, there might also be a second new installation running with "AV Bible" in the title bar. Do not use the newly installed app for this step)
+4. Bring the Microsoft Store App, namely "AV-Bible for Windows" back to the top. At this point, after the installation, there might also be a second new installation running with "AV Bible" in the title bar. Do not use the newly installed app for this step)
 
 5. Verify that you see "AV-Bible for Windows" in the title bar
 
@@ -717,7 +717,7 @@ Data can be migrated from AV-Bible for Windows into the full-featured AV Bible i
 
 10. If no errors appear, data migration is complete and you have successfully migrated your previous history and macros into the new installation.
 
-11. While not required, It is now safe to remove the redundant Windows Store application
+11. While not required, It is now safe to remove the redundant Microsoft Store application
 
 ### 3.5 - Exiting the Application
 

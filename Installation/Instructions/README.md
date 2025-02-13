@@ -47,7 +47,7 @@ https://github.com/kwonus/AVBible/raw/main/Installation/Setup/AV-Bible-2025-Setu
 - To enable the standard AV-Bible Windows application, check the first box. Or select "Compact installation" from the pull-down menu.
 - To enable AV-Bible Addin for for Microsoft Word, check the final two boxes. The AV-Bible Addin requires the AV-Data-Manager. To enable AV-Bible features inside of Microsoft Word, both features need be enabled simutaneously.
 - To enable all features, check all boxes or select "Full installation" from the pull-down menu.
-- It is possible to install AV-Data-Manager without installing any other features. This option is useful when Migrating from the Windows Store App edition of AV-Bible to the full-featured application found here. Otherwise, installing ***only*** AV-Data-Manager will not be of any use.
+- It is possible to install AV-Data-Manager without installing any other features. This option is useful when Migrating from the Microsoft Store App edition of AV-Bible to the full-featured application found here. Otherwise, installing ***only*** AV-Data-Manager will not be of any use.
 
 **STEP #8:**  Click \<Next\> until you see this dialog</br>
 ![Screen-Shot](./images/Finish.png)
