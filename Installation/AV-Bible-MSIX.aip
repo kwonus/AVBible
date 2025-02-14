@@ -24,12 +24,9 @@
     <ROW Directory="APPDIR" Directory_Parent="TARGETDIR" DefaultDir="APPDIR:." IsPseudoRoot="1"/>
     <ROW Directory="Assets" Directory_Parent="TARGETDIR" DefaultDir="Assets" IsPseudoRoot="1"/>
     <ROW Directory="DesktopFolder" Directory_Parent="TARGETDIR" DefaultDir="DESKTO~1|DesktopFolder" IsPseudoRoot="1"/>
-    <ROW Directory="DigitalAV_Dir" Directory_Parent="APPDIR" DefaultDir="DIGITA~1|Digital-AV"/>
-    <ROW Directory="Help_Dir" Directory_Parent="APPDIR" DefaultDir="Help"/>
     <ROW Directory="ProgramFiles64Folder" Directory_Parent="TARGETDIR" DefaultDir="PROGRA~2|ProgramFiles64Folder" IsPseudoRoot="1"/>
     <ROW Directory="SHORTCUTDIR" Directory_Parent="TARGETDIR" DefaultDir="SHORTC~1|SHORTCUTDIR" IsPseudoRoot="1"/>
     <ROW Directory="TARGETDIR" DefaultDir="SourceDir"/>
-    <ROW Directory="diagrams_Dir" Directory_Parent="Help_Dir" DefaultDir="diagrams"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCompsComponent">
     <ROW Component="A0BFC224E0E9125ADE0B2DBF343" ComponentId="{06E0D284-709D-4460-BDEF-983E5CABC428}" Directory_="APPDIR" Attributes="4" KeyPath="A0BFC224E0E9125ADE0B2DBF343" Options="2"/>
@@ -40,7 +37,6 @@
     <ROW Component="AVEngine.dll" ComponentId="{B5671EAA-95DB-4148-B8E9-CE40E45BB0E3}" Directory_="APPDIR" Attributes="0" KeyPath="AVEngine.dll"/>
     <ROW Component="AVSearch.dll" ComponentId="{F20883D8-5482-4045-9672-F9B739F1C3DE}" Directory_="APPDIR" Attributes="0" KeyPath="AVSearch.dll"/>
     <ROW Component="AVXLib.dll" ComponentId="{F7317584-E0CB-46CD-8B79-77BECBF3B0BC}" Directory_="APPDIR" Attributes="0" KeyPath="AVXLib.dll"/>
-    <ROW Component="AVXOmega.data_1" ComponentId="{72F1910A-5B8B-4736-83C6-5E3802DD7506}" Directory_="DigitalAV_Dir" Attributes="0" KeyPath="AVXOmega.data_1" Type="0"/>
     <ROW Component="Blacklight.Controls.Wpf.dll" ComponentId="{44429261-BFAA-499F-9671-64DD7CA26AC6}" Directory_="APPDIR" Attributes="0" KeyPath="Blacklight.Controls.Wpf.dll"/>
     <ROW Component="BlueprintBlueLib.dll" ComponentId="{60DA5FD3-0B1D-43AC-8B3E-3D6999011C42}" Directory_="APPDIR" Attributes="0" KeyPath="BlueprintBlueLib.dll"/>
     <ROW Component="C4FE6FD5B7C4D07B3A313E754A9A6A8" ComponentId="{5E1FB8BB-B680-4520-AA35-6DE4239C4E8A}" Directory_="APPDIR" Attributes="4" KeyPath="C4FE6FD5B7C4D07B3A313E754A9A6A8" Options="2"/>
@@ -49,12 +45,10 @@
     <ROW Component="Neo.Markdig.Xaml.dll" ComponentId="{692EEB0F-4716-4CAF-A331-DD89ACA354DC}" Directory_="APPDIR" Attributes="0" KeyPath="Neo.Markdig.Xaml.dll"/>
     <ROW Component="PhonemeEmbeddings.dll" ComponentId="{62004A80-AD3B-41D4-B9DE-74AB57395BCC}" Directory_="APPDIR" Attributes="0" KeyPath="PhonemeEmbeddings.dll"/>
     <ROW Component="ProductInformation" ComponentId="{5D6FE968-8AA4-45CC-AD54-198DD6ECF625}" Directory_="APPDIR" Attributes="4" KeyPath="Version"/>
-    <ROW Component="QCommand.png" ComponentId="{0A3F5665-E839-4374-BA5C-EB47A6B1D343}" Directory_="diagrams_Dir" Attributes="0" KeyPath="QCommand.png" Type="0"/>
     <ROW Component="SHORTCUTDIR" ComponentId="{03B9825B-0448-4378-8227-528DA44CF137}" Directory_="SHORTCUTDIR" Attributes="0"/>
     <ROW Component="Store50x50Logo.scale100.png" ComponentId="{DBB39791-CB5A-4035-B1D3-C2D52D9AAB74}" Directory_="Assets" Attributes="0" KeyPath="Store50x50Logo.scale100.png" Type="0"/>
     <ROW Component="WinRT.Runtime.dll" ComponentId="{4D4DF57E-C4A3-4DBA-8B0D-C3D5156AAB6E}" Directory_="APPDIR" Attributes="0" KeyPath="WinRT.Runtime.dll"/>
     <ROW Component="YamlDotNet.dll" ComponentId="{DC59A306-CB23-405A-B983-E6D79662A49B}" Directory_="APPDIR" Attributes="0" KeyPath="YamlDotNet.dll"/>
-    <ROW Component="application.md" ComponentId="{C17B5547-B1DF-480E-98B9-5840017868D2}" Directory_="Help_Dir" Attributes="0" KeyPath="application.md" Type="0"/>
     <ROW Component="pinshot_blue.dll" ComponentId="{717AD7A1-E3C1-4693-A824-AA7F57861262}" Directory_="APPDIR" Attributes="256" KeyPath="pinshot_blue.dll"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
@@ -72,8 +66,6 @@
     <ROW File="AVXLib.dll" Component_="AVXLib.dll" FileName="AVXLib.dll" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\AVXLib.dll" SelfReg="false"/>
     <ROW File="Blacklight.Controls.Wpf.dll" Component_="Blacklight.Controls.Wpf.dll" FileName="BLACKL~1.DLL|Blacklight.Controls.Wpf.dll" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\Blacklight.Controls.Wpf.dll" SelfReg="false"/>
     <ROW File="BlueprintBlueLib.dll" Component_="BlueprintBlueLib.dll" FileName="BLUEPR~1.DLL|Blueprint-Blue-Lib.dll" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\Blueprint-Blue-Lib.dll" SelfReg="false"/>
-    <ROW File="QCommand.png" Component_="QCommand.png" FileName="QCommand.png" Attributes="0" SourcePath="..\Help\diagrams\QCommand.png" SelfReg="false"/>
-    <ROW File="QFind.png" Component_="QCommand.png" FileName="QFind.png" Attributes="0" SourcePath="..\Help\diagrams\QFind.png" SelfReg="false"/>
     <ROW File="PhonemeEmbeddings.dll" Component_="PhonemeEmbeddings.dll" FileName="PHONEM~1.DLL|PhonemeEmbeddings.dll" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\PhonemeEmbeddings.dll" SelfReg="false"/>
     <ROW File="pinshot_blue.dll" Component_="pinshot_blue.dll" FileName="PINSHO~1.DLL|pinshot_blue.dll" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\pinshot_blue.dll" SelfReg="false"/>
     <ROW File="YamlDotNet.dll" Component_="YamlDotNet.dll" FileName="YAMLDO~1.DLL|YamlDotNet.dll" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\YamlDotNet.dll" SelfReg="false"/>
@@ -205,22 +197,10 @@
     <ROW File="WinRT.Runtime.dll" Component_="WinRT.Runtime.dll" FileName="WINRTR~1.DLL|WinRT.Runtime.dll" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\WinRT.Runtime.dll" SelfReg="false"/>
     <ROW File="AVBible.runtimeconfig.json" Component_="AVBible.runtimeconfig.json" FileName="AVBIBL~1.JSO|AVBible.runtimeconfig.json" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\AVBible.runtimeconfig.json" SelfReg="false"/>
     <ROW File="Microsoft.Windows.SDK.NET.dll" Component_="Microsoft.Windows.SDK.NET.dll" FileName="MICROS~3.DLL|Microsoft.Windows.SDK.NET.dll" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\Microsoft.Windows.SDK.NET.dll" SelfReg="false"/>
-    <ROW File="AVXOmega.data_1" Component_="AVXOmega.data_1" FileName="AVX-OM~1.DAT|AVX-Omega.data" Attributes="0" SourcePath="..\Digital-AV\AVX-Omega.data" SelfReg="false"/>
-    <ROW File="AVXOmega.md5_1" Component_="AVXOmega.data_1" FileName="AVX-OM~1.MD5|AVX-Omega.md5" Attributes="0" SourcePath="..\Digital-AV\AVX-Omega.md5" SelfReg="false"/>
-    <ROW File="AVXOmega.txt_1" Component_="AVXOmega.data_1" FileName="AVX-OM~1.TXT|AVX-Omega.txt" Attributes="0" SourcePath="..\Digital-AV\AVX-Omega.txt" SelfReg="false"/>
-    <ROW File="en_US.txt_1" Component_="AVXOmega.data_1" FileName="en_US.txt" Attributes="0" SourcePath="..\Digital-AV\en_US.txt" SelfReg="false"/>
     <ROW File="Markdig.dll" Component_="Markdig.dll" FileName="Markdig.dll" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\Markdig.dll" SelfReg="false"/>
     <ROW File="AVBible.deps.json" Component_="AVBible.runtimeconfig.json" FileName="AVBIBL~2.JSO|AVBible.deps.json" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\AVBible.deps.json" SelfReg="false"/>
     <ROW File="gutenburgpress256.ico" Component_="AVBible.runtimeconfig.json" FileName="GUTENB~1.ICO|gutenburg-press-256.ico" Attributes="0" SourcePath="..\gutenburg-press-256.ico" SelfReg="false"/>
     <ROW File="Neo.Markdig.Xaml.dll" Component_="Neo.Markdig.Xaml.dll" FileName="NEOMAR~1.DLL|Neo.Markdig.Xaml.dll" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\Neo.Markdig.Xaml.dll" SelfReg="false"/>
-    <ROW File="application.md" Component_="application.md" FileName="APPLIC~1.MD|application.md" Attributes="0" SourcePath="..\Help\application.md" SelfReg="false"/>
-    <ROW File="AVBibleS4T.md" Component_="application.md" FileName="AV-BIB~1.MD|AV-Bible-S4T.md" Attributes="0" SourcePath="..\Help\AV-Bible-S4T.md" SelfReg="false"/>
-    <ROW File="export.md" Component_="application.md" FileName="export.md" Attributes="0" SourcePath="..\Help\export.md" SelfReg="false"/>
-    <ROW File="hashtags.md" Component_="application.md" FileName="hashtags.md" Attributes="0" SourcePath="..\Help\hashtags.md" SelfReg="false"/>
-    <ROW File="language.md" Component_="application.md" FileName="language.md" Attributes="0" SourcePath="..\Help\language.md" SelfReg="false"/>
-    <ROW File="selection.md" Component_="application.md" FileName="SELECT~1.MD|selection.md" Attributes="0" SourcePath="..\Help\selection.md" SelfReg="false"/>
-    <ROW File="settings.md" Component_="application.md" FileName="settings.md" Attributes="0" SourcePath="..\Help\settings.md" SelfReg="false"/>
-    <ROW File="system.md" Component_="application.md" FileName="system.md" Attributes="0" SourcePath="..\Help\system.md" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AppXCfgComponent">
     <ROW ID="Configuration" Order="1" ManifestFile="AppxManifest.xml" TargetOs="4" AutoUpdatesFrequency="0" AutoUpdatesOptions="0" ManifestBundleFile="AppxBundleManifest.xml"/>
@@ -460,7 +440,6 @@
     <ROW Feature_="MainFeature" Component_="AVXLib.dll"/>
     <ROW Feature_="MainFeature" Component_="Blacklight.Controls.Wpf.dll"/>
     <ROW Feature_="MainFeature" Component_="BlueprintBlueLib.dll"/>
-    <ROW Feature_="MainFeature" Component_="QCommand.png"/>
     <ROW Feature_="MainFeature" Component_="PhonemeEmbeddings.dll"/>
     <ROW Feature_="MainFeature" Component_="pinshot_blue.dll"/>
     <ROW Feature_="MainFeature" Component_="YamlDotNet.dll"/>
@@ -470,8 +449,6 @@
     <ROW Feature_="MainFeature" Component_="Microsoft.Windows.SDK.NET.dll"/>
     <ROW Feature_="MainFeature" Component_="WinRT.Runtime.dll"/>
     <ROW Feature_="A0BFC224E0E9125ADE0B2DBF343" Component_="A0BFC224E0E9125ADE0B2DBF343"/>
-    <ROW Feature_="MainFeature" Component_="AVXOmega.data_1"/>
-    <ROW Feature_="MainFeature" Component_="application.md"/>
     <ROW Feature_="MainFeature" Component_="Markdig.dll"/>
     <ROW Feature_="MainFeature" Component_="Neo.Markdig.Xaml.dll"/>
     <ROW Feature_="C4FE6FD5B7C4D07B3A313E754A9A6A8" Component_="C4FE6FD5B7C4D07B3A313E754A9A6A8"/>

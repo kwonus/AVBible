@@ -30,6 +30,9 @@
     using SEQ = System.UInt32;
     using static AVXLib.Memory.Deserialization;
     using YamlDotNet.Serialization;
+    using System.Reflection;
+    using System.Security.Policy;
+    using System.IO.Compression;
 
     internal class ChapterSpec
     {
@@ -317,6 +320,55 @@
 
         private bool simulate_MSA = false;
 
+        public static string DownloadFiles(string url, string name, byte timeout_seconds = 20)
+        {
+            string zip = url + "/" + name + ".zip";
+            string path = Path.GetDirectoryName(QContext.GetMicrosoftStoreFolder(name));
+
+            var task = DownloadFilesAsync(zip, path, name);
+
+            task.Wait(timeout_seconds * 1024);
+            if (task.IsCompleted)
+                return task.Result;
+
+            return string.Empty;
+        }
+        public static async Task<string> DownloadFilesAsync(string zip, string path, string name)
+        {
+            using (HttpClient client = new HttpClient())
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                // Download the zip file into the memory stream
+                byte[] zipData = await client.GetByteArrayAsync(zip);
+                await memoryStream.WriteAsync(zipData, 0, zipData.Length);
+                memoryStream.Position = 0; // Reset the stream position to the beginning
+
+                // Extract the contents of the zip file directly from the memory stream
+                using (var archive = new ZipArchive(memoryStream, ZipArchiveMode.Read))
+                {
+                    foreach (var entry in archive.Entries)
+                    {
+                        string destinationPath = Path.Combine(path, entry.FullName);
+
+                        // Ensure the directory structure is in place
+                        if (entry.FullName.EndsWith("/"))
+                        {
+                            System.IO.Directory.CreateDirectory(destinationPath);
+                            continue;
+                        }
+
+                        // Extract the file
+                        using (var entryStream = entry.Open())
+                        using (var fileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write))
+                        {
+                            await entryStream.CopyToAsync(fileStream);
+                        }
+                    }
+                }
+            }
+            return path;
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -326,6 +378,16 @@
             if (this.MSA || simulate_MSA)
             {
                 this.Title = "AV-Bible for Windows";
+
+                string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                int dot = version.LastIndexOf(".");
+                if (dot > 0)
+                    version = version.Substring(0, dot);
+
+                string url = "https://github.com/kwonus/AV-Bible/raw/refs/heads/main/Release-" + version;
+
+                DownloadFiles(url, "Digital-AV"); // Omega SDK
+                DownloadFiles(url, "Help");       // Help [markdown] files
             }
             this.Help = new();
             this.ResultsBQL = new();
