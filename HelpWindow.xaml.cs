@@ -2,6 +2,9 @@
 using Markdig;
 using Neo.Markdig.Xaml;
 using System;
+using System.IO;
+using System.Reflection;
+using System.Resources;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
@@ -28,20 +31,23 @@ namespace AVBible
                 string[] segments = tab.Name.Split(ParseDelimiters, StringSplitOptions.RemoveEmptyEntries);
                 if (segments.Length == 2)
                 {
-                    string path = AVEngine.GetHelpFile(segments[1], asFlowDoc: true);
-                    if (System.IO.File.Exists(path))
+                    var mem = HelpWindow.GetHelp(segments[1]);
+                    if (mem != null)
                     {
-                        var content = System.IO.File.ReadAllText(path);
-                        var doc = MarkdownXaml.ToFlowDocument(content,
-                            new MarkdownPipelineBuilder()
-                            .UseXamlSupportedExtensions()
-                            .Build()
-                        );
-                        tab.Document = doc;
-                        // Set the page width
-                        // tab.IsTwoPageViewEnabled = false;
-                        // Set the page padding (top, left, bottom, right)
-                        // flowDocumentReader.Document.PagePadding = new Thickness(20, 10, 20, 10);
+                        using (TextReader reader = new StreamReader(mem))
+                        {
+                            var content = reader.ReadToEnd();
+                            var doc = MarkdownXaml.ToFlowDocument(content,
+                                new MarkdownPipelineBuilder()
+                                .UseXamlSupportedExtensions()
+                                .Build()
+                            );
+                            tab.Document = doc;
+                            // Set the page width
+                            // tab.IsTwoPageViewEnabled = false;
+                            // Set the page padding (top, left, bottom, right)
+                            // flowDocumentReader.Document.PagePadding = new Thickness(20, 10, 20, 10);
+                        }
                     }
                 }
             }
@@ -132,6 +138,87 @@ namespace AVBible
                 }
             }
             Dispatcher.BeginInvoke(new Action(() => this.HelpTabs.SelectedItem = selected), DispatcherPriority.Render);
+        }
+        internal static MemoryStream? GetFileContent(string name)
+        {
+            // The name of your resource file without the extension
+            string resourceFileName = "ResourceHelp";
+
+            // The name of the entry in the .resx file
+            string resourceName = name;
+
+            // Get the current assembly
+            Assembly assembly = Assembly.GetExecutingAssembly();
+
+            // Create a ResourceManager
+            ResourceManager resourceManager = new ResourceManager(resourceFileName, assembly);
+
+            // Get the resource as a byte array (assuming the file is a binary resource)
+            byte[] fileData = (byte[])resourceManager.GetObject(resourceName);
+
+            return fileData != null ? new MemoryStream(fileData) : null;
+        }
+
+        public static readonly char[] splitters = ['_', '&', '+', ' ', '@'];
+        private static MemoryStream? GetHelp(string request)
+        {
+            string[] topics = request.Split(splitters, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (string topic in topics)
+            {
+                switch (topic.ToLower())
+                {
+                    case "search-for-truth":
+                    case "s4t":
+                    case "grammar": return GetFileContent("AV-Bible-S4T");
+
+                    case "selection":
+                    case "criteria":
+                    case "search":
+                    case "expression":
+                    case "find":
+                    case "scope":
+                    case "scoping":
+                    case "filter": return GetFileContent("selection");
+
+                    case "ye":
+                    case "thee":
+                    case "thou":
+                    case "thy":
+                    case "early":
+                    case "kjv":
+                    case "language":
+                    case "english": return GetFileContent("language");
+
+                    case "settings":
+                    case "assign":
+                    case "set":
+                    case "clear":
+                    case "get":
+                    case "use": return GetFileContent("settings");
+
+                    case "macro":
+                    case "history":
+                    case "macros":
+                    case "tags":
+                    case "hashtag":
+                    case "tagging":
+                    case "apply":
+                    case "delete":
+                    case "review": return GetFileContent("hashtags");
+
+                    case "application":
+                    case "app": return GetFileContent("application");
+
+                    case "output":
+                    case "print":
+                    case "export": return GetFileContent("export");
+
+                    case "system":
+                    case "command": return GetFileContent("system");
+                }
+            }
+            return GetFileContent("application");
         }
     }
 }

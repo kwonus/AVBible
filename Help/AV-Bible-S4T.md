@@ -538,18 +538,18 @@ FROM / TO parameters can limit the scope of the delete command:
 
 In all, AVX-Quelle manifests six user-controlled settings. Each allows all three actions: ***set***, ***@clear***, and ***@get*** verbs. There are two additional settings that are effectively read-only, albeit, ALL does work with *@clear* Table 2.3.d lists all settings .
 
-| Setting Name     | Shorthand | Meaning                                                      | Values                                        | Default Value |
-| ---------------- | --------- | ------------------------------------------------------------ | --------------------------------------------- | ------------- |
+| Setting Name     | Shorthand | Meaning                                                      | Values                                         | Default Value |
+| ---------------- | --------- | ------------------------------------------------------------ | ---------------------------------------------- | ------------- |
 | span             | -         | proximity distance limit (can be "verse" or number of words) | verse or<br /> 1 to 999                        | verse         |
 | lexicon          | -         | Streamlined syntax for setting lexicon.search<br /> and lexicon.render to the same value | av or avx or dual<br />(kjv or modern or both) | n/a           |
 | lexicon.search   | search    | the lexicon to be used for searching                         | av or avx or dual<br />(kjv or modern or both) | dual / both   |
-| lexicon.render   | render    | the lexicon to be used for display/rendering                 | av/avx (kjv/modern)                           | av / kjv      |
-| format           | -         | format of results on output                                  | see Table 7                                   | text / utf8   |
-| similarity       | -         | Streamlined syntax for setting similarity.word<br />and similarity.lemma to the same value<br />Phonetics matching threshold is between 33% and 100%. 100% represents an exact sounds-alike match. Any percentage less than 100, represents a fuzzy sounds-similar match <br />Similarity matching can be completely disabled by setting this value to off | 33% to 100% **or** *off*                      | off           |
-| similarity.word  | word      | fuzzy phonetics matching as described above, but this prefix only affects similarity matching on the word. | 33% to 100% **or** *off*                      | off           |
-| similarity.lemma | lemma     | fuzzy phonetics matching as described above, but this prefix only affects similarity matching on the lemma. | 33% to 100% **or** *off*                      | off           |
-| revision         | -         | Not really a true setting: it works with the *@get* command to retrieve the revision number of the S4T grammar supported by AV-Engine. This value is read-only. | 4.x.yz                                        | n/a           |
-| ALL              | -         | ALL is an aggregate setting: it works with the *@clear* command to reset all variables above to their default values. It is used with *@get* to fetch all settings. | n/a                                           | n/a           |
+| lexicon.render   | render    | the lexicon to be used for display/rendering                 | av/avx (kjv/modern)                            | av / kjv      |
+| format           | -         | format of results on output                                  | see Table 7                                    | text / utf8   |
+| similarity       | -         | Streamlined syntax for setting similarity.word<br />and similarity.lemma to the same value<br />Phonetics matching threshold is between 33% and 100%. 100% represents an exact sounds-alike match. Any percentage less than 100, represents a fuzzy sounds-similar match <br />Similarity matching can be completely disabled by setting this value to off | 33% to 100% **or** *off*                       | off           |
+| similarity.word  | word      | fuzzy phonetics matching as described above, but this prefix only affects similarity matching on the word. | 33% to 100% **or** *off*                       | off           |
+| similarity.lemma | lemma     | fuzzy phonetics matching as described above, but this prefix only affects similarity matching on the lemma. | 33% to 100% **or** *off*                       | off           |
+| revision         | -         | Not really a true setting: it works with the *@get* command to retrieve the revision number of the S4T grammar supported by AV-Engine. This value is read-only. | 5.x.yz                                         | n/a           |
+| ALL              | -         | ALL is an aggregate setting: it works with the *@clear* command to reset all variables above to their default values. It is used with *@get* to fetch all settings. | n/a                                            | n/a           |
 
 **TABLE 2-3.d** - Summary of AV-Bible Settings
 
@@ -726,13 +726,7 @@ Type this to terminate the app:
 *@exit*
 
 
-## Section 4 - Grammar and Design Elements
-
-An object model to manifest the S4T grammar is depicted below:
-
-![QCommand](./diagrams/QCommand.png)
-
-### 4.1 - Glossary of S4T Terminology
+## Section 4 - Glossary of S4T Terminology
 
 **Actions:** Actions are complete verb-clauses issued in the imperative [you-understood].  Many actions have one or more parameters.  But just like English, a verb phrase can be a single word with no explicit subject and no explicit object.  Consider this English sentence:
 
@@ -765,7 +759,7 @@ Like the earlier example, the subject is "you understood".  The object this time
 
 hyphen ( **-** ) means that any non-match satisfies the search condition. Used by itself, it would likely return every verse. Therefore, it should be used judiciously.
 
-### 4.2 - Specialized Search tokens in AV-Bible
+## Section 5 - Specialized Search tokens in AV-Bible
 
 The lexical search domain of S4T includes all words in the original KJV text. It can also optionally search using a modernized lexicon of the KJV (e.g. hast and has; this is controllable with the search.lexicon setting).  The table below lists linguistic extensions available in S4T.
 
@@ -833,13 +827,7 @@ The lexical search domain of S4T includes all words in the original KJV text. It
 | 99999:H            | Strongs Number                          | decimal Strongs number for the Hebrew word in the Old Testament | One of Strongs\[4\]                                          | 0x7FFF |
 | 99999:G            | Strongs Number                          | decimal Strongs number for the Greek word in the New Testament | One of Strongs\[4\]                                          | 0x7FFF |
 
-### 4-3 - Object Model to support S4T search tokens
-
-An object model to support specialized S4T Search Tokens is depicted below:
-
-![QFind](./diagrams/QFind.png)
-
-### 4.4 - S4T conformance to the Quelle specification
+## Section 6 - S4T conformance to the Quelle specification
 
 Quelle specifies two possible implementation levels:
 

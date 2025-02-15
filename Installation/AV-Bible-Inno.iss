@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "AV-Bible"
-#define MyAppVersion "9.25.2.11"
+#define MyAppVersion "9.25.2.14"
 #define MyAppPublisher "Digital-AV.org"
 #define MyAppURL "https://github.com/kwonus/AVBible"
 #define MyRawExeName "AVBible.exe"
