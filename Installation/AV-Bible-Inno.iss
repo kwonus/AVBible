@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "AV-Bible"
-#define MyAppVersion "9.25.2.14"
+#define MyAppVersion "9.25.2.17"
 #define MyAppPublisher "Digital-AV.org"
 #define MyAppURL "https://github.com/kwonus/AVBible"
 #define MyRawExeName "AVBible.exe"
@@ -68,23 +68,25 @@ Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\Microsof
 Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\Neo.Markdig.Xaml.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp
 Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\Markdig.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp
 Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\PhonemeEmbeddings.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp
+;Source: "{#RootSRC}\NUPhone\PhonemeEmbeddings\en_US.txt"; DestDir: "{app}\NUPhone"; Flags: ignoreversion; Components: avapp or manager
 Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\pinshot_blue.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp
 Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\YamlDotNet.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp
 Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\WinRT.Runtime.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp
 ;
-Source: "{#RootSRC}\AV-Bible\Digital-AV\AVX-Omega.data"; DestDir: "{app}\Digital-AV"; Flags: ignoreversion; Components: avapp or manager
-Source: "{#RootSRC}\AV-Bible\Digital-AV\AVX-Omega.md5"; DestDir: "{app}\Digital-AV"; Flags: ignoreversion; Components: avapp or manager
-Source: "{#RootSRC}\AV-Bible\Digital-AV\AVX-Omega.txt"; DestDir: "{app}\Digital-AV"; Flags: ignoreversion; Components: avapp or manager
-Source: "{#RootSRC}\AV-Bible\Digital-AV\en_US.txt"; DestDir: "{app}\Digital-AV"; Flags: ignoreversion; Components: avapp or manager
+Source: "{#RootSRC}\Digital-AV\omega\data\target\x86_64-pc-windows-msvc\release\omega_data.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp or manager
+;Source: "{#RootSRC}\AV-Bible\Digital-AV\AVX-Omega.data"; DestDir: "{app}\Digital-AV"; Flags: ignoreversion; Components: avapp or manager
+Source: "{#RootSRC}\Digital-AV\omega\AVX-Omega.md5"; DestDir: "{app}\Digital-AV"; Flags: ignoreversion; Components: avapp or manager
+Source: "{#RootSRC}\Digital-AV\omega\AVX-Omega.txt"; DestDir: "{app}\Digital-AV"; Flags: ignoreversion; Components: avapp or manager
 ;
+Source: "{#RootSRC}\AV-Help\target\x86_64-pc-windows-msvc\release\av_help.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp
 Source: "{#RootSRC}\AV-Bible\Help\application.html"; DestDir: "{app}\Help"; Flags: ignoreversion; Components: avapp
-Source: "{#RootSRC}\AV-Bible\Help\application.md"; DestDir: "{app}\Help"; Flags: ignoreversion; Components: avapp
+;Source: "{#RootSRC}\AV-Bible\Help\application.md"; DestDir: "{app}\Help"; Flags: ignoreversion; Components: avapp
 Source: "{#RootSRC}\AV-Bible\Help\AV-Bible-S4T.html"; DestDir: "{app}\Help"; Flags: ignoreversion; Components: avapp
-Source: "{#RootSRC}\AV-Bible\Help\AV-Bible-S4T.md"; DestDir: "{app}\Help"; Flags: ignoreversion; Components: avapp
+;Source: "{#RootSRC}\AV-Bible\Help\AV-Bible-S4T.md"; DestDir: "{app}\Help"; Flags: ignoreversion; Components: avapp
 Source: "{#RootSRC}\AV-Bible\Help\export.html"; DestDir: "{app}\Help"; Flags: ignoreversion; Components: avapp
-Source: "{#RootSRC}\AV-Bible\Help\export.md"; DestDir: "{app}\Help"; Flags: ignoreversion; Components: avapp
+;Source: "{#RootSRC}\AV-Bible\Help\export.md"; DestDir: "{app}\Help"; Flags: ignoreversion; Components: avapp
 Source: "{#RootSRC}\AV-Bible\Help\hashtags.html"; DestDir: "{app}\Help"; Flags: ignoreversion; Components: avapp
-Source: "{#RootSRC}\AV-Bible\Help\hashtags.md"; DestDir: "{app}\Help"; Flags: ignoreversion; Components: avapp
+;Source: "{#RootSRC}\AV-Bible\Help\hashtags.md"; DestDir: "{app}\Help"; Flags: ignoreversion; Components: avapp
 Source: "{#RootSRC}\AV-Bible\Help\Index.html"; DestDir: "{app}\Help"; Flags: ignoreversion; Components: avapp
 Source: "{#RootSRC}\AV-Bible\Help\Index-application.html"; DestDir: "{app}\Help"; Flags: ignoreversion; Components: avapp
 Source: "{#RootSRC}\AV-Bible\Help\Index-export.html"; DestDir: "{app}\Help"; Flags: ignoreversion; Components: avapp
@@ -94,13 +96,13 @@ Source: "{#RootSRC}\AV-Bible\Help\Index-selection.html"; DestDir: "{app}\Help"; 
 Source: "{#RootSRC}\AV-Bible\Help\Index-settings.html"; DestDir: "{app}\Help"; Flags: ignoreversion; Components: avapp
 Source: "{#RootSRC}\AV-Bible\Help\Index-system.html"; DestDir: "{app}\Help"; Flags: ignoreversion; Components: avapp
 Source: "{#RootSRC}\AV-Bible\Help\language.html"; DestDir: "{app}\Help"; Flags: ignoreversion; Components: avapp
-Source: "{#RootSRC}\AV-Bible\Help\language.md"; DestDir: "{app}\Help"; Flags: ignoreversion; Components: avapp
+;Source: "{#RootSRC}\AV-Bible\Help\language.md"; DestDir: "{app}\Help"; Flags: ignoreversion; Components: avapp
 Source: "{#RootSRC}\AV-Bible\Help\selection.html"; DestDir: "{app}\Help"; Flags: ignoreversion; Components: avapp
-Source: "{#RootSRC}\AV-Bible\Help\selection.md"; DestDir: "{app}\Help"; Flags: ignoreversion; Components: avapp
+;Source: "{#RootSRC}\AV-Bible\Help\selection.md"; DestDir: "{app}\Help"; Flags: ignoreversion; Components: avapp
 Source: "{#RootSRC}\AV-Bible\Help\settings.html"; DestDir: "{app}\Help"; Flags: ignoreversion; Components: avapp
-Source: "{#RootSRC}\AV-Bible\Help\settings.md"; DestDir: "{app}\Help"; Flags: ignoreversion; Components: avapp
+;Source: "{#RootSRC}\AV-Bible\Help\settings.md"; DestDir: "{app}\Help"; Flags: ignoreversion; Components: avapp
 Source: "{#RootSRC}\AV-Bible\Help\system.html"; DestDir: "{app}\Help"; Flags: ignoreversion; Components: avapp
-Source: "{#RootSRC}\AV-Bible\Help\system.md"; DestDir: "{app}\Help"; Flags: ignoreversion; Components: avapp
+;Source: "{#RootSRC}\AV-Bible\Help\system.md"; DestDir: "{app}\Help"; Flags: ignoreversion; Components: avapp
 Source: "{#RootSRC}\AV-Bible\Help\topics.html"; DestDir: "{app}\Help"; Flags: ignoreversion; Components: avapp
 Source: "{#RootSRC}\AV-Bible\Help\html-generator\md-page.js"; DestDir: "{app}\Help\html-generator"; Flags: ignoreversion; Components: avapp
 Source: "{#RootSRC}\AV-Bible\Help\css\style.css"; DestDir: "{app}\Help\css"; Flags: ignoreversion; Components: avapp
