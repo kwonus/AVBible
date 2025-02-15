@@ -13,10 +13,10 @@
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
     <ROW Property="ARPPRODUCTICON" Value="AVBible.exe" Type="8"/>
     <ROW Property="Manufacturer" Value="DigitalAV"/>
-    <ROW Property="ProductCode" Value="1033:{045A80FC-7B90-4329-9725-0557FFA9D2E7} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{A91D112B-8719-4436-A6BC-FAF5F799BC97} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="AV-Bible"/>
-    <ROW Property="ProductVersion" Value="9.25.2" Options="32"/>
+    <ROW Property="ProductVersion" Value="2025.2.16" Options="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{38BDDD89-9C74-41C6-AF53-458454320E75}"/>
   </COMPONENT>
@@ -49,6 +49,8 @@
     <ROW Component="Store50x50Logo.scale100.png" ComponentId="{DBB39791-CB5A-4035-B1D3-C2D52D9AAB74}" Directory_="Assets" Attributes="0" KeyPath="Store50x50Logo.scale100.png" Type="0"/>
     <ROW Component="WinRT.Runtime.dll" ComponentId="{4D4DF57E-C4A3-4DBA-8B0D-C3D5156AAB6E}" Directory_="APPDIR" Attributes="0" KeyPath="WinRT.Runtime.dll"/>
     <ROW Component="YamlDotNet.dll" ComponentId="{DC59A306-CB23-405A-B983-E6D79662A49B}" Directory_="APPDIR" Attributes="0" KeyPath="YamlDotNet.dll"/>
+    <ROW Component="av_help.dll" ComponentId="{55868B16-D3C2-4FE6-A2E5-589D0038859C}" Directory_="APPDIR" Attributes="256" KeyPath="av_help.dll"/>
+    <ROW Component="omega_data.dll" ComponentId="{E7863A20-2BDC-4F88-8384-27122232B890}" Directory_="APPDIR" Attributes="256" KeyPath="omega_data.dll"/>
     <ROW Component="pinshot_blue.dll" ComponentId="{717AD7A1-E3C1-4693-A824-AA7F57861262}" Directory_="APPDIR" Attributes="256" KeyPath="pinshot_blue.dll"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
@@ -201,6 +203,8 @@
     <ROW File="AVBible.deps.json" Component_="AVBible.runtimeconfig.json" FileName="AVBIBL~2.JSO|AVBible.deps.json" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\AVBible.deps.json" SelfReg="false"/>
     <ROW File="gutenburgpress256.ico" Component_="AVBible.runtimeconfig.json" FileName="GUTENB~1.ICO|gutenburg-press-256.ico" Attributes="0" SourcePath="..\gutenburg-press-256.ico" SelfReg="false"/>
     <ROW File="Neo.Markdig.Xaml.dll" Component_="Neo.Markdig.Xaml.dll" FileName="NEOMAR~1.DLL|Neo.Markdig.Xaml.dll" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\Neo.Markdig.Xaml.dll" SelfReg="false"/>
+    <ROW File="av_help.dll" Component_="av_help.dll" FileName="av_help.dll" Attributes="0" SourcePath="..\..\AV-Help\target\x86_64-pc-windows-msvc\release\av_help.dll" SelfReg="false"/>
+    <ROW File="omega_data.dll" Component_="omega_data.dll" FileName="OMEGA_~1.DLL|omega_data.dll" Attributes="0" SourcePath="..\..\Digital-AV\omega\data\target\x86_64-pc-windows-msvc\release\omega_data.dll" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AppXCfgComponent">
     <ROW ID="Configuration" Order="1" ManifestFile="AppxManifest.xml" TargetOs="4" AutoUpdatesFrequency="0" AutoUpdatesOptions="0" ManifestBundleFile="AppxBundleManifest.xml"/>
@@ -272,6 +276,7 @@
     <ROW XmlAttribute="Name_1" XmlElement="Capability" Name="Name" Flags="0" Order="0" Value="runFullTrust"/>
     <ROW XmlAttribute="Name_2" XmlElement="TargetDeviceFamily" Name="Name" Flags="0" Order="0" Value="Windows.Desktop"/>
     <ROW XmlAttribute="Name_3" XmlElement="PackageDependency" Name="Name" Flags="0" Order="0" Value="Microsoft.VCLibs.140.00.UWPDesktop"/>
+    <ROW XmlAttribute="Name_4" XmlElement="Capability_1" Name="Name" Flags="0" Order="0" Value="internetClient"/>
     <ROW XmlAttribute="Notification" XmlElement="LockScreen" Name="Notification" Flags="0" Order="0" Value="badge"/>
     <ROW XmlAttribute="Orientation" XmlElement="Buttons" Name="Orientation" Flags="0" Order="0" Value="horizontal"/>
     <ROW XmlAttribute="Preference" XmlElement="Rotation" Name="Preference" Flags="0" Order="0" Value="portrait"/>
@@ -293,7 +298,7 @@
     <ROW XmlAttribute="Square310x310Logo" XmlElement="DefaultTile" Name="Square310x310Logo" Flags="0" Order="0" FileId="AVBible.exeSquare310x310Logo.scale100.png"/>
     <ROW XmlAttribute="Square44x44Logo" XmlElement="VisualElements" Name="Square44x44Logo" Flags="0" Order="0" FileId="AVBible.exeSquare44x44Logo.scale100.png"/>
     <ROW XmlAttribute="Square71x71Logo" XmlElement="DefaultTile" Name="Square71x71Logo" Flags="0" Order="0" FileId="AVBible.exeSquare71x71Logo.scale100.png"/>
-    <ROW XmlAttribute="Version" XmlElement="Identity" Name="Version" Flags="0" Order="0" Value="9.25.2.0"/>
+    <ROW XmlAttribute="Version" XmlElement="Identity" Name="Version" Flags="0" Order="0" Value="2025.2.16.0"/>
     <ROW XmlAttribute="Version_1" XmlElement="AppInstallerUX" Name="Version" Flags="0" Order="0" Value="1.0.0"/>
     <ROW XmlAttribute="Wide310x150Logo" XmlElement="DefaultTile" Name="Wide310x150Logo" Flags="0" Order="0" FileId="AVBible.exeWide310x150Logo.scale100.png"/>
     <ROW XmlAttribute="xmlns" XmlElement="AppInstallerUX" Name="xmlns" Flags="0" Order="0" Value="http://schemas.microsoft.com/msix/appinstallerux"/>
@@ -310,6 +315,7 @@
     <ROW XmlElement="Buttons" ParentElement="AppInstallerUX" Name="Buttons" Order="2" Flags="0" Type="0"/>
     <ROW XmlElement="Capabilities" ParentElement="Package" Name="Capabilities" Order="4" Flags="0" Type="0"/>
     <ROW XmlElement="Capability" ParentElement="Capabilities" Name="Capability" Order="0" Flags="0" Type="0"/>
+    <ROW XmlElement="Capability_1" ParentElement="Capabilities" Name="Capability" Order="1" Flags="0" Type="0"/>
     <ROW XmlElement="DefaultTile" ParentElement="VisualElements" Name="DefaultTile" Order="1" Flags="0" Type="0"/>
     <ROW XmlElement="Dependencies" ParentElement="Package" Name="Dependencies" Order="5" Flags="0" Type="0"/>
     <ROW XmlElement="DesktopApp" ParentElement="DesktopAppMigration" Name="DesktopApp" Order="0" Flags="0" Type="0"/>
@@ -452,6 +458,8 @@
     <ROW Feature_="MainFeature" Component_="Markdig.dll"/>
     <ROW Feature_="MainFeature" Component_="Neo.Markdig.Xaml.dll"/>
     <ROW Feature_="C4FE6FD5B7C4D07B3A313E754A9A6A8" Component_="C4FE6FD5B7C4D07B3A313E754A9A6A8"/>
+    <ROW Feature_="MainFeature" Component_="av_help.dll"/>
+    <ROW Feature_="MainFeature" Component_="omega_data.dll"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
     <ROW Name="AVBible.exe" SourcePath="..\gutenburg-press-256.ico" Index="0"/>

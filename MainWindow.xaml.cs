@@ -383,11 +383,12 @@
                 int dot = version.LastIndexOf(".");
                 if (dot > 0)
                     version = version.Substring(0, dot);
-
+#if NEVER
                 string url = "https://github.com/kwonus/AV-Bible/raw/refs/heads/main/Release-" + version;
 
                 DownloadFiles(url, "Digital-AV"); // Omega SDK
                 DownloadFiles(url, "Help");       // Help [markdown] files
+#endif
             }
             this.Help = new();
             this.ResultsBQL = new();
