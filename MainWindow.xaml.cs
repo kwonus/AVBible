@@ -2251,7 +2251,7 @@
                 // (2) serialize macros to backup-macros.yaml
                 //     rename existing backup-macros.yaml to include backup-macros-timestamp-yaml where timestamp is extracted from file-info
                 //     if backup-macros-timestamp-yaml already exists, then overwrite it.
-                backup = QContext.BackupHistoryPath;
+                backup = QContext.BackupMacrosPath;
                 path = Path.Combine(backup.folder, backup.file);
                 this.SaveOldBackup(backup.folder, backup.file, stamp);
                 if (data.macros.Count > 0)
@@ -2292,7 +2292,7 @@
             }
             backup = QContext.BackupMacrosPath;
             path = Path.Combine(backup.folder, backup.file);
-            if (File.Exists("ffO"))
+            if (File.Exists(path))
             {
                 string payload = File.ReadAllText(path);
                 var deserializer = new YamlDotNet.Serialization.Deserializer();
