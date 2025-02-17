@@ -59,21 +59,21 @@ Source: "{#RootSRC}\AV-Bible\gutenburg-press-256.ico"; DestDir: "{app}"; Flags: 
 Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\AVBible.deps.json"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp
 Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\AVBible.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp
 Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\AVBible.runtimeconfig.json"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp
-Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\AV-Engine.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp
-Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\AV-Search.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp
-Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\AVXLib.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp
+Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\AV-Engine.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp or manager
+Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\AV-Search.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp or manager
+Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\AVXLib.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp or manager
 Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\Blacklight.Controls.Wpf.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp
-Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\Blueprint-Blue-Lib.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp
-Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\Microsoft.Windows.SDK.NET.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp
+Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\Blueprint-Blue-Lib.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp or manager
+Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\Microsoft.Windows.SDK.NET.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp or manager
 Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\Neo.Markdig.Xaml.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp
 Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\Markdig.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp
-Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\PhonemeEmbeddings.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp
+Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\PhonemeEmbeddings.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp or manager
 ;Source: "{#RootSRC}\NUPhone\PhonemeEmbeddings\en_US.txt"; DestDir: "{app}\NUPhone"; Flags: ignoreversion; Components: avapp or manager
-Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\pinshot_blue.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp
-Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\YamlDotNet.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp
-Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\WinRT.Runtime.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp
+Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\pinshot_blue.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp or manager
+Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\YamlDotNet.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp or manager
+Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\WinRT.Runtime.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp or manager
 ;
-Source: "{#RootSRC}\Digital-AV\omega\data\target\x86_64-pc-windows-msvc\release\omega_data.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp
+Source: "{#RootSRC}\Digital-AV\omega\data\target\x86_64-pc-windows-msvc\release\omega_data.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp or manager
 ;Source: "{#RootSRC}\AV-Bible\Digital-AV\AVX-Omega.data"; DestDir: "{app}\Digital-AV"; Flags: ignoreversion; Components: avapp or manager
 Source: "{#RootSRC}\Digital-AV\omega\AVX-Omega.md5"; DestDir: "{app}\Digital-AV"; Flags: ignoreversion; Components: avapp or manager
 Source: "{#RootSRC}\Digital-AV\omega\AVX-Omega.txt"; DestDir: "{app}\Digital-AV"; Flags: ignoreversion; Components: avapp or manager
@@ -115,21 +115,11 @@ Source: "{#RootSRC}\AV-Bible-Addin\bin\Release\AV-Bible-Addin.vsto"; DestDir: "{
 Source: "{#RootSRC}\AV-Bible-Addin\bin\Release\Microsoft.Office.Tools.Common.v4.0.Utilities.dll"; DestDir: "{app}\Addin"; Flags: ignoreversion; Components: manager/addin
 Source: "{#RootSRC}\AV-Bible-Addin\bin\Release\YamlDotNet.dll"; DestDir: "{app}\Addin"; Flags: ignoreversion; Components: manager/addin
 ;
-Source: "{#RootSRC}\AV-Data-Manager\bin\Release\net8.0-windows7.0\{#MyMgrExeName}"; DestDir: "{app}\Manager"; Flags: ignoreversion; Components: manager
-Source: "{#RootSRC}\Digital-AV\omega\data\target\x86_64-pc-windows-msvc\release\omega_data.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: manager
-Source: "{#RootSRC}\AV-Data-Manager\bin\Release\net8.0-windows7.0\AV-Data-Manager.dll"; DestDir: "{app}\Manager"; Flags: ignoreversion; Components: manager
-Source: "{#RootSRC}\AV-Data-Manager\bin\Release\net8.0-windows7.0\AV-API.dll"; DestDir: "{app}\Manager"; Flags: ignoreversion; Components: manager
-Source: "{#RootSRC}\AV-Data-Manager\bin\Release\net8.0-windows7.0\AV-Engine.dll"; DestDir: "{app}\Manager"; Flags: ignoreversion; Components: manager
-Source: "{#RootSRC}\AV-Data-Manager\bin\Release\net8.0-windows7.0\AV-Search.dll"; DestDir: "{app}\Manager"; Flags: ignoreversion; Components: manager
-Source: "{#RootSRC}\AV-Data-Manager\bin\Release\net8.0-windows7.0\AVXLib.dll"; DestDir: "{app}\Manager"; Flags: ignoreversion; Components: manager
-Source: "{#RootSRC}\AV-Data-Manager\bin\Release\net8.0-windows7.0\Blueprint-Blue-Lib.dll"; DestDir: "{app}\Manager"; Flags: ignoreversion; Components: manager
-Source: "{#RootSRC}\AV-Data-Manager\bin\Release\net8.0-windows7.0\PhonemeEmbeddings.dll"; DestDir: "{app}\Manager"; Flags: ignoreversion; Components: manager
-Source: "{#RootSRC}\AV-Data-Manager\bin\Release\net8.0-windows7.0\YamlDotNet.dll"; DestDir: "{app}\Manager"; Flags: ignoreversion; Components: manager
-Source: "{#RootSRC}\AV-Data-Manager\bin\Release\net8.0-windows7.0\pinshot_blue.dll"; DestDir: "{app}\Manager"; Flags: ignoreversion; Components: manager
-Source: "{#RootSRC}\AV-Data-Manager\bin\Release\net8.0-windows7.0\AV-Data-Manager.runtimeconfig.json"; DestDir: "{app}\Manager"; Flags: ignoreversion; Components: manager
-Source: "{#RootSRC}\AV-Data-Manager\bin\Release\net8.0-windows7.0\AV-Data-Manager.deps.json"; DestDir: "{app}\Manager"; Flags: ignoreversion; Components: manager
-Source: "{#RootSRC}\AV-Data-Manager\bin\Release\net8.0-windows7.0\appsettings.json"; DestDir: "{app}\Manager"; Flags: ignoreversion; Components: manager
-
+Source: "{#RootSRC}\AV-Data-Manager\bin\Release\net8.0-windows7.0\{#MyMgrExeName}"; DestDir: "{app}"; Flags: ignoreversion; Components: manager
+Source: "{#RootSRC}\AV-Data-Manager\bin\Release\net8.0-windows7.0\AV-Data-Manager.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: manager
+Source: "{#RootSRC}\AV-Data-Manager\bin\Release\net8.0-windows7.0\AV-API.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: manager
+Source: "{#RootSRC}\AV-Data-Manager\bin\Release\net8.0-windows7.0\AV-Data-Manager.runtimeconfig.json"; DestDir: "{app}"; Flags: ignoreversion; Components: manager
+Source: "{#RootSRC}\AV-Data-Manager\bin\Release\net8.0-windows7.0\AV-Data-Manager.deps.json"; DestDir: "{app}"; Flags: ignoreversion; Components: manager
 ;
 ;Source: "{#RootSRC}\AVBible\Installation\Prerequisites\{#DotnetInstaller}"; DestDir: {tmp}; Flags: deleteafterinstall; AfterInstall: InstallFramework; Components: avapp
 
@@ -173,7 +163,7 @@ end;
 
 [Registry]
 Root: HKCU; Subkey: Software\Microsoft\Windows\CurrentVersion\Run; ValueType: string; \
-            ValueName: AV-Bible-Addin-Manager; ValueData: {app}\Manager\{#MyMgrExeName}; Components: manager/addin
+            ValueName: AV-Bible-Addin-Manager; ValueData: {app}\{#MyMgrExeName}; Components: manager/addin
 Root: HKCU; Subkey: Software\Microsoft\Office\Word\Addins\AV-Bible-Addin; ValueType: DWORD; \
             ValueName: LoadBehavior; ValueData: 3; Components: manager/addin
 Root: HKCU; Subkey: Software\Microsoft\Office\Word\Addins\AV-Bible-Addin; ValueType: string; \
@@ -189,5 +179,5 @@ Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: de
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent; Components: avapp
-Filename: "{app}\Manager\{#MyMgrExeName}"; Description: "AV-Data-Manager"; Flags: nowait postinstall; Components: manager
+Filename: "{app}\{#MyMgrExeName}"; Description: "AV-Data-Manager"; Flags: nowait postinstall; Components: manager
 
