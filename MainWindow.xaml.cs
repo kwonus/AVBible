@@ -33,6 +33,7 @@
     using System.Reflection;
     using System.Security.Policy;
     using System.IO.Compression;
+    using Windows.Media;
 
     internal class ChapterSpec
     {
@@ -146,6 +147,7 @@
         internal AVEngine Engine = new();
         internal QueryResult? Results = null;
         internal QSettings Settings;
+        internal string CurrentSelectionFolder;
 
         private static readonly Brush SuccessStatus = System.Windows.Media.Brushes.DarkGreen;
         private static readonly Brush WarningStatus = System.Windows.Media.Brushes.Orange;
@@ -318,7 +320,7 @@
             get => this.Title.Contains("Windows");
         }
 
-        private bool simulate_MSA = false;
+        private bool simulate_MSA = true;
 
         public static string DownloadFiles(string url, string name, byte timeout_seconds = 20)
         {
@@ -390,6 +392,7 @@
                 DownloadFiles(url, "Help");       // Help [markdown] files
 #endif
             }
+            this.CurrentSelectionFolder = QContext.BackupHistoryPath.folder;
             this.Help = new();
             this.ResultsBQL = new();
             this.CommandStatusTimer = new System.Windows.Threading.DispatcherTimer();
@@ -2220,48 +2223,44 @@
 
         private bool Backup()
         {
-            (string folder, string file) backup;
             string path;
             string yaml;
             bool done = false;
 
-            DateTime now = DateTime.Now;
-            string date = ((now.Year % 100) - 20).ToString("X") + now.Month.ToString("X") + now.Day.ToString();
-            string time = now.Hour.ToString("D2") + now.Minute.ToString("D2") + now.Second.ToString("D2");
-            string stamp = date + "-" + time;
             try
             {
                 var data = this.MigrateData();
 
                 var serializer = new YamlDotNet.Serialization.Serializer();
 
-                // (1) serialize history to backup-history.yaml
-                //     rename existing backup-history.yaml to include backup-history-timestamp-yaml where timestamp is extracted from file-info
-                //     if backup-history-timestamp-yaml already exists, then overwrite it.
-                backup = QContext.BackupHistoryPath;
-                path = Path.Combine(backup.folder, backup.file);
-                this.SaveOldBackup(backup.folder, backup.file, stamp);
-                if (data.history.Count > 0)
-                {
-                    yaml = serializer.Serialize(data.history);
-                    File.WriteAllText(path, yaml);
-                    done = true;
-                }
+                (string folder, string file) candidate = (this.CurrentSelectionFolder, QContext.BackupHistoryPath.file);
 
-                // (2) serialize macros to backup-macros.yaml
-                //     rename existing backup-macros.yaml to include backup-macros-timestamp-yaml where timestamp is extracted from file-info
-                //     if backup-macros-timestamp-yaml already exists, then overwrite it.
-                backup = QContext.BackupMacrosPath;
-                path = Path.Combine(backup.folder, backup.file);
-                this.SaveOldBackup(backup.folder, backup.file, stamp);
-                if (data.macros.Count > 0)
+                if (data.history.Count == 0 && data.macros.Count == 0)
                 {
-                    yaml = serializer.Serialize(data.macros);
-                    File.WriteAllText(path, yaml);
-                    done = true;
+                    return false;
                 }
+                var backup = this.SelectBackupFolder("Create a backup in the selected folder", candidate.folder);
 
-                // (3) Ignore settings. It is already serialized
+                if (backup.execute)
+                {
+                    // (1) serialize history to history-macros.yaml
+                    if (data.history.Count > 0)
+                    {
+                        string filename = Path.Combine(backup.folder, backup.history);
+                        yaml = serializer.Serialize(data.history);
+                        File.WriteAllText(filename, yaml);
+                        done = true;
+                    }
+                    // (2) serialize macros to backup-macros.yaml
+                    if (data.macros.Count > 0)
+                    {
+                        string filename = Path.Combine(backup.folder, backup.macros);
+                        yaml = serializer.Serialize(data.macros);
+                        File.WriteAllText(filename, yaml);
+                        done = true;
+                    }
+                    // (3) Ignore settings. It is already serialized
+                }
             }
             catch (Exception ex)
             {
@@ -2272,30 +2271,35 @@
         private bool Restore()
         {
             bool recordsAugmented = false;
+            var deserializer = new YamlDotNet.Serialization.Deserializer();
+
+            var candidate = QContext.MigrationHistoryPath;
+            candidate.folder = this.CurrentSelectionFolder;
+            candidate.file = string.Empty;
 
             // (1) call AugmentHistory()
-            // (2) call AugmentMacros()
-            // (3) Ignore settings. It is already serialized
-            var backup = QContext.BackupHistoryPath;
-            var path = Path.Combine(backup.folder, backup.file);
-            if (File.Exists(path))
+            var backup = this.SelectRestoreFile("Select a History file to Restore", "History", candidate);
+
+            if (backup.execute)
             {
-                string payload = File.ReadAllText(path);
-                var deserializer = new YamlDotNet.Serialization.Deserializer();
-                var records = deserializer.Deserialize< Dictionary<YYYY, Dictionary<MM, Dictionary<DD, Dictionary<SEQ, ExpandableHistory>>>>>(payload);
+                string payload = File.ReadAllText(backup.path);
+                var records = deserializer.Deserialize<Dictionary<YYYY, Dictionary<MM, Dictionary<DD, Dictionary<SEQ, ExpandableHistory>>>>>(payload);
                 if (records.Count > 0)
                 {
                     var cnt = ExpandableInvocation.AugmentHistory(records);
                     if (cnt > 0)
                         recordsAugmented = true;
                 }
+                candidate.folder = Path.GetDirectoryName(backup.path);
             }
-            backup = QContext.BackupMacrosPath;
-            path = Path.Combine(backup.folder, backup.file);
-            if (File.Exists(path))
+            candidate.ext = QContext.MigrationMacrosPath.ext;
+            candidate.suffix = QContext.MigrationMacrosPath.suffix;
+
+            // (2) call AugmentMacros()
+            backup = this.SelectRestoreFile("Select a Macros file to Restore", "Macros", candidate);
+            if (backup.execute)
             {
-                string payload = File.ReadAllText(path);
-                var deserializer = new YamlDotNet.Serialization.Deserializer();
+                string payload = File.ReadAllText(backup.path);
                 var records = deserializer.Deserialize<Dictionary<string, ExpandableMacro>>(payload);
                 if (records.Count > 0)
                 {
@@ -2304,7 +2308,77 @@
                         recordsAugmented = true;
                 }
             }
+            // (3) Ignore settings. It is already serialized
+
             return recordsAugmented;
+        }
+        private (bool execute, string folder, string history, string macros) SelectBackupFolder(string title, string folderCandidate)
+        {
+            (bool execute, string folder, string history, string macros) response = (false, string.Empty, string.Empty, string.Empty);
+
+            // Create OpenFileDialog 
+            Microsoft.Win32.OpenFolderDialog dialog = new();
+
+            dialog.DefaultDirectory = folderCandidate;
+            dialog.Title = title;
+
+            Nullable<bool> result = dialog.ShowDialog(this);
+
+            // Get the selected file name and display in a TextBox 
+            if (result == true)
+            {
+                DateTime now = DateTime.Now;
+                string stamp = "-" + now.Year.ToString() + "-" + now.Month.ToString("D2") + "-" + now.Day.ToString("D2");
+                response.execute = true;
+                response.folder = dialog.FolderName;
+
+                response.history = QContext.BackupHistoryPath.file + stamp + QContext.BackupHistoryPath.suffix + QContext.BackupHistoryPath.ext;
+                response.macros  = QContext.BackupMacrosPath.file  + stamp + QContext.BackupMacrosPath.suffix  + QContext.BackupMacrosPath.ext;
+
+                // Over-Rule user if he/she walks into a subfolder under AppData/AV-Bible [fail-safety]
+                if (response.folder.StartsWith(QContext.Home, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    response.folder = QContext.Home;
+                }
+                string test_history = Path.Combine(response.folder, response.history);
+                string test_macros = Path.Combine(response.folder, response.macros);
+                if (File.Exists(test_history) || File.Exists(test_macros))
+                {
+                    stamp += ('@' + now.Hour.ToString("D2") + now.Minute.ToString("D2"));
+                    response.history = QContext.BackupHistoryPath.file + stamp + QContext.BackupHistoryPath.suffix + QContext.BackupHistoryPath.ext;
+                    response.macros  = QContext.BackupMacrosPath.file  + stamp + QContext.BackupMacrosPath.suffix  + QContext.BackupMacrosPath.ext;
+                }
+            }
+            return response;
+        }
+
+        private (bool execute, string path) SelectRestoreFile(string title, string type, (string folder, string file, string suffix, string ext) candidate)
+        {
+            (bool execute, string path) response = (false, string.Empty);
+
+            // Create OpenFileDialog 
+            Microsoft.Win32.OpenFileDialog dialog = new();
+
+            // Set filter for file extension and default file extension 
+            dialog.DefaultExt = candidate.ext;
+            string typed = "*" + candidate.suffix + candidate.ext;
+            dialog.Filter = "AV-Bible " + type + " backups (" + typed + ")|*" + typed + "|Any yaml file (*.yaml)|*.yaml|Any yml file (*.yml)|*.yml";
+            dialog.DefaultDirectory = candidate.folder;
+            dialog.Title = title;
+
+            Nullable<bool> result = dialog.ShowDialog(this);
+
+            // Get the selected file name and display in a TextBox 
+            if (result == true)
+            {
+                response.path = dialog.FileName;
+                response.execute = File.Exists(dialog.FileName);
+            }
+            if (response.execute)
+            {
+                this.CurrentSelectionFolder = Path.GetDirectoryName(dialog.FileName);
+            }
+            return response;
         }
     }
 }
