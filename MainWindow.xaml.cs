@@ -34,6 +34,9 @@
     using System.Security.Policy;
     using System.IO.Compression;
     using Windows.Media;
+    using Markdig;
+    using Neo.Markdig.Xaml;
+    using System.Runtime.CompilerServices;
 
     internal class ChapterSpec
     {
@@ -370,12 +373,15 @@
             }
             return path;
         }
-
+        bool GettingStarted;
         public MainWindow()
         {
             InitializeComponent();
             LoadWindowState();
             LoadAppState();
+
+            if (this.ChapterView.Height != this.ChapterViewMultiplier)
+                this.ChapterView.Height = this.ChapterViewMultiplier;
 
             if (this.MSA || simulate_MSA)
             {
@@ -399,6 +405,22 @@
             this.CommandStatusTimer.Tick += DismissStatus_Tick;
             this.CommandStatusTimer.Interval = new TimeSpan(0, 0, 9);
 
+            string content = HelpLib.GetContents("quick-start");
+
+            var doc = MarkdownXaml.ToFlowDocument(content,
+                new MarkdownPipelineBuilder()
+                .UseXamlSupportedExtensions()
+                .Build()
+            );
+            var panel = new DragDockPanel();
+            panel.Content = doc;
+            panel.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+            panel.PanelLifetime = ++sequence;
+            panel.PanelReference = 0;
+            panel.Header = "Quick Start - Overview";
+            this.AVPanel.Items.Add(panel);
+            this.GettingStarted = true;
+
             SectionStack.SetBookSelector(this.BookSelection, this);
 
             ViewbookStartNum = 0;
@@ -407,7 +429,6 @@
 
             id = 0;
         }
-
         public static UInt64 sequence = 0;
 
 
@@ -535,6 +556,11 @@
         }
         public void AddPanel(ChapterChicklet chicklet)
         {
+            if (this.GettingStarted)
+            {
+                this.GettingStarted = false;
+                this.AVPanel.Items.Clear();
+            }
             byte b = (byte)(chicklet.BookChapter >> 8);
             byte c = (byte)(chicklet.BookChapter & 0xFF);
 
@@ -1620,6 +1646,7 @@
             {
                 SetSearchView();
                 e.Handled = true;
+                this.SearchBoxInstrinction.Visibility = Visibility.Collapsed;
             }
             else if (e.Key == Key.F12)
             {
@@ -1674,6 +1701,8 @@
             LabelMin.Visibility = Visibility.Collapsed;
             LabelX.Visibility = Visibility.Collapsed;
 
+            this.BottomSpacer.Visibility = Visibility.Collapsed;
+
             SaveWindowState();
         }
         private void Finger_UnMaximize(object sender, ManipulationCompletedEventArgs e)
@@ -1684,6 +1713,11 @@
             this.Window_UnMaximize(sender, null);
         }
 
+        int ChapterViewMultiplier
+        {
+            get => 105;
+        }
+
         private void Window_Maximize()
         {
             this.ResizeMode = System.Windows.ResizeMode.NoResize;
@@ -1692,6 +1726,9 @@
             LabelUnMax.Visibility = Visibility.Visible;
             LabelMin.Visibility = Visibility.Visible;
             LabelX.Visibility = Visibility.Visible;
+            this.SearchBoxInstrinction.Visibility = Visibility.Collapsed;
+
+            this.BottomSpacer.Visibility = Visibility.Visible;
 
             SaveWindowState();
         }
@@ -1773,14 +1810,14 @@
         }
         public void LessChapterHelper_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (this.ChapterView.Height > 2*110)
+            if (this.ChapterView.Height > 2 * this.ChapterViewMultiplier)
             {
-                this.ChapterView.Height = 2*110;
+                this.ChapterView.Height = 2 * this.ChapterViewMultiplier;
                 this.ChapterHelperUp.Visibility = Visibility.Visible;
             }
             else
             {
-                this.ChapterView.Height = 110;
+                this.ChapterView.Height = this.ChapterViewMultiplier;
                 this.ChapterHelperDown.Visibility = Visibility.Collapsed;
                 this.ChapterHelperUp.Visibility = Visibility.Visible;
                 this.ChapterHelperMin.Visibility = Visibility.Visible;
@@ -1800,15 +1837,15 @@
         {
             if (ChapterView.Visibility == Visibility.Visible)
             {
-                if (this.ChapterView.Height < 2*110)
+                if (this.ChapterView.Height < 2 * this.ChapterViewMultiplier)
                 {
-                    this.ChapterView.Height = 2*110;
+                    this.ChapterView.Height = 2 * this.ChapterViewMultiplier;
                     this.ChapterHelperDown.Visibility = Visibility.Visible;
                     this.ChapterHelperMin.Visibility = Visibility.Collapsed;
                 }
-                else if (this.ChapterView.Height < 3*110)
+                else if (this.ChapterView.Height < 3 * this.ChapterViewMultiplier)
                 {
-                    this.ChapterView.Height = 3*119;
+                    this.ChapterView.Height = 3 * this.ChapterViewMultiplier;
                     this.ChapterHelperDown.Visibility = Visibility.Visible;
                     this.ChapterHelperUp.Visibility = Visibility.Collapsed;
                     this.ChapterHelperMin.Visibility = Visibility.Collapsed;
@@ -1835,7 +1872,7 @@
             this.ChapterHelperDown.Visibility = Visibility.Collapsed;
             this.ChapterHelperUp.Visibility = Visibility.Visible;
             this.ChapterHelperMin.Visibility = Visibility.Collapsed;
-            this.ChapterView.Height = 110;
+            this.ChapterView.Height = this.ChapterViewMultiplier;
 
             if (e != null)
                 e.Handled = true;

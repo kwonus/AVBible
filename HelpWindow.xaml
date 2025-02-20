@@ -8,6 +8,9 @@
         Title="AV-Bible | Help" Height="450" Width="800"
         Closing="Window_Closing">
     <TabControl Name="HelpTabs" TabStripPlacement="Left" FontFamily="TimesNewRoman" FontSize="24">
+        <TabItem Header="Getting Started" Name="Tab_QuickStart">
+            <FlowDocumentScrollViewer Name="Doc_QuickStart"/>
+        </TabItem>
         <TabItem Header="Application Overview" Name="Tab_AppHelp">
             <FlowDocumentScrollViewer Name="Doc_AppHelp"/>
         </TabItem>

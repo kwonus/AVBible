@@ -12,6 +12,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Threading;
 
 namespace AVBible
@@ -98,7 +99,7 @@ namespace AVBible
             InitializeComponent();
             this.CanClose = false;
 
-            FlowDocumentScrollViewer[] tabs = [ this.Doc_AppHelp, this.Doc_CommandHelp, this.Doc_ExportHelp, this.Doc_GrammarHelp, this.Doc_HashtagHelp, this.Doc_LanguageHelp, this.Doc_SearchHelp, this.Doc_SettingsHelp ];
+            FlowDocumentScrollViewer[] tabs = [ this.Doc_QuickStart, this.Doc_AppHelp, this.Doc_CommandHelp, this.Doc_ExportHelp, this.Doc_GrammarHelp, this.Doc_HashtagHelp, this.Doc_LanguageHelp, this.Doc_SearchHelp, this.Doc_SettingsHelp ];
 
             foreach (FlowDocumentScrollViewer tab in tabs)
             {
@@ -203,6 +204,11 @@ namespace AVBible
 
                     case "system":
                     case "command": selected = this.Tab_CommandhHelp; break;
+
+                    case "quick-start":
+                    case "quickstart":
+                    case "start":
+                    case "started": selected = this.Tab_QuickStart; break;
                 }
             }
             Dispatcher.BeginInvoke(new Action(() => this.HelpTabs.SelectedItem = selected), DispatcherPriority.Render);
@@ -265,6 +271,11 @@ namespace AVBible
 
                     case "system":
                     case "command": return HelpLib.GetContents("system");
+
+                    case "quick-start":
+                    case "quickstart":
+                    case "start":
+                    case "started": return HelpLib.GetContents("quick-start");
                 }
             }
             return HelpLib.GetContents("application");

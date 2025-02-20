@@ -6,12 +6,13 @@
         Background="Black"
         SizeChanged="MainWin_SizeChanged"
         MinHeight="800"
-        MinWidth="1020"
-        Title="AV Bible" Height="750" Width="1020" WindowStyle="None" StateChanged="MainWin_StateChanged" Closing="MainWin_Closing">
+        MinWidth="1024"
+        Title="AV Bible" Height="800" Width="1024" WindowStyle="None" StateChanged="MainWin_StateChanged" Closing="MainWin_Closing">
     <Grid Background="#252526">
         <Grid.RowDefinitions>
             <RowDefinition Height="70" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -70,14 +71,25 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" x:Name="TextSummary" Text="Type your search in the box above" Foreground="LightCyan" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                <TextBlock Grid.Column ="1" x:Name="HelpPrompt" Text="  Help:  " Foreground="LightCyan" HorizontalAlignment="Stretch" TextAlignment="Right" VerticalAlignment="Center" />
-                <ComboBox Grid.Column="2" x:Name="comboBoxHelpPanel" SelectionChanged="comboBoxHelpPanel_SelectionChanged" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="Black" Background="Gray" Height="9" Width="134">
+                <TextBlock Grid.Column ="0" x:Name="QuickStartPrompt" Text="Quick Start:  " Foreground="LightCyan" TextAlignment="Left" VerticalAlignment="Top" Margin="0,2,0,0" />
+                <ComboBox Grid.Column="1" x:Name="comboBoxQuickStart" SelectionChanged="comboBoxHelpPanel_SelectionChanged" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Black" Background="Gray" Height="9" Width="134" Margin="0,9,0,0">
+                    <ComboBoxItem Name="quickstart_overview">What can I do with this app?</ComboBoxItem>
+                    <ComboBoxItem Name="quickstart_search">How do I Search?</ComboBoxItem>
+                    <ComboBoxItem Name="quickstart_browse">How do I Browse Books and Chapters?</ComboBoxItem>
+                    <ComboBoxItem Name="quickstart_render">How do I View Books and Chapters?</ComboBoxItem>
+                    <ComboBoxItem Name="quickstart_close">How do I Close Books and Chapters?</ComboBoxItem>
+                    <ComboBoxItem Name="quickstart_sizing">How do I Show/Hide/Customize the Window?</ComboBoxItem>
+                    <ComboBoxItem Name="quickstart_settings">How do I change configuration settings?</ComboBoxItem>
+                </ComboBox>
+                <TextBlock Grid.Column ="1" x:Name="HelpPrompt" Text="  Help:  " Foreground="LightCyan" TextAlignment="Right" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="134,2,0,0" />
+                <ComboBox Grid.Column="3" x:Name="comboBoxHelpPanel" SelectionChanged="comboBoxHelpPanel_SelectionChanged" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Black" Background="Gray" Height="9" Width="134" Margin="0,9,0,0">
+                    <ComboBoxItem Name="quickstart">Getting Started</ComboBoxItem>
                     <ComboBoxItem Name="application">General Application Help</ComboBoxItem>
                     <ComboBoxItem Name="kjv">Help with the Language of the KJV</ComboBoxItem>
                     <ComboBoxItem Name="s4t">Help with S4T Grammar</ComboBoxItem>
@@ -89,6 +101,7 @@
                 </ComboBox>
             </Grid>
             <Image x:Name="SearchImage" Source="./Images/SearchBubble.png" Visibility="Collapsed" ManipulationCompleted="Search_FingerUp" MouseUp="Search_MouseUp" Grid.Column="2" HorizontalAlignment="Right" Height="50" Margin="0,10,10,0" VerticalAlignment="Top" Width="58"/>
+            <TextBlock Grid.Column ="2" x:Name="SearchBoxInstrinction" Text="Type your search in the box below:" Foreground="LightCyan" TextAlignment="Left" VerticalAlignment="Top" Margin="0,0,378,0" />
         </Grid>
         <Wpf:DragDockPanelHost x:Name="AVPanel" Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="8,8,12,0" />
         <StackPanel Background="Black" Grid.Column="1" Grid.Row="2" Margin="0,0,0,0" Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -98,11 +111,12 @@
             <Label x:Name="CommandStatus" FontSize="14" Margin="0,0,0,0" VerticalAlignment="Center" MouseUp="DismissStatus_Tick" ManipulationCompleted="DismissStatus_Tick"/>
         </StackPanel>
         <StackPanel Background="Black" Grid.Column="1" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,0">
-            <TextBlock x:Name="DeleteSummary" Text="Delete a panel:  " Foreground="LightCyan" HorizontalAlignment="Stretch" TextAlignment="Right" VerticalAlignment="Center" />
+            <TextBlock x:Name="DeleteSummary" Text="Close Panel:  " Foreground="LightCyan" HorizontalAlignment="Stretch" TextAlignment="Right" VerticalAlignment="Center" />
             <ComboBox x:Name="comboBoxDeletePanel" SelectionChanged="comboBoxDeletePanel_SelectionChanged" Foreground="Black" Background="Gray" Height="8" Width="134"/>
         </StackPanel>
-        <ScrollViewer x:Name="ChapterView" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" Height="200" Visibility="Visible">
+        <ScrollViewer x:Name="ChapterView" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" Height="105" Visibility="Visible" Margin="2,3,8,0">
             <WrapPanel Name="ChapterStack" Width="{Binding ElementName=ChapterView, Path=ViewportWidth}" VerticalAlignment="Stretch" HorizontalAlignment="Center" Orientation="Horizontal"/>
         </ScrollViewer>
+        <TextBlock x:Name="BottomSpacer" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Text=" " Background="Black" Visibility="Collapsed"/>
     </Grid>
 </Window>
