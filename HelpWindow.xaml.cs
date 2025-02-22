@@ -99,7 +99,7 @@ namespace AVBible
             InitializeComponent();
             this.CanClose = false;
 
-            FlowDocumentScrollViewer[] tabs = [ this.Doc_QuickStart, this.Doc_AppHelp, this.Doc_CommandHelp, this.Doc_ExportHelp, this.Doc_GrammarHelp, this.Doc_HashtagHelp, this.Doc_LanguageHelp, this.Doc_SearchHelp, this.Doc_SettingsHelp ];
+            FlowDocumentScrollViewer[] tabs = [ this.Doc_AppHelp, this.Doc_CommandHelp, this.Doc_ExportHelp, this.Doc_GrammarHelp, this.Doc_HashtagHelp, this.Doc_LanguageHelp, this.Doc_SearchHelp, this.Doc_SettingsHelp ];
 
             foreach (FlowDocumentScrollViewer tab in tabs)
             {
@@ -204,18 +204,13 @@ namespace AVBible
 
                     case "system":
                     case "command": selected = this.Tab_CommandhHelp; break;
-
-                    case "quick-start":
-                    case "quickstart":
-                    case "start":
-                    case "started": selected = this.Tab_QuickStart; break;
                 }
             }
             Dispatcher.BeginInvoke(new Action(() => this.HelpTabs.SelectedItem = selected), DispatcherPriority.Render);
         }
 
         public static readonly char[] splitters = ['_', '&', '+', ' ', '@'];
-        private static string GetHelp(string request)
+        internal static string GetHelp(string request)
         {
             string[] topics = request.Split(splitters, StringSplitOptions.RemoveEmptyEntries);
 

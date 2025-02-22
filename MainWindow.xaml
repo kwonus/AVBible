@@ -72,13 +72,14 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="23*"/>
+                    <ColumnDefinition Width="17*"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column ="0" x:Name="QuickStartPrompt" Text="Quick Start:  " Foreground="LightCyan" TextAlignment="Left" VerticalAlignment="Top" Margin="0,2,0,0" />
-                <ComboBox Grid.Column="1" x:Name="comboBoxQuickStart" SelectionChanged="comboBoxHelpPanel_SelectionChanged" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Black" Background="Gray" Height="9" Width="134" Margin="0,9,0,0">
+                <TextBlock Grid.Column ="0" x:Name="QuickStartPrompt" Text="Quick Start:  " Foreground="LightCyan" TextAlignment="Left" VerticalAlignment="Center" />
+                <ComboBox Grid.Column="1" x:Name="comboBoxQuickStart" SelectionChanged="comboQuickStartPanel_SelectionChanged" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Black" Background="Gray" Height="9" Width="134" Margin="0,9,0,0">
                     <ComboBoxItem Name="quickstart_overview">What can I do with this app?</ComboBoxItem>
                     <ComboBoxItem Name="quickstart_search">How do I Search?</ComboBoxItem>
                     <ComboBoxItem Name="quickstart_browse">How do I Browse Books and Chapters?</ComboBoxItem>
@@ -86,9 +87,11 @@
                     <ComboBoxItem Name="quickstart_close">How do I Close Books and Chapters?</ComboBoxItem>
                     <ComboBoxItem Name="quickstart_sizing">How do I Show/Hide/Customize the Window?</ComboBoxItem>
                     <ComboBoxItem Name="quickstart_settings">How do I change configuration settings?</ComboBoxItem>
+                    <ComboBoxItem Name="quickstart_help">How do I get more help?</ComboBoxItem>
+
                 </ComboBox>
-                <TextBlock Grid.Column ="1" x:Name="HelpPrompt" Text="  Help:  " Foreground="LightCyan" TextAlignment="Right" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="134,2,0,0" />
-                <ComboBox Grid.Column="3" x:Name="comboBoxHelpPanel" SelectionChanged="comboBoxHelpPanel_SelectionChanged" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Black" Background="Gray" Height="9" Width="134" Margin="0,9,0,0">
+                <TextBlock Grid.Column ="1" x:Name="HelpPrompt" Text="  Help:  " Foreground="LightCyan" TextAlignment="Right" VerticalAlignment="Center" Grid.ColumnSpan="3" Margin="134,0,0,0" />
+                <ComboBox Grid.Column="4" x:Name="comboBoxHelpPanel" SelectionChanged="comboBoxHelpPanel_SelectionChanged" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Black" Background="Gray" Height="9" Width="134" Margin="0,9,0,0">
                     <ComboBoxItem Name="quickstart">Getting Started</ComboBoxItem>
                     <ComboBoxItem Name="application">General Application Help</ComboBoxItem>
                     <ComboBoxItem Name="kjv">Help with the Language of the KJV</ComboBoxItem>

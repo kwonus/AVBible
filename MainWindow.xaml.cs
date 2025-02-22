@@ -37,6 +37,8 @@
     using Markdig;
     using Neo.Markdig.Xaml;
     using System.Runtime.CompilerServices;
+    using System.Windows.Controls.Primitives;
+    using Windows.Devices.Enumeration;
 
     internal class ChapterSpec
     {
@@ -373,7 +375,7 @@
             }
             return path;
         }
-        bool GettingStarted;
+        QuickStart GettingStarted;
         public MainWindow()
         {
             InitializeComponent();
@@ -405,22 +407,9 @@
             this.CommandStatusTimer.Tick += DismissStatus_Tick;
             this.CommandStatusTimer.Interval = new TimeSpan(0, 0, 9);
 
-            string content = HelpLib.GetContents("quick-start");
-
-            var doc = MarkdownXaml.ToFlowDocument(content,
-                new MarkdownPipelineBuilder()
-                .UseXamlSupportedExtensions()
-                .Build()
-            );
-            var panel = new DragDockPanel();
-            panel.Content = doc;
-            panel.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
-            panel.PanelLifetime = ++sequence;
-            panel.PanelReference = 0;
-            panel.Header = "Quick Start - Overview";
-            this.AVPanel.Items.Add(panel);
-            this.GettingStarted = true;
-
+            this.GettingStarted = new QuickStart(this.comboBoxQuickStart);
+            this.AVPanel.Items.Add(this.GettingStarted.GetPanel("quickstart_overview"));
+            this.comboBoxDeletePanel.Items.Add("Quick Start");
             SectionStack.SetBookSelector(this.BookSelection, this);
 
             ViewbookStartNum = 0;
@@ -556,10 +545,24 @@
         }
         public void AddPanel(ChapterChicklet chicklet)
         {
-            if (this.GettingStarted)
+            // When a book is added, get rid of the QuickStart panel if it is currently displayed
+            bool foundQuickStart = false;
+            foreach (DragDockPanel existing in this.AVPanel.Items)
             {
-                this.GettingStarted = false;
-                this.AVPanel.Items.Clear();
+                if (existing == this.GettingStarted.Panel)
+                    foundQuickStart = true;
+            }
+            if (foundQuickStart)
+            {
+                this.AVPanel.Items.Remove(this.GettingStarted.Panel);
+                ComboBoxItem? removal = null;
+                foreach (ComboBoxItem item in this.comboBoxDeletePanel.Items)
+                {
+                    if (item.Content.ToString().StartsWith("Quick Start"))
+                        removal = item;
+                }
+                if (removal != null)
+                    this.comboBoxDeletePanel.Items.Remove(removal);
             }
             byte b = (byte)(chicklet.BookChapter >> 8);
             byte c = (byte)(chicklet.BookChapter & 0xFF);
@@ -2061,6 +2064,22 @@
         {
 
         }
+        private void comboQuickStartPanel_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (comboBoxQuickStart.SelectedItem != null)
+            {
+                var item = (ComboBoxItem)(comboBoxQuickStart.SelectedItem);
+
+                DragDockPanel panel = this.GettingStarted.GetPanel(item.Name);
+
+                if (panel != null)
+                {
+                    this.AVPanel.Items.Add(panel);
+                    this.comboBoxDeletePanel.Items.Add("Quick Start");
+                }
+                comboBoxQuickStart.SelectedItem = null;  // this will allow panel to be reopenned if it is closed (we always want to generate a changed event.
+            }
+        }
         private void comboBoxHelpPanel_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (comboBoxHelpPanel.SelectedItem != null)
@@ -2083,6 +2102,12 @@
                 {
                     var header = existing.Header.ToString();
                     if (header == selected)
+                    {
+                        panel = existing;
+                        encoding = panel.PanelReference;
+                        break;
+                    }
+                    else if (selected.Equals("Quick Start") && header.StartsWith(selected))
                     {
                         panel = existing;
                         encoding = panel.PanelReference;
