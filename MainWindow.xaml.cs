@@ -408,7 +408,7 @@
             this.CommandStatusTimer.Interval = new TimeSpan(0, 0, 9);
 
             this.GettingStarted = new QuickStart(this.comboBoxQuickStart);
-            this.AVPanel.Items.Add(this.GettingStarted.GetPanel("quickstart_overview"));
+            this.AVPanel.Items.Add(this.GettingStarted.GetPanel());
             this.comboBoxDeletePanel.Items.Add("Quick Start");
             SectionStack.SetBookSelector(this.BookSelection, this);
 
@@ -549,20 +549,25 @@
             bool foundQuickStart = false;
             foreach (DragDockPanel existing in this.AVPanel.Items)
             {
-                if (existing == this.GettingStarted.Panel)
+                if (existing == this.GettingStarted.SingletonPanel)
                     foundQuickStart = true;
             }
             if (foundQuickStart)
             {
-                this.AVPanel.Items.Remove(this.GettingStarted.Panel);
-                ComboBoxItem? removal = null;
-                foreach (ComboBoxItem item in this.comboBoxDeletePanel.Items)
+                this.AVPanel.Items.Remove(this.GettingStarted.SingletonPanel);
+                int found = -1;
+                int index =  0;
+                foreach (string item in this.comboBoxDeletePanel.Items)
                 {
-                    if (item.Content.ToString().StartsWith("Quick Start"))
-                        removal = item;
+                    if (item.StartsWith("Quick Start"))
+                    {
+                        found = index;
+                        break;
+                    }
+                    index ++;
                 }
-                if (removal != null)
-                    this.comboBoxDeletePanel.Items.Remove(removal);
+                if (found >= 0)
+                    this.comboBoxDeletePanel.Items.RemoveAt(found);
             }
             byte b = (byte)(chicklet.BookChapter >> 8);
             byte c = (byte)(chicklet.BookChapter & 0xFF);
@@ -2070,10 +2075,21 @@
             {
                 var item = (ComboBoxItem)(comboBoxQuickStart.SelectedItem);
 
-                DragDockPanel panel = this.GettingStarted.GetPanel(item.Name);
-
-                if (panel != null)
+                bool exists = false;
+                for (int i = 0; i < this.comboBoxDeletePanel.Items.Count; i++)
                 {
+                    string existing = ((string)this.comboBoxDeletePanel.Items[i]);
+                    exists = (existing == "Quick Start");
+                    if (exists)
+                        break;
+                }
+                if (exists)
+                {
+                    this.GettingStarted.UpdatePanel(item.Name, item.Content.ToString());
+                }
+                else
+                {
+                    DragDockPanel panel = this.GettingStarted.GetPanel(item.Name, item.Content.ToString());
                     this.AVPanel.Items.Add(panel);
                     this.comboBoxDeletePanel.Items.Add("Quick Start");
                 }
