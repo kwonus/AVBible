@@ -325,7 +325,7 @@
             get => this.Title.Contains("Windows");
         }
 
-        private bool simulate_MSA = true;
+        private bool simulate_MSA = false;
 
         public static string DownloadFiles(string url, string name, byte timeout_seconds = 20)
         {
