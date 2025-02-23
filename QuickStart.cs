@@ -48,13 +48,34 @@ namespace AVBible
 
         public string Overview
         {
-            get => """
-                The application has two available mechanisms to assist you in application usage. First-time users of
-                the app will likely find the Quick Start selections useful. Click on the pull-down menu to get answers
-                to basic questions about how the app behaves.
+            get
+            {
+                string content = """
+                The application has two available mechanisms of application assistance. First-time users
+                will likely find the Quick Start selections useful. Click on the Quick-Start: pull-down menu to get answers
+                to basic questions about application behavior.
 
-                More advanced assistance can be found by clicking on the pull-down menu for Help.
+                
+                The Quick Start can also answers these questions:
+
                 """;
+
+                bool skip = true;
+                foreach (ComboBoxItem item in this.Questions.Items)
+                {
+                    if (skip)
+                    {
+                        skip = false;
+                        continue;
+                    }
+                    content += ("- " + item.Content.ToString() + "\n");
+                }
+
+                content += "\n";
+                content += "More advanced application help can be found by clicking on the Help: pull-down menu. That menu is topical.";
+
+                return content;
+            }
         }
 
         public string Search
@@ -163,18 +184,21 @@ namespace AVBible
                 """;
         }
 
-        public DragDockPanel GetPanel(string topic = null, string question = null)
+        public DragDockPanel GetPanel(string topic, string question)
         {
             FlowDocument doc = (topic != null) && (question != null) && this.Answers.ContainsKey(topic)
                 ? MarkdownXaml.ToFlowDocument(
                     this.GetQuestionAndAnswer(topic, question),
                     new MarkdownPipelineBuilder().UseXamlSupportedExtensions().Build())
                 : MarkdownXaml.ToFlowDocument(
-                    this.GetQuestionAndAnswer("quickstart_overview", this.Questions.Items[0].ToString()),
+                    this.GetQuestionAndAnswer("quickstart_overview", "Overview"),
                     new MarkdownPipelineBuilder().UseXamlSupportedExtensions().Build())
             ;
+            var scrolling = new FlowDocumentScrollViewer();
+            scrolling.Document = doc;
+
             this.SingletonPanel = new DragDockPanel();
-            this.SingletonPanel.Content = doc;
+            this.SingletonPanel.Content = scrolling;
             this.SingletonPanel.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
             this.SingletonPanel.PanelLifetime = 0;
             this.SingletonPanel.PanelReference = 0;
@@ -189,10 +213,13 @@ namespace AVBible
                     this.GetQuestionAndAnswer(topic, question),
                     new MarkdownPipelineBuilder().UseXamlSupportedExtensions().Build())
                 : MarkdownXaml.ToFlowDocument(
-                    this.GetQuestionAndAnswer("quickstart_overview", this.Questions.Items[0].ToString()),
+                    this.GetQuestionAndAnswer("quickstart_overview", "Overview"),
                     new MarkdownPipelineBuilder().UseXamlSupportedExtensions().Build())
             ;
-            this.SingletonPanel.Content = doc;
+            var scrolling = new FlowDocumentScrollViewer();
+            scrolling.Document = doc;
+
+            this.SingletonPanel.Content = scrolling;
 
             return this.SingletonPanel;
         }

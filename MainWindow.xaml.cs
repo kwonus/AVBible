@@ -408,7 +408,7 @@
             this.CommandStatusTimer.Interval = new TimeSpan(0, 0, 9);
 
             this.GettingStarted = new QuickStart(this.comboBoxQuickStart);
-            this.AVPanel.Items.Add(this.GettingStarted.GetPanel());
+            this.AVPanel.Items.Add(this.GettingStarted.GetPanel("quickstart_overview", ((ComboBoxItem)(comboBoxQuickStart.Items[0])).Content.ToString()));
             this.comboBoxDeletePanel.Items.Add("Quick Start");
             SectionStack.SetBookSelector(this.BookSelection, this);
 

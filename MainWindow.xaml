@@ -78,7 +78,7 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column ="0" x:Name="QuickStartPrompt" Text="Quick Start:  " Foreground="LightCyan" TextAlignment="Left" VerticalAlignment="Center" />
+                <TextBlock Grid.Column ="0" x:Name="QuickStartPrompt" Text="Quick Start:  " Foreground="LightCyan" TextAlignment="Left" VerticalAlignment="Top" Margin="0,4,0,0" />
                 <ComboBox Grid.Column="1" x:Name="comboBoxQuickStart" SelectionChanged="comboQuickStartPanel_SelectionChanged" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Black" Background="Gray" Height="9" Width="134" Margin="0,9,0,0">
                     <ComboBoxItem Name="quickstart_overview">What can I do with this app?</ComboBoxItem>
                     <ComboBoxItem Name="quickstart_search">How do I Search?</ComboBoxItem>
@@ -90,7 +90,7 @@
                     <ComboBoxItem Name="quickstart_help">How do I get more help?</ComboBoxItem>
 
                 </ComboBox>
-                <TextBlock Grid.Column ="1" x:Name="HelpPrompt" Text="  Help:  " Foreground="LightCyan" TextAlignment="Right" VerticalAlignment="Center" Grid.ColumnSpan="3" Margin="134,0,0,0" />
+                <TextBlock Grid.Column ="1" x:Name="HelpPrompt" Text="  Help:  " Foreground="LightCyan" TextAlignment="Right" VerticalAlignment="Top" Grid.ColumnSpan="3" Margin="134,4,0,0" />
                 <ComboBox Grid.Column="4" x:Name="comboBoxHelpPanel" SelectionChanged="comboBoxHelpPanel_SelectionChanged" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="Black" Background="Gray" Height="9" Width="134" Margin="0,9,0,0">
                     <ComboBoxItem Name="quickstart">Getting Started</ComboBoxItem>
                     <ComboBoxItem Name="application">General Application Help</ComboBoxItem>
