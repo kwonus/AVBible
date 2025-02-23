@@ -324,9 +324,9 @@
         {
             get => this.Title.Contains("Windows");
         }
-
+#if DEBUG
         private bool simulate_MSA = false;
-
+#endif
         public static string DownloadFiles(string url, string name, byte timeout_seconds = 20)
         {
             string zip = url + "/" + name + ".zip";
@@ -385,7 +385,11 @@
             if (this.ChapterView.Height != this.ChapterViewMultiplier)
                 this.ChapterView.Height = this.ChapterViewMultiplier;
 
+#if DEBUG
             if (this.MSA || simulate_MSA)
+#else
+            if (this.MSA)
+#endif
             {
                 this.Title = "AV-Bible for Windows";
 
