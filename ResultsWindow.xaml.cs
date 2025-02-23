@@ -5,6 +5,7 @@
     using System.IO;
     using System.Windows;
     using AVBible.TabularResults;
+    using Blueprint.Model.Implicit;
 
     /// <summary>
     /// Interaction logic for Window1.xaml

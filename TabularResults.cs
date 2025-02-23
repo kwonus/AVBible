@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Documents;
+using Blueprint.Model.Implicit;
 
 namespace AVBible.TabularResults
 {
@@ -237,7 +238,13 @@ namespace AVBible.TabularResults
                     var row = this.Rows[r];
                     for (int c = 0; c < row.Content.Length; c++)
                     {
-                        Run run = new(row.Content[c]);
+                        string content = row.Content[c].Replace("<b>", "").Replace("</b>", "");
+                        bool bold = (row.Content[c].Length > content.Length);
+
+                        Run run = new(content);
+                        if (bold)
+                            run.FontWeight = FontWeights.Bold;
+
                         Paragraph paragraph = new Paragraph(run);
                         paragraph.FontWeight = row.IsHeader ? FontWeights.Bold : FontWeights.Normal;
                         paragraph.FontSize = 16; // row.ActualFontSize;

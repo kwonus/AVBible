@@ -48,7 +48,13 @@ namespace AVBible
 
         public string Overview
         {
-            get => HelpWindow.GetHelp("quick-start");
+            get => """
+                The application has two available mechanisms to assist you in application usage. First-time users of
+                the app will likely find the Quick Start selections useful. Click on the pull-down menu to get answers
+                to basic questions about how the app behaves.
+
+                More advanced assistance can be found by clicking on the pull-down menu for Help.
+                """;
         }
 
         public string Search
@@ -167,14 +173,12 @@ namespace AVBible
                     this.GetQuestionAndAnswer("quickstart_overview", this.Questions.Items[0].ToString()),
                     new MarkdownPipelineBuilder().UseXamlSupportedExtensions().Build())
             ;
-            string header = string.IsNullOrWhiteSpace(question) ? "Quick Start" : "Quick Start - " + question;
-
             this.SingletonPanel = new DragDockPanel();
             this.SingletonPanel.Content = doc;
             this.SingletonPanel.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
             this.SingletonPanel.PanelLifetime = 0;
             this.SingletonPanel.PanelReference = 0;
-            this.SingletonPanel.Header = header;
+            this.SingletonPanel.Header = "Quick Start";
 
             return this.SingletonPanel;
         }
@@ -188,10 +192,7 @@ namespace AVBible
                     this.GetQuestionAndAnswer("quickstart_overview", this.Questions.Items[0].ToString()),
                     new MarkdownPipelineBuilder().UseXamlSupportedExtensions().Build())
             ;
-            string header = string.IsNullOrWhiteSpace(question) ? "Quick Start" : "Quick Start - " + question;
-
             this.SingletonPanel.Content = doc;
-            this.SingletonPanel.Header = header;
 
             return this.SingletonPanel;
         }

@@ -266,11 +266,6 @@ namespace AVBible
 
                     case "system":
                     case "command": return HelpLib.GetContents("system");
-
-                    case "quick-start":
-                    case "quickstart":
-                    case "start":
-                    case "started": return HelpLib.GetContents("quick-start");
                 }
             }
             return HelpLib.GetContents("application");
