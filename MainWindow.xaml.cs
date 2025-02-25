@@ -320,9 +320,24 @@
             this.Settings = new QSettings(QContext.SettingsFile);
             this.ButtonAVT_Click(null, null);
         }
+        private static string[] MSA_Releases = ["9.25.2.24"];
+        private string CurrentAppVersion
+        {
+            get
+            {
+                try
+                {
+                    return Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                }
+                catch (Exception)
+                {
+                    return MSA_Releases[0];
+                }
+            }
+        }
         public bool MSA
         {
-            get => this.Title.Contains("Windows");
+            get => MainWindow.MSA_Releases.Contains(CurrentAppVersion);
         }
 #if DEBUG
         private bool simulate_MSA = false;

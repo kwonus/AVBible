@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "AV-Bible"
-#define MyAppVersion "9.25.2.22"
+#define MyAppVersion "9.25.2.25"
 #define MyAppPublisher "Digital-AV.org"
 #define MyAppURL "https://github.com/kwonus/AVBible"
 #define MyRawExeName "AVBible.exe"
@@ -69,7 +69,7 @@ Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\Neo.Mark
 Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\Markdig.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp
 Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\PhonemeEmbeddings.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp or manager
 ;Source: "{#RootSRC}\NUPhone\PhonemeEmbeddings\en_US.txt"; DestDir: "{app}\NUPhone"; Flags: ignoreversion; Components: avapp or manager
-Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\pinshot_blue.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp or manager
+Source: "{#RootSRC}\pinshot-blue\target\x86_64-pc-windows-msvc\release\pinshot_blue.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp or manager
 Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\YamlDotNet.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp or manager
 Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\WinRT.Runtime.dll"; DestDir: "{app}"; Flags: ignoreversion; Components: avapp or manager
 ;

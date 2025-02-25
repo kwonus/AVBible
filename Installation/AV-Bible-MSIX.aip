@@ -16,7 +16,7 @@
     <ROW Property="ProductCode" Value="1033:{A91D112B-8719-4436-A6BC-FAF5F799BC97} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="AV-Bible"/>
-    <ROW Property="ProductVersion" Value="2025.2.22" Options="32"/>
+    <ROW Property="ProductVersion" Value="2025.2.24" Options="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{38BDDD89-9C74-41C6-AF53-458454320E75}"/>
   </COMPONENT>
@@ -69,7 +69,7 @@
     <ROW File="Blacklight.Controls.Wpf.dll" Component_="Blacklight.Controls.Wpf.dll" FileName="BLACKL~1.DLL|Blacklight.Controls.Wpf.dll" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\Blacklight.Controls.Wpf.dll" SelfReg="false"/>
     <ROW File="BlueprintBlueLib.dll" Component_="BlueprintBlueLib.dll" FileName="BLUEPR~1.DLL|Blueprint-Blue-Lib.dll" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\Blueprint-Blue-Lib.dll" SelfReg="false"/>
     <ROW File="PhonemeEmbeddings.dll" Component_="PhonemeEmbeddings.dll" FileName="PHONEM~1.DLL|PhonemeEmbeddings.dll" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\PhonemeEmbeddings.dll" SelfReg="false"/>
-    <ROW File="pinshot_blue.dll" Component_="pinshot_blue.dll" FileName="PINSHO~1.DLL|pinshot_blue.dll" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\pinshot_blue.dll" SelfReg="false"/>
+    <ROW File="pinshot_blue.dll" Component_="pinshot_blue.dll" FileName="PINSHO~1.DLL|pinshot_blue.dll" Attributes="0" SourcePath="..\..\pinshot-blue\target\x86_64-pc-windows-gnu\release\pinshot_blue.dll" SelfReg="false"/>
     <ROW File="YamlDotNet.dll" Component_="YamlDotNet.dll" FileName="YAMLDO~1.DLL|YamlDotNet.dll" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\YamlDotNet.dll" SelfReg="false"/>
     <ROW File="Store50x50Logo.scale100.png" Component_="Store50x50Logo.scale100.png" FileName="STORE5~1.PNG|Store50x50Logo.scale-100.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare44x44Logo.targetsize-48_altform-unplated.png" SelfReg="false"/>
     <ROW File="AVBible.exeSquare71x71Logo.scale100.png" Component_="Store50x50Logo.scale100.png" FileName="AVBIBL~1.PNG|AVBible.exeSquare71x71Logo.scale-100.png" Attributes="0" SourcePath="Generated Assets\AVBible.exeSquare71x71Logo.scale-100.png" SelfReg="false"/>
@@ -203,8 +203,8 @@
     <ROW File="AVBible.deps.json" Component_="AVBible.runtimeconfig.json" FileName="AVBIBL~2.JSO|AVBible.deps.json" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\AVBible.deps.json" SelfReg="false"/>
     <ROW File="gutenburgpress256.ico" Component_="AVBible.runtimeconfig.json" FileName="GUTENB~1.ICO|gutenburg-press-256.ico" Attributes="0" SourcePath="..\gutenburg-press-256.ico" SelfReg="false"/>
     <ROW File="Neo.Markdig.Xaml.dll" Component_="Neo.Markdig.Xaml.dll" FileName="NEOMAR~1.DLL|Neo.Markdig.Xaml.dll" Attributes="0" SourcePath="..\bin\x64\Release\net8.0-windows10.0.17763.0\Neo.Markdig.Xaml.dll" SelfReg="false"/>
-    <ROW File="omega_data.dll" Component_="omega_data.dll" FileName="OMEGA_~1.DLL|omega_data.dll" Attributes="0" SourcePath="..\..\Digital-AV\omega\data\target\x86_64-pc-windows-msvc\release\omega_data.dll" SelfReg="false"/>
-    <ROW File="av_help.dll" Component_="av_help.dll" FileName="av_help.dll" Attributes="0" SourcePath="..\..\AV-Help\target\x86_64-pc-windows-msvc\release\av_help.dll" SelfReg="false"/>
+    <ROW File="omega_data.dll" Component_="omega_data.dll" FileName="OMEGA_~1.DLL|omega_data.dll" Attributes="0" SourcePath="..\..\Digital-AV\omega\data\target\x86_64-pc-windows-gnu\release\omega_data.dll" SelfReg="false"/>
+    <ROW File="av_help.dll" Component_="av_help.dll" FileName="av_help.dll" Attributes="0" SourcePath="..\..\AV-Help\target\x86_64-pc-windows-gnu\release\av_help.dll" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AppXCfgComponent">
     <ROW ID="Configuration" Order="1" ManifestFile="AppxManifest.xml" TargetOs="4" AutoUpdatesFrequency="0" AutoUpdatesOptions="0" ManifestBundleFile="AppxBundleManifest.xml"/>
@@ -270,12 +270,10 @@
     <ROW XmlAttribute="Language" XmlElement="Resource" Name="Language" Flags="0" Order="0" Value="en-US"/>
     <ROW XmlAttribute="MaxVersionTested" XmlElement="TargetDeviceFamily" Name="MaxVersionTested" Flags="0" Order="0" Value="10.0.22631.0"/>
     <ROW XmlAttribute="MinVersion" XmlElement="TargetDeviceFamily" Name="MinVersion" Flags="0" Order="0" Value="10.0.10240.0"/>
-    <ROW XmlAttribute="MinVersion_1" XmlElement="PackageDependency" Name="MinVersion" Flags="0" Order="2" Value="14.0.24217.0"/>
     <ROW XmlAttribute="Mode" XmlElement="AppInformation" Name="Mode" Flags="0" Order="0" Value="flyout"/>
     <ROW XmlAttribute="Name" XmlElement="Identity" Name="Name" Flags="0" Order="0" Value="51374Digital-AV.org.AV-Bible"/>
     <ROW XmlAttribute="Name_1" XmlElement="Capability" Name="Name" Flags="0" Order="0" Value="runFullTrust"/>
     <ROW XmlAttribute="Name_2" XmlElement="TargetDeviceFamily" Name="Name" Flags="0" Order="0" Value="Windows.Desktop"/>
-    <ROW XmlAttribute="Name_3" XmlElement="PackageDependency" Name="Name" Flags="0" Order="0" Value="Microsoft.VCLibs.140.00.UWPDesktop"/>
     <ROW XmlAttribute="Name_4" XmlElement="Capability_1" Name="Name" Flags="0" Order="0" Value="internetClient"/>
     <ROW XmlAttribute="Notification" XmlElement="LockScreen" Name="Notification" Flags="0" Order="0" Value="badge"/>
     <ROW XmlAttribute="Orientation" XmlElement="Buttons" Name="Orientation" Flags="0" Order="0" Value="horizontal"/>
@@ -285,9 +283,7 @@
     <ROW XmlAttribute="Preference_3" XmlElement="Rotation_3" Name="Preference" Flags="0" Order="0" Value="landscapeFlipped"/>
     <ROW XmlAttribute="PrimaryButtonMode" XmlElement="Buttons" Name="PrimaryButtonMode" Flags="0" Order="0" Value="normal"/>
     <ROW XmlAttribute="ProcessorArchitecture" XmlElement="Identity" Name="ProcessorArchitecture" Flags="0" Order="0" Value="x64"/>
-    <ROW XmlAttribute="ProcessorArchitecture_1" XmlElement="PackageDependency" Name="ProcessorArchitecture" Flags="1" Order="3" Value="x64"/>
     <ROW XmlAttribute="Publisher" XmlElement="Identity" Name="Publisher" Flags="0" Order="0" Value="CN=38696806-5992-4D3E-8515-F76B2A3AB575"/>
-    <ROW XmlAttribute="Publisher_1" XmlElement="PackageDependency" Name="Publisher" Flags="0" Order="1" Value="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"/>
     <ROW XmlAttribute="Scale" XmlElement="Resource_1" Name="Scale" Flags="0" Order="0" Value="100"/>
     <ROW XmlAttribute="SecondaryButtonMode" XmlElement="Buttons" Name="SecondaryButtonMode" Flags="0" Order="0" Value="normal"/>
     <ROW XmlAttribute="ShortcutPath" XmlElement="DesktopApp" Name="ShortcutPath" Flags="0" Order="0" Value="%APPDATA%\Microsoft\Windows\Start Menu\Programs\AV-Bible\AVBible.exe.lnk"/>
@@ -298,7 +294,7 @@
     <ROW XmlAttribute="Square310x310Logo" XmlElement="DefaultTile" Name="Square310x310Logo" Flags="0" Order="0" FileId="AVBible.exeSquare310x310Logo.scale100.png"/>
     <ROW XmlAttribute="Square44x44Logo" XmlElement="VisualElements" Name="Square44x44Logo" Flags="0" Order="0" FileId="AVBible.exeSquare44x44Logo.scale100.png"/>
     <ROW XmlAttribute="Square71x71Logo" XmlElement="DefaultTile" Name="Square71x71Logo" Flags="0" Order="0" FileId="AVBible.exeSquare71x71Logo.scale100.png"/>
-    <ROW XmlAttribute="Version" XmlElement="Identity" Name="Version" Flags="0" Order="0" Value="2025.2.22.0"/>
+    <ROW XmlAttribute="Version" XmlElement="Identity" Name="Version" Flags="0" Order="0" Value="2025.2.24.0"/>
     <ROW XmlAttribute="Version_1" XmlElement="AppInstallerUX" Name="Version" Flags="0" Order="0" Value="1.0.0"/>
     <ROW XmlAttribute="Wide310x150Logo" XmlElement="DefaultTile" Name="Wide310x150Logo" Flags="0" Order="0" FileId="AVBible.exeWide310x150Logo.scale100.png"/>
     <ROW XmlAttribute="xmlns" XmlElement="AppInstallerUX" Name="xmlns" Flags="0" Order="0" Value="http://schemas.microsoft.com/msix/appinstallerux"/>
@@ -334,7 +330,6 @@
     <ROW XmlElement="LockScreen" ParentElement="VisualElements" Name="LockScreen" Order="3" Flags="0" Type="0"/>
     <ROW XmlElement="Logo" ParentElement="Properties" Name="Logo" Order="2" Flags="0" FileId="Store50x50Logo.scale100.png" Type="0"/>
     <ROW XmlElement="Package" Name="Package" Order="0" Flags="0" Type="6"/>
-    <ROW XmlElement="PackageDependency" ParentElement="Dependencies" Name="PackageDependency" Order="1" Flags="0" Type="5"/>
     <ROW XmlElement="Properties" ParentElement="Package" Name="Properties" Order="2" Flags="0" Type="0"/>
     <ROW XmlElement="PublisherDisplayName" ParentElement="Properties" Name="PublisherDisplayName" Order="0" Flags="0" Text="DigitalAV" Type="0"/>
     <ROW XmlElement="Resource" ParentElement="Resources" Name="Resource" Order="0" Flags="0" Type="0"/>
