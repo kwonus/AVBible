@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "AV-Bible for Windows"
-#define MyAppVersion "9.25.2.24"
+#define MyAppVersion "9.25.3.1"
 #define MyAppPublisher "Digital-AV.org"
 #define MyAppURL "https://github.com/kwonus/AVBible"
 #define MyRawExeName "AVBible.exe"
@@ -58,21 +58,12 @@ Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\Microsof
 Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\Neo.Markdig.Xaml.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\Markdig.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\PhonemeEmbeddings.dll"; DestDir: "{app}"; Flags: ignoreversion
-;Source: "{#RootSRC}\NUPhone\PhonemeEmbeddings\en_US.txt"; DestDir: "{app}\NUPhone"; Flags: ignoreversion
-Source: "{#RootSRC}\pinshot-blue\target\x86_64-pc-windows-gnu\release\pinshot_blue.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\YamlDotNet.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#RootSRC}\AV-Bible\bin\x64\Release\net8.0-windows10.0.17763.0\WinRT.Runtime.dll"; DestDir: "{app}"; Flags: ignoreversion
 ;
+Source: "{#RootSRC}\pinshot-blue\target\x86_64-pc-windows-gnu\release\pinshot_blue.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#RootSRC}\Digital-AV\omega\data\target\x86_64-pc-windows-gnu\release\omega_data.dll"; DestDir: "{app}"; Flags: ignoreversion
-;Source: "{#RootSRC}\AV-Bible\Digital-AV\AVX-Omega.data"; DestDir: "{app}\Digital-AV"; Flags: ignoreversion
-Source: "{#RootSRC}\Digital-AV\omega\AVX-Omega.md5"; DestDir: "{app}\Digital-AV"; Flags: ignoreversion
-Source: "{#RootSRC}\Digital-AV\omega\AVX-Omega.txt"; DestDir: "{app}\Digital-AV"; Flags: ignoreversion
-;
 Source: "{#RootSRC}\AV-Help\target\x86_64-pc-windows-gnu\release\av_help.dll"; DestDir: "{app}"; Flags: ignoreversion
-;
-;Source: "{#RootSRC}\AVBible\Installation\Prerequisites\{#DotnetInstaller}"; DestDir: {tmp}; Flags: deleteafterinstall; AfterInstall: InstallFramework
-
-; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
 Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"

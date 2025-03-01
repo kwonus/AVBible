@@ -320,7 +320,7 @@
             this.Settings = new QSettings(QContext.SettingsFile);
             this.ButtonAVT_Click(null, null);
         }
-        private static string[] MSA_Releases = ["9.25.2.24"];
+        private static string[] MSA_Releases = ["9.25.3.3", "9.25.2.24"];
         private string CurrentAppVersion
         {
             get

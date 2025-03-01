@@ -56,7 +56,7 @@ namespace AVBible
                 to basic questions about application behavior.
 
                 
-                The Quick Start can also answers these questions:
+                The Quick Start can also answer these questions:
 
                 """;
 
