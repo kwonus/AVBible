@@ -1,4 +1,4 @@
-### These are instructions for installing AV-Bible *(Version 9.25.2.11)*
+### These are instructions for installing AV-Bible *(Version 9.25.3.1)*
 
 #### Requirements:
 
